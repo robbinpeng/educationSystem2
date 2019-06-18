@@ -1,0 +1,921 @@
+2019-06-17 15:11:53 [ http-nio-8080-exec-1 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 15:11:53 [ http-nio-8080-exec-1 ] HHH000206: hibernate.properties not found
+2019-06-17 15:11:53 [ http-nio-8080-exec-1 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 15:11:53 [ http-nio-8080-exec-1 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH10001003: Autocommit mode: false
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 15:11:55 [ http-nio-8080-exec-1 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 15:11:56 [ http-nio-8080-exec-1 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@725077bc] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 15:11:56 [ http-nio-8080-exec-1 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-17 15:57:33 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 15:57:33 [ main ] HHH000206: hibernate.properties not found
+2019-06-17 15:57:34 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 15:57:34 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 15:57:35 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 15:57:35 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 15:57:35 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 15:57:35 [ main ] HHH10001003: Autocommit mode: false
+2019-06-17 15:57:35 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 15:57:36 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 15:57:38 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3138be6e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 15:57:38 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-17 15:57:38 [ main ] 处理第一类规则
+2019-06-17 15:57:38 [ main ] to count the excel columns
+2019-06-17 15:57:38 [ main ] the excel has 13 columns!
+2019-06-17 15:57:38 [ main ] to count the excel lines
+2019-06-17 15:57:38 [ main ] the excel has 2 lines
+2019-06-17 15:57:38 [ main ] to decide which column to check
+2019-06-17 15:57:38 [ main ] to decide which column to check
+2019-06-17 15:57:38 [ main ] to decide which column to check
+2019-06-17 15:57:38 [ main ] 处理第二类规则
+2019-06-17 15:57:38 [ main ] start to check the uploaded excel:
+2019-06-17 15:57:38 [ main ] begin to translate rule simple.
+2019-06-17 15:57:38 [ main ] to count the excel lines
+2019-06-17 15:57:38 [ main ] the excel has 2 lines
+2019-06-17 15:57:38 [ main ] to count the excel columns
+2019-06-17 15:57:38 [ main ] the excel has 13 columns!
+2019-06-17 15:57:38 [ main ] to decide which column to check
+2019-06-17 15:57:38 [ main ] 处理第四类规则
+2019-06-17 15:57:38 [ main ] rule 4: begin to check
+2019-06-17 15:57:38 [ main ] to count the excel columns
+2019-06-17 15:57:38 [ main ] the excel has 13 columns!
+2019-06-17 15:57:38 [ main ] to count the excel lines
+2019-06-17 15:57:38 [ main ] the excel has 2 lines
+2019-06-17 15:57:38 [ main ] to decide which column to check
+2019-06-17 15:57:38 [ main ] begin to translate the rule
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第六类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 2 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第一类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 2 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第五类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 2 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第五类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 2 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第一类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第二类规则
+2019-06-17 15:57:39 [ main ] start to check the uploaded excel:
+2019-06-17 15:57:39 [ main ] begin to translate rule simple.
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第四类规则
+2019-06-17 15:57:39 [ main ] rule 4: begin to check
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] begin to translate the rule
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第六类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第一类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第五类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] 处理第五类规则
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 15:57:39 [ main ] to count the excel lines
+2019-06-17 15:57:39 [ main ] the excel has 4 lines
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] to decide which column to check
+2019-06-17 15:57:39 [ main ] begin to check whether excel format is right.
+2019-06-17 15:57:39 [ main ] to count the excel columns
+2019-06-17 15:57:39 [ main ] the excel has 13 columns!
+2019-06-17 16:00:56 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 16:00:56 [ main ] HHH000206: hibernate.properties not found
+2019-06-17 16:00:56 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 16:00:56 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 16:00:57 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 16:00:57 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 16:00:57 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 16:00:57 [ main ] HHH10001003: Autocommit mode: false
+2019-06-17 16:00:57 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 16:00:58 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 16:00:58 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 16:00:59 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-17 16:00:59 [ main ] 处理第一类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第二类规则
+2019-06-17 16:00:59 [ main ] start to check the uploaded excel:
+2019-06-17 16:00:59 [ main ] begin to translate rule simple.
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第四类规则
+2019-06-17 16:00:59 [ main ] rule 4: begin to check
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] begin to translate the rule
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第六类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第一类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第五类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第五类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 2 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第一类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第二类规则
+2019-06-17 16:00:59 [ main ] start to check the uploaded excel:
+2019-06-17 16:00:59 [ main ] begin to translate rule simple.
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第四类规则
+2019-06-17 16:00:59 [ main ] rule 4: begin to check
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] begin to translate the rule
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第六类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第一类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第五类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] 处理第五类规则
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:00:59 [ main ] to count the excel lines
+2019-06-17 16:00:59 [ main ] the excel has 4 lines
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] to decide which column to check
+2019-06-17 16:00:59 [ main ] begin to check whether excel format is right.
+2019-06-17 16:00:59 [ main ] to count the excel columns
+2019-06-17 16:00:59 [ main ] the excel has 13 columns!
+2019-06-17 16:01:13 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 16:01:13 [ main ] HHH000206: hibernate.properties not found
+2019-06-17 16:01:14 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 16:01:14 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 16:01:15 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 16:01:15 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 16:01:15 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 16:01:15 [ main ] HHH10001003: Autocommit mode: false
+2019-06-17 16:01:15 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 16:01:16 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 16:01:18 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3138be6e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 16:01:18 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-17 16:01:18 [ main ] 处理第一类规则
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] 处理第二类规则
+2019-06-17 16:01:18 [ main ] start to check the uploaded excel:
+2019-06-17 16:01:18 [ main ] begin to translate rule simple.
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] 处理第四类规则
+2019-06-17 16:01:18 [ main ] rule 4: begin to check
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] begin to translate the rule
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] 处理第六类规则
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] 处理第一类规则
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:18 [ main ] 处理第五类规则
+2019-06-17 16:01:18 [ main ] to count the excel columns
+2019-06-17 16:01:18 [ main ] the excel has 13 columns!
+2019-06-17 16:01:18 [ main ] to count the excel lines
+2019-06-17 16:01:18 [ main ] the excel has 2 lines
+2019-06-17 16:01:18 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第五类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 2 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第一类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第二类规则
+2019-06-17 16:01:19 [ main ] start to check the uploaded excel:
+2019-06-17 16:01:19 [ main ] begin to translate rule simple.
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第四类规则
+2019-06-17 16:01:19 [ main ] rule 4: begin to check
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] begin to translate the rule
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第六类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第一类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第五类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] 处理第五类规则
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:01:19 [ main ] to count the excel lines
+2019-06-17 16:01:19 [ main ] the excel has 4 lines
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] to decide which column to check
+2019-06-17 16:01:19 [ main ] begin to check whether excel format is right.
+2019-06-17 16:01:19 [ main ] to count the excel columns
+2019-06-17 16:01:19 [ main ] the excel has 13 columns!
+2019-06-17 16:26:32 [ http-nio-8080-exec-1 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 16:26:32 [ http-nio-8080-exec-1 ] HHH000206: hibernate.properties not found
+2019-06-17 16:26:32 [ http-nio-8080-exec-1 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 16:26:32 [ http-nio-8080-exec-1 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH10001003: Autocommit mode: false
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 16:26:34 [ http-nio-8080-exec-1 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 16:26:35 [ http-nio-8080-exec-1 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7df91ea0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 16:26:35 [ http-nio-8080-exec-1 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-17 16:26:49 [ http-nio-8080-exec-7 ] form_id:2
+2019-06-17 16:26:49 [ http-nio-8080-exec-7 ] get into getTableData() method
+2019-06-17 16:26:49 [ http-nio-8080-exec-7 ] the caption size:14
+2019-06-17 16:26:49 [ http-nio-8080-exec-7 ] sql:select id, TJSJ, XXDM, XXMC, YWMC, BXLX, XXXZ, JBZ, ZGBM, XXWZ, ZSPC, KBBKJYNF, TBFZRXM, TBFZRLXDH, TBFZRLXDZYX from tbl_xxgk order by id
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] form_id:3
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] get into getTableData() method
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] the caption size:6
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] sql:select id, TJSJ, XQMC, SSZZQ, SQZ, DZ, SFBDXQ from tbl_xqdz order by id
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] fields.size:6
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:0
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:TJSJ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:1
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:XQMC
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:2
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SSZZQ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:3
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SQZ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:4
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:DZ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:5
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SFBDXQ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] fields.size:6
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:0
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:TJSJ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:1
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:XQMC
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:2
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SSZZQ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:3
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SQZ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:4
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:DZ
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] j:5
+2019-06-17 16:26:56 [ http-nio-8080-exec-10 ] caption key is:SFBDXQ
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] begin to check whether excel format is right.
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第一类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第二类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] start to check the uploaded excel:
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] begin to translate rule simple.
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第四类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] rule 4: begin to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] begin to translate the rule
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第六类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第一类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第五类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] 处理第五类规则
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] the excel has 2 lines
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:27:28 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] begin to check whether excel format is right.
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第一类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第二类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] start to check the uploaded excel:
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] begin to translate rule simple.
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第四类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] rule 4: begin to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] begin to translate the rule
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第六类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第一类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第五类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] 处理第五类规则
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel columns
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 13 columns!
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to count the excel lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] the excel has 2 lines
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:46:28 [ http-nio-8080-exec-9 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] begin to check whether excel format is right.
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第一类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第二类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] start to check the uploaded excel:
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] begin to translate rule simple.
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第四类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] rule 4: begin to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] begin to translate the rule
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第六类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第一类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第五类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] 处理第五类规则
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel columns
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 13 columns!
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to count the excel lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] the excel has 3 lines
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:49:57 [ http-nio-8080-exec-10 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] begin to check whether excel format is right.
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第一类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第二类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] start to check the uploaded excel:
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] begin to translate rule simple.
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第四类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] rule 4: begin to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] begin to translate the rule
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第六类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第一类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第五类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] 处理第五类规则
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel columns
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 13 columns!
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to count the excel lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] the excel has 3 lines
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:50:06 [ http-nio-8080-exec-5 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] begin to check whether excel format is right.
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第一类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第二类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] start to check the uploaded excel:
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] begin to translate rule simple.
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第四类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] rule 4: begin to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] begin to translate the rule
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第六类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第一类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第五类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] 处理第五类规则
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:51:09 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:53:18 [ http-nio-8080-exec-2 ] form_id:2
+2019-06-17 16:53:18 [ http-nio-8080-exec-2 ] get into getTableData() method
+2019-06-17 16:53:18 [ http-nio-8080-exec-2 ] the caption size:14
+2019-06-17 16:53:18 [ http-nio-8080-exec-2 ] sql:select id, TJSJ, XXDM, XXMC, YWMC, BXLX, XXXZ, JBZ, ZGBM, XXWZ, ZSPC, KBBKJYNF, TBFZRXM, TBFZRLXDH, TBFZRLXDZYX from tbl_xxgk order by id
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] form_id:3
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] get into getTableData() method
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] the caption size:6
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] sql:select id, TJSJ, XQMC, SSZZQ, SQZ, DZ, SFBDXQ from tbl_xqdz order by id
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] fields.size:6
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:0
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:TJSJ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:1
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:XQMC
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:2
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SSZZQ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:3
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SQZ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:4
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:DZ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:5
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SFBDXQ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] fields.size:6
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:0
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:TJSJ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:1
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:XQMC
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:2
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SSZZQ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:3
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SQZ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:4
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:DZ
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] j:5
+2019-06-17 16:53:21 [ http-nio-8080-exec-4 ] caption key is:SFBDXQ
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] begin to check whether excel format is right.
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第一类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第二类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] start to check the uploaded excel:
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] begin to translate rule simple.
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第四类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] rule 4: begin to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] begin to translate the rule
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第六类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第一类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第五类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] 处理第五类规则
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel columns
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 13 columns!
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to count the excel lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] the excel has 3 lines
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:30 [ http-nio-8080-exec-1 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] begin to check whether excel format is right.
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] 处理第一类规则
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 3 lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] 处理第四类规则
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] rule 4: begin to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 3 lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] begin to translate the rule
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] 处理第一类规则
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 3 lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] 处理第五类规则
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 3 lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] 处理第五类规则
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel columns
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 13 columns!
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to count the excel lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] the excel has 3 lines
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:56:54 [ http-nio-8080-exec-7 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] begin to check whether excel format is right.
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] 处理第一类规则
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] 处理第四类规则
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] rule 4: begin to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] begin to translate the rule
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] 处理第一类规则
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] 处理第五类规则
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] 处理第五类规则
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel columns
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 13 columns!
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to count the excel lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] the excel has 3 lines
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 16:57:06 [ http-nio-8080-exec-2 ] to decide which column to check
+2019-06-17 21:50:58 [ http-nio-8080-exec-2 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-17 21:50:58 [ http-nio-8080-exec-2 ] HHH000206: hibernate.properties not found
+2019-06-17 21:50:58 [ http-nio-8080-exec-2 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-17 21:50:58 [ http-nio-8080-exec-2 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-17 21:51:00 [ http-nio-8080-exec-2 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-17 21:51:00 [ http-nio-8080-exec-2 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-17 21:51:00 [ http-nio-8080-exec-2 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-17 21:51:00 [ http-nio-8080-exec-2 ] HHH10001003: Autocommit mode: false
+2019-06-17 21:51:00 [ http-nio-8080-exec-2 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-17 21:51:01 [ http-nio-8080-exec-2 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-17 21:51:02 [ http-nio-8080-exec-2 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7af2f18f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-17 21:51:03 [ http-nio-8080-exec-2 ] HHH000397: Using ASTQueryTranslatorFactory

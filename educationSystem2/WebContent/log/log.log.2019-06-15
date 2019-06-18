@@ -1,0 +1,1648 @@
+2019-06-15 09:28:17 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 09:28:17 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 09:28:18 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 09:28:18 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 09:28:21 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 09:28:21 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 09:28:21 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 09:28:21 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 09:28:21 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 09:28:23 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 09:28:26 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@54eb65bc] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 09:28:27 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 09:28:28 [ main ] 处理第一类规则
+2019-06-15 09:28:28 [ main ] to count the excel columns
+2019-06-15 09:28:28 [ main ] the excel has 13 columns!
+2019-06-15 09:28:28 [ main ] to count the excel lines
+2019-06-15 09:28:28 [ main ] the excel has 3 lines
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] 处理第二类规则
+2019-06-15 09:28:28 [ main ] start to check the uploaded excel:
+2019-06-15 09:28:28 [ main ] begin to translate rule simple.
+2019-06-15 09:28:28 [ main ] to count the excel lines
+2019-06-15 09:28:28 [ main ] the excel has 3 lines
+2019-06-15 09:28:28 [ main ] to count the excel columns
+2019-06-15 09:28:28 [ main ] the excel has 13 columns!
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] 处理第四类规则
+2019-06-15 09:28:28 [ main ] rule 4: begin to check
+2019-06-15 09:28:28 [ main ] to count the excel columns
+2019-06-15 09:28:28 [ main ] the excel has 13 columns!
+2019-06-15 09:28:28 [ main ] to count the excel lines
+2019-06-15 09:28:28 [ main ] the excel has 3 lines
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] begin to translate the rule
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] 处理第六类规则
+2019-06-15 09:28:28 [ main ] to count the excel columns
+2019-06-15 09:28:28 [ main ] the excel has 13 columns!
+2019-06-15 09:28:28 [ main ] to count the excel lines
+2019-06-15 09:28:28 [ main ] the excel has 3 lines
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] to decide which column to check
+2019-06-15 09:28:28 [ main ] begin to check whether excel format is right.
+2019-06-15 09:28:28 [ main ] to count the excel columns
+2019-06-15 09:28:28 [ main ] the excel has 13 columns!
+2019-06-15 09:29:47 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 09:29:47 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 09:29:47 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 09:29:47 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 09:29:49 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 09:29:49 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 09:29:49 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 09:29:49 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 09:29:49 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 09:29:49 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 09:29:51 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@54eb65bc] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 09:29:51 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 09:29:52 [ main ] 处理第一类规则
+2019-06-15 09:29:52 [ main ] to count the excel columns
+2019-06-15 09:29:52 [ main ] the excel has 13 columns!
+2019-06-15 09:29:52 [ main ] to count the excel lines
+2019-06-15 09:29:52 [ main ] the excel has 3 lines
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] 处理第二类规则
+2019-06-15 09:29:52 [ main ] start to check the uploaded excel:
+2019-06-15 09:29:52 [ main ] begin to translate rule simple.
+2019-06-15 09:29:52 [ main ] to count the excel lines
+2019-06-15 09:29:52 [ main ] the excel has 3 lines
+2019-06-15 09:29:52 [ main ] to count the excel columns
+2019-06-15 09:29:52 [ main ] the excel has 13 columns!
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] 处理第四类规则
+2019-06-15 09:29:52 [ main ] rule 4: begin to check
+2019-06-15 09:29:52 [ main ] to count the excel columns
+2019-06-15 09:29:52 [ main ] the excel has 13 columns!
+2019-06-15 09:29:52 [ main ] to count the excel lines
+2019-06-15 09:29:52 [ main ] the excel has 3 lines
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] begin to translate the rule
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] 处理第六类规则
+2019-06-15 09:29:52 [ main ] to count the excel columns
+2019-06-15 09:29:52 [ main ] the excel has 13 columns!
+2019-06-15 09:29:52 [ main ] to count the excel lines
+2019-06-15 09:29:52 [ main ] the excel has 3 lines
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] to decide which column to check
+2019-06-15 09:29:52 [ main ] begin to check whether excel format is right.
+2019-06-15 09:29:52 [ main ] to count the excel columns
+2019-06-15 09:29:52 [ main ] the excel has 13 columns!
+2019-06-15 10:01:25 [ http-nio-8080-exec-3 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:01:25 [ http-nio-8080-exec-3 ] HHH000206: hibernate.properties not found
+2019-06-15 10:01:26 [ http-nio-8080-exec-3 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:01:26 [ http-nio-8080-exec-3 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:01:28 [ http-nio-8080-exec-3 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:01:28 [ http-nio-8080-exec-3 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:01:28 [ http-nio-8080-exec-3 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:01:28 [ http-nio-8080-exec-3 ] HHH10001003: Autocommit mode: false
+2019-06-15 10:01:28 [ http-nio-8080-exec-3 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:01:29 [ http-nio-8080-exec-3 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:01:30 [ http-nio-8080-exec-3 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7c57add] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:01:31 [ http-nio-8080-exec-3 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:15:16 [ http-nio-8080-exec-5 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:15:16 [ http-nio-8080-exec-5 ] HHH000206: hibernate.properties not found
+2019-06-15 10:15:16 [ http-nio-8080-exec-5 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:15:16 [ http-nio-8080-exec-5 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:15:18 [ http-nio-8080-exec-5 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:15:18 [ http-nio-8080-exec-5 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:15:18 [ http-nio-8080-exec-5 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:15:18 [ http-nio-8080-exec-5 ] HHH10001003: Autocommit mode: false
+2019-06-15 10:15:18 [ http-nio-8080-exec-5 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:15:19 [ http-nio-8080-exec-5 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:15:20 [ http-nio-8080-exec-5 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2c783fb4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:15:21 [ http-nio-8080-exec-5 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:22:01 [ http-nio-8080-exec-9 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:22:01 [ http-nio-8080-exec-9 ] HHH000206: hibernate.properties not found
+2019-06-15 10:22:01 [ http-nio-8080-exec-9 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:22:01 [ http-nio-8080-exec-9 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH10001003: Autocommit mode: false
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:22:03 [ http-nio-8080-exec-9 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:22:05 [ http-nio-8080-exec-9 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5deff55d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:22:05 [ http-nio-8080-exec-9 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:23:29 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:23:29 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 10:23:29 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:23:29 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:23:31 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:23:31 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:23:31 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:23:31 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 10:23:31 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:23:31 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:23:32 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:23:32 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:23:33 [ main ] 处理第一类规则
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:23:33 [ main ] to count the excel lines
+2019-06-15 10:23:33 [ main ] the excel has 3 lines
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] 处理第二类规则
+2019-06-15 10:23:33 [ main ] start to check the uploaded excel:
+2019-06-15 10:23:33 [ main ] begin to translate rule simple.
+2019-06-15 10:23:33 [ main ] to count the excel lines
+2019-06-15 10:23:33 [ main ] the excel has 3 lines
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] 处理第四类规则
+2019-06-15 10:23:33 [ main ] rule 4: begin to check
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:23:33 [ main ] to count the excel lines
+2019-06-15 10:23:33 [ main ] the excel has 3 lines
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] begin to translate the rule
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] 处理第六类规则
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:23:33 [ main ] to count the excel lines
+2019-06-15 10:23:33 [ main ] the excel has 3 lines
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] 处理第一类规则
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:23:33 [ main ] to count the excel lines
+2019-06-15 10:23:33 [ main ] the excel has 3 lines
+2019-06-15 10:23:33 [ main ] to decide which column to check
+2019-06-15 10:23:33 [ main ] begin to check whether excel format is right.
+2019-06-15 10:23:33 [ main ] to count the excel columns
+2019-06-15 10:23:33 [ main ] the excel has 13 columns!
+2019-06-15 10:25:08 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:25:08 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 10:25:08 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:25:08 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:25:10 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:25:10 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:25:10 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:25:10 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 10:25:10 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:25:10 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:25:11 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4a183d02] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:25:11 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:25:12 [ main ] 处理第一类规则
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:12 [ main ] to count the excel lines
+2019-06-15 10:25:12 [ main ] the excel has 3 lines
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] 处理第二类规则
+2019-06-15 10:25:12 [ main ] start to check the uploaded excel:
+2019-06-15 10:25:12 [ main ] begin to translate rule simple.
+2019-06-15 10:25:12 [ main ] to count the excel lines
+2019-06-15 10:25:12 [ main ] the excel has 3 lines
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] 处理第四类规则
+2019-06-15 10:25:12 [ main ] rule 4: begin to check
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:12 [ main ] to count the excel lines
+2019-06-15 10:25:12 [ main ] the excel has 3 lines
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] begin to translate the rule
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] 处理第六类规则
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:12 [ main ] to count the excel lines
+2019-06-15 10:25:12 [ main ] the excel has 3 lines
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] 处理第一类规则
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:12 [ main ] to count the excel lines
+2019-06-15 10:25:12 [ main ] the excel has 3 lines
+2019-06-15 10:25:12 [ main ] to decide which column to check
+2019-06-15 10:25:12 [ main ] begin to check whether excel format is right.
+2019-06-15 10:25:12 [ main ] to count the excel columns
+2019-06-15 10:25:12 [ main ] the excel has 13 columns!
+2019-06-15 10:25:38 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:25:38 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 10:25:39 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:25:39 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:25:41 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:25:41 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:25:41 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:25:41 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 10:25:41 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:25:41 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:25:42 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2f14b0f6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:25:43 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:25:43 [ main ] 处理第一类规则
+2019-06-15 10:25:43 [ main ] to count the excel columns
+2019-06-15 10:25:43 [ main ] the excel has 13 columns!
+2019-06-15 10:25:43 [ main ] to count the excel lines
+2019-06-15 10:25:43 [ main ] the excel has 3 lines
+2019-06-15 10:25:43 [ main ] to decide which column to check
+2019-06-15 10:25:43 [ main ] to decide which column to check
+2019-06-15 10:25:43 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] 处理第二类规则
+2019-06-15 10:26:30 [ main ] start to check the uploaded excel:
+2019-06-15 10:26:30 [ main ] begin to translate rule simple.
+2019-06-15 10:26:30 [ main ] to count the excel lines
+2019-06-15 10:26:30 [ main ] the excel has 3 lines
+2019-06-15 10:26:30 [ main ] to count the excel columns
+2019-06-15 10:26:30 [ main ] the excel has 13 columns!
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] 处理第四类规则
+2019-06-15 10:26:30 [ main ] rule 4: begin to check
+2019-06-15 10:26:30 [ main ] to count the excel columns
+2019-06-15 10:26:30 [ main ] the excel has 13 columns!
+2019-06-15 10:26:30 [ main ] to count the excel lines
+2019-06-15 10:26:30 [ main ] the excel has 3 lines
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] begin to translate the rule
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] 处理第六类规则
+2019-06-15 10:26:30 [ main ] to count the excel columns
+2019-06-15 10:26:30 [ main ] the excel has 13 columns!
+2019-06-15 10:26:30 [ main ] to count the excel lines
+2019-06-15 10:26:30 [ main ] the excel has 3 lines
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:30 [ main ] to decide which column to check
+2019-06-15 10:26:35 [ main ] 处理第一类规则
+2019-06-15 10:26:35 [ main ] to count the excel columns
+2019-06-15 10:26:35 [ main ] the excel has 13 columns!
+2019-06-15 10:26:35 [ main ] to count the excel lines
+2019-06-15 10:26:35 [ main ] the excel has 3 lines
+2019-06-15 10:26:35 [ main ] to decide which column to check
+2019-06-15 10:27:15 [ main ] begin to check whether excel format is right.
+2019-06-15 10:27:15 [ main ] to count the excel columns
+2019-06-15 10:27:15 [ main ] the excel has 13 columns!
+2019-06-15 10:28:55 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 10:28:55 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 10:28:55 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 10:28:56 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 10:28:57 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 10:28:57 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 10:28:57 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 10:28:57 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 10:28:57 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 10:28:57 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 10:28:58 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7c5d1d25] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 10:28:59 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 10:28:59 [ main ] 处理第一类规则
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:28:59 [ main ] to count the excel lines
+2019-06-15 10:28:59 [ main ] the excel has 3 lines
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] 处理第二类规则
+2019-06-15 10:28:59 [ main ] start to check the uploaded excel:
+2019-06-15 10:28:59 [ main ] begin to translate rule simple.
+2019-06-15 10:28:59 [ main ] to count the excel lines
+2019-06-15 10:28:59 [ main ] the excel has 3 lines
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] 处理第四类规则
+2019-06-15 10:28:59 [ main ] rule 4: begin to check
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:28:59 [ main ] to count the excel lines
+2019-06-15 10:28:59 [ main ] the excel has 3 lines
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] begin to translate the rule
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] 处理第六类规则
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:28:59 [ main ] to count the excel lines
+2019-06-15 10:28:59 [ main ] the excel has 3 lines
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] 处理第一类规则
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:28:59 [ main ] to count the excel lines
+2019-06-15 10:28:59 [ main ] the excel has 3 lines
+2019-06-15 10:28:59 [ main ] to decide which column to check
+2019-06-15 10:28:59 [ main ] begin to check whether excel format is right.
+2019-06-15 10:28:59 [ main ] to count the excel columns
+2019-06-15 10:28:59 [ main ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] begin to check whether excel format is right.
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] 处理第一类规则
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 3 lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] 处理第二类规则
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] start to check the uploaded excel:
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] begin to translate rule simple.
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 3 lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] 处理第四类规则
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] rule 4: begin to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 3 lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] begin to translate the rule
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] 处理第六类规则
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 3 lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] 处理第一类规则
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel columns
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 13 columns!
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to count the excel lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] the excel has 3 lines
+2019-06-15 10:29:48 [ http-nio-8080-exec-13 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] begin to check whether excel format is right.
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] 处理第一类规则
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 3 lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] 处理第二类规则
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] start to check the uploaded excel:
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] begin to translate rule simple.
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 3 lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] 处理第四类规则
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] rule 4: begin to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 3 lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] begin to translate the rule
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] 处理第六类规则
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 3 lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] 处理第一类规则
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel columns
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 13 columns!
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to count the excel lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] the excel has 3 lines
+2019-06-15 10:30:50 [ http-nio-8080-exec-15 ] to decide which column to check
+2019-06-15 12:50:55 [ http-nio-8080-exec-22 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 12:50:55 [ http-nio-8080-exec-22 ] HHH000206: hibernate.properties not found
+2019-06-15 12:50:55 [ http-nio-8080-exec-22 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 12:50:55 [ http-nio-8080-exec-22 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 12:50:56 [ http-nio-8080-exec-22 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 12:50:56 [ http-nio-8080-exec-22 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 12:50:56 [ http-nio-8080-exec-22 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 12:50:56 [ http-nio-8080-exec-22 ] HHH10001003: Autocommit mode: false
+2019-06-15 12:50:56 [ http-nio-8080-exec-22 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 12:50:57 [ http-nio-8080-exec-22 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 12:50:58 [ http-nio-8080-exec-22 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1b9cbb9b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 12:50:59 [ http-nio-8080-exec-22 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 13:33:18 [ http-nio-8080-exec-5 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 13:33:18 [ http-nio-8080-exec-5 ] HHH000206: hibernate.properties not found
+2019-06-15 13:33:19 [ http-nio-8080-exec-5 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 13:33:19 [ http-nio-8080-exec-5 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 13:33:20 [ http-nio-8080-exec-5 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 13:33:20 [ http-nio-8080-exec-5 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 13:33:20 [ http-nio-8080-exec-5 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 13:33:20 [ http-nio-8080-exec-5 ] HHH10001003: Autocommit mode: false
+2019-06-15 13:33:20 [ http-nio-8080-exec-5 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 13:33:21 [ http-nio-8080-exec-5 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 13:33:22 [ http-nio-8080-exec-5 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1636f856] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 13:33:23 [ http-nio-8080-exec-5 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 14:09:26 [ http-nio-8080-exec-12 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 14:09:26 [ http-nio-8080-exec-12 ] HHH000206: hibernate.properties not found
+2019-06-15 14:09:26 [ http-nio-8080-exec-12 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 14:09:26 [ http-nio-8080-exec-12 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 14:09:27 [ http-nio-8080-exec-12 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 14:09:27 [ http-nio-8080-exec-12 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 14:09:27 [ http-nio-8080-exec-12 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 14:09:27 [ http-nio-8080-exec-12 ] HHH10001003: Autocommit mode: false
+2019-06-15 14:09:27 [ http-nio-8080-exec-12 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 14:09:28 [ http-nio-8080-exec-12 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 14:09:29 [ http-nio-8080-exec-12 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@522b1e90] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 14:09:30 [ http-nio-8080-exec-12 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:03:20 [ http-nio-8080-exec-22 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:03:20 [ http-nio-8080-exec-22 ] HHH000206: hibernate.properties not found
+2019-06-15 15:03:20 [ http-nio-8080-exec-22 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:03:20 [ http-nio-8080-exec-22 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:03:21 [ http-nio-8080-exec-22 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:03:21 [ http-nio-8080-exec-22 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:03:21 [ http-nio-8080-exec-22 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:03:21 [ http-nio-8080-exec-22 ] HHH10001003: Autocommit mode: false
+2019-06-15 15:03:21 [ http-nio-8080-exec-22 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:03:22 [ http-nio-8080-exec-22 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:03:23 [ http-nio-8080-exec-22 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@33270030] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:03:24 [ http-nio-8080-exec-22 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:08:03 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:08:03 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:08:03 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:08:03 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:08:05 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:08:05 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:08:05 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:08:05 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:08:05 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:08:05 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:08:06 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:08:07 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:08:07 [ main ] 处理第一类规则
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:07 [ main ] to count the excel lines
+2019-06-15 15:08:07 [ main ] the excel has 2 lines
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] 处理第二类规则
+2019-06-15 15:08:07 [ main ] start to check the uploaded excel:
+2019-06-15 15:08:07 [ main ] begin to translate rule simple.
+2019-06-15 15:08:07 [ main ] to count the excel lines
+2019-06-15 15:08:07 [ main ] the excel has 2 lines
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] 处理第四类规则
+2019-06-15 15:08:07 [ main ] rule 4: begin to check
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:07 [ main ] to count the excel lines
+2019-06-15 15:08:07 [ main ] the excel has 2 lines
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] begin to translate the rule
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] 处理第六类规则
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:07 [ main ] to count the excel lines
+2019-06-15 15:08:07 [ main ] the excel has 2 lines
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] 处理第一类规则
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:07 [ main ] to count the excel lines
+2019-06-15 15:08:07 [ main ] the excel has 2 lines
+2019-06-15 15:08:07 [ main ] to decide which column to check
+2019-06-15 15:08:07 [ main ] 处理第五类规则
+2019-06-15 15:08:07 [ main ] begin to check whether excel format is right.
+2019-06-15 15:08:07 [ main ] to count the excel columns
+2019-06-15 15:08:07 [ main ] the excel has 13 columns!
+2019-06-15 15:08:54 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:08:54 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:08:54 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:08:55 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:08:56 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:08:56 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:08:56 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:08:56 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:08:56 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:08:56 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:08:57 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:08:58 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:08:58 [ main ] 处理第一类规则
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:08:58 [ main ] to count the excel lines
+2019-06-15 15:08:58 [ main ] the excel has 2 lines
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] 处理第二类规则
+2019-06-15 15:08:58 [ main ] start to check the uploaded excel:
+2019-06-15 15:08:58 [ main ] begin to translate rule simple.
+2019-06-15 15:08:58 [ main ] to count the excel lines
+2019-06-15 15:08:58 [ main ] the excel has 2 lines
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] 处理第四类规则
+2019-06-15 15:08:58 [ main ] rule 4: begin to check
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:08:58 [ main ] to count the excel lines
+2019-06-15 15:08:58 [ main ] the excel has 2 lines
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] begin to translate the rule
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] 处理第六类规则
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:08:58 [ main ] to count the excel lines
+2019-06-15 15:08:58 [ main ] the excel has 2 lines
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] 处理第一类规则
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:08:58 [ main ] to count the excel lines
+2019-06-15 15:08:58 [ main ] the excel has 2 lines
+2019-06-15 15:08:58 [ main ] to decide which column to check
+2019-06-15 15:08:58 [ main ] 处理第五类规则
+2019-06-15 15:08:58 [ main ] begin to check whether excel format is right.
+2019-06-15 15:08:58 [ main ] to count the excel columns
+2019-06-15 15:08:58 [ main ] the excel has 13 columns!
+2019-06-15 15:10:30 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:10:30 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:10:31 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:10:31 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:10:32 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:10:32 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:10:32 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:10:32 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:10:32 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:10:32 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:10:34 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4dd90166] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:10:34 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:10:34 [ main ] 处理第一类规则
+2019-06-15 15:10:34 [ main ] to count the excel columns
+2019-06-15 15:10:34 [ main ] the excel has 13 columns!
+2019-06-15 15:10:34 [ main ] to count the excel lines
+2019-06-15 15:10:34 [ main ] the excel has 2 lines
+2019-06-15 15:10:34 [ main ] to decide which column to check
+2019-06-15 15:10:34 [ main ] to decide which column to check
+2019-06-15 15:10:34 [ main ] to decide which column to check
+2019-06-15 15:10:34 [ main ] 处理第二类规则
+2019-06-15 15:10:34 [ main ] start to check the uploaded excel:
+2019-06-15 15:10:34 [ main ] begin to translate rule simple.
+2019-06-15 15:10:34 [ main ] to count the excel lines
+2019-06-15 15:10:34 [ main ] the excel has 2 lines
+2019-06-15 15:10:34 [ main ] to count the excel columns
+2019-06-15 15:10:34 [ main ] the excel has 13 columns!
+2019-06-15 15:10:34 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] 处理第四类规则
+2019-06-15 15:10:35 [ main ] rule 4: begin to check
+2019-06-15 15:10:35 [ main ] to count the excel columns
+2019-06-15 15:10:35 [ main ] the excel has 13 columns!
+2019-06-15 15:10:35 [ main ] to count the excel lines
+2019-06-15 15:10:35 [ main ] the excel has 2 lines
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] begin to translate the rule
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] 处理第六类规则
+2019-06-15 15:10:35 [ main ] to count the excel columns
+2019-06-15 15:10:35 [ main ] the excel has 13 columns!
+2019-06-15 15:10:35 [ main ] to count the excel lines
+2019-06-15 15:10:35 [ main ] the excel has 2 lines
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] 处理第一类规则
+2019-06-15 15:10:35 [ main ] to count the excel columns
+2019-06-15 15:10:35 [ main ] the excel has 13 columns!
+2019-06-15 15:10:35 [ main ] to count the excel lines
+2019-06-15 15:10:35 [ main ] the excel has 2 lines
+2019-06-15 15:10:35 [ main ] to decide which column to check
+2019-06-15 15:10:35 [ main ] 处理第五类规则
+2019-06-15 15:10:35 [ main ] to count the excel columns
+2019-06-15 15:10:35 [ main ] the excel has 13 columns!
+2019-06-15 15:10:35 [ main ] to count the excel lines
+2019-06-15 15:10:35 [ main ] the excel has 2 lines
+2019-06-15 15:11:00 [ main ] to decide which column to check
+2019-06-15 15:11:50 [ main ] begin to check whether excel format is right.
+2019-06-15 15:11:50 [ main ] to count the excel columns
+2019-06-15 15:11:50 [ main ] the excel has 13 columns!
+2019-06-15 15:13:22 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:13:22 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:13:22 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:13:22 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:13:24 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:13:24 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:13:24 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:13:24 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:13:24 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:13:24 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:13:25 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:13:25 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:13:25 [ main ] 处理第一类规则
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] 处理第二类规则
+2019-06-15 15:13:25 [ main ] start to check the uploaded excel:
+2019-06-15 15:13:25 [ main ] begin to translate rule simple.
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] 处理第四类规则
+2019-06-15 15:13:25 [ main ] rule 4: begin to check
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] begin to translate the rule
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] 处理第六类规则
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] 处理第一类规则
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] 处理第五类规则
+2019-06-15 15:13:25 [ main ] to count the excel columns
+2019-06-15 15:13:25 [ main ] the excel has 13 columns!
+2019-06-15 15:13:25 [ main ] to count the excel lines
+2019-06-15 15:13:25 [ main ] the excel has 2 lines
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:25 [ main ] to decide which column to check
+2019-06-15 15:13:26 [ main ] begin to check whether excel format is right.
+2019-06-15 15:13:26 [ main ] to count the excel columns
+2019-06-15 15:13:26 [ main ] the excel has 13 columns!
+2019-06-15 15:13:49 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:13:49 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:13:50 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:13:50 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:13:51 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:13:51 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:13:51 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:13:51 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:13:51 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:13:51 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:13:52 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:13:53 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:13:53 [ main ] 处理第一类规则
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] 处理第二类规则
+2019-06-15 15:13:53 [ main ] start to check the uploaded excel:
+2019-06-15 15:13:53 [ main ] begin to translate rule simple.
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] 处理第四类规则
+2019-06-15 15:13:53 [ main ] rule 4: begin to check
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] begin to translate the rule
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] 处理第六类规则
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] 处理第一类规则
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] 处理第五类规则
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:13:53 [ main ] to count the excel lines
+2019-06-15 15:13:53 [ main ] the excel has 2 lines
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] to decide which column to check
+2019-06-15 15:13:53 [ main ] begin to check whether excel format is right.
+2019-06-15 15:13:53 [ main ] to count the excel columns
+2019-06-15 15:13:53 [ main ] the excel has 13 columns!
+2019-06-15 15:15:01 [ http-nio-8080-exec-34 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:15:01 [ http-nio-8080-exec-34 ] HHH000206: hibernate.properties not found
+2019-06-15 15:15:01 [ http-nio-8080-exec-34 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:15:01 [ http-nio-8080-exec-34 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH10001003: Autocommit mode: false
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:15:02 [ http-nio-8080-exec-34 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:15:04 [ http-nio-8080-exec-34 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4fdf0fce] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:15:04 [ http-nio-8080-exec-34 ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:18:34 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:18:34 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:18:34 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:18:34 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:18:36 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:18:36 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:18:36 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:18:36 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:18:36 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:18:37 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:18:38 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2f14b0f6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:18:38 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:18:39 [ main ] 处理第一类规则
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] 处理第二类规则
+2019-06-15 15:18:39 [ main ] start to check the uploaded excel:
+2019-06-15 15:18:39 [ main ] begin to translate rule simple.
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] 处理第四类规则
+2019-06-15 15:18:39 [ main ] rule 4: begin to check
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] begin to translate the rule
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] 处理第六类规则
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] 处理第一类规则
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:39 [ main ] to decide which column to check
+2019-06-15 15:18:39 [ main ] 处理第五类规则
+2019-06-15 15:18:39 [ main ] to count the excel columns
+2019-06-15 15:18:39 [ main ] the excel has 13 columns!
+2019-06-15 15:18:39 [ main ] to count the excel lines
+2019-06-15 15:18:39 [ main ] the excel has 2 lines
+2019-06-15 15:18:51 [ main ] to decide which column to check
+2019-06-15 15:18:51 [ main ] to decide which column to check
+2019-06-15 15:18:51 [ main ] 处理第五类规则
+2019-06-15 15:18:51 [ main ] to count the excel columns
+2019-06-15 15:18:51 [ main ] the excel has 13 columns!
+2019-06-15 15:18:51 [ main ] to count the excel lines
+2019-06-15 15:18:51 [ main ] the excel has 2 lines
+2019-06-15 15:19:18 [ main ] to decide which column to check
+2019-06-15 15:19:37 [ main ] begin to check whether excel format is right.
+2019-06-15 15:19:37 [ main ] to count the excel columns
+2019-06-15 15:19:37 [ main ] the excel has 13 columns!
+2019-06-15 15:20:32 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:20:32 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:20:32 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:20:32 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:20:33 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:20:33 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:20:33 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:20:33 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:20:33 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:20:34 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:20:35 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7c5d1d25] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:20:35 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:20:35 [ main ] 处理第一类规则
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] 处理第二类规则
+2019-06-15 15:20:35 [ main ] start to check the uploaded excel:
+2019-06-15 15:20:35 [ main ] begin to translate rule simple.
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] 处理第四类规则
+2019-06-15 15:20:35 [ main ] rule 4: begin to check
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] begin to translate the rule
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] 处理第六类规则
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] 处理第一类规则
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:35 [ main ] to decide which column to check
+2019-06-15 15:20:35 [ main ] 处理第五类规则
+2019-06-15 15:20:35 [ main ] to count the excel columns
+2019-06-15 15:20:35 [ main ] the excel has 13 columns!
+2019-06-15 15:20:35 [ main ] to count the excel lines
+2019-06-15 15:20:35 [ main ] the excel has 2 lines
+2019-06-15 15:20:44 [ main ] to decide which column to check
+2019-06-15 15:20:44 [ main ] to decide which column to check
+2019-06-15 15:20:45 [ main ] 处理第五类规则
+2019-06-15 15:20:45 [ main ] to count the excel columns
+2019-06-15 15:20:45 [ main ] the excel has 13 columns!
+2019-06-15 15:20:45 [ main ] to count the excel lines
+2019-06-15 15:20:45 [ main ] the excel has 2 lines
+2019-06-15 15:20:48 [ main ] to decide which column to check
+2019-06-15 15:21:15 [ main ] to decide which column to check
+2019-06-15 15:21:18 [ main ] begin to check whether excel format is right.
+2019-06-15 15:21:18 [ main ] to count the excel columns
+2019-06-15 15:21:18 [ main ] the excel has 13 columns!
+2019-06-15 15:23:33 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:23:33 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:23:34 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:23:34 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:23:36 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:23:36 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:23:36 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:23:36 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:23:36 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:23:36 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:23:37 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@32118208] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:23:38 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:23:38 [ main ] 处理第一类规则
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] 处理第二类规则
+2019-06-15 15:23:38 [ main ] start to check the uploaded excel:
+2019-06-15 15:23:38 [ main ] begin to translate rule simple.
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] 处理第四类规则
+2019-06-15 15:23:38 [ main ] rule 4: begin to check
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] begin to translate the rule
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] 处理第六类规则
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] 处理第一类规则
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:38 [ main ] to decide which column to check
+2019-06-15 15:23:38 [ main ] 处理第五类规则
+2019-06-15 15:23:38 [ main ] to count the excel columns
+2019-06-15 15:23:38 [ main ] the excel has 13 columns!
+2019-06-15 15:23:38 [ main ] to count the excel lines
+2019-06-15 15:23:38 [ main ] the excel has 2 lines
+2019-06-15 15:23:45 [ main ] to decide which column to check
+2019-06-15 15:23:45 [ main ] to decide which column to check
+2019-06-15 15:23:45 [ main ] 处理第五类规则
+2019-06-15 15:23:45 [ main ] to count the excel columns
+2019-06-15 15:23:45 [ main ] the excel has 13 columns!
+2019-06-15 15:23:45 [ main ] to count the excel lines
+2019-06-15 15:23:45 [ main ] the excel has 2 lines
+2019-06-15 15:23:50 [ main ] to decide which column to check
+2019-06-15 15:23:58 [ main ] to decide which column to check
+2019-06-15 15:25:21 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:25:21 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:25:21 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:25:21 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:25:23 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:25:23 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:25:23 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:25:23 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:25:24 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:25:24 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:25:25 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:25:25 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:25:26 [ main ] 处理第一类规则
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] 处理第二类规则
+2019-06-15 15:25:26 [ main ] start to check the uploaded excel:
+2019-06-15 15:25:26 [ main ] begin to translate rule simple.
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] 处理第四类规则
+2019-06-15 15:25:26 [ main ] rule 4: begin to check
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] begin to translate the rule
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] 处理第六类规则
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] 处理第一类规则
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:26 [ main ] to decide which column to check
+2019-06-15 15:25:26 [ main ] 处理第五类规则
+2019-06-15 15:25:26 [ main ] to count the excel columns
+2019-06-15 15:25:26 [ main ] the excel has 13 columns!
+2019-06-15 15:25:26 [ main ] to count the excel lines
+2019-06-15 15:25:26 [ main ] the excel has 2 lines
+2019-06-15 15:25:36 [ main ] begin to check whether excel format is right.
+2019-06-15 15:25:36 [ main ] to count the excel columns
+2019-06-15 15:25:36 [ main ] the excel has 13 columns!
+2019-06-15 15:25:53 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:25:53 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:25:54 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:25:54 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:25:55 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:25:56 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:25:56 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:25:56 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:25:56 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:25:56 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:25:57 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:25:57 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:25:58 [ main ] 处理第一类规则
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] 处理第二类规则
+2019-06-15 15:25:58 [ main ] start to check the uploaded excel:
+2019-06-15 15:25:58 [ main ] begin to translate rule simple.
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] 处理第四类规则
+2019-06-15 15:25:58 [ main ] rule 4: begin to check
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] begin to translate the rule
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] 处理第六类规则
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] 处理第一类规则
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:25:58 [ main ] to decide which column to check
+2019-06-15 15:25:58 [ main ] 处理第五类规则
+2019-06-15 15:25:58 [ main ] to count the excel columns
+2019-06-15 15:25:58 [ main ] the excel has 13 columns!
+2019-06-15 15:25:58 [ main ] to count the excel lines
+2019-06-15 15:25:58 [ main ] the excel has 2 lines
+2019-06-15 15:26:05 [ main ] to decide which column to check
+2019-06-15 15:26:10 [ main ] to decide which column to check
+2019-06-15 15:26:10 [ main ] 处理第五类规则
+2019-06-15 15:26:10 [ main ] to count the excel columns
+2019-06-15 15:26:10 [ main ] the excel has 13 columns!
+2019-06-15 15:26:10 [ main ] to count the excel lines
+2019-06-15 15:26:10 [ main ] the excel has 2 lines
+2019-06-15 15:26:14 [ main ] to decide which column to check
+2019-06-15 15:26:21 [ main ] to decide which column to check
+2019-06-15 15:33:43 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:33:43 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:33:43 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:33:43 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:33:45 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:33:45 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:33:45 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:33:45 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:33:45 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:33:45 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:33:46 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:33:47 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:33:47 [ main ] 处理第一类规则
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] 处理第二类规则
+2019-06-15 15:33:47 [ main ] start to check the uploaded excel:
+2019-06-15 15:33:47 [ main ] begin to translate rule simple.
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] 处理第四类规则
+2019-06-15 15:33:47 [ main ] rule 4: begin to check
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] begin to translate the rule
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] 处理第六类规则
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] 处理第一类规则
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:33:47 [ main ] to decide which column to check
+2019-06-15 15:33:47 [ main ] 处理第五类规则
+2019-06-15 15:33:47 [ main ] to count the excel columns
+2019-06-15 15:33:47 [ main ] the excel has 13 columns!
+2019-06-15 15:33:47 [ main ] to count the excel lines
+2019-06-15 15:33:47 [ main ] the excel has 2 lines
+2019-06-15 15:34:05 [ main ] begin to check whether excel format is right.
+2019-06-15 15:34:05 [ main ] to count the excel columns
+2019-06-15 15:34:05 [ main ] the excel has 13 columns!
+2019-06-15 15:34:51 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:34:51 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:34:51 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:34:51 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:34:53 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:34:53 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:34:53 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:34:53 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:34:53 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:34:53 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:34:54 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:34:54 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:34:55 [ main ] 处理第一类规则
+2019-06-15 15:34:55 [ main ] to count the excel columns
+2019-06-15 15:34:55 [ main ] the excel has 13 columns!
+2019-06-15 15:34:55 [ main ] to count the excel lines
+2019-06-15 15:34:55 [ main ] the excel has 2 lines
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] 处理第二类规则
+2019-06-15 15:34:55 [ main ] start to check the uploaded excel:
+2019-06-15 15:34:55 [ main ] begin to translate rule simple.
+2019-06-15 15:34:55 [ main ] to count the excel lines
+2019-06-15 15:34:55 [ main ] the excel has 2 lines
+2019-06-15 15:34:55 [ main ] to count the excel columns
+2019-06-15 15:34:55 [ main ] the excel has 13 columns!
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] 处理第四类规则
+2019-06-15 15:34:55 [ main ] rule 4: begin to check
+2019-06-15 15:34:55 [ main ] to count the excel columns
+2019-06-15 15:34:55 [ main ] the excel has 13 columns!
+2019-06-15 15:34:55 [ main ] to count the excel lines
+2019-06-15 15:34:55 [ main ] the excel has 2 lines
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] begin to translate the rule
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] 处理第六类规则
+2019-06-15 15:34:55 [ main ] to count the excel columns
+2019-06-15 15:34:55 [ main ] the excel has 13 columns!
+2019-06-15 15:34:55 [ main ] to count the excel lines
+2019-06-15 15:34:55 [ main ] the excel has 2 lines
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] 处理第一类规则
+2019-06-15 15:34:55 [ main ] to count the excel columns
+2019-06-15 15:34:55 [ main ] the excel has 13 columns!
+2019-06-15 15:34:55 [ main ] to count the excel lines
+2019-06-15 15:34:55 [ main ] the excel has 2 lines
+2019-06-15 15:34:55 [ main ] to decide which column to check
+2019-06-15 15:34:55 [ main ] 处理第五类规则
+2019-06-15 15:35:00 [ main ] to count the excel columns
+2019-06-15 15:35:00 [ main ] the excel has 13 columns!
+2019-06-15 15:35:00 [ main ] to count the excel lines
+2019-06-15 15:35:00 [ main ] the excel has 2 lines
+2019-06-15 15:35:58 [ main ] to decide which column to check
+2019-06-15 15:35:58 [ main ] to decide which column to check
+2019-06-15 15:35:58 [ main ] 处理第五类规则
+2019-06-15 15:36:01 [ main ] to count the excel columns
+2019-06-15 15:36:01 [ main ] the excel has 13 columns!
+2019-06-15 15:36:02 [ main ] to count the excel lines
+2019-06-15 15:36:02 [ main ] the excel has 2 lines
+2019-06-15 15:36:21 [ main ] to decide which column to check
+2019-06-15 15:36:32 [ main ] to decide which column to check
+2019-06-15 15:37:27 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:37:27 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:37:27 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:37:27 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:37:29 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:37:29 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:37:29 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:37:29 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:37:29 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:37:29 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:37:30 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:37:30 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:37:31 [ main ] 处理第一类规则
+2019-06-15 15:37:31 [ main ] to count the excel columns
+2019-06-15 15:37:31 [ main ] the excel has 13 columns!
+2019-06-15 15:37:31 [ main ] to count the excel lines
+2019-06-15 15:37:31 [ main ] the excel has 2 lines
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] 处理第二类规则
+2019-06-15 15:37:31 [ main ] start to check the uploaded excel:
+2019-06-15 15:37:31 [ main ] begin to translate rule simple.
+2019-06-15 15:37:31 [ main ] to count the excel lines
+2019-06-15 15:37:31 [ main ] the excel has 2 lines
+2019-06-15 15:37:31 [ main ] to count the excel columns
+2019-06-15 15:37:31 [ main ] the excel has 13 columns!
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] 处理第四类规则
+2019-06-15 15:37:31 [ main ] rule 4: begin to check
+2019-06-15 15:37:31 [ main ] to count the excel columns
+2019-06-15 15:37:31 [ main ] the excel has 13 columns!
+2019-06-15 15:37:31 [ main ] to count the excel lines
+2019-06-15 15:37:31 [ main ] the excel has 2 lines
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] begin to translate the rule
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] 处理第六类规则
+2019-06-15 15:37:31 [ main ] to count the excel columns
+2019-06-15 15:37:31 [ main ] the excel has 13 columns!
+2019-06-15 15:37:31 [ main ] to count the excel lines
+2019-06-15 15:37:31 [ main ] the excel has 2 lines
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] 处理第一类规则
+2019-06-15 15:37:31 [ main ] to count the excel columns
+2019-06-15 15:37:31 [ main ] the excel has 13 columns!
+2019-06-15 15:37:31 [ main ] to count the excel lines
+2019-06-15 15:37:31 [ main ] the excel has 2 lines
+2019-06-15 15:37:31 [ main ] to decide which column to check
+2019-06-15 15:37:31 [ main ] 处理第五类规则
+2019-06-15 15:37:34 [ main ] begin to check whether excel format is right.
+2019-06-15 15:37:34 [ main ] to count the excel columns
+2019-06-15 15:37:34 [ main ] the excel has 13 columns!
+2019-06-15 15:37:47 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:37:47 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:37:47 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:37:47 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:37:49 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:37:49 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:37:49 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:37:49 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:37:49 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:37:49 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:37:50 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:37:50 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:37:51 [ main ] 处理第一类规则
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第二类规则
+2019-06-15 15:37:51 [ main ] start to check the uploaded excel:
+2019-06-15 15:37:51 [ main ] begin to translate rule simple.
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第四类规则
+2019-06-15 15:37:51 [ main ] rule 4: begin to check
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] begin to translate the rule
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第六类规则
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第一类规则
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第五类规则
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] 处理第五类规则
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:51 [ main ] to count the excel lines
+2019-06-15 15:37:51 [ main ] the excel has 2 lines
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] to decide which column to check
+2019-06-15 15:37:51 [ main ] begin to check whether excel format is right.
+2019-06-15 15:37:51 [ main ] to count the excel columns
+2019-06-15 15:37:51 [ main ] the excel has 13 columns!
+2019-06-15 15:37:56 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:37:56 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:37:57 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:37:57 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:37:58 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:37:58 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:37:58 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:37:58 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:37:58 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:37:59 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:38:00 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1ddc6db2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:38:00 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:38:00 [ main ] 处理第一类规则
+2019-06-15 15:38:00 [ main ] to count the excel columns
+2019-06-15 15:38:00 [ main ] the excel has 13 columns!
+2019-06-15 15:38:00 [ main ] to count the excel lines
+2019-06-15 15:38:00 [ main ] the excel has 2 lines
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] 处理第二类规则
+2019-06-15 15:38:00 [ main ] start to check the uploaded excel:
+2019-06-15 15:38:00 [ main ] begin to translate rule simple.
+2019-06-15 15:38:00 [ main ] to count the excel lines
+2019-06-15 15:38:00 [ main ] the excel has 2 lines
+2019-06-15 15:38:00 [ main ] to count the excel columns
+2019-06-15 15:38:00 [ main ] the excel has 13 columns!
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] 处理第四类规则
+2019-06-15 15:38:00 [ main ] rule 4: begin to check
+2019-06-15 15:38:00 [ main ] to count the excel columns
+2019-06-15 15:38:00 [ main ] the excel has 13 columns!
+2019-06-15 15:38:00 [ main ] to count the excel lines
+2019-06-15 15:38:00 [ main ] the excel has 2 lines
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] begin to translate the rule
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] 处理第六类规则
+2019-06-15 15:38:00 [ main ] to count the excel columns
+2019-06-15 15:38:00 [ main ] the excel has 13 columns!
+2019-06-15 15:38:00 [ main ] to count the excel lines
+2019-06-15 15:38:00 [ main ] the excel has 2 lines
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] to decide which column to check
+2019-06-15 15:38:00 [ main ] 处理第一类规则
+2019-06-15 15:38:01 [ main ] to count the excel columns
+2019-06-15 15:38:01 [ main ] the excel has 13 columns!
+2019-06-15 15:38:01 [ main ] to count the excel lines
+2019-06-15 15:38:01 [ main ] the excel has 2 lines
+2019-06-15 15:38:01 [ main ] to decide which column to check
+2019-06-15 15:38:01 [ main ] 处理第五类规则
+2019-06-15 15:38:07 [ main ] to count the excel columns
+2019-06-15 15:38:07 [ main ] the excel has 13 columns!
+2019-06-15 15:38:07 [ main ] to count the excel lines
+2019-06-15 15:38:07 [ main ] the excel has 2 lines
+2019-06-15 15:38:09 [ main ] to decide which column to check
+2019-06-15 15:38:09 [ main ] to decide which column to check
+2019-06-15 15:38:09 [ main ] 处理第五类规则
+2019-06-15 15:38:09 [ main ] to count the excel columns
+2019-06-15 15:38:09 [ main ] the excel has 13 columns!
+2019-06-15 15:38:09 [ main ] to count the excel lines
+2019-06-15 15:38:09 [ main ] the excel has 2 lines
+2019-06-15 15:38:13 [ main ] to decide which column to check
+2019-06-15 15:38:17 [ main ] to decide which column to check
+2019-06-15 15:39:14 [ main ] begin to check whether excel format is right.
+2019-06-15 15:39:14 [ main ] to count the excel columns
+2019-06-15 15:39:14 [ main ] the excel has 13 columns!
+2019-06-15 15:40:34 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:40:34 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:40:35 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:40:35 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:40:36 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:40:36 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:40:36 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:40:36 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:40:36 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:40:37 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:40:38 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1d01dfa5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:40:38 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:40:38 [ main ] 处理第一类规则
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第二类规则
+2019-06-15 15:40:38 [ main ] start to check the uploaded excel:
+2019-06-15 15:40:38 [ main ] begin to translate rule simple.
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第四类规则
+2019-06-15 15:40:38 [ main ] rule 4: begin to check
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] begin to translate the rule
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第六类规则
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第一类规则
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第五类规则
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] 处理第五类规则
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:40:38 [ main ] to count the excel lines
+2019-06-15 15:40:38 [ main ] the excel has 2 lines
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] to decide which column to check
+2019-06-15 15:40:38 [ main ] begin to check whether excel format is right.
+2019-06-15 15:40:38 [ main ] to count the excel columns
+2019-06-15 15:40:38 [ main ] the excel has 13 columns!
+2019-06-15 15:41:06 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-15 15:41:06 [ main ] HHH000206: hibernate.properties not found
+2019-06-15 15:41:06 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-15 15:41:06 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-15 15:41:08 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-15 15:41:08 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-15 15:41:08 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-15 15:41:08 [ main ] HHH10001003: Autocommit mode: false
+2019-06-15 15:41:08 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-15 15:41:09 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-15 15:41:10 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6411c41a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-15 15:41:11 [ main ] HHH000397: Using ASTQueryTranslatorFactory
+2019-06-15 15:41:11 [ main ] 处理第一类规则
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第二类规则
+2019-06-15 15:41:11 [ main ] start to check the uploaded excel:
+2019-06-15 15:41:11 [ main ] begin to translate rule simple.
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第四类规则
+2019-06-15 15:41:11 [ main ] rule 4: begin to check
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] begin to translate the rule
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第六类规则
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第一类规则
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第五类规则
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] 处理第五类规则
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 15:41:11 [ main ] to count the excel lines
+2019-06-15 15:41:11 [ main ] the excel has 2 lines
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] to decide which column to check
+2019-06-15 15:41:11 [ main ] begin to check whether excel format is right.
+2019-06-15 15:41:11 [ main ] to count the excel columns
+2019-06-15 15:41:11 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] 处理第五类规则
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] 处理第五类规则
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] 处理第五类规则
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to count the excel columns
+2019-06-15 20:13:43 [ main ] the excel has 13 columns!
+2019-06-15 20:13:43 [ main ] to count the excel lines
+2019-06-15 20:13:43 [ main ] the excel has 2 lines
+2019-06-15 20:13:43 [ main ] to decide which column to check
+2019-06-15 20:13:43 [ main ] to decide which column to check

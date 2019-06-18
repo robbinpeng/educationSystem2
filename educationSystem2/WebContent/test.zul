@@ -1,0 +1,13 @@
+<?page title="test some code" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="wnd" title="test some code" visible="false" border="normal">
+	<button label="close" onClick="wnd.visible = false" />
+</window>
+<button label="do it" onClick="wnd.doModal()" />
+
+<window title="My Modal" width="300px" closable="true">
+<zscript>
+	Events.postEvent("onModal", self, null);
+</zscript>
+</window>
+</zk>

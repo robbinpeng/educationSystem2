@@ -1,0 +1,40 @@
+<?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="字段设计" border="normal" apply="com.philip.edu.action.FormTableController">
+<grid>
+<rows>
+<row align="right">
+<toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton>
+</row>
+</rows>
+</grid>
+<listbox id="fieldList" emptyMessage="系统中还没有表" >
+        <listhead>
+            <listheader label="业务字段名"/>
+            <listheader label="物理字段名" />
+            <listheader label="必填项" />
+            <listheader label="顺序" />
+            <listheader label="数据类型" />
+            <listheader label="长度" />
+            <listheader label="显示方式" />
+            <listheader label="是否上报" />
+            <listheader label="是否隐藏" />
+            <listheader label="字段类型(计算方法)" />
+        </listhead>
+        <template name="model" sclass="narrow">
+            <listitem>
+                <listcell label="${each.bus_name}"></listcell>
+                <listcell label="${each.physic_name}"></listcell>
+                <listcell label="${each.is_required}"></listcell>
+                <listcell label="${each.sequence}"></listcell>
+                <listcell label="${each.data_type}"></listcell>
+                <listcell label="${each.length}"></listcell>
+                <listcell label="${each.dis_method}"></listcell>
+                <listcell label="${each.is_report}"></listcell>
+                <listcell label="${each.is_hidden}"></listcell>
+                <listcell label="${each.compute}"></listcell>
+            </listitem>
+        </template>
+</listbox>
+</window>
+</zk>

@@ -1,0 +1,8 @@
+<?page title="front condition" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window closable="true" title="前置条件" border="normal">
+<combobox width="200px"><comboitem label="统计时间"/><comboitem label="学校名称"/><comboitem label="区号"/><comboitem label="代码"/></combobox>
+<combobox width="200px"><comboitem label="&lt;"/><comboitem label="&lt;="/><comboitem label="="/><comboitem label="&gt;="/><comboitem label="&gt;>"/></combobox>
+<textbox width="200px"/>
+</window>
+</zk>

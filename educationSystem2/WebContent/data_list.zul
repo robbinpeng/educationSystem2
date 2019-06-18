@@ -1,0 +1,46 @@
+<?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="window1" title="数据表" border="normal" apply="com.philip.edu.action.TableDataController">
+<grid>
+<rows>
+<row align="right">
+<toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton>
+</row>
+</rows>
+</grid>
+<zscript><![CDATA[
+import com.philip.edu.basic.DataInfo; 
+import javax.servlet.http.HttpServletRequest;
+		
+ArrayList datas = null;
+ArrayList al=null;
+DataInfo data = null;
+]]></zscript>
+<listbox id="dataList" emptyMessage="系统中还没有表" mold="paging" pageSize="20">  
+<zscript><![CDATA[
+datas = (ArrayList)Executions.getCurrent().getAttribute("datas");
+if(datas!=null){
+	al = (ArrayList) datas.get(0);
+	Listhead head = new Listhead();
+	for(int i=0; i<al.size(); i++){
+		data = (DataInfo) al.get(i);
+		Listheader header = new Listheader(data.getValue());
+		head.appendChild(header);
+	}
+	dataList.appendChild(head);
+	
+	for(int j=1; j<datas.size(); j++){
+		ArrayList line = (ArrayList)datas.get(j);
+		Listitem item = new Listitem();
+		for(int k=0; k<line.size(); k++){
+			DataInfo data = (DataInfo)line.get(k);
+			Listcell cell = new Listcell(data.getValue());
+			item.appendChild(cell);
+		}
+		dataList.appendChild(item);
+	}
+}
+]]></zscript>
+</listbox>
+</window>
+</zk>

@@ -1,0 +1,38 @@
+<?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[
+import com.philip.edu.basic.*;
+]]></zscript>
+<window title="数据采集" border="normal" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
+<listbox id="formlist" emptyMessage="系统中还没有表" >
+        <listhead>
+            <listheader label="序号" width="5%"/>
+            <listheader label="待采集表" width="20%"/>
+            <listheader label="采集状态" />
+            <listheader label="数据表设计" />
+            <listheader label="数据校验" />
+            <listheader label="数据模板下载" />
+            <listheader label="数据文件上传" />
+            <listheader label="退回"  width="8%"/>
+        </listhead>
+        <template name="model" sclass="narrow">
+            <listitem value="${each.id}">
+                <listcell label="${each.id}"></listcell>
+                <listcell><toolbarbutton href="/data_list.zul?form_id=${each.id}" label="${each.bus_name}"/></listcell>
+                <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
+                <listcell><toolbarbutton label="数据表设计" href="/data_design.zul?form_id=${each.id}"></toolbarbutton></listcell>
+                <listcell><toolbarbutton label="数据校验" href="/rules.zul?form_id=${each.id}"/></listcell>
+                <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls"; Filedownload.save(file_name, null);]]></attribute></button></listcell>
+                <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button></listcell>
+                <listcell><button label="退回" forward="onClick=formlist.onRollback(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_SUCCESS)self.setDisabled(true);]]></zscript></button></listcell>
+            </listitem>
+        </template>
+</listbox>
+</window>
+<zscript>
+
+</zscript>
+<popup id="dependency" width="300px">
+    <html>依赖表【1-3 学校相关党政单位】未采集完成，请采集完成后再进行该表的采集。</html>
+</popup>
+</zk>
