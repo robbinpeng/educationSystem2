@@ -95,4 +95,62 @@ public class Constants {
 	public static final char STATUS_CREATED = 'C';
 	public static final char STATUS_UPLOADABLE = 'U';
 	public static final char STATUS_SUCCESS = 'S';
+	
+	public static final char V_TYPE_STAT_TIME_POINT = 'P';
+	public static final String DIP_TYPE_STAT_TIME_POINT = "时点";
+	public static final char V_TYPE_STAT_TIME_STUDY_YEAR = 'S';
+	public static final String DIP_TYPE_STAT_TIME_STUDY_YEAR = "学年";
+	public static final char V_TYPE_STAT_TIME_NATURE_YEAR = 'N';
+	public static final String DIP_TYPE_STAT_TIME_NATURE_YEAR = "自然年";
+	public static final char V_TYPE_STAT_TIME_CURRENT_YEAR = 'C';
+	public static final String DIP_TYPE_STAT_TIME_CURRENT_YEAR = "当前年";
+	
+	public static final char V_FORM_TYPE_PERSONALIZED = 'P';
+	public static final String DIP_FORM_TYPE_PERSONALIZED = "自定义表";
+	public static final char V_FORM_TYPE_EDUCATION_STATUS = 'S';
+	public static final String DIP_FORM_TYPE_EDUCATION_STATUS = "教学基本状态库";
+	public static final char V_FORM_TYPE_PROFESSIONAL_VALUE = 'V';
+	public static final String DIP_FORM_TYPE_PROFESSIONAL_VALUE = "专业评估";
+	public static final char V_FORM_TYPE_CLASS_VALUE = 'C';
+	public static final String DIP_FORM_TYPE_CLASS_VALUE = "课程评估";
+	public static final char V_FORM_TYPE_HIGHBASIC_REPORT = 'H';
+	public static final String DIP_FORM_TYPE_HIGHBASIC_REPORT = "高基报表";
+	
+	public static final char V_DISPLAY_SINGLE_RECORD = 'S';
+	public static final String DIP_DISPLAY_SINGLE_RECORD = "单条记录";
+	public static final char V_DISPLAY_GENERAL_LIST = 'G';
+	public static final String DIP_DIPLAY_GENERAL_LIST = "通用列表";
+	
+	public static final char V_DISPLAY_SINGLE_TEXTBOX = 'T';
+	public static final String DIP_DISPLAY_SINGLE_TEXTBOX = "单行输入框";
+	public static final char V_DISPLAY_MUTIPLE_TEXTBOX = 'M';
+	public static final String DIP_DISPLAY_MUTIPLE_TEXTBOX = "多行输入框";
+	public static final char V_DISPLAY_RICH_TEXT = 'R';
+	public static final String DIP_DISPLAY_RICH_TEXT = "富文本";
+	public static final char V_DISPLAY_DATE_CONTROL = 'D';
+	public static final String DIP_DISPLAY_DATE_CONTROL = "日期控件";
+	public static final char V_DISPLAY_SINGLE_COMBOBOX = 'C';
+	public static final String DIP_DISPLAY_SINGLE_COMBOBOX = "下拉单选框";
+	public static final char V_DISPLAY_MULTIPLE_COMBOBOX = 'P';
+	public static final String DIP_DISPLAY_MUTLIPLE_COMBOBOX = "下拉多选框";
+	public static final char V_DISPLAY_UPLOAD_CONTROL = 'U';
+	public static final String DIP_DISPLAY_UPLOAD_CONTROL = "文件上传控件";
+	
+	public static final char V_FIELD_TYPE_PHYSIC_COLUMN = 'P';
+	public static final String DIP_FIELD_TYPE_PHYSIC_COLUMN = "实体列";
+	public static final char V_FIELD_TYPE_VIRTURAL_COLUMN = 'V';
+	public static final String DIP_FIELD_TYPE_VERTURAL_COLUMN = "虚拟列";
+	public static final char V_FIELD_TYPE_COMPUTE_COLUMN = 'C';
+	public static final String DIP_FIELD_TYPE_COMPUTE_COLUMN = "计算列";
+	
+	public static final int V_DATA_TYPE_STRING = 1;
+	public static final String DIP_DATA_TYPE_STRING = "字符型（字数小于2000）";
+	public static final int V_DATA_TYPE_INTEGER = 2;
+	public static final String DIP_DATA_TYPE_INTEGER ="整数型";
+	public static final int V_DATA_TYPE_FLOAT = 3;
+	public static final String DIP_DATA_TYPE_FLOAT = "小数型";
+	public static final int V_DATA_TYPE_DATE = 4;
+	public static final String DIP_DATA_TYPE_DATE = "日期型";
+	public static final int V_DATA_TYPE_BIG_STRING = 5;
+	public static final String DIP_DATA_TYPE_BIG_STRING = "字符型（字数大于2000）";
 }

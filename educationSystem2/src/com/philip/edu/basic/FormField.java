@@ -4,14 +4,14 @@ public class FormField{
 	private int id=0;
 	private String bus_name;
 	private String physic_name;
-	private String is_required;
+	private char is_required;
 	private int sequence;
 	private int data_type;
 	private int length;
-	private String dis_method;
-	private String is_report;
-	private String is_hidden;
-	private String compute;
+	private char dis_method;
+	private char is_report;
+	private char is_hidden;
+	private char compute;
 	private int form_id;
 	public int getId() {
 		return id;
@@ -32,10 +32,10 @@ public class FormField{
 	public void setPhysic_name(String physic_name) {
 		this.physic_name = physic_name;
 	}
-	public String getIs_required() {
+	public char getIs_required() {
 		return is_required;
 	}
-	public void setIs_required(String is_required) {
+	public void setIs_required(char is_required) {
 		this.is_required = is_required;
 	}
 	public int getSequence() {
@@ -56,28 +56,29 @@ public class FormField{
 	public void setLength(int length) {
 		this.length = length;
 	}
-	public String getDis_method() {
+	
+	public char getDis_method() {
 		return dis_method;
 	}
-	public void setDis_method(String dis_method) {
+	public void setDis_method(char dis_method) {
 		this.dis_method = dis_method;
 	}
-	public String getIs_report() {
+	public char getIs_report() {
 		return is_report;
 	}
-	public void setIs_report(String is_report) {
+	public void setIs_report(char is_report) {
 		this.is_report = is_report;
 	}
-	public String getIs_hidden() {
+	public char getIs_hidden() {
 		return is_hidden;
 	}
-	public void setIs_hidden(String is_hidden) {
+	public void setIs_hidden(char is_hidden) {
 		this.is_hidden = is_hidden;
 	}
-	public String getCompute() {
+	public char getCompute() {
 		return compute;
 	}
-	public void setCompute(String compute) {
+	public void setCompute(char compute) {
 		this.compute = compute;
 	}
 	public int getForm_id() {

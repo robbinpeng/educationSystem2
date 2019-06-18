@@ -8,13 +8,46 @@ public class Form {
 	private String tbl_name;
 	private String bus_name;
 	private String phsic_name;
-	private Date stats_time;
-	private String is_null;
-	private int dependency_form;
+	private char stats_time;
+	private char display_method;
+	private char form_type;
+	private char is_null;
+	private String dependency_form;
 	private String template_loc;
 	private Date create_time;
-	private String form_type;
+	private String memo;
 	private FormStatus status;
+	
+	public char getStats_time() {
+		return stats_time;
+	}
+	public void setStats_time(char stats_time) {
+		this.stats_time = stats_time;
+	}
+	public char getDisplay_method() {
+		return display_method;
+	}
+	public void setDisplay_method(char display_method) {
+		this.display_method = display_method;
+	}
+	public char getForm_type() {
+		return form_type;
+	}
+	public void setForm_type(char form_type) {
+		this.form_type = form_type;
+	}
+	public char getIs_null() {
+		return is_null;
+	}
+	public void setIs_null(char is_null) {
+		this.is_null = is_null;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	public FormStatus getStatus() {
 		return status;
 	}
@@ -51,22 +84,11 @@ public class Form {
 	public void setPhsic_name(String phsic_name) {
 		this.phsic_name = phsic_name;
 	}
-	public Date getStats_time() {
-		return stats_time;
-	}
-	public void setStats_time(Date stats_time) {
-		this.stats_time = stats_time;
-	}
-	public String getIs_null() {
-		return is_null;
-	}
-	public void setIs_null(String is_null) {
-		this.is_null = is_null;
-	}
-	public int getDependency_form() {
+
+	public String getDependency_form() {
 		return dependency_form;
 	}
-	public void setDependency_form(int dependency_form) {
+	public void setDependency_form(String dependency_form) {
 		this.dependency_form = dependency_form;
 	}
 	public String getTemplate_loc() {
@@ -80,12 +102,6 @@ public class Form {
 	}
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
-	}
-	public String getForm_type() {
-		return form_type;
-	}
-	public void setForm_type(String form_type) {
-		this.form_type = form_type;
 	}
 	
 }

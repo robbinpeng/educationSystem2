@@ -1,13 +1,22 @@
 <?page title="test some code" contentType="text/html;charset=UTF-8"?>
 <zk>
+<zscript>
+import com.philip.edu.excel.*;
+</zscript>
 <window id="wnd" title="test some code" visible="false" border="normal">
 	<button label="close" onClick="wnd.visible = false" />
 </window>
 <button label="do it" onClick="wnd.doModal()" />
+<button label="save file" onClick="saveFile()" />
 
 <window title="My Modal" width="300px" closable="true">
-<zscript>
-	Events.postEvent("onModal", self, null);
-</zscript>
 </window>
+<zscript>
+void saveFile(){
+	String path = Sessions.getCurrent().getWebApp().getRealPath("");
+	path += "/template/test.xls";
+	boolean b = ExcelManager.generateTemplate(com.philip.edu.basic.Constants.FORM_ID, path);
+	System.out.println("success!");
+}
+</zscript>
 </zk>

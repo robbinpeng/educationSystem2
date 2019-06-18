@@ -14,13 +14,16 @@
 		<property name="tbl_name" column="tbl_name" type="java.lang.String" />
 		<property name="bus_name" column="bus_name" type="java.lang.String" />
 		<property name="phsic_name" column="phsic_name" type="java.lang.String" />
-		<property name="stats_time" column="stats_time" type="java.util.Date" />
-		<property name="form_type" column="form_type" type="java.lang.String" />
-		<property name="dependency_form" column="dependency_form" type="int" />
+		<property name="stats_time" column="stats_time" type="java.lang.Character" />
+		<property name="display_method" column="display_method" type="java.lang.Character" />
+		<property name="form_type" column="form_type" type="java.lang.Character" />
+		<property name="is_null" column="is_null" type="java.lang.Character" />
+		<property name="dependency_form" column="dependency_form" type="java.lang.String" />
 		<property name="template_loc" column="template_loc" type="java.lang.String" />
 		<property name="create_time" column="create_time" type="java.util.Date" />
+		<property name="memo" column="memo" type="java.lang.String" />
 		<one-to-one name="status" class="com.philip.edu.basic.FormStatus"
-			cascade="save-update"></one-to-one>
+			cascade="all"></one-to-one>
 	</class>
 	
 	<class name="com.philip.edu.basic.FormField" lazy="true" table="tbl_form_fields">
@@ -30,14 +33,14 @@
 		</id>
 		<property name="bus_name" column="bus_name" type="java.lang.String" />
 		<property name="physic_name" column="physic_name" type="java.lang.String" />
-		<property name="is_required" column="is_required" type="java.lang.String" />
+		<property name="is_required" column="is_required" type="java.lang.Character" />
 		<property name="sequence" column="sequence" type="int" />
 		<property name="data_type" column="data_type" type="int" />
 		<property name="length" column="length" type="int" />
-		<property name="dis_method" column="dis_method" type="java.lang.String" />
-		<property name="is_report" column="is_report" type="java.lang.String" />
-		<property name="is_hidden" column="is_hidden" type="java.lang.String" />
-		<property name="compute" column="compute" type="java.lang.String" />
+		<property name="dis_method" column="dis_method" type="java.lang.Character" />
+		<property name="is_report" column="is_report" type="java.lang.Character" />
+		<property name="is_hidden" column="is_hidden" type="java.lang.Character" />
+		<property name="compute" column="compute" type="java.lang.Character" />
 		<property name="form_id" column="form_id" type="int" />
 	</class>
 	

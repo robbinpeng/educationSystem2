@@ -16,6 +16,19 @@ import com.philip.edu.basic.FormStatus;
 import com.philip.edu.basic.HibernateUtil;
 
 public class UploadDAO {
+	
+	public static void main(String[] args){
+		ArrayList al = new ArrayList();
+		String[] str = null;
+		String dependency = "(1),(3),(5)";
+		str = dependency.split(","); 
+		
+		for(int i = 0; i<str.length; i++){
+			String temp = str[i].substring(1, str[i].length()-1);
+			System.out.println("i:" + i + temp);
+		}
+	}
+	
 	public boolean uploadData(ArrayList list){
 		Session session = null;
 		boolean b = false;
@@ -61,16 +74,35 @@ public class UploadDAO {
 			status.setStatus(Constants.STATUS_SUCCESS);
 			session.save(status);
 			
-			//2.update depency table to uploadable;
-			Query query = session.createQuery("From Form where dependency_form="+form_id);
+			//2.update depency table to check whether can be changed to uploadable:
+			Query query = session.createQuery("From Form where dependency_form like :dependency");
+			query.setParameter("dependency", "%(" + form_id + ")%");
 			ArrayList list = (ArrayList)query.getResultList();
+			
+	
 			for(int i=0; i<list.size(); i++){
+				boolean isUploadable = true;
+				
 				Form form = (Form)list.get(i);
+				ArrayList tables = getDependencies(form.getDependency_form());				
 				
-				FormStatus status1 = session.get(FormStatus.class, form.getId());
+				for(int j=0; j<tables.size(); j++){
+					Integer table_id = (Integer)tables.get(j);
+					FormStatus status1 = session.get(FormStatus.class, table_id.intValue());
+					
+					if(status1.getStatus()!=Constants.STATUS_SUCCESS){
+						isUploadable = false;
+						break;
+					}
+				}
 				
-				status1.setStatus(Constants.STATUS_UPLOADABLE);
-				session.save(status1);
+				if(isUploadable){
+					FormStatus status2 = session.get(FormStatus.class, form.getId());
+					
+					status2.setStatus(Constants.STATUS_UPLOADABLE);
+					session.save(status2);					
+				}
+				
 			}
 			
 			session.getTransaction().commit();
@@ -83,6 +115,20 @@ public class UploadDAO {
 		}
 		
 		return isSuccess;
+	}
+	
+	private ArrayList getDependencies(String dependency){
+		ArrayList al = new ArrayList();
+		String[] str = null;
+		str = dependency.split(","); 
+		for(int i = 0; i<str.length; i++){
+			String temp = str[i].substring(1, str[i].length()-1);
+			//System.out.println(temp);
+			int table_id = Integer.parseInt(temp);
+			al.add(table_id);
+		}
+		
+		return al;
 	}
 
 	public int rollbackData(String table_name){
@@ -125,9 +171,11 @@ public class UploadDAO {
 			status.setStatus(Constants.STATUS_UPLOADABLE);
 			session.save(status);
 			
-			//2.update depency table to uploadable;
-			Query query = session.createQuery("From Form where dependency_form="+form_id);
+			//2.update depency table to create;
+			Query query = session.createQuery("From Form where dependency_form like :dependency");
+			query.setParameter("dependency", "%(" + form_id + ")%");
 			ArrayList list = (ArrayList)query.getResultList();
+			
 			for(int i=0; i<list.size(); i++){
 				Form form = (Form)list.get(i);
 				
