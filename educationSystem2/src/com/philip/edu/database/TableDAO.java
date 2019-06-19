@@ -89,7 +89,7 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			session.save(field);
+			session.update(field);
 			
 			session.getTransaction().commit();
 			isSuccess = true;
@@ -197,7 +197,7 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			session.save(form);
+			session.update(form);
 			
 			session.getTransaction().commit();
 			isSuccess = true;

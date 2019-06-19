@@ -119,7 +119,7 @@ public class Constants {
 	public static final char V_DISPLAY_SINGLE_RECORD = 'S';
 	public static final String DIP_DISPLAY_SINGLE_RECORD = "单条记录";
 	public static final char V_DISPLAY_GENERAL_LIST = 'G';
-	public static final String DIP_DIPLAY_GENERAL_LIST = "通用列表";
+	public static final String DIP_DISPLAY_GENERAL_LIST = "通用列表";
 	
 	public static final char V_DISPLAY_SINGLE_TEXTBOX = 'T';
 	public static final String DIP_DISPLAY_SINGLE_TEXTBOX = "单行输入框";

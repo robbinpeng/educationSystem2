@@ -1,0 +1,21 @@
+<window id="cfWindow" title="新建数据字段" apply="com.philip.edu.action.FieldCreateController" width="800px" action="show: slideDown;hide: slideUp">
+<grid>
+<rows>
+	<row><cell align="left" width="15%">字段业务名称<label style="color:red">*</label></cell><cell align="left"><textbox id="bus_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell><cell width="15%">字段物理名称<label style="color:red">*</label></cell><cell><textbox id="physic_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"/></cell></row>
+	<row><cell align="left" width="15%">字段顺序<label style="color:red">*</label></cell><cell align="left"><textbox id="sequence" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell><cell width="15%">数据类型</cell><cell><combobox id="data_type"><comboitem label="字符型(字数小于2000)" value="1"/><comboitem label="整数型" value="2"/><comboitem label="小数型" value="3"/><comboitem label="日期型" value="4"/><comboitem label="字符型(字数大于2000)" value="5"/></combobox></cell></row>
+	<row><cell align="left" width="15%">长度<label style="color:red">*</label></cell><cell align="left"><textbox id="length" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"/></cell><cell width="15%">必填字段</cell><cell><combobox id="is_required"><comboitem label="可空" value="N"/><comboitem label="必填" value="Y"/></combobox></cell></row>
+	<row><cell align="left" width="15%">是否上报</cell><cell><combobox id="is_report"><comboitem label="是" value="Y"/><comboitem label="否" value="N"/></combobox></cell><cell width="15%">是否隐藏</cell><cell><combobox id="is_hidden"><comboitem label="否" value="N"/><comboitem label="是" value="Y"/></combobox></cell></row>
+	<row><cell align="left" width="15%">显示方式</cell><cell align="left"><combobox id="display_method"><comboitem label="单行输入框" value="T"/><comboitem label="多行输入框" value="M"/><comboitem label="富文本" value="R"/><comboitem label="日期控件" value="D"/><comboitem label="下拉单选框" value="C"/><comboitem label="下拉多选框" value="P"/><comboitem label="文件上传控件" value="U"/></combobox></cell><cell width="15%">字段类型</cell><cell><combobox id="compute"><comboitem label="实体列" value="P"/><comboitem label="虚拟列" value="V"/><comboitem label="计算列" value="C"/></combobox></cell></row>
+	<row><cell align="left">备注</cell><cell align="left" colspan="3"><textbox id="memo" rows="3" cols="80"></textbox></cell></row>
+	<row><cell align="right" colspan="4"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="创建" id="createBtn"></button></cell></row>
+</rows>
+</grid>
+<zscript>
+void txt_disapear(){
+	if("必填项".equals(self.value)){self.value="";}
+}
+void txt_show(){
+	if("".equals(self.value)){self.value="必填项"; self.style="color:grey";}
+}
+</zscript>
+</window>

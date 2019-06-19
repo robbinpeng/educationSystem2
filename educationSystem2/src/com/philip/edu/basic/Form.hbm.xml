@@ -42,6 +42,7 @@
 		<property name="is_hidden" column="is_hidden" type="java.lang.Character" />
 		<property name="compute" column="compute" type="java.lang.Character" />
 		<property name="form_id" column="form_id" type="int" />
+		<property name="memo" column="memo" type="java.lang.String" />
 	</class>
 	
 	<class name="com.philip.edu.basic.Rule" lazy="true" table="tbl_form_rules">

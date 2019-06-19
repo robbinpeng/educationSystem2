@@ -32,6 +32,27 @@ public class FormDAO {
 		return forms;
 	}
 	
+	public FormField getFieldById(int field_id){
+		FormField field = null;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			field = session.get(FormField.class, field_id);
+			
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return field;
+	}
+	
 	public Form getFormById(int form_id){
 		Session session = null;
 		Form form = null;

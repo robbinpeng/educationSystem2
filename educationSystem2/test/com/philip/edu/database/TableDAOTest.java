@@ -56,8 +56,8 @@ public class TableDAOTest {
 	@Test
 	public void testDeleteTable() {
 		
-		//boolean test = dao.deleteTable(8);
-		//assertEquals(test, true);
+		boolean test = dao.deleteTable(10);
+		assertEquals(test, true);
 	}
 	
 	@Test

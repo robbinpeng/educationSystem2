@@ -35,4 +35,8 @@ public class FormManager {
 	public Form getFormById(int form_id){
 		return dao.getFormById(form_id);
 	}
+	
+	public FormField getFieldById(int field_id){
+		return dao.getFieldById(field_id);
+	}
 }

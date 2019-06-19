@@ -80,5 +80,6 @@
 	<classpathentry kind="lib" path="D:/Users/Administrator/git/educationSystem2/educationSystem2/WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="D:/Users/Administrator/git/educationSystem2/educationSystem2/WebContent/WEB-INF/lib/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="D:/Users/Administrator/git/educationSystem2/educationSystem2/WebContent/WEB-INF/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Administrator/git/educationSystem2/educationSystem2/WebContent/WEB-INF/lib/atlantic-8.6.0.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

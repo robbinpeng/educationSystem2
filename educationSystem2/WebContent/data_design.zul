@@ -1,15 +1,16 @@
 <?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="字段设计" border="normal" apply="com.philip.edu.action.FormTableController">
+<window id="fWindow" title="字段设计" border="normal" apply="com.philip.edu.action.FormTableController">
 <grid>
 <rows>
 <row align="right">
-<toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton>
+<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><button id="update" label="修改"></button><button id="delete" label="删除"></button><toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton></cell>
 </row>
 </rows>
 </grid>
-<listbox id="fieldList" emptyMessage="系统中还没有表" >
+<listbox id="fieldList" emptyMessage="表中还没有字段" >
         <listhead>
+        	<listheader/>
             <listheader label="业务字段名"/>
             <listheader label="物理字段名" />
             <listheader label="必填项" />
@@ -23,6 +24,7 @@
         </listhead>
         <template name="model" sclass="narrow">
             <listitem>
+            	<listcell><radio id="${each.id}" radiogroup="fieldChose" /></listcell>
                 <listcell label="${each.bus_name}"></listcell>
                 <listcell label="${each.physic_name}"></listcell>
                 <listcell label="${each.is_required}"></listcell>

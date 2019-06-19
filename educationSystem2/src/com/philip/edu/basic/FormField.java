@@ -13,6 +13,13 @@ public class FormField{
 	private char is_hidden;
 	private char compute;
 	private int form_id;
+	private String memo;
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	public int getId() {
 		return id;
 	}

@@ -3,10 +3,11 @@
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
 ]]></zscript>
-<window title="数据采集" border="normal" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
-<button id="create" label="新建"></button>
+<window id="dbWindow" title="数据采集" border="normal" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
+<radiogroup id="tblChose"/><button id="create" label="新建"></button><button id="update" label="修改"></button><button id="delete" label="删除"></button>
 <listbox id="formlist" emptyMessage="系统中还没有表" >
         <listhead>
+        	<listheader width="3%"/>
             <listheader label="序号" width="5%"/>
             <listheader label="待采集表" width="20%"/>
             <listheader label="采集状态" />
@@ -18,6 +19,7 @@ import com.philip.edu.basic.*;
         </listhead>
         <template name="model" sclass="narrow">
             <listitem value="${each.id}">
+            	<listcell><radio id="${each.id}" radiogroup="tblChose" /></listcell>
                 <listcell label="${each.id}"></listcell>
                 <listcell><toolbarbutton href="/data_list.zul?form_id=${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
