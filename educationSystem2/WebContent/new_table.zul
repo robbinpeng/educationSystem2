@@ -1,0 +1,16 @@
+<window title="新建表" apply="com.philip.edu.action.TableCreateController" width="600px">
+<grid>
+<rows>
+	<row>业务表名<textbox id="bus_name"></textbox></row>
+	<row>物理表名<textbox id="physic_name"></textbox></row>
+	<row>统计时间<combobox id="stat_time"><comboitem label="时点" value="P"/><comboitem label="学年" value="S"/><comboitem label="自然年" value="N"/><comboitem label="当前年" value="C"/></combobox></row>
+	<row>表类型<combobox id="form_type"><comboitem label="自定义表" value="P"/><comboitem label="教学基本状态表" value="S"/><comboitem label="专业评估" value="V"/><comboitem label="课程评估" value="C"/><comboitem label="高基报表" value="H"/></combobox></row>
+	<row>是否可空<combobox id="is_null"><comboitem label="否" value="N"/><comboitem label="是" value="Y"/></combobox></row>
+	<row>展示方式<combobox id="dis_method"><comboitem label="通用列表" value="G"/><comboitem label="单条记录" value="S"/></combobox></row>
+	<row>依赖表<textbox id="dependency"></textbox></row>
+	<row>定制页面<textbox id="customize"></textbox></row>
+	<row>说明<textbox id="memo" rows="3"></textbox></row>
+	<row align="right"><button label="取消"></button><button label="创建"></button></row>
+</rows>
+</grid>
+</window>

@@ -4,6 +4,7 @@
 import com.philip.edu.basic.*;
 ]]></zscript>
 <window title="数据采集" border="normal" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
+<button id="create" label="新建"></button>
 <listbox id="formlist" emptyMessage="系统中还没有表" >
         <listhead>
             <listheader label="序号" width="5%"/>

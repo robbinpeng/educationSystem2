@@ -46,6 +46,9 @@ public class UploadController extends SelectorComposer<Component> {
 
 	@Wire
 	private Listbox formlist;
+	
+	@Wire
+	private Button create;
 
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
@@ -55,6 +58,13 @@ public class UploadController extends SelectorComposer<Component> {
 		formlist.setModel(new ListModelList<Form>(forms));
 
 		// formlist.getChildren();
+	}
+	
+	@Listen("onClick = #create")
+	public void createTable() {
+		Window window2 = (Window) Executions.createComponents("/new_table.zul", null, null);
+		
+		window2.doModal();
 	}
 
 	@Listen("onUpload = #formlist")
