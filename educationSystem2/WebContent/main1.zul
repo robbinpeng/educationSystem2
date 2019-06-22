@@ -1,0 +1,454 @@
+<?page title="填报模板维护" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div style="padding: 5px 0px 2px 0px;"  hflex="1" vflex="1">
+		<borderlayout id="bdlBody"
+			visible="true">
+			<north border="none" height="45px"
+				style="border-bottom:solid 2px #5687A8;">
+				<div>
+					<hbox align="center">
+						<radiogroup id="rdgTemType">
+							<hlayout>
+								<radio id="rdTemTypeMaster"
+									label="主数据模板 " checked="true" />
+								<separator />
+								<separator />
+								<radio id="rdTemTypeTransaction"
+									label="交易数据模板" />
+							</hlayout>
+						</radiogroup>
+						<separator />
+						<separator />
+						<bandbox id="bbTemplate" value="请选择模板"
+							readonly="true">
+							<bandpopup>
+								<listbox id="lbTemplate" mold="paging"
+									width="800px" pageSize="10">
+									<listhead>
+										<listheader width="180px"
+											label="模板名" align="center" />
+										<listheader width="80px"
+											label="启用状态" align="center" />
+										<listheader width="150px"
+											label="创建日期" align="center" />
+										<listheader label="备注"
+											align="center" />
+									</listhead>
+								</listbox>
+							</bandpopup>
+						</bandbox>
+						<separator />
+						<separator />
+						<button id="btnDeleteTem" label="删除模板"></button>
+						<button id="btnCreateTem" label="新建模板"></button>
+						<!-- 						<button id="btnReplicateTem" label="复制"></button> -->
+						<button id="btnSaveTem" label="保存模板"></button>
+						<button id="btnMaintainDataLbl"
+							label="维护交易数据标签">
+						</button>
+					</hbox>
+				</div>
+			</north>
+			<center border="none" hflex="1" vflex="1">
+				<div style="padding: 15px 0px 0px 0px;" hflex="1"
+					vflex="1">
+					<columnlayout hflex="1" vflex="1">
+						<columnchildren width="60%">
+							<vlayout>
+								<grid style="border:none;"
+									oddRowSclass="none" hflex="1" height="130px">
+									<columns>
+										<column width="80px"></column>
+										<column></column>
+										<column width="10px"></column>
+										<column width="80px"></column>
+										<column></column>
+										<column width="10px"></column>
+										<column width="80px"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row
+											style="border:none;background:white;">
+											<cell>
+												<label>模板技术名</label>
+											</cell>
+											<cell>
+												<textbox
+													id="tbTemTechName" hflex="1" height="30px">
+												</textbox>
+											</cell>
+											<space />
+											<cell>
+
+												<label>模板中文名</label>
+											</cell>
+											<cell>
+												<textbox
+													id="tbTemBizNameChs" hflex="1" height="30px">
+												</textbox>
+											</cell>
+											<space />
+											<cell>
+												<label>模板英文名</label>
+											</cell>
+											<cell>
+												<textbox
+													id="tbTemBizNameEnu" hflex="1" height="30px">
+												</textbox>
+											</cell>
+										</row>
+										<row
+											style="border:none;background:white;">
+											<cell>
+												<label>所属用户</label>
+											</cell>
+											<textbox id="tbTemOwner"
+												hflex="1" height="30px">
+											</textbox>
+											<space />
+											<cell>
+												<label>创建日期</label>
+											</cell>
+											<textbox id="tbCreateDate"
+												hflex="1" height="30px">
+											</textbox>
+											<space />
+											<cell>
+												<label>是否启用</label>
+											</cell>
+											<cell>
+												<radiogroup
+													id="rdgEnabled">
+													<hlayout>
+														<radio
+															id="rdEnabledYes" label="启用 " checked="true" />
+														<separator />
+														<separator />
+														<separator />
+														<radio
+															id="rdEnabledNo" label="不启用" />
+													</hlayout>
+												</radiogroup>
+											</cell>
+
+										</row>
+										<row
+											style="border:none;background:white;">
+											<cell>
+												<label>备注</label>
+											</cell>
+											<cell colspan="7">
+												<textbox
+													id="tbTemComment" hflex="1" height="30px">
+												</textbox>
+											</cell>
+										</row>
+									</rows>
+								</grid>
+								<listbox id="lbTemplateField" hflex="1"
+									mold="paging" emptyMessage="无数据可显示" pageSize="10"
+									pagingPosition="bottom">
+									<auxhead>
+										<auxheader colspan="2">
+											<button hflex="1"
+												id="btnAddNewField" label="添加" tooltiptext="加入新字段">
+											</button>
+										</auxheader>
+										<auxheader>
+											<textbox
+												id="tbNewFieldTechName" hflex="1">
+											</textbox>
+										</auxheader>
+										<auxheader>
+											<textbox
+												id="tbNewFieldBizNameChs" hflex="1">
+											</textbox>
+										</auxheader>
+										<auxheader>
+											<textbox
+												id="tbNewFieldBizNameEnu" hflex="1">
+											</textbox>
+										</auxheader>
+										<auxheader>
+											<combobox hflex="1"
+												readonly="true" id="cbNewFieldType">
+												<comboitem
+													label="STRING">
+												</comboitem>
+												<comboitem
+													label="INTEGER">
+												</comboitem>
+												<comboitem
+													label="DECIMAL">
+												</comboitem>
+											</combobox>
+										</auxheader>
+										<auxheader align="center">
+											<radiogroup
+												id="rdgNewFieldMandantory">
+												<radio
+													id="rdgNewFieldMandantoryYes" label="必填 " />
+												<radio
+													id="rdgNewFieldMandantoryNo" label="可填" checked="true" />
+											</radiogroup>
+										</auxheader>
+									</auxhead>
+
+									<listhead>
+										<listheader label="操作"
+											align="center" width="130px" />
+										<listheader label="序号"
+											align="center" width="40px" />
+										<listheader label="字段技术名"
+											align="center" />
+										<listheader label="字段中文名"
+											align="center" />
+										<listheader label="字段英文名"
+											align="center" />
+										<listheader label="字段类型"
+											align="center" width="120px" />
+										<listheader label="是否必填"
+											align="center" width="110px" />
+									</listhead>
+								</listbox>
+							</vlayout>
+						</columnchildren>
+						<columnchildren width="30px"></columnchildren>
+						<columnchildren width="40%">
+							<vbox align="center" hflex="1">
+								<grid style="border:none;"
+									oddRowSclass="none" hflex="1">
+									<columns>
+										<column width="100px"></column>
+										<column></column>
+										<column width="20px"></column>
+										<column width="100px"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row>
+											<label>大于等于</label>
+											<cell>
+												<textbox
+													id="tbGreaterEqual" hflex="1" height="30px">
+												</textbox>
+											</cell>
+											<space />
+											<label>小于等于</label>
+											<cell>
+												<textbox
+													id="tbLessEqual" hflex="1" height="30px">
+												</textbox>
+											</cell>
+										</row>
+										<row>
+											<label>大于</label>
+											<cell>
+												<textbox
+													id="tbGreaterThan" hflex="1" height="30px">
+												</textbox>
+											</cell>
+											<space />
+											<label>小于</label>
+											<cell>
+												<textbox id="tbLessThan"
+													hflex="1" height="30px">
+												</textbox>
+											</cell>
+										</row>
+										<row>
+											<label>正则校验定义</label>
+											<cell colspan="4">
+												<textbox
+													id="tbRegularExp" hflex="1" height="30px">
+												</textbox>
+											</cell>
+										</row>
+										<row>
+											<label>逻辑校验SQL</label>
+											<cell colspan="4">
+												<textbox id="tbReferSQL"
+													multiline="true" hflex="1" height="200px">
+												</textbox>
+											</cell>
+										</row>
+									</rows>
+								</grid>
+								<grid style="border:none;"
+									oddRowSclass="none" hflex="1">
+									<columns>
+										<column width="80px"></column>
+										<column></column>
+										<column width="10px"></column>
+										<column width="80px"></column>
+										<column></column>
+										<column width="10px"></column>
+										<column width="80px"></column>
+										<column></column>
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<label>SQL P1</label>
+											<combobox id="cbReferSQLP1"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P2</label>
+											<combobox id="cbReferSQLP2"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P3</label>
+											<combobox id="cbReferSQLP3"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+										</row>
+										<row style="border:none;">
+											<label>SQL P4</label>
+											<combobox id="cbReferSQLP4"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+											<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P5</label>
+											<combobox id="cbReferSQLP5"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P6</label>
+											<combobox id="cbReferSQLP6"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+										</row>
+										<row style="border:none;">
+											<label>SQL P7</label>
+											<combobox id="cbReferSQLP7"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P8</label>
+											<combobox id="cbReferSQLP8"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+											<space />
+											<label>SQL P9</label>
+											<combobox id="cbReferSQLP9"
+												value="选择字段" hflex="1" height="30px" readonly="true">
+												<template
+													name="model">
+													<comboitem
+														label="${each.fieldTechName}" />
+												</template>
+											</combobox>
+										</row>
+									</rows>
+								</grid>
+								<space />
+								<button id="btnSaveValidationField"
+									label="保存校验定义">
+								</button>
+							</vbox>
+						</columnchildren>
+					</columnlayout>
+				</div>
+			</center>
+		</borderlayout>
+		<window id="winTransactionLabelMaintain" position="center"
+			height="520px" width="800px" title="交易数据标签维护" visible="false"
+			border="normal">
+			<borderlayout>
+				<center border="none">
+					<columnlayout>
+						<columnchildren>
+							<hbox pack="center" align="center">
+								<textbox id="tbDataLablList"
+									multiline="true" height="400px" width="170px" />
+								<space />
+								<button id="btnAddDataLable" label="加入"
+									width="60px" />
+								<space />
+							</hbox>
+						</columnchildren>
+						<columnchildren>
+							<listbox width="500px" id="lbDataLabel"
+								emptyMessage="无数据可显示" height="400px">
+								<listhead>
+									<listheader label="标签" sort="auto"
+										align="center" />
+									<listheader label="创建日期"
+										width="180px" align="center" />
+									<listheader label="是否关联数据"
+										width="110px" align="center" />
+									<listheader label="操作" width="50px"
+										align="center" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="${each.dataLabel}" />
+										<listcell
+											label="${each.labelCreateTime}" />
+										<listcell
+											label="${each.withData}" />
+										<listcell>
+											<button label="-"
+												onClick="winTransactionLabelMaintain$composer.deleteDataLabel(self)"
+												id="btnDeleteLabel_${each.uuid}">
+											</button>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</columnchildren>
+					</columnlayout>
+				</center>
+				<south height="40px" border="none">
+					<hbox align="center" pack="center" hflex="1">
+						<button id="btnCloseTactWin" label="关闭"
+							onClick="winTransactionLabelMaintain.setVisible(false);" />
+					</hbox>
+				</south>
+			</borderlayout>
+		</window>
+	</div>
+</zk>

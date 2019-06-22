@@ -1,0 +1,130 @@
+<?page title="交易数据上载" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div style="padding: 5px 0px 2px 0px;" vflex="1" hflex="1">
+		<borderlayout
+			apply="com.bi.portal.zk.composer.UploadTransactComposer">
+			<north border="none" height="50px">
+				<div>
+					<hbox align="center">
+						<label value="模板"></label>
+						<combobox id="cbTemplate" width="150px"
+							value="请选择模板" readonly="true">
+							<template name="model">
+								<comboitem
+									label="${each.templateBizNameChs}"
+									id="cbiTem_${each.templateTechName}" />
+							</template>
+						</combobox>
+						<space />
+						<label value="标签"></label>
+
+						<bandbox id="bdxTemDataLabel" value="请选择标签">
+							<bandpopup width="850px" height="500px">
+								<listbox id="lbxTemDataLabel"
+									vflex="1">
+									<listhead>
+										<listheader width="150px"
+											label="标签" align="center" />
+										<listheader width="100px"
+											label="是否关联数据" align="center" />
+										<listheader width="150px"
+											label="提交时间" align="center" />
+										<listheader width="100px"
+											label="所属用户" align="center" />
+										<listheader label="备注"
+											align="center" />
+									</listhead>
+									<template name="model">
+										<listitem
+											value="${each.dataLabel}">
+											<listcell
+												label="${each.dataLabel}" />
+											<listcell
+												label="${each.withData}" />
+											<listcell
+												label="${each.dataSubmitTime}" />
+											<listcell
+												label="${each.dataOwner}" />
+											<listcell
+												label="${each.comment}" />
+										</listitem>
+									</template>
+								</listbox>
+							</bandpopup>
+						</bandbox>
+
+						<button id="btnQuery" label="查询"></button>
+						<button id="btnDeleteLabel" label="删除"></button>
+						<button id="btnDownloadData" label="下载数据"></button>
+						<button id="btnDownloadTem" label="下载模板"></button>
+						<space />
+						<space />
+						<fileupload id="fuFileUpload" label="上传" />
+						<button id="btnValidate" label="重校验"></button>
+						<button id="btnSave" label="保存"></button>
+						<radiogroup id="rdgDataDisplay">
+							<radio id="rdDisplayAll" label="全部数据"
+								checked="true" />
+							<radio id="rdDisplayCorrect" label="正确数据" />
+							<radio id="rdDisplayError" label="错误数据" />
+						</radiogroup>
+					</hbox>
+				</div>
+
+			</north>
+			<center border="none" hflex="1" vflex="1">
+				<listbox id="lbxContent" emptyMessage="无数据可显示"
+					sizedByContent="false" mold="paging" pagingPosition="bottom"
+					pageSize="100" vflex="1">
+					<listhead></listhead>
+					<template name="model">
+						<listitem></listitem>
+					</template>
+				</listbox>
+			</center>
+			<south border="none"></south>
+		</borderlayout>
+
+		<window id="winSaveConfirm" position="center" height="350px"
+			width="400px" title="保存至数据标签" visible="false" border="normal">
+			<grid style="border:none;" oddRowSclass="none">
+				<columns>
+					<column width="100px"></column>
+					<column></column>
+				</columns>
+				<rows>
+					<row style="border:none;" valign="middle"
+						height="50px">
+						<label>标签:</label>
+						<label id="lblDataLabel" />
+					</row>
+					<row valign="middle" height="50px"
+						style="border:none;">
+						<label>所属用户:</label>
+						<label id="lblLabelOwner" />
+					</row>
+					<row valign="middle" height="120px"
+						style="border:none;">
+						<label>备注</label>
+						<textbox id="tbxLabelComment" multiline="true"
+							hflex="1" height="100px">
+						</textbox>
+					</row>
+					<row style="border:none;" height="10px"></row>
+					<row height="50px"
+						style="border:none;background:white;">
+						<cell colspan="2">
+							<hbox align="center" pack="center"
+								hflex="1">
+								<button id="btnSaveConfirm" label="保存" />
+								<space />
+								<button id="btnSaveCancel" label="取消"
+									onClick="winSaveConfirm.setVisible(false);" />
+							</hbox>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+		</window>
+	</div>
+</zk>

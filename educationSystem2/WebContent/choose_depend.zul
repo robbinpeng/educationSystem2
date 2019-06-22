@@ -1,0 +1,16 @@
+<?page title="choose dependency table" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="选择依赖表" apply="com.philip.edu.action.DependencyController">
+<div viewModel="@id('vm') @init('com.philip.edu.action.ChosenboxViewModel')">
+	<grid model="@load(vm.formModel)">
+		<auxhead><auxheader><textbox instant="true" value="@bind(vm.filter)" onChange="@command('changeFilter')"/></auxheader></auxhead>
+		<columns><column>表名</column></columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.bus_name)"></label>
+			</row>
+		</template>
+	</grid>
+</div>
+</window>
+</zk>

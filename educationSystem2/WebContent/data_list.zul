@@ -1,6 +1,6 @@
 <?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="window1" title="数据表" border="normal" apply="com.philip.edu.action.TableDataController">
+<window id="window1" title="数据表" apply="com.philip.edu.action.TableDataController">
 <grid>
 <rows>
 <row align="right">

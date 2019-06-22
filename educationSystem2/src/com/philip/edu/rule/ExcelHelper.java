@@ -96,7 +96,8 @@ public class ExcelHelper {
 			if (DateUtil.isCellDateFormatted(cell)) {
 				cellValue = cell.getDateCellValue();
 			} else {
-				cellValue = cell.getNumericCellValue();
+				if(cell.getNumericCellValue()%1==0)cellValue = new Integer(new Double(cell.getNumericCellValue()).intValue());
+				else cellValue = cell.getNumericCellValue();
 			}
 		} else if (cellType == CellType.BOOLEAN) {
 			cellValue = cell.getBooleanCellValue();

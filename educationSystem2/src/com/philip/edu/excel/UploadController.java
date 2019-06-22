@@ -63,6 +63,9 @@ public class UploadController extends SelectorComposer<Component> {
 	private Button delete;
 	
 	@Wire
+	private Button design;
+	
+	@Wire
 	private Radiogroup tblChose;
 
 	@Override
@@ -111,6 +114,19 @@ public class UploadController extends SelectorComposer<Component> {
 			 }
 		});
 	}
+	
+	/*@Listen("onClick = #design")
+	public void designTable() {
+		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");return;}
+		
+		String sID = tblChose.getSelectedItem().getId();
+		HashMap map = new HashMap();
+		map.put("form_id", sID);
+		
+		Window window4 = (Window) Executions.createComponents("/data_design.zul", null, map);
+		
+		window4.doModal();
+	}*/
 
 	@Listen("onUpload = #formlist")
 	public void uploadExcel(Event event) {

@@ -52,7 +52,10 @@ public class RuleManager {
 				case 3:
 					//
 					logger.info("处理第三类规则");
-					
+					Rule3ExistsCheck engine3 = new Rule3ExistsCheck();
+					message = engine3.getMessage(wb, object, form_id);
+					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					returnMessage.add(message);
 					break;
 				case 4:
 					//Only Check:

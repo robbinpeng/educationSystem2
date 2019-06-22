@@ -8,7 +8,7 @@ import org.zkoss.zhtml.Input;
 import org.json.*;
 import org.zkoss.zul.Label;
 ]]></zscript> 
-<window title="自定义校验" border="normal" apply="com.philip.edu.action.RuleController">
+<window title="自定义校验" apply="com.philip.edu.action.RuleController">
 <grid>
 <rows>
 <row align="right">
@@ -51,7 +51,13 @@ import org.zkoss.zul.Label;
 					break;
 				default:
 					break;}]]></zscript></listcell>
-                <listcell label="${each.rule_content}"></listcell>
+                <listcell><image src="/img/eye.jpg" ><attribute name="onClick"><![CDATA[Popup pp = (Popup)self.getNextSibling();pp.open(pp);]]></attribute></image>
+                <popup width="300px">
+        			<groupbox closable="true">
+        			<caption>规则内容</caption>
+            		<html>${each.rule_content}</html>
+        			</groupbox>
+    			</popup></listcell>
                 <listcell label="${each.fail_information}"></listcell>
                 <listcell><zscript><![CDATA[if(each.rule_pattern=='1'){self.label=Constants.DISPLAY_RULE_PATTERN_LINE;}else{self.label=Constants.DISPLAY_RULE_PATTERN_TABLE;}]]></zscript></listcell>
                 <listcell label="${each.rule_seq}"></listcell>
@@ -69,7 +75,7 @@ import org.zkoss.zul.Label;
 </columns>
 <rows>
 <row>
-<cell>校验规则模式：<combobox id="rule_pattern" width="300px" onAfterRender="self.setSelectedIndex(1)"><comboitem label="行级校验" value="1"/><comboitem label="表级校验" value="2"/></combobox> </cell>
+<cell>校验规则模式：<combobox id="rule_pattern" width="300px" onBeforeRender="self.setSelectedIndex(1)"><comboitem label="行级校验" value="1"/><comboitem label="表级校验" value="2"/></combobox> </cell>
 <cell>校验规则名称：<textbox id="rule_name" width="300px" /></cell>
 </row>
 <row>
@@ -479,11 +485,15 @@ import org.zkoss.zul.Label;
 	int indexOp3 = 0;
 	void addOperator3(){
 		divOp3[indexOp3] = (Div)div.clone();
+		Combobox tempCom = new Combobox();
 		Input input = new Input();
 		input.setType("hidden");
-		input.setValue("c");
+		input.setValue("k");
 		divOp3[indexOp3].appendChild(input);
-		divOp3[indexOp3].appendChild((Combobox)opCom.clone());
+		Comboitem cItem = new Comboitem(Constants.OR);
+		tempCom.appendChild(cItem);
+		tempCom.setSelectedItem(cItem);
+		divOp3[indexOp3].appendChild(tempCom);
 	    	
 	    Image imageTemp = (Image)image.clone();
 	    ZScript script = new ZScript("java","delOperator3("+indexOp3+")");
@@ -1337,7 +1347,7 @@ import org.zkoss.zul.Label;
 					rulesArray.put(fieldObj);
 					break;
 				case 'f':
-					//Combobox,Combobox:
+					//Combobox,Combobox:	
 					JSONObject fieldObj = new JSONObject(true);
 					Combobox formCom = (Combobox)divChildren.get(1);
 					String formValue = formCom.getSelectedItem().getValue();

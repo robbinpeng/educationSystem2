@@ -1,10 +1,13 @@
 <?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window id="fWindow" title="字段设计" border="normal" apply="com.philip.edu.action.FormTableController">
+<zscript><![CDATA[
+import com.philip.edu.basic.*;
+]]></zscript>
+<window id="fWindow" title="字段设计" apply="com.philip.edu.action.FormTableController">
 <grid>
 <rows>
 <row align="right">
-<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><button id="update" label="修改"></button><button id="delete" label="删除"></button><toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton></cell>
+<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton></cell>
 </row>
 </rows>
 </grid>
@@ -27,14 +30,53 @@
             	<listcell><radio id="${each.id}" radiogroup="fieldChose" /></listcell>
                 <listcell label="${each.bus_name}"></listcell>
                 <listcell label="${each.physic_name}"></listcell>
-                <listcell label="${each.is_required}"></listcell>
+                <listcell><zscript><![CDATA[if(each.is_required=='Y')self.label="必填";else self.label="可选";]]></zscript></listcell>
                 <listcell label="${each.sequence}"></listcell>
-                <listcell label="${each.data_type}"></listcell>
-                <listcell label="${each.length}"></listcell>
+                <listcell><zscript><![CDATA[switch(each.data_type){
+                case Constants.V_DATA_TYPE_STRING:
+                	self.label = Constants.DIP_DATA_TYPE_STRING;break;
+                case Constants.V_DATA_TYPE_INTEGER:
+                	self.label = Constants.DIP_DATA_TYPE_INTEGER;break;
+                case Constants.V_DATA_TYPE_FLOAT:
+                	self.label = Constants.DIP_DATA_TYPE_FLOAT;break;
+                case Constants.V_DATA_TYPE_DATE:
+                	self.label = Constants.DIP_DATA_TYPE_DATE;break;
+                case Constants.V_DATA_TYPE_BIG_STRING:
+                	self.label = Constants.DIP_DATA_TYPE_BIG_STRING;break;
+                default:
+                	break;
+                }]]></zscript></listcell>
                 <listcell label="${each.dis_method}"></listcell>
-                <listcell label="${each.is_report}"></listcell>
-                <listcell label="${each.is_hidden}"></listcell>
-                <listcell label="${each.compute}"></listcell>
+                <listcell><zscript><![CDATA[switch(each.dis_method){
+                case Constants.V_DISPLAY_SINGLE_TEXTBOX:
+                	self.label = Constants.DIP_DISPLAY_SINGLE_TEXTBOX;break;
+                case Constants.V_DISPLAY_MUTIPLE_TEXTBOX:
+                	self.label = Constants.DIP_DISPLAY_MUTIPLE_TEXTBOX;break;
+                case Constants.V_DISPLAY_RICH_TEXT:
+                	self.label = Constants.DIP_DISPLAY_RICH_TEXT;break;
+                case Constants.V_DISPLAY_SINGLE_COMBOBOX:
+                	self.label = Constants.DIP_DISPLAY_SINGLE_COMBOBOX;break;
+                case Constants.V_DISPLAY_DATE_CONTROL:
+                	self.label = Constants.DIP_DISPLAY_DATE_CONTROL;break;
+                case Constants.V_DISPLAY_MULTIPLE_COMBOBOX:
+                	self.label = Constants.DIP_DISPLAY_MUTLIPLE_COMBOBOX;break;
+                case Constants.V_DISPLAY_UPLOAD_CONTROL:
+                	self.label = Constants.DIP_DISPLAY_UPLOAD_CONTROL;break;
+                default:
+                	break;
+                }]]></zscript></listcell>
+                <listcell><zscript><![CDATA[if(each.is_report=='Y')self.label="是";else self.label="否";]]></zscript></listcell>
+                <listcell><zscript><![CDATA[if(each.is_hidden=='Y')self.label="是";else self.label="否";]]></zscript></listcell>
+                <listcell><zscript><![CDATA[switch(each.compute){
+                case Constants.V_FIELD_TYPE_PHYSIC_COLUMN:
+                	self.label = Constants.DIP_FIELD_TYPE_PHYSIC_COLUMN;break;
+                case Constants.V_FIELD_TYPE_VIRTURAL_COLUMN:
+                	self.label = Constants.DIP_FIELD_TYPE_VERTURAL_COLUMN;break;
+                case Constants.V_FIELD_TYPE_COMPUTE_COLUMN:
+                	self.label = Constants.DIP_FIELD_TYPE_COMPUTE_COLUMN;break;
+                default:
+                	break;
+                }]]></zscript></listcell>
             </listitem>
         </template>
 </listbox>

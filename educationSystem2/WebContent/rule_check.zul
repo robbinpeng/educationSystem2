@@ -3,7 +3,7 @@
 <zscript><![CDATA[
 import org.zkoss.zk.ui.Executions;
 ]]></zscript> 
-<window id="modalDialog" title="以下记录校验不通过，违反规则" border="normal" apply="com.philip.edu.excel.RuleCheckDialogController">
+<window id="modalDialog" title="以下记录校验不通过，违反规则" apply="com.philip.edu.excel.RuleCheckDialogController">
 	<vlayout>
 	<textbox id="checkResult" rows="10" cols="50">
 	</textbox>

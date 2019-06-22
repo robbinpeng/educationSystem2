@@ -7,15 +7,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.jfree.util.Log;
 import org.junit.Test;
 
 import com.philip.edu.basic.Constants;
 
 public class RuleManagerTest {
 
+	private static Logger logger = Logger.getLogger(RuleManagerTest.class);
 	@Test
 	public void testRulesCheck() {
 		//do check process:
@@ -37,11 +40,12 @@ public class RuleManagerTest {
 					ArrayList al = message.getMessage_info();
 					for(int i=0; i<al.size(); i++){ 
 						System.out.println(al.get(i).toString());
+						logger.info(al.get(i).toString());
 					}
 				}
 			}
 
-			in = new FileInputStream("D:/Develop/education/test/1-11.xls");
+			/*in = new FileInputStream("D:/Develop/education/test/1-11.xls");
 			wb = WorkbookFactory.create(in);
 			
 			list = engine.rulesCheck(Constants.FORM_ID, wb);
@@ -54,7 +58,7 @@ public class RuleManagerTest {
 						System.out.println(al.get(i).toString());
 					}
 				}
-			}
+			}*/
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

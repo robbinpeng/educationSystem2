@@ -1,18 +1,27 @@
 <?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?> 
 <zk>
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
+import com.philip.edu.basic.Form;
+FormManager formManager = new FormManager();
 ]]></zscript>
-<window id="dbWindow" title="数据采集" border="normal" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
-<radiogroup id="tblChose"/><button id="create" label="新建"></button><button id="update" label="修改"></button><button id="delete" label="删除"></button>
+<window id="dbWindow" title="数据采集" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
+<grid>
+<rows>
+<row align="right">
+<cell colspan="4" align="right">
+<radiogroup id="tblChose"/><button id="create" label="新建"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><button id="design" label="数据表设计"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/data_design.zul?form_id="+sForm);}]]></attribute></button><space bar="false" spacing="20px" /><button id="rule" label="数据校验"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/rules.zul?form_id="+sForm);}]]></attribute></button>
+</cell>
+</row>
+</rows>
+</grid>
 <listbox id="formlist" emptyMessage="系统中还没有表" >
         <listhead>
         	<listheader width="3%"/>
             <listheader label="序号" width="5%"/>
-            <listheader label="待采集表" width="20%"/>
+            <listheader label="待采集表" width="35%"/>
             <listheader label="采集状态" />
-            <listheader label="数据表设计" />
-            <listheader label="数据校验" />
             <listheader label="数据模板下载" />
             <listheader label="数据文件上传" />
             <listheader label="退回"  width="8%"/>
@@ -23,10 +32,29 @@ import com.philip.edu.basic.*;
                 <listcell label="${each.id}"></listcell>
                 <listcell><toolbarbutton href="/data_list.zul?form_id=${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
-                <listcell><toolbarbutton label="数据表设计" href="/data_design.zul?form_id=${each.id}"></toolbarbutton></listcell>
-                <listcell><toolbarbutton label="数据校验" href="/rules.zul?form_id=${each.id}"/></listcell>
                 <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls"; Filedownload.save(file_name, null);]]></attribute></button></listcell>
-                <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button></listcell>
+                <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>
+                <popup width="300px">
+        			<groupbox closable="true">
+        			<caption>依赖表</caption>
+            		<html><zscript><![CDATA[
+            		String pop = "该表依赖于表：";
+            		String depend = each.dependency_form;
+            		String[] str = null;
+            		if(depend!=null && !depend.equals("")){
+            			str = depend.split(",");
+            			for(int i=0; i<str.length; i++){
+            				String temp = str[i].substring(1, str[i].length()-1);
+            				int table_id = Integer.parseInt(temp);
+            				Form form = formManager.getFormById(table_id);
+            				pop += form.getBus_name() + ",";
+            			}
+            			pop += "请先采集这些表的信息！";
+            			self.setContent(pop);
+            		}
+            		]]></zscript></html>
+        			</groupbox>
+    			</popup></listcell>
                 <listcell><button label="退回" forward="onClick=formlist.onRollback(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_SUCCESS)self.setDisabled(true);]]></zscript></button></listcell>
             </listitem>
         </template>
