@@ -1,0 +1,88 @@
+2019-06-10 10:02:45 [ main ] Translate many conditions using and has not been implemented!
+2019-06-10 10:09:09 [ main ] java.sql.SQLException: Parameter index out of range (0 < 1 ).
+2019-06-10 10:11:01 [ main ] java.sql.SQLException: Parameter index out of range (0 < 1 ).
+2019-06-10 10:14:00 [ main ] java.sql.SQLException: Parameter index out of range (0 < 1 ).
+2019-06-10 10:16:45 [ main ] java.lang.NullPointerException
+2019-06-10 10:17:59 [ main ] java.lang.NullPointerException
+2019-06-10 10:19:16 [ main ] java.lang.NullPointerException
+2019-06-10 16:58:42 [ main ] Unknown column 'form_id' in 'where clause'
+2019-06-10 17:03:03 [ main ] 连接数据库错误！
+2019-06-10 17:10:52 [ main ] 连接数据库错误！
+2019-06-10 18:50:48 [ main ] 连接数据库错误！
+2019-06-11 10:40:17 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 11:05:00 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 11:20:20 [ http-nio-8080-exec-14 ] Data truncation: Data too long for column 'rule_content' at row 1
+2019-06-11 11:22:23 [ http-nio-8080-exec-17 ] Data truncation: Data too long for column 'rule_content' at row 1
+2019-06-11 11:26:04 [ http-nio-8080-exec-1 ] Data truncation: Data too long for column 'rule_content' at row 1
+2019-06-11 12:42:55 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:43:58 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:44:59 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:44:59 [ main ] 连接数据库错误！
+2019-06-11 12:46:51 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:46:51 [ main ] 连接数据库错误！
+2019-06-11 12:50:44 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:50:44 [ main ] 连接数据库错误！
+2019-06-11 12:57:32 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 12:59:25 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:00:03 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:00:03 [ main ] 连接数据库错误！
+2019-06-11 13:00:19 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:00:20 [ main ] 连接数据库错误！
+2019-06-11 13:04:46 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:04:46 [ main ] 连接数据库错误！
+2019-06-11 13:07:49 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:07:49 [ main ] 连接数据库错误！
+2019-06-11 13:11:45 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:11:45 [ main ] 连接数据库错误！
+2019-06-11 13:22:15 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:22:15 [ main ] 连接数据库错误！
+2019-06-11 13:35:21 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:35:21 [ main ] 连接数据库错误！
+2019-06-11 13:38:47 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:40:41 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:40:41 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:42:08 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:45:08 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:46:59 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 13:48:24 [ main ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 15:43:05 [ http-nio-8080-exec-33 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 15:45:41 [ http-nio-8080-exec-32 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:13:39 [ http-nio-8080-exec-82 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:16:59 [ http-nio-8080-exec-82 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:28:24 [ http-nio-8080-exec-5 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:57:18 [ http-nio-8080-exec-21 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:58:24 [ http-nio-8080-exec-22 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 16:59:34 [ http-nio-8080-exec-20 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 17:01:39 [ http-nio-8080-exec-18 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-11 23:59:34 [ main ] The last packet successfully received from the server was 37,160,502 milliseconds ago.  The last packet sent successfully to the server was 37,160,502 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+2019-06-12 14:36:01 [ http-nio-8080-exec-21 ] 连接数据库错误！
+2019-06-12 14:36:09 [ http-nio-8080-exec-27 ] 连接数据库错误！
+2019-06-12 14:41:32 [ http-nio-8080-exec-40 ] 连接数据库错误！
+2019-06-12 14:44:41 [ http-nio-8080-exec-46 ] 连接数据库错误！
+2019-06-12 15:58:54 [ http-nio-8080-exec-6 ] 连接数据库错误！
+2019-06-12 16:00:01 [ http-nio-8080-exec-6 ] 连接数据库错误！
+2019-06-12 16:00:22 [ http-nio-8080-exec-4 ] 连接数据库错误！
+2019-06-12 16:03:01 [ http-nio-8080-exec-5 ] 连接数据库错误！
+2019-06-12 16:03:53 [ http-nio-8080-exec-4 ] 连接数据库错误！
+2019-06-12 16:05:09 [ http-nio-8080-exec-3 ] 连接数据库错误！
+2019-06-12 16:07:26 [ http-nio-8080-exec-5 ] 连接数据库错误！
+2019-06-12 16:10:24 [ http-nio-8080-exec-7 ] 连接数据库错误！
+2019-06-12 16:12:44 [ http-nio-8080-exec-4 ] 连接数据库错误！
+2019-06-12 16:13:40 [ http-nio-8080-exec-10 ] 连接数据库错误！
+2019-06-12 16:15:06 [ http-nio-8080-exec-5 ] 连接数据库错误！
+2019-06-12 16:19:24 [ http-nio-8080-exec-5 ] 连接数据库错误！
+2019-06-12 16:21:37 [ http-nio-8080-exec-6 ] 连接数据库错误！
+2019-06-12 16:51:40 [ main ] java.lang.NullPointerException
+2019-06-12 16:53:28 [ main ] java.lang.NullPointerException
+2019-06-12 16:55:09 [ main ] java.lang.NullPointerException
+2019-06-12 17:12:45 [ http-nio-8080-exec-8 ] com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: No operations allowed after connection closed.
+2019-06-12 18:14:40 [ main ] java.lang.NullPointerException
+2019-06-12 18:17:17 [ main ] 连接数据库错误！
+2019-06-12 18:19:59 [ main ] 连接数据库错误！
+2019-06-12 18:22:16 [ http-nio-8080-exec-6 ] 连接数据库错误！
+2019-06-12 18:25:08 [ main ] 连接数据库错误！
+2019-06-12 18:58:50 [ main ] 连接数据库错误！
+2019-06-12 19:20:19 [ main ] Incorrect integer value: 'p' for column 'STATUS' at row 1
+2019-06-12 22:05:49 [ http-nio-8080-exec-53 ] Table 'education.2_tbl_xqdz' doesn't exist
+2019-06-12 22:14:31 [ main ] Data truncation: Data too long for column 'TJSJ' at row 1
+2019-06-12 22:18:36 [ main ] Duplicate entry '0' for key 'PRIMARY'
