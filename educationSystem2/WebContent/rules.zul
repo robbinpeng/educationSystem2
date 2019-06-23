@@ -1768,7 +1768,6 @@ import org.zkoss.zul.Label;
 		boolean isCondition = false;
 		int start = 0;
 		int index = 0;
-		System.out.println("entering checkRule6");
 		JSONArray ruleList = (JSONArray)rules.get("rules");
 		for(int i=0; i<ruleList.length(); i++){
 			JSONObject obj = (JSONObject)ruleList.get(i);
@@ -1786,7 +1785,6 @@ import org.zkoss.zul.Label;
 		String typeRight = "";
 		
 		if(index<ruleList.length()){
-			System.out.println("entering first type");
 			JSONObject ob1 = (JSONObject)ruleList.get(index);
 			String type1 = ob1.getString("type");
 			if(!Constants.RULE_FORMFIELD.equals(type1))return false;
@@ -1797,7 +1795,6 @@ import org.zkoss.zul.Label;
 			for(int j=index+1; j<ruleList.length(); j++){
 				JSONObject obj2 = (JSONObject)ruleList.get(j);
 				typeRight = obj2.getString("type");
-				System.out.println("typeRight:" + typeRight);
 
 				if(typeLeft.equals(typeRight))return false;
 				

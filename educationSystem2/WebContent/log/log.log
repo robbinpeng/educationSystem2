@@ -1,2 +1,91 @@
 2019-06-23 10:28:18 [ http-nio-8080-exec-10 ] SQL Error: 0, SQLState: 08S01
 2019-06-23 10:28:18 [ http-nio-8080-exec-10 ] The last packet successfully received from the server was 40,323,234 milliseconds ago.  The last packet sent successfully to the server was 40,323,234 milliseconds ago. is longer than the server configured value of 'wait_timeout'. You should consider either expiring and/or testing connection validity before use in your application, increasing the server configured values for client timeouts, or using the Connector/J connection property 'autoReconnect=true' to avoid this problem.
+2019-06-24 00:20:22 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 00:20:22 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 00:20:22 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 00:20:22 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 00:20:23 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 00:20:23 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 00:20:23 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 00:20:23 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 00:20:23 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 00:20:24 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 00:20:25 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ad3a1bb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 00:21:27 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 00:21:27 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 00:21:27 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 00:21:27 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 00:21:29 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 00:21:29 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 00:21:29 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 00:21:29 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 00:21:29 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 00:21:29 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 00:21:30 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ad3a1bb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 00:23:06 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 00:23:06 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 00:23:07 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 00:23:07 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 00:23:08 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 00:23:08 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 00:23:08 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 00:23:08 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 00:23:08 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 00:23:08 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 00:23:09 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ad3a1bb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 00:24:28 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 00:24:28 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 00:24:28 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 00:24:28 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 00:24:29 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 00:24:29 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 00:24:29 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 00:24:29 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 00:24:29 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 00:24:30 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 00:24:31 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@38b972d7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 00:31:38 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 00:31:38 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 00:31:38 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 00:31:38 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 00:31:40 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 00:31:40 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 00:31:40 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 00:31:40 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 00:31:40 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 00:31:40 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 00:31:42 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@38b972d7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 01:32:11 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 01:32:11 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 01:32:12 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 01:32:12 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 01:32:13 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 01:32:13 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 01:32:13 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 01:32:13 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 01:32:13 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 01:32:14 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 01:32:15 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68105edc] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 01:35:47 [ main ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 01:35:47 [ main ] HHH000206: hibernate.properties not found
+2019-06-24 01:35:48 [ main ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 01:35:48 [ main ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 01:35:49 [ main ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 01:35:49 [ main ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 01:35:49 [ main ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 01:35:49 [ main ] HHH10001003: Autocommit mode: false
+2019-06-24 01:35:49 [ main ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 01:35:50 [ main ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 01:35:51 [ main ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3088660d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 01:37:02 [ http-nio-8080-exec-3 ] HHH000412: Hibernate Core {5.2.17.Final}
+2019-06-24 01:37:02 [ http-nio-8080-exec-3 ] HHH000206: hibernate.properties not found
+2019-06-24 01:37:02 [ http-nio-8080-exec-3 ] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2019-06-24 01:37:02 [ http-nio-8080-exec-3 ] HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-mapping. Use namespace http://www.hibernate.org/dtd/hibernate-mapping instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/education]
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH10001001: Connection properties: {user=root, password=****}
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH10001003: Autocommit mode: false
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH000115: Hibernate connection pool size: 20 (min=1)
+2019-06-24 01:37:05 [ http-nio-8080-exec-3 ] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2019-06-24 01:37:07 [ http-nio-8080-exec-3 ] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2a1d95a5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2019-06-24 01:37:09 [ http-nio-8080-exec-3 ] HHH000397: Using ASTQueryTranslatorFactory
