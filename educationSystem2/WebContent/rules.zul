@@ -8,6 +8,11 @@ import org.zkoss.zhtml.Input;
 import org.json.*;
 import org.zkoss.zul.Label;
 ]]></zscript> 
+<style>
+.mydiv{
+   white-space: normal;
+}
+</style>
 <window title="自定义校验" apply="com.philip.edu.action.RuleController">
 <grid>
 <rows>
@@ -222,6 +227,7 @@ import org.zkoss.zul.Label;
     		Messagebox.show("前置条件最多只有一个！");
     	} else {
     		divCon1[indexCon1] = (Div)div.clone();
+    		//divCon1[indexCon1].setClass("mydiv");
     		Input input = new Input();
     		input.setType("hidden");
     		input.setValue("a");
@@ -251,6 +257,7 @@ import org.zkoss.zul.Label;
 	int indexField1 = 0;
 	void addFormField1(){
 		divField1[indexField1] = (Div)div.clone();
+		//divField1[indexField1].setClass("mydiv");
 		Input input = new Input();
 		input.setType("hidden");
 		input.setValue("b");
@@ -1118,6 +1125,7 @@ import org.zkoss.zul.Label;
 			Comboitem yearItem = new Comboitem("" + i);
 			yearItem.setValue("" + i);
 			yearCom.appendChild(yearItem);
+			if(i==0)yearCom.setSelectedItem(yearItem);
 		}
 		divYear6[indexYear6].appendChild(yearCom);
 		
@@ -1191,6 +1199,14 @@ import org.zkoss.zul.Label;
 		//window1:
 			//window's rules:
 			//Messagebox.show("winodw1");
+			
+			//basic check:
+			if(rule_pattern.getSelectedItem()==null){Messagebox.show("必须选择校验规则模式!"); return;}
+			if(rule_name==null||"".equals(rule_name.getValue())){Messagebox.show("必须输入校验规则名称！"); return;}
+			if(rule_seq==null||"".equals(rule_seq.getValue())){Messagebox.show("校验规则顺序必须输入！"); return;}
+			if(fail_information==null||"".equals(fail_information.getValue())){Messagebox.show("必须输入检验失败信息！"); return;}
+		
+			//enter:
 			Rule rule = new Rule();
 			rule.setUser_id(Constants.USER_ID);
 			Session session = Sessions.getCurrent();
@@ -1206,6 +1222,12 @@ import org.zkoss.zul.Label;
 			//window1:
 			JSONObject rules = getWindowRules(window1);
 			if(rules!=null){
+				boolean b = checkRule1(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				
 				rule.setRule_class(1);
 				rule.setRule_content(rules.toString());
 				
@@ -1226,6 +1248,12 @@ import org.zkoss.zul.Label;
 			//Messagebox.show("winodw2");
 			rules = getWindowRules(window2);
 			if(rules!=null){
+				boolean b = checkRule2(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				
 				rule.setRule_class(2);
 				rule.setRule_content(rules.toString());
 				
@@ -1236,6 +1264,12 @@ import org.zkoss.zul.Label;
 			//Messagebox.show("winodw3");
 			rules = getWindowRules(window3);
 			if(rules!=null){
+				boolean b = checkRule3(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				
 				rule.setRule_class(3);
 				rule.setRule_content(rules.toString());
 				
@@ -1246,6 +1280,12 @@ import org.zkoss.zul.Label;
 			//Messagebox.show("winodw4");
 			rules = getWindowRules(window4);
 			if(rules!=null){
+				boolean b = checkRule4(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				
 				rule.setRule_class(4);
 				rule.setRule_content(rules.toString());
 				
@@ -1256,6 +1296,12 @@ import org.zkoss.zul.Label;
 			//Messagebox.show("winodw5");
 			rules = getWindowRules(window5);
 			if(rules!=null){
+				boolean b = checkRule5(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				
 				rule.setRule_class(5);
 				rule.setRule_content(rules.toString());
 				
@@ -1265,11 +1311,22 @@ import org.zkoss.zul.Label;
 		//window6:
 			//Messagebox.show("winodw6");
 			rules = getWindowRules(window6);
+			System.out.println("get rules");
 			if(rules!=null){
+				boolean b = checkRule6(rules);
+				if(!b){
+					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					return;
+				}
+				System.out.println("rule checked.");
 				//add format:
 				List al = window6.getChildren();
 				Div div = (Div)al.get(0);
 				Combobox comDate = div.getLastChild();
+				if(comDate.getSelectedItem()==null){
+					Messagebox.show("必须选择一种日期格式!");
+					return;
+				}
 				String format = comDate.getSelectedItem().getValue();
 				JSONArray array = rules.getJSONArray("rules");
 				JSONObject formatObj = new JSONObject();
@@ -1430,6 +1487,7 @@ import org.zkoss.zul.Label;
 					List al = window.getChildren();
 					Div div = (Div)al.get(0);
 					Combobox comDate = div.getLastChild();
+					if(comDate.getSelectedItem()==null){Messagebox.show("必须先选择日期格式!");break;}
 					String format = comDate.getSelectedItem().getValue();
 					Textbox textS = (Textbox)divChildren.get(1);
 					if(format.length()==textS.getValue().length()){
@@ -1445,7 +1503,7 @@ import org.zkoss.zul.Label;
 					JSONObject fieldObj = new JSONObject(true);
 					Combobox fieldCom = (Combobox)divChildren.get(1);
 					String fieldValue = fieldCom.getSelectedItem().getValue();
-					fieldObj.put("form",fieldValue).put("type",Constants.RULE_);
+					fieldObj.put("form",fieldValue).put("type",Constants.RULE_FORM_SUM);
 					rulesArray.put(fieldObj);
 					break;
 				case 'x':
@@ -1469,6 +1527,334 @@ import org.zkoss.zul.Label;
 		
 		return result;
 	}
+	boolean checkRule1(JSONObject rules){
+		boolean right = true;
+		String typeLeft = "";
+		String typeRight = "";
+		
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		for(int i=0; i<ruleList.length(); i++){
+			JSONObject obj = (JSONObject)ruleList.get(i);
+			String type = obj.getString("type");
+			if(type.equals(Constants.RULE_CONDITION)&&i!=0)return false;
+		}
+		
+		JSONObject obj1 = (JSONObject)ruleList.get(0);
+		typeLeft = obj1.getString("type");
+		for(int j=1; j<ruleList.length(); j++){
+			JSONObject obj2 = (JSONObject)ruleList.get(j);
+			typeRight = obj2.getString("type");
+			if(typeLeft.equals(typeRight))return false;
+			typeLeft = typeRight;
+		}
+		
+		return true;
+	}
+	
+	boolean checkRule2(JSONObject rules){
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		System.out.println("length:" + ruleList.length());
+		int index = 0;
+		while(index<ruleList.length()){
+			JSONObject obj1 = ruleList.getJSONObject(index);
+			if(obj1==null)return false;
+			String type = obj1.getString("type");
+			if(!Constants.RULE_FORMFIELD.equals(type))return false;
+			index++;
+			if(index>=ruleList.length())return false;
+			
+			JSONObject obj2 = ruleList.getJSONObject(index);
+			if(obj2==null)return false;
+			type = obj2.getString("type");
+			if(!Constants.RULE_RELATE_FORM.equals(type))return false;
+			index++;
+			if(index>=ruleList.length())return true;
+			
+			JSONObject obj3 = ruleList.getJSONObject(index);
+			if(obj3==null)return true;
+			type = obj3.getString("type");
+			if(!Constants.RULE_OP_AND.equals(type))return false;
+			index++;
+			if(index>=ruleList.length())return false;
+		}
+		
+		return true;
+	}
+	
+	boolean checkRule3(JSONObject rules){
+		boolean right = true;
+		boolean isCondition = false;
+		int start = 0;
+		int index = 0;
+		int fieldNum = 0;
+		boolean complete = false;
+		
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		for(int i=0; i<ruleList.length(); i++){
+			JSONObject obj = (JSONObject)ruleList.get(i);
+			String type = obj.getString("type");
+			if(type.equals(Constants.RULE_CONDITION)){
+				isCondition = true;
+				if(i!=0)return false;
+			}
+		}
+		
+		if(isCondition)start=1;
+		else start=0;
+		index = start;
+		
+		if(index<ruleList.length()){
+			JSONObject obj = ruleList.getJSONObject(index);
+			String type = obj.getString("type");
+			if(Constants.RULE_FORMFIELD.equals(type)){
+				fieldNum++;
+				index++;
+			}else{
+				return false;
+			}
+		} else if(complete){
+			return true;
+		} else return false;
+		
+		if(index<ruleList.length()){
+			JSONObject obj = ruleList.getJSONObject(index);
+			String type = obj.getString("type");
+			if(Constants.RULE_FORMFIELD.equals(type)){
+				fieldNum++;
+				index++;
+			} else if(Constants.RULE_RELATE_FORM.equals("type")){
+				complete = true;
+				index++;
+			} 
+		} else {
+			if(complete)return true;
+			else return false;
+		}
+		
+		if(index<ruleList.length()){
+			if(fieldNum==1){
+				if(complete)
+				{
+					for(int j=index; j<ruleList.length(); j++){
+						JSONObject o = ruleList.getJSONObject(j);
+						String t = o.getString("type");
+						if(!(Constants.RULE_OR.equals(t)||Constants.RULE_RELATE_FORM.equals(t)||Constants.RULE_FIELD_EQUAL.equals(t))){
+							return false;
+						}
+					}
+				} else {
+					return false;
+				}
+			} else if(fieldNum==2){
+				JSONObject obj = ruleList.getJSONObject(index);
+				String type = obj.getString("type");
+				if(Constants.RULE_RELATE_FORM_TWO.equals(type)){
+					index++;
+					complete = true;
+				} else {
+					return false;
+				}
+				
+				if(complete)
+				{
+					for(int j=index; j<ruleList.length(); j++){
+						JSONObject o = ruleList.getJSONObject(j);
+						String t = o.getString("type");
+						if(!(Constants.RULE_OR.equals(t)||Constants.RULE_RELATE_FORM_TWO.equals(t)||Constants.RULE_FIELD_EQUAL.equals(t))){
+							return false;
+						}
+					}
+				} else {
+					return false;
+				}
+				
+			}
+		} else {
+			if(complete)return true;
+			else return false;
+		}
+		
+		return true;
+	}
+	
+	boolean checkRule4(JSONObject rules){
+		String typeLeft="";
+		String typeRight="";
+		boolean isCondition = false;
+		int start = 0;
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		for(int i=0; i<ruleList.length(); i++){
+			JSONObject obj = (JSONObject)ruleList.get(i);
+			String type = obj.getString("type");
+			if(type.equals(Constants.RULE_CONDITION)){
+				isCondition = true;
+				if(i!=0)return false;
+			}
+		}
+		
+		if(isCondition)start=1;
+		else start=0;
+			
+		JSONObject obj1 = (JSONObject)ruleList.get(start);
+		typeLeft = obj1.getString("type");
+		if(Constants.RULE_SIMPLE_ADD.equals(typeLeft))return false;
+		for(int j=start+1; j<ruleList.length(); j++){
+			JSONObject obj2 = (JSONObject)ruleList.get(j);
+			typeRight = obj2.getString("type");
+			if(typeLeft.equals(typeRight))return false;
+			typeLeft = typeRight;
+		}
+		
+		if(Constants.RULE_SIMPLE_ADD.equals(typeLeft))return false;
+		
+		return true;
+	}
+	
+	boolean checkRule5(JSONObject rules){
+		int compareNum = 0;
+		int index = 0;
+		String typeLeft = "";
+		String typeRight = "";
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		for(int i=0; i<ruleList.length(); i++){
+			JSONObject obj = ruleList.getJSONObject(i);
+			String type = obj.getString("type");
+			if(Constants.RULE_OPERATOR.equals(type)){
+				String op = obj.getString("operator");
+				if(isCompareOperator(op)){
+					compareNum++;
+					if(compareNum==1)index=i;
+				}
+			}
+		}
+		if(compareNum!=1)return false;
+		
+		//left:
+		JSONObject ob1 = ruleList.getJSONObject(0);
+		typeLeft = ob1.getString("type");
+		if(!Constants.RULE_FORMFIELD.equals(typeLeft))return false;
+		int j=1;
+		for(j=1; j<index; j++){
+			JSONObject ob2 = ruleList.getJSONObject(j);
+			typeRight = ob2.getString("type");
+			if(typeLeft.equals(typeRight))return false;
+			typeLeft = typeRight;
+		}
+		//right:
+		j++;
+		if(j<ruleList.length()){
+			JSONObject obj = ruleList.getJSONObject(j);
+			String type = obj.getString("type");
+			if(Constants.RULE_RELATE_FORM.equals(type)){
+				j++;
+				if(j<ruleList.length())return false;
+			} else if(Constants.RULE_FORM_SUM.equals(type)) {
+				j++;
+				if(j<ruleList.length()){
+					JSONObject objT = ruleList.getJSONObject(j);
+					String typeTemp = objT.getString("type");
+					if(Constants.RULE_FIELD_SUM.equals(typeTemp)){
+						j++;
+						if(j<ruleList.length())return false;
+					} else return false;
+				} else return false;
+			} else return false;
+		} else return false;
+		
+		return true;
+	}
+	
+	boolean checkRule6(JSONObject rules){
+		boolean isCondition = false;
+		int start = 0;
+		int index = 0;
+		System.out.println("entering checkRule6");
+		JSONArray ruleList = (JSONArray)rules.get("rules");
+		for(int i=0; i<ruleList.length(); i++){
+			JSONObject obj = (JSONObject)ruleList.get(i);
+			String type = obj.getString("type");
+			if(Constants.RULE_CONDITION.equals(type)){
+				isCondition = true;
+				if(i!=0)return false;
+			}
+		}
+		
+		if(isCondition)start=1;
+		else start=0;
+		index = start;
+		String typeLeft = "";
+		String typeRight = "";
+		
+		if(index<ruleList.length()){
+			System.out.println("entering first type");
+			JSONObject ob1 = (JSONObject)ruleList.get(index);
+			String type1 = ob1.getString("type");
+			if(!Constants.RULE_FORMFIELD.equals(type1))return false;
+		} else return false;
+			
+		typeLeft = Constants.RULE_FORMFIELD;
+		String opValue = "";
+			for(int j=index+1; j<ruleList.length(); j++){
+				JSONObject obj2 = (JSONObject)ruleList.get(j);
+				typeRight = obj2.getString("type");
+				System.out.println("typeRight:" + typeRight);
+
+				if(typeLeft.equals(typeRight))return false;
+				
+				if(Constants.RULE_OPERATOR.equals(typeRight)){
+					opValue = obj2.getString("operator");
+					if(isCompareOperator(opValue))break;
+				}
+				
+				typeLeft = typeRight;
+				index++;
+			}
+			
+		if(!isCompareOperator(opValue))return false;
+		
+		index++;
+		index++;
+		
+		if(index<ruleList.length()){
+			JSONObject obj3 = (JSONObject)ruleList.get(index);
+			String type3 = obj3.getString("type");
+			if(Constants.RULE_TEXTBOX_DATE.equals(type3)){
+				index++;
+				if(index<ruleList.length()){
+					JSONObject obj6 = (JSONObject)ruleList.get(index);
+					String type6 = obj6.getString("type");
+					if(!Constants.RULE_OR.equals(type6))return false;
+				} else return true;
+			}
+			else if(Constants.RULE_YEAR_ADD.equals(type3)){
+					index++;
+					if(index<ruleList.length()){
+						JSONObject obj4 = (JSONObject)ruleList.get(index);
+						String type4 = obj4.getString("type");
+						if(!(Constants.RULE_MONTH.equals(type4)||Constants.RULE_OR.equals(type4)))return false;
+						index++;
+						if(index<ruleList.length()){
+							JSONObject obj5 = (JSONObject)ruleList.get(index);
+							String type5 = obj5.getString("type");
+							if(!(Constants.RULE_DAY.equals(type5)||Constants.RULE_OR.equals(type5)))return false;
+						} else return true;
+					} else return true;
+			} else return false;
+		}
+		
+		return true;
+	}
+	
+	 boolean isCompareOperator(String operator) {
+			boolean result = false;
+
+			if (Constants.V_GREATT.equals(operator) || Constants.V_GREATTE.equals(operator)
+					|| Constants.V_LESST.equals(operator) || Constants.V_LESSTE.equals(operator)
+					|| Constants.V_EQUAL.equals(operator)) {
+				result = true;
+			}
+			return result;
+		}
 ]]></zscript>
 </window>
 </zk>
