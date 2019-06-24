@@ -12,6 +12,7 @@ import org.hibernate.Session;
 
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.HibernateUtil;
+import com.philip.edu.rule.ExcelHelper;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,6 +24,7 @@ public class InitialDatabaseTool {
 		FileInputStream in = null;
 		Workbook wb = null;
 		Session session = null;
+		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/tool.xls");
@@ -66,7 +68,13 @@ public class InitialDatabaseTool {
 				else
 					field.setIs_report('Y');
 
-				field.setIs_hidden('N');
+				cell = row.getCell(23);
+				Object temp1 = helper.getCellValue(cell);
+				if(temp1==null || "".equals(temp1.toString()))field.setIs_hidden('N');				
+				else{
+					int iTemp = ((Integer)temp1).intValue();
+					if(iTemp == 1) field.setIs_hidden('Y');
+				}
 
 				// field.setCompute(compute);
 

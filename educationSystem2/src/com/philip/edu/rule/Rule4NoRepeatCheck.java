@@ -78,6 +78,9 @@ public class Rule4NoRepeatCheck {
 				if(Constants.V_EQUAL.equals(conOperator)){
 					// = 
 					if(!conValue.equals(testValue))continue;
+				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+					if (conValue.equals(testValue))
+						continue;
 				} else {
 					int left = 0;
 					int right = 0;

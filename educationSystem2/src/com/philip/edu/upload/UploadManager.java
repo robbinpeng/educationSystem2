@@ -50,6 +50,7 @@ public class UploadManager {
 		HashMap map = new HashMap();
 		for(int j=0; j<formFields.size(); j++){
 			FormField field = (FormField)formFields.get(j);
+			if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
 			map.put(field.getBus_name(), field);
 		}
 		
@@ -85,8 +86,6 @@ public class UploadManager {
 			sql2.append("?, ");
 			sql1.append("STATUS, ");
 			sql2.append("1, ");
-			sql1.append("TJSJ, ");
-			sql2.append("?, ");
 			
 			row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){

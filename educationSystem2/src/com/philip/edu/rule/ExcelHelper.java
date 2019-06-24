@@ -1,6 +1,7 @@
 package com.philip.edu.rule;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
@@ -21,6 +22,7 @@ public class ExcelHelper {
 	
 	public boolean is_format_right(Workbook wb, int form_id){
 		logger.info("begin to check whether excel format is right.");
+		List al2 = new ArrayList();
 		
 		boolean is_right = true;
 		
@@ -32,7 +34,12 @@ public class ExcelHelper {
 		
 		excelColumns = getExcelColumns(wb);
 		List al1 = manager.getFormFields(form_id);
-		tableColumns = al1.size() - 1;
+		for(int i=0; i<al1.size(); i++){
+			FormField temp = (FormField)al1.get(i);
+			if(temp.getIs_report()=='Y'&&temp.getIs_hidden()=='N')al2.add(temp);
+		}
+		
+		tableColumns = al2.size();
 		if(excelColumns != tableColumns){logger.info("----------ERROR:导入数据表格式不正确！---------");is_right=false;}
 		
 		return is_right;

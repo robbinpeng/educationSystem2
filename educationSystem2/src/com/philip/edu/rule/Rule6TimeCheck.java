@@ -100,6 +100,9 @@ public class Rule6TimeCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
+				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+					if (conValue.equals(testValue))
+						continue;
 				} else {
 					int left = 0;
 					int right = 0;
@@ -155,6 +158,8 @@ public class Rule6TimeCheck {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								Date temp = cell.getDateCellValue();
 								sDate = sdf.format(cell.getDateCellValue());
+							} else if (cellType == CellType.NUMERIC) {
+								sDate = ((Integer)value).toString();
 							}
 							
 							int year = 0;
@@ -238,6 +243,8 @@ public class Rule6TimeCheck {
 							} else if (DateUtil.isCellDateFormatted(cell)) {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								sDate = sdf.format(value);
+							} else if (cellType == CellType.NUMERIC) {
+								sDate = ((Integer)value).toString(); 
 							}
 							
 							switch (format.length()) {

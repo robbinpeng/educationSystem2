@@ -19,7 +19,7 @@ public class RuleDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			rules = (ArrayList) session.createQuery("FROM Rule WHERE form_id=" + form_id).list();
+			rules = (ArrayList) session.createQuery("FROM Rule WHERE form_id=" + form_id + " order by rule_seq").list();
 
 			session.getTransaction().commit();
 

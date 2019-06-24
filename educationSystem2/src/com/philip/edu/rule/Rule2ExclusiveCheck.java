@@ -104,7 +104,7 @@ public class Rule2ExclusiveCheck {
 		// get table:
 		JSONObject obj = (JSONObject) array.get(1);
 		String table_name = obj.get("relateForm").toString();
-		Form form = manager.getFormById(form_id);
+		Form form = manager.getFormByName(Constants.USER_ID, table_name);
 		String table = form.getPhsic_name();
 		String relate_table = form.getBus_name();
 		// get field:
@@ -112,7 +112,8 @@ public class Rule2ExclusiveCheck {
 		FormField formField = manager.getFieldByPhysicName(form_id, field);
 		String relate_field = formField.getBus_name();
 		ruleSQL = "select * from " + table + " where " + field + "=?";
-
+		logger.info("the sql is:" + ruleSQL);
+		
 		// get check fieldName:
 		obj = (JSONObject) array.get(0);
 		String field_name = obj.get("field").toString();

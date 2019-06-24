@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class FormDAO {
 	private Logger logger = Logger.getLogger(FormDAO.class);
@@ -80,7 +81,8 @@ public class FormDAO {
 		session = HibernateUtil.getSession();
 		session.beginTransaction();
 		
-		fields = (ArrayList) session.createQuery("FROM FormField WHERE form_id=" + form_id + " order by sequence").list();
+		Query query = session.createQuery("FROM FormField WHERE form_id=" + form_id + " order by sequence");
+		fields = (ArrayList) query.list();
 		
 		session.getTransaction().commit();
 		

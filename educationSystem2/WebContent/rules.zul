@@ -72,7 +72,7 @@ import org.zkoss.zul.Label;
         </template>
 </listbox>
 </window>
-<window title="校验设计" border="normal">
+<window title="校验设计">
 <grid>
 <columns>
 <column></column>
@@ -80,11 +80,11 @@ import org.zkoss.zul.Label;
 </columns>
 <rows>
 <row>
-<cell>校验规则模式：<combobox id="rule_pattern" width="300px" onBeforeRender="self.setSelectedIndex(1)"><comboitem label="行级校验" value="1"/><comboitem label="表级校验" value="2"/></combobox> </cell>
+<cell>校验规则模式：<combobox id="rule_pattern" width="300px"><comboitem label="行级校验" value="1"/><comboitem label="表级校验" value="2"/></combobox><zscript><![CDATA[rule_pattern.setSelectedIndex(0);]]></zscript> </cell>
 <cell>校验规则名称：<textbox id="rule_name" width="300px" /></cell>
 </row>
 <row>
-<cell>校验规则顺序：<textbox id="rule_seq" width="300px" /></cell>
+<cell>校验规则顺序：<combobox id="rule_seq" width="300px" autodrop="true"/><zscript><![CDATA[for(int i=1; i<20; i++){Comboitem item = new Comboitem("" + i);item.setValue(""+i);rule_seq.appendChild(item);if(i==1)rule_seq.setSelectedItem(item);}]]></zscript></cell>
 <cell>校验失败信息：<textbox id="fail_information" width="300px" /></cell>
 </row>
 <row>
@@ -170,7 +170,11 @@ import org.zkoss.zul.Label;
     	if(i==0)formCom.setSelectedItem(item);
     }
     //fields:
-    ArrayList fields = manager.getFormFields(Constants.FORM_ID);
+    Session session = Sessions.getCurrent();
+    String form_id = session.getAttribute("form_id");
+    int iForm_id = Integer.parseInt(form_id);
+    ArrayList fields = manager.getFormFields(iForm_id);
+	System.out.println("field size:" + fields.size());
     for(int i=0; i<fields.size(); i++){
     	FormField field = (FormField)fields.get(i);
     	Comboitem item = new Comboitem(field.getBus_name());
@@ -235,6 +239,7 @@ import org.zkoss.zul.Label;
         	divCon1[indexCon1].appendChild((Combobox)fieldCom.clone());
         	divCon1[indexCon1].appendChild((Combobox)opCom.clone());
         	divCon1[indexCon1].appendChild(new Textbox());
+        	divCon1[indexCon1].appendChild(new Label("时,有"));
         	Image imageTemp = (Image)image.clone();
         	ZScript script = new ZScript("java","delCondition1("+indexCon1+")");
         	EventHandler evthdl = new EventHandler(script);
@@ -445,6 +450,7 @@ import org.zkoss.zul.Label;
         	divCon3[indexCon3].appendChild((Combobox)fieldCom.clone());
         	divCon3[indexCon3].appendChild((Combobox)opCom.clone());
         	divCon3[indexCon3].appendChild(new Textbox());
+        	divCon3[indexCon3].appendChild(new Label("时,有"));
         	Image imageTemp = (Image)image.clone();
         	ZScript script = new ZScript("java","delCondition3("+indexCon3+")");
         	EventHandler evthdl = new EventHandler(script);
@@ -560,6 +566,7 @@ import org.zkoss.zul.Label;
 		input.setType("hidden");
 		input.setValue("g");
 		divRForm32[indexRForm32].appendChild(input);
+		divRForm32[indexRForm32].appendChild(new Label("存在于"));
 		formCom32 = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields32("+indexRForm32+")");
 	    EventHandler evthdl1 = new EventHandler(script);
@@ -635,6 +642,7 @@ import org.zkoss.zul.Label;
         divConR3[indexConR3].appendChild((Combobox)fieldCom.clone());
 		divConR3[indexConR3].appendChild(new Label("="));
 		divConR3[indexConR3].appendChild(new Textbox());
+		divConR3[indexConR3].appendChild(new Label("时"));
 
         Image imageTemp = (Image)image.clone();
         ZScript script = new ZScript("java","delConditionR3("+indexConR3+")");
@@ -693,6 +701,7 @@ import org.zkoss.zul.Label;
         	divCon4[indexCon4].appendChild((Combobox)fieldCom.clone());
         	divCon4[indexCon4].appendChild((Combobox)opCom.clone());
         	divCon4[indexCon4].appendChild(new Textbox());
+        	divCon4[indexCon4].appendChild(new Label("时，有"));
         	Image imageTemp = (Image)image.clone();
         	ZScript script = new ZScript("java","delCondition4("+indexCon4+")");
         	EventHandler evthdl = new EventHandler(script);
@@ -987,6 +996,7 @@ import org.zkoss.zul.Label;
         	divCon6[indexCon6].appendChild((Combobox)fieldCom.clone());
         	divCon6[indexCon6].appendChild((Combobox)opCom.clone());
         	divCon6[indexCon6].appendChild(new Textbox());
+        	divCon6[indexCon6].appendChild(new Label("时，有"));
         	Image imageTemp = (Image)image.clone();
         	ZScript script = new ZScript("java","delCondition6("+indexCon6+")");
         	EventHandler evthdl = new EventHandler(script);
@@ -1121,7 +1131,7 @@ import org.zkoss.zul.Label;
 		divYear6[indexYear6].appendChild(new Label("自然年"));
 		
 		Combobox yearCom = new Combobox();
-		for(int i=-50; i<51; i++){
+		for(int i=200; i>-201; i--){
 			Comboitem yearItem = new Comboitem("" + i);
 			yearItem.setValue("" + i);
 			yearCom.appendChild(yearItem);
@@ -1213,7 +1223,8 @@ import org.zkoss.zul.Label;
 			String sForm_id = (String)session.getAttribute("form_id");
 			System.out.println("form_id:"+sForm_id);
 			rule.setForm_id(Integer.parseInt(sForm_id));
-			rule.setRule_seq(Integer.parseInt(rule_seq.getValue()));
+			String sSeq = rule_seq.getSelectedItem().getValue();
+			rule.setRule_seq(Integer.parseInt(sSeq));
 			rule.setFail_information(fail_information.getValue());
 			rule.setRule_pattern(rule_pattern.getSelectedItem().getValue().charAt(0));
 			rule.setRule_name(rule_name.getValue());
@@ -1343,7 +1354,7 @@ import org.zkoss.zul.Label;
 				is_new = true;
 			}
 			
-		if(is_new)Messagebox.show("规则成功保存！");
+		if(is_new){Messagebox.show("规则成功保存！");Executions.getCurrent().sendRedirect("");}
 		else Messagebox.show("没有规则被保存!");
 	}
 	
@@ -1416,11 +1427,11 @@ import org.zkoss.zul.Label;
 				case 'g':
 					//Combobox,Combobox,Combobox:
 					JSONObject fieldObj = new JSONObject(true);
-					Combobox formCom = (Combobox)divChildren.get(1);
+					Combobox formCom = (Combobox)divChildren.get(2);
 					String formValue = formCom.getSelectedItem().getValue();
-					Combobox fieldCom1 = (Combobox)divChildren.get(2);
+					Combobox fieldCom1 = (Combobox)divChildren.get(3);
 					String fieldValue1 = fieldCom1.getSelectedItem().getValue();
-					Combobox fieldCom2 = (Combobox)divChildren.get(3);
+					Combobox fieldCom2 = (Combobox)divChildren.get(4);
 					String fieldValue2 = fieldCom2.getSelectedItem().getValue();
 					fieldObj.put("relateField2",fieldValue2).put("relateField1",fieldValue1).put("relateForm",formValue).put("type",Constants.RULE_RELATE_FORM_TWO);
 					rulesArray.put(fieldObj);

@@ -27,15 +27,15 @@ public class UploadManagerTest {
 		Workbook wb = null;
 		
 		try {
-			in = new FileInputStream("D:/Develop/education/test/1-4.xls");
+			in = new FileInputStream("D:/Develop/education/test/表1-6-1 教职工基本信息.xls");
 			wb = WorkbookFactory.create(in);
 			
 			// check the excel is right:
 			UploadManager manager = new UploadManager();
 			
-			//boolean isSuccess = manager.uploadData(wb, 5, Constants.USER_ID);
-			//if(isSuccess)logger.info("成功上传数据！");
-			//else logger.info("上传数据失败。");
+			boolean isSuccess = manager.uploadData(wb, 28, Constants.USER_ID);
+			if(isSuccess)logger.info("成功上传数据！");
+			else logger.info("上传数据失败。");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

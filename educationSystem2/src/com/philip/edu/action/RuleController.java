@@ -5,13 +5,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -30,10 +33,20 @@ public class RuleController  extends SelectorComposer<Component> {
 	@Wire
 	private Listbox ruleList;
 	private ListModelList<Rule> listModel;
+
 	
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
+		
+		//rule_seq:
+		/*for(int i=1; i<20; i++){
+			Comboitem item = new Comboitem("" + i);
+			item.setValue(i);
+			rule_seq.appendChild(item);
+			if(i==1)rule_seq.setSelectedItem(item);
+		}
+		rule_seq.setAutodrop(false);*/
 		
 		String sForm = Executions.getCurrent().getParameter("form_id");
 		Session session = Sessions.getCurrent();

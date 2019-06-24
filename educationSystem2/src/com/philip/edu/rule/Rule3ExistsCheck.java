@@ -81,6 +81,9 @@ public class Rule3ExistsCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
+				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+					if (conValue.equals(testValue))
+						continue;
 				} else {
 					int left = 0;
 					int right = 0;

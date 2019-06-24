@@ -106,6 +106,9 @@ public class Rule1ConstraintCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
+				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+					if (conValue.equals(testValue))
+						continue;
 				} else {
 					int left = 0;
 					int right = 0;
@@ -289,6 +292,9 @@ public class Rule1ConstraintCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
+				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+					if (conValue.equals(testValue))
+						continue;
 				} else {
 					int left = 0;
 					int right = 0;
@@ -336,6 +342,11 @@ public class Rule1ConstraintCheck {
 						tempValue = value.toString();
 						if (arrayLeft.size() == 1) {
 							leftString = tempValue;
+							try{
+								leftResult = Integer.parseInt(leftString);
+							} catch (NumberFormatException e) {
+								isNum = false;
+							}
 							break;
 						}
 
@@ -357,6 +368,11 @@ public class Rule1ConstraintCheck {
 						String tempValue2 = line.getValue();
 						if (arrayLeft.size() == 1) {
 							leftString = tempValue2;
+							try{
+								leftResult = Integer.parseInt(leftString);
+							} catch (NumberFormatException e) {
+								isNum = false;
+							}
 							break;
 						}
 
@@ -397,6 +413,11 @@ public class Rule1ConstraintCheck {
 						tempValue = value.toString();
 						if (arrayRight.size() == 1) {
 							rightString = tempValue;
+							try{
+								rightResult = Integer.parseInt(rightString);
+							} catch (NumberFormatException e) {
+								isNum = false;
+							}
 							break;
 						}
 
@@ -418,6 +439,11 @@ public class Rule1ConstraintCheck {
 						String tempValue2 = line.getValue();
 						if (arrayRight.size() == 1) {
 							rightString = tempValue2;
+							try{
+								rightResult = Integer.parseInt(rightString);
+							} catch (NumberFormatException e) {
+								isNum = false;
+							}
 							break;
 						}
 						int iValue2 = Integer.parseInt(tempValue2);
@@ -444,7 +470,9 @@ public class Rule1ConstraintCheck {
 			}
 			// 3、compare:
 			if (arrayLeft.size() == 1 && arrayRight.size() == 1) {
+				logger.info("sOP:" + sOP);
 				if (Constants.V_EQUAL.equals(sOP)) {
+					logger.info("leftString:" + leftString +"; rightString:" + rightString);
 					if (!leftString.equals(rightString)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						messageList.add("第" + (i + 1) + "行的等式不成立！");
@@ -474,6 +502,7 @@ public class Rule1ConstraintCheck {
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
 				}
 			} else if (Constants.V_LESSTE.equals(sOP)) {
+				logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult );
 				if (!(leftResult <= rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
