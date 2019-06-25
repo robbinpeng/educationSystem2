@@ -1,5 +1,6 @@
-<?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<?page title="数据表" contentType="text/html;charset=UTF-8"?>
 <zk>
+<include src="/head.zul"/>
 <window id="window1" title="数据表" apply="com.philip.edu.action.TableDataController">
 <grid>
 <rows>

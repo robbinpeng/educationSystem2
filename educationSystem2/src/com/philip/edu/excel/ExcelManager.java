@@ -38,7 +38,7 @@ public class ExcelManager {
 		
 		for(int i=0; i<fields.size(); i++){
 			FormField field = (FormField) fields.get(i);
-			if(field.getIs_report() == 'N')continue;
+			if(field.getIs_report() == 'N' || field.getIs_hidden() == 'Y')continue;
 			
 			al.add(field);
 		}

@@ -1,4 +1,4 @@
-<?page title="rule check" contentType="text/html;charset=UTF-8"?>
+<?page title="数据校验" contentType="text/html;charset=UTF-8"?>
 <zk>
 <zscript><![CDATA[
 import org.zkoss.zk.ui.Executions;

@@ -29,6 +29,7 @@ public class RuleController  extends SelectorComposer<Component> {
 	
 	private static Logger logger = Logger.getLogger(RuleController.class);
 	private RuleManager ruleManager = new RuleManager();
+	private FormManager formManager = new FormManager();
 	
 	@Wire
 	private Listbox ruleList;
@@ -39,15 +40,6 @@ public class RuleController  extends SelectorComposer<Component> {
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
 		
-		//rule_seq:
-		/*for(int i=1; i<20; i++){
-			Comboitem item = new Comboitem("" + i);
-			item.setValue(i);
-			rule_seq.appendChild(item);
-			if(i==1)rule_seq.setSelectedItem(item);
-		}
-		rule_seq.setAutodrop(false);*/
-		
 		String sForm = Executions.getCurrent().getParameter("form_id");
 		Session session = Sessions.getCurrent();
 		session.setAttribute("form_id", sForm);
@@ -55,6 +47,9 @@ public class RuleController  extends SelectorComposer<Component> {
 		List<Rule> rules = ruleManager.getRules(form_id);
 		listModel = new ListModelList<Rule>(rules);
 		ruleList.setModel(listModel);
+		
+		String form_name = formManager.getFormById(form_id).getBus_name();
+		session.setAttribute("form_name", form_name);
 	}
 	
 	@Listen("onDelete = #ruleList")

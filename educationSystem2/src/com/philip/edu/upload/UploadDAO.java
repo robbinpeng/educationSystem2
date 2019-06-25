@@ -1,5 +1,6 @@
 package com.philip.edu.upload;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,10 +41,12 @@ public class UploadDAO {
 			for(int i=0; i<list.size(); i++){
 				String sql = (String)list.get(i);
 				
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				
 				Query query = session.createSQLQuery(sql);
 				query.setParameter(0, new Date());
 				query.setParameter(1, new Date());
-				//query.setParameter(2, new Date());
+				query.setParameter(2, format.format(new Date()));
 				query.executeUpdate();
 			}
 

@@ -1,8 +1,9 @@
-<?page title="all the dataset list" contentType="text/html;charset=UTF-8"?>
+<?page title="数据表设计" contentType="text/html;charset=UTF-8"?>
 <zk>
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
 ]]></zscript>
+<include src="/head.zul"/>
 <window id="fWindow" title="字段设计" apply="com.philip.edu.action.FormTableController">
 <grid>
 <rows>

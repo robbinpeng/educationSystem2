@@ -1,4 +1,4 @@
-<window id="uWindow" title="新建数据表" apply="com.philip.edu.action.TableUpdateController" width="600px" action="show: slideDown;hide: slideUp">
+<window id="uWindow" title="修改数据表" apply="com.philip.edu.action.TableUpdateController" width="600px" action="show: slideDown;hide: slideUp">
 <grid>
 <rows>
 	<row><cell align="right" width="40%">业务表名<label style="color:red">*</label></cell><cell align="left"><textbox id="bus_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>

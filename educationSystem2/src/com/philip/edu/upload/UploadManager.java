@@ -86,9 +86,12 @@ public class UploadManager {
 			sql2.append("?, ");
 			sql1.append("STATUS, ");
 			sql2.append("1, ");
+			sql1.append("TJSJ, ");
+			sql2.append("?, ");
 			
 			row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){
+				logger.info("l:" + l);
 				FormField field1 = (FormField) captionList.get(l);
 				String fieldName = field1.getPhysic_name();
 				Cell cell = row.getCell(l);	

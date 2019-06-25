@@ -78,10 +78,18 @@ public class Rule1ConstraintCheck {
 		for (int i = 0; i < arrayNum.size(); i++) {
 			LineInfo line = new LineInfo();
 			JSONObject obj1 = (JSONObject) arrayNum.get(i);
-			String name1 = obj1.getString("field");
-			FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
-			int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
-			line.setColumn(column1);
+			String type = obj1.getString("type");
+			if (Constants.RULE_FORMFIELD.equals(type)) {
+				String name1 = obj1.getString("field");
+				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
+				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+				line.setColumn(column1);
+				line.setType(Constants.LINE_TYPE_FIELD_NAME);
+			} else if (Constants.RULE_TEXTBOX.equals(type)) {
+				String value = obj1.getString("value");
+				line.setValue(value);
+				line.setType(Constants.LINE_TYPE_VALUE);
+			}
 			valueList.add(line);
 		}
 
@@ -106,15 +114,15 @@ public class Rule1ConstraintCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
-				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+				} else if (Constants.V_NOEQUAL.equals(conOperator)) {
 					if (conValue.equals(testValue))
 						continue;
 				} else {
-					int left = 0;
-					int right = 0;
+					double left = 0;
+					double right = 0;
 					try {
-						left = Integer.parseInt(testValue);
-						right = Integer.parseInt(conValue);
+						left = Double.parseDouble(testValue);
+						right = Double.parseDouble(conValue);
 						if (Constants.V_GREATT.equals(conOperator)) {
 							if (!(left > right))
 								continue;
@@ -142,59 +150,96 @@ public class Rule1ConstraintCheck {
 				String value2 = "";
 				LineInfo line1 = (LineInfo) valueList.get(j - 1);
 				LineInfo line2 = (LineInfo) valueList.get(j);
-				Cell cell1 = row.getCell(line1.getColumn());
-				Object o1 = helper.getCellValue(cell1);
-				Cell cell2 = row.getCell(line2.getColumn());
-				Object o2 = helper.getCellValue(cell2);
+				Cell cell1 = null;
+				Object o1 = null;
+				Cell cell2 = null;
+				Object o2 = null;
+				if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+					cell1 = row.getCell(line1.getColumn());
+					o1 = helper.getCellValue(cell1);
+					// value1 = o1.toString();
+				} else {
+					value1 = line1.getValue();
+				}
+				if (line2.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+					cell2 = row.getCell(line2.getColumn());
+					o2 = helper.getCellValue(cell2);
+					// value2 = o2.toString();
+				} else {
+					value2 = line2.getValue();
+				}
 				if (sOP.equals(Constants.V_EQUAL)) {
-					value1 = o1.toString();
-					value2 = o2.toString();
+					if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+						value1 = o1.toString();
+					}
+					if (line2.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+						value2 = o2.toString();
+					}
 					if (!value1.equals(value2)) {
 						messageList.add("第" + (i + 1) + "行的记录不满足等式！");
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						break;
 					}
 				} else {
-					try {
-						value1 = o1.toString();
-						value2 = o2.toString();
-						int i1 = Integer.parseInt(value1);
-						int i2 = Integer.parseInt(value2);
-						if (sOP.equals(Constants.V_LESST)) {
-							if (!(i1 < i2)) {
-								messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								break;
-							}
-						} else if (sOP.equals(Constants.V_LESSTE)) {
-							if (!(i1 <= i2)) {
-								messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								break;
-							}
-						} else if (sOP.equals(Constants.V_GREATT)) {
-							if (!(i1 > i2)) {
-								messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								break;
-							}
-						} else if (sOP.equals(Constants.V_GREATTE)) {
-							if (!(i1 >= i2)) {
-								messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								break;
-							}
-						} else if (sOP.equals(Constants.V_NOEQUAL)) {
-							if (i1 == i2) {
-								messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								break;
+					double dV1 = 0;
+					double dV2 = 0;
+					if (o1 != null) {
+						try {
+							dV1 = (double) o1;
+						} catch (ClassCastException e) {
+							try {
+								dV1 = ((Integer) o1).doubleValue();
+							} catch (ClassCastException e1) {
+								dV1 = Double.parseDouble(o1.toString());
 							}
 						}
-					} catch (NumberFormatException e) {
-						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (i + 1) + "行的内容不是数字,不能进行比较！");
-						break;
+					} else {
+						dV1 = Double.parseDouble(value1);
+					}
+					if (o2 != null) {
+						try {
+							dV2 = (double) o2;
+						} catch (ClassCastException e) {
+							try {
+								dV2 = ((Integer) o2).doubleValue();
+							} catch (ClassCastException e1) {
+								dV2 = Double.parseDouble(o2.toString());
+							}
+						}
+					} else {
+						logger.info("" + value2);
+						dV2 = Double.parseDouble(value2);
+					}
+					if (sOP.equals(Constants.V_LESST)) {
+						if (!(dV1 < dV2)) {
+							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_LESSTE)) {
+						if (!(dV1 <= dV2)) {
+							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_GREATT)) {
+						if (!(dV1 > dV2)) {
+							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_GREATTE)) {
+						if (!(dV1 >= dV2)) {
+							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_NOEQUAL)) {
+						if (dV1 == dV2) {
+							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
 					}
 				}
 			}
@@ -292,15 +337,15 @@ public class Rule1ConstraintCheck {
 					// =
 					if (!conValue.equals(testValue))
 						continue;
-				} else if(Constants.V_NOEQUAL.equals(conOperator)) {
+				} else if (Constants.V_NOEQUAL.equals(conOperator)) {
 					if (conValue.equals(testValue))
 						continue;
 				} else {
-					int left = 0;
-					int right = 0;
+					double left = 0;
+					double right = 0;
 					try {
-						left = Integer.parseInt(testValue);
-						right = Integer.parseInt(conValue);
+						left = Double.parseDouble(testValue);
+						right = Double.parseDouble(conValue);
 						if (Constants.V_GREATT.equals(conOperator)) {
 							if (!(left > right))
 								continue;
@@ -321,8 +366,8 @@ public class Rule1ConstraintCheck {
 
 				}
 			}
-			int leftResult = 0;
-			int rightResult = 0;
+			double leftResult = 0;
+			double rightResult = 0;
 			String leftString = "";
 			String rightString = "";
 			LineInfo line = null;
@@ -342,15 +387,15 @@ public class Rule1ConstraintCheck {
 						tempValue = value.toString();
 						if (arrayLeft.size() == 1) {
 							leftString = tempValue;
-							try{
-								leftResult = Integer.parseInt(leftString);
+							try {
+								leftResult = Double.parseDouble(leftString);
 							} catch (NumberFormatException e) {
 								isNum = false;
 							}
 							break;
 						}
 
-						int iValue = Integer.parseInt(tempValue);
+						double iValue = Double.parseDouble(tempValue);
 						if (Constants.V_ADD.equals(currentOperator)) {
 							leftResult += iValue;
 						} else if (Constants.V_MINUS.equals(currentOperator)) {
@@ -368,15 +413,15 @@ public class Rule1ConstraintCheck {
 						String tempValue2 = line.getValue();
 						if (arrayLeft.size() == 1) {
 							leftString = tempValue2;
-							try{
-								leftResult = Integer.parseInt(leftString);
+							try {
+								leftResult = Double.parseDouble(leftString);
 							} catch (NumberFormatException e) {
 								isNum = false;
 							}
 							break;
 						}
 
-						int iValue2 = Integer.parseInt(tempValue2);
+						double iValue2 = Double.parseDouble(tempValue2);
 						if (Constants.V_ADD.equals(currentOperator)) {
 							leftResult += iValue2;
 						} else if (Constants.V_MINUS.equals(currentOperator)) {
@@ -413,15 +458,15 @@ public class Rule1ConstraintCheck {
 						tempValue = value.toString();
 						if (arrayRight.size() == 1) {
 							rightString = tempValue;
-							try{
-								rightResult = Integer.parseInt(rightString);
+							try {
+								rightResult = Double.parseDouble(rightString);
 							} catch (NumberFormatException e) {
 								isNum = false;
 							}
 							break;
 						}
 
-						int iValue = Integer.parseInt(tempValue);
+						double iValue = Double.parseDouble(tempValue);
 						if (Constants.V_ADD.equals(currentOperator)) {
 							rightResult += iValue;
 						} else if (Constants.V_MINUS.equals(currentOperator)) {
@@ -439,14 +484,14 @@ public class Rule1ConstraintCheck {
 						String tempValue2 = line.getValue();
 						if (arrayRight.size() == 1) {
 							rightString = tempValue2;
-							try{
-								rightResult = Integer.parseInt(rightString);
+							try {
+								rightResult = Double.parseDouble(rightString);
 							} catch (NumberFormatException e) {
 								isNum = false;
 							}
 							break;
 						}
-						int iValue2 = Integer.parseInt(tempValue2);
+						double iValue2 = Double.parseDouble(tempValue2);
 
 						if (Constants.V_ADD.equals(currentOperator)) {
 							rightResult += iValue2;
@@ -472,7 +517,7 @@ public class Rule1ConstraintCheck {
 			if (arrayLeft.size() == 1 && arrayRight.size() == 1) {
 				logger.info("sOP:" + sOP);
 				if (Constants.V_EQUAL.equals(sOP)) {
-					logger.info("leftString:" + leftString +"; rightString:" + rightString);
+					logger.info("leftString:" + leftString + "; rightString:" + rightString);
 					if (!leftString.equals(rightString)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						messageList.add("第" + (i + 1) + "行的等式不成立！");
@@ -481,6 +526,8 @@ public class Rule1ConstraintCheck {
 			}
 			if (!isNum)
 				continue;
+
+			logger.info("left result:" + leftResult + "right result:" + rightResult);
 			if (Constants.V_EQUAL.equals(sOP)) {
 				if (!(leftResult == rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -502,7 +549,7 @@ public class Rule1ConstraintCheck {
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
 				}
 			} else if (Constants.V_LESSTE.equals(sOP)) {
-				logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult );
+				logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
 				if (!(leftResult <= rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
@@ -543,6 +590,8 @@ public class Rule1ConstraintCheck {
 				JSONObject ob2 = (JSONObject) array.get(k);
 				String type = ob2.getString("type");
 				if (Constants.RULE_FORMFIELD.equals(type)) {
+					arrayNum.add(ob2);
+				} else if (Constants.RULE_TEXTBOX.equals(type)) {
 					arrayNum.add(ob2);
 				} else {
 					ob3 = ob2;

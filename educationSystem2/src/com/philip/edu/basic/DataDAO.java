@@ -32,6 +32,7 @@ public class DataDAO {
 			//create sql:
 			for(int i=0; i<fields.size(); i++){
 				FormField field = (FormField) fields.get(i);
+				//if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
 				//Caption:
 				data = new DataInfo();
 				data.setId(i+1);
