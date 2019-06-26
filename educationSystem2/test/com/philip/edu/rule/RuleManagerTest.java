@@ -31,7 +31,7 @@ public class RuleManagerTest {
 		try {
 			in = new FileInputStream("D:/Develop/education/test/表SF-1：学生发展成长指导教师情况.xls");
 			wb = WorkbookFactory.create(in);
-			
+			 
 			list = engine.rulesCheck(108, wb);
 			for(int j=0; j<list.size(); j++){
 				message = (MessageInfo)list.get(j);
