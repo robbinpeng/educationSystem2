@@ -7,13 +7,13 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.excel.ExcelManager;
 FormManager formManager = new FormManager();
 ]]></zscript>
-<include src="/head.zul"/>
-<window id="dbWindow" title="数据仓库" apply="com.philip.edu.action.DatabaseListController">
+<include src="head.zul"/>
+<window id="dbWindow" apply="com.philip.edu.action.DatabaseListController">
 <grid>
 <rows>
 <row align="right">
 <cell colspan="4" align="right">
-<radiogroup id="tblChose"/><button id="open" label="打开"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/data_list.zul?form_id="+sForm);}]]></attribute></button><space bar="false" spacing="20px" /><button id="create" label="新建"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><button id="design" label="数据表设计"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/data_design.zul?form_id="+sForm);}]]></attribute></button><space bar="false" spacing="20px" /><button id="rule" label="数据校验"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/rules.zul?form_id="+sForm);}]]></attribute></button>
+<radiogroup id="tblChose"/><button id="open" label="打开"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/data/"+sForm);}]]></attribute></button><space bar="false" spacing="20px" /><button id="create" label="新建"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><button id="design" label="数据表设计"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/design/"+sForm);}]]></attribute></button><space bar="false" spacing="20px" /><button id="rule" label="数据校验"><attribute name="onClick"><![CDATA[if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");}else{String sForm=tblChose.getSelectedItem().getId(); Executions.sendRedirect("/rule/"+sForm);}]]></attribute></button>
 </cell>
 </row>
 </rows>
@@ -33,7 +33,7 @@ FormManager formManager = new FormManager();
             <listitem value="${each.id}">
             	<listcell><radio id="${each.id}" radiogroup="tblChose" /></listcell>
                 <listcell label="${each.id}"></listcell>
-                <listcell><toolbarbutton href="/data_list.zul?form_id=${each.id}" label="${each.bus_name}"/></listcell>
+                <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell label="${each.phsic_name}"></listcell>
                 <listcell><zscript><![CDATA[if(each.stats_time==Constants.V_TYPE_STAT_TIME_POINT){self.label=Constants.DIP_TYPE_STAT_TIME_POINT;}else if(each.stats_time==Constants.V_TYPE_STAT_TIME_STUDY_YEAR){self.label=Constants.DIP_TYPE_STAT_TIME_STUDY_YEAR;}else if(each.stats_time==Constants.V_TYPE_STAT_TIME_NATURE_YEAR){self.label=Constants.DIP_TYPE_STAT_TIME_NATURE_YEAR;}else{self.label=Constants.DIP_TYPE_STAT_TIME_CURRENT_YEAR;}]]></zscript></listcell>
                 <listcell><zscript><![CDATA[if(each.form_type==Constants.V_FORM_TYPE_PERSONALIZED){self.label=Constants.DIP_FORM_TYPE_PERSONALIZED;}else if(each.form_type==Constants.V_FORM_TYPE_CLASS_VALUE){self.label=Constants.DIP_FORM_TYPE_CLASS_VALUE;}else if(each.form_type==Constants.V_FORM_TYPE_EDUCATION_STATUS){self.label=Constants.DIP_FORM_TYPE_EDUCATION_STATUS;}else if(each.form_type==Constants.V_FORM_TYPE_HIGHBASIC_REPORT){self.label=Constants.DIP_FORM_TYPE_HIGHBASIC_REPORT;}else if(each.form_type==Constants.V_FORM_TYPE_PROFESSIONAL_VALUE){self.label=Constants.DIP_FORM_TYPE_PROFESSIONAL_VALUE;}]]></zscript></listcell>

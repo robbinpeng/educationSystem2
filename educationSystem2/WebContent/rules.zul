@@ -22,16 +22,16 @@ String form_name = session.getAttribute("form_name");
 <grid>
 <rows>
 <row align="right">
-<toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton>
+<toolbarbutton label="返回" href="/database"></toolbarbutton>
 </row>
 </rows>
 </grid>
 <listbox id="ruleList" emptyMessage="这张表没有规则" >
         <listhead>
-            <listheader label="校验规则名称"/>
+            <listheader label="校验规则名称" width="20%"/>
             <listheader label="校验规则类别" />
-            <listheader label="校验规则内容" width="20%"/>
-            <listheader label="校验失败提示信息" />
+            <listheader label="校验规则内容"/>
+            <listheader label="校验失败提示信息" width="30%"/>
             <listheader label="校验规则模式" />
             <listheader label="校验顺序" />
             <listheader label="是否启用" />
@@ -71,7 +71,7 @@ String form_name = session.getAttribute("form_name");
                 <listcell label="${each.fail_information}"></listcell>
                 <listcell><zscript><![CDATA[if(each.rule_pattern=='1'){self.label=Constants.DISPLAY_RULE_PATTERN_LINE;}else{self.label=Constants.DISPLAY_RULE_PATTERN_TABLE;}]]></zscript></listcell>
                 <listcell label="${each.rule_seq}"></listcell>
-                <listcell><zscript><![CDATA[if(each.rule_active=='Y'){self.label=Constants.DISPLAY_RULE_ACTIVE;}]]></zscript></listcell>
+                <listcell><image src="/img/active.jpg" forward="onClick=ruleList.onActive(${each})"><zscript><![CDATA[if(each.rule_active=='N'){self.src="/img/inactive.jpg";}else{self.src="/img/active.jpg";}]]></zscript></image></listcell>
                 <listcell><button label="删除" forward="onClick=ruleList.onDelete(${each})"/></listcell>
             </listitem>
         </template>
@@ -89,7 +89,7 @@ String form_name = session.getAttribute("form_name");
 <cell>校验规则名称：<textbox id="rule_name" width="300px" /></cell>
 </row>
 <row>
-<cell>校验规则顺序：<combobox id="rule_seq" width="300px" autodrop="true"/><zscript><![CDATA[for(int i=1; i<20; i++){Comboitem item = new Comboitem("" + i);item.setValue(""+i);rule_seq.appendChild(item);if(i==1)rule_seq.setSelectedItem(item);}]]></zscript></cell>
+<cell>校验规则顺序：<spinner id="rule_seq" width="300px" step="1" value="0"/></cell>
 <cell>校验失败信息：<textbox id="fail_information" width="300px" /></cell>
 </row>
 <row>
@@ -532,6 +532,8 @@ String form_name = session.getAttribute("form_name");
 	Combobox[] fieldsChangeCom3 = new Combobox[20];
 	int indexRForm3 = 0;
 	Combobox formCom3 = null;
+	int indexRForm36 = 0;
+	Combobox[] fieldsChangeCom36 = new Combobox[20];
 	
 	void addRelateForm3(){
 		divRForm3[indexRForm3] = (Div)div.clone();
@@ -544,6 +546,7 @@ String form_name = session.getAttribute("form_name");
 	    EventHandler evthdl1 = new EventHandler(script);
 		formCom3.addEventHandler("onChange",evthdl1);
 		divRForm3[indexRForm3].appendChild(formCom3);
+		fieldsChangeCom36[indexRForm36] = (Combobox)fieldCom.clone();
 		
 		fieldsChangeCom3[indexRForm3] = (Combobox)fieldCom.clone();
 		divRForm3[indexRForm3].appendChild(fieldsChangeCom3[indexRForm3]);
@@ -584,6 +587,8 @@ String form_name = session.getAttribute("form_name");
 		fieldsChangeCom33[indexRForm32] = (Combobox)fieldCom.clone();
 		divRForm32[indexRForm32].appendChild(fieldsChangeCom33[indexRForm32]);
 		
+		fieldsChangeCom36[indexRForm36] = (Combobox)fieldCom.clone();
+		
 		Image imageTemp = (Image)image.clone();
 	    ZScript script = new ZScript("java","delRForm32("+indexRForm32+")");
 	    EventHandler evthdl = new EventHandler(script);
@@ -599,6 +604,7 @@ String form_name = session.getAttribute("form_name");
 		ArrayList fields32 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom32.getSelectedItem().getValue());
 		fieldsChangeCom32[index].getItems().clear();
 		fieldsChangeCom33[index].getItems().clear();
+		fieldsChangeCom36[index].getItems().clear();
 		
 		for(int i=0; i<fields32.size(); i++){
 	    	FormField field = (FormField)fields32.get(i);
@@ -606,8 +612,11 @@ String form_name = session.getAttribute("form_name");
 	    	item1.setValue(field.getPhysic_name());
 	    	Comboitem item2 = new Comboitem(field.getBus_name());
 	    	item2.setValue(field.getPhysic_name());
+	    	Comboitem item3 = new Comboitem(field.getBus_name());
+	    	item3.setValue(field.getPhysic_name());
 	    	fieldsChangeCom32[index].appendChild(item1);
 	    	fieldsChangeCom33[index].appendChild(item2);
+	    	fieldsChangeCom36[index].appendChild(item3);
 	    }
 	}
 	
@@ -619,12 +628,16 @@ String form_name = session.getAttribute("form_name");
 		//Messagebox.show(formCom3.getSelectedItem().getValue());
 		ArrayList fields3 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom3.getSelectedItem().getValue());
 		fieldsChangeCom3[index].getItems().clear();
+		fieldsChangeCom36[index].getItems().clear();
 		
 		for(int i=0; i<fields3.size(); i++){
 	    	FormField field = (FormField)fields3.get(i);
 	    	Comboitem item = new Comboitem(field.getBus_name());
 	    	item.setValue(field.getPhysic_name());
 	    	fieldsChangeCom3[index].appendChild(item);
+	    	Comboitem item1 = new Comboitem(field.getBus_name());
+	    	item1.setValue(field.getPhysic_name());
+	    	fieldsChangeCom36[index].appendChild(item1);
 	    }
 	}
 	
@@ -644,7 +657,7 @@ String form_name = session.getAttribute("form_name");
 		input.setValue("o");
 		divConR3[indexConR3].appendChild(input);
     	divConR3[indexConR3].appendChild(new Label("且当"));
-        divConR3[indexConR3].appendChild((Combobox)fieldCom.clone());
+        divConR3[indexConR3].appendChild(fieldsChangeCom36[indexRForm36]);
 		divConR3[indexConR3].appendChild(new Label("="));
 		divConR3[indexConR3].appendChild(new Textbox());
 		divConR3[indexConR3].appendChild(new Label("时"));
@@ -657,10 +670,12 @@ String form_name = session.getAttribute("form_name");
         window3.appendChild(divConR3[indexConR3]);
         	
         indexConR3++;
+        indexRForm36++;
 	}
 	
 	void delConditionR3(int index){
 		window3.removeChild(divConR3[index]);
+		indexRForm36--;
 	}
 	
 	//3.7 no:
@@ -1218,7 +1233,7 @@ String form_name = session.getAttribute("form_name");
 			//basic check:
 			if(rule_pattern.getSelectedItem()==null){Messagebox.show("必须选择校验规则模式!"); return;}
 			if(rule_name==null||"".equals(rule_name.getValue())){Messagebox.show("必须输入校验规则名称！"); return;}
-			if(rule_seq==null||"".equals(rule_seq.getValue())){Messagebox.show("校验规则顺序必须输入！"); return;}
+			if(rule_seq==null||"".equals(rule_seq.getValue().toString())){Messagebox.show("校验规则顺序必须输入！"); return;}
 			if(fail_information==null||"".equals(fail_information.getValue())){Messagebox.show("必须输入检验失败信息！"); return;}
 		
 			//enter:
@@ -1228,8 +1243,8 @@ String form_name = session.getAttribute("form_name");
 			String sForm_id = (String)session.getAttribute("form_id");
 			System.out.println("form_id:"+sForm_id);
 			rule.setForm_id(Integer.parseInt(sForm_id));
-			String sSeq = rule_seq.getSelectedItem().getValue();
-			rule.setRule_seq(Integer.parseInt(sSeq));
+			Integer sSeq = rule_seq.getValue();
+			rule.setRule_seq(sSeq.intValue());
 			rule.setFail_information(fail_information.getValue());
 			rule.setRule_pattern(rule_pattern.getSelectedItem().getValue().charAt(0));
 			rule.setRule_name(rule_name.getValue());

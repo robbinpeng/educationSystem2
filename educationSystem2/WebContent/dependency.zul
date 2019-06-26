@@ -1,0 +1,37 @@
+<?page title="表依赖" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="dpWindow" title="表依赖" apply="com.philip.edu.action.DependencyController" height="500px" width="300px">
+<vlayout>
+	<zscript>
+	<![CDATA[
+	ArrayList al = (ArrayList)Executions.getCurrent().getArg().get("dependency");
+	]]>
+	</zscript>
+<grid id="formList" hflex="1" height="400px">
+<rows>
+<template name="model">
+	<row><cell colspan="2"><checkbox id="${each.id}" label="${each.bus_name}" forward="onCheck=formList.onCheck(${self})">
+	<zscript>
+	<![CDATA[
+	for(int i=0; i<al.size(); i++){
+		String ID = (String)al.get(i);
+		//System.out.println("ID:" + ID);
+		//System.out.println("id:" + each.id);
+		if(ID.equals(each.getId().toString())){
+			self.setChecked(true);
+		}
+	}
+	]]>
+	</zscript>
+	</checkbox></cell></row>
+</template>
+</rows>
+</grid>
+<grid>
+<rows>
+<row><cell align="right"><button id="closeBtn" label="取消" style="background:lightblue"/><button id="create" label="确定"/></cell></row>
+</rows>
+</grid>
+</vlayout>
+</window>
+</zk>

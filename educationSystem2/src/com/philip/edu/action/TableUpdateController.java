@@ -1,10 +1,14 @@
 package com.philip.edu.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.zkoss.zhtml.Input;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -32,7 +36,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 	private static FormManager formManager = new FormManager();
 	
 	@Wire
-	private Window uWindow;
+	private Window cWindow;
 	@Wire
 	private Button closeBtn;
 	@Wire
@@ -51,13 +55,40 @@ public class TableUpdateController extends SelectorComposer<Component> {
 	private Combobox dis_method;
 	@Wire
 	private Textbox memo;
+	@Wire
+	private Input depend;
+	@Wire
+	private Button chooseDep;
 	
 	private Form storeForm;
 	
 	@Listen("onClick = #closeBtn")
     public void closeModal(Event e) {
-        uWindow.detach();
+        cWindow.detach();
     }
+	
+	@Listen("onClick = #chooseDep")
+	public void chooseDependency(Event e) {
+		ArrayList al = new ArrayList();
+		String name = "";
+		String dp = depend.getValue();
+		String[] str = null;
+		if(dp!=null && !dp.equals("")){
+			str = dp.split(",");
+			for(int i=0; i<str.length; i++){
+				String temp = str[i].substring(1, str[i].length()-1);
+				int table_id = Integer.parseInt(temp);
+				al.add("" + table_id);
+			}
+		}	
+		HashMap map = new HashMap();
+		map.put("dependency", al);
+		
+		Window window = (Window) Executions.createComponents("/dependency.zul", null, map);
+		window.setPosition("center");
+		
+		window.doModal();
+	}
 	
 	@Listen("onClick = #updateBtn")
     public void editTable(Event e) {
@@ -72,6 +103,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		form.setForm_type(form_type.getSelectedItem().getValue().toString().charAt(0));
 		form.setIs_null(is_null.getSelectedItem().getValue().toString().charAt(0));
 		form.setDisplay_method(dis_method.getSelectedItem().getValue().toString().charAt(0));
+		form.setDependency_form(depend.getValue());
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 				
 		boolean b = dbManager.updateTable(form);
@@ -81,7 +113,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 			Listbox pList = (Listbox)Path.getComponent("/dbWindow/formlist");
 			List<Form> forms = formManager.getForms(Constants.USER_ID);
 			pList.setModel(new ListModelList<Form>(forms));
-			uWindow.detach();
+			cWindow.detach();
 		}else{Messagebox.show("表修改过程中遇到问题！");}
     }
 	
@@ -154,6 +186,22 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		item.setValue(Constants.V_DISPLAY_GENERAL_LIST);
 		dis_method.appendChild(item);
 		if(form.getDisplay_method()==Constants.V_DISPLAY_GENERAL_LIST)dis_method.setSelectedItem(item);
+		
+		depend.setValue("" + form.getDependency_form());
+		
+		String name = "";
+		String dp = form.getDependency_form();
+		String[] str = null;
+		if(dp!=null && !dp.equals("")){
+			str = dp.split(",");
+			for(int i=0; i<str.length; i++){
+				String temp = str[i].substring(1, str[i].length()-1);
+				int table_id = Integer.parseInt(temp);
+				Form formTemp = formManager.getFormById(table_id);
+				name += formTemp.getBus_name() + ",";
+			}
+			chooseDep.setLabel(name);
+		}
 		
 		memo.setValue(form.getMemo());		
 		

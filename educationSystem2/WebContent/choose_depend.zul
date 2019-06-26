@@ -1,16 +1,63 @@
 <?page title="choose dependency table" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="选择依赖表" apply="com.philip.edu.action.DependencyController">
+<window id="dWindow" title="选择依赖表" apply="com.philip.edu.action.DependencyController">
+<grid>
+<rows>
+<row height="100px">
+<cell><label id="test1" value="to test"/></cell>
+</row>
+</rows>
+</grid>
 <div viewModel="@id('vm') @init('com.philip.edu.action.ChosenboxViewModel')">
 	<grid model="@load(vm.formModel)">
 		<auxhead><auxheader><textbox instant="true" value="@bind(vm.filter)" onChange="@command('changeFilter')"/></auxheader></auxhead>
 		<columns><column>表名</column></columns>
 		<template name="model">
 			<row>
-				<label value="@load(each.bus_name)"></label>
+				<checkbox id="@load(each.id)" label="@load(each.bus_name)" onCheck="doCheck(self)"><zscript><![CDATA[boolean chose=false; 
+				for(int i=0; i<al.size(); i++){
+					String id = (String)al.get(i);
+					if(id.equals(self.id)){
+						self.setChecked(true);
+						break;
+					}
+				}]]></zscript></checkbox>
 			</row>
 		</template>
 	</grid>
 </div>
 </window>
+<zscript>
+<![CDATA[
+    ArrayList al = new ArrayList();
+	void doCheck(Component c){
+		String sID = c.getId();
+		Checkbox ck = (Checkbox)c;
+		boolean exists = false;
+		int i=0;
+		for(i=0; i<al.size(); i++){
+			String id = (String)al.get(i);
+			if(sID.equals(id)){exists=true;break;}
+		}
+		if(exists){
+			if(ck.isChecked()){}
+			else{al.remove(i);}
+		}else{
+			System.out.println("add");
+			if(ck.isChecked()){al.add(ck.getId());}
+		}
+		
+		String current="";
+		for(int j=0; j<al.size(); j++){
+			System.out.println("show");
+			current += (String)al.get(j) + ",";
+		}
+		//System.out.println(current);
+		//System.out.println("label: " + dWindow.getFellow("test1"));
+		//test1.value = current;
+		Label test = dWindow.getFellow("test1");
+		test.setValue(current);
+	}
+]]>
+</zscript>
 </zk>

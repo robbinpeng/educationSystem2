@@ -20,11 +20,15 @@ public class RuleManager {
 		return excelHelper.is_format_right(wb,form_id);
 	}
 	
+	public boolean changeActive(int rule_id){
+		return dao.changeActive(rule_id);
+	}
+	
 	public ArrayList rulesCheck(int form_id, Workbook wb){
 		MessageInfo message = null;
 		ArrayList returnMessage = new ArrayList();
 		
-		ArrayList rules = getRules(form_id);
+		ArrayList rules = getActiveRules(form_id);
 		
 		for(int i=0; i<rules.size(); i++){
 			Rule rule = (Rule)rules.get(i);
@@ -91,6 +95,18 @@ public class RuleManager {
 	
 	public ArrayList getRules(int form_id){
 		return dao.getRules(form_id);
+	}
+	
+	public ArrayList getActiveRules(int form_id){
+		ArrayList al = new ArrayList();
+		ArrayList allRules = this.getRules(form_id);
+		
+		for(int i=0; i<allRules.size(); i++){
+			Rule rule = (Rule)allRules.get(i);
+			if(rule.getRule_active()=='Y')al.add(rule);
+		}
+		
+		return al;
 	}
 	
 	public boolean deleteRule(int rule_id){

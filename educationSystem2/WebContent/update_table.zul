@@ -1,4 +1,4 @@
-<window id="uWindow" title="修改数据表" apply="com.philip.edu.action.TableUpdateController" width="600px" action="show: slideDown;hide: slideUp">
+<window id="cWindow" title="修改数据表" apply="com.philip.edu.action.TableUpdateController" width="600px" action="show: slideDown;hide: slideUp" xmlns:h="http://www.w3.org/1999/xhtml">
 <grid>
 <rows>
 	<row><cell align="right" width="40%">业务表名<label style="color:red">*</label></cell><cell align="left"><textbox id="bus_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
@@ -7,7 +7,7 @@
 	<row><cell align="right" width="40%">表类型<label style="color:red">*</label></cell><cell align="left"><combobox id="form_type"></combobox></cell></row>
 	<row><cell align="right" width="40%">是否可空<label style="color:red">*</label></cell><cell align="left"><combobox id="is_null"></combobox></cell></row>
 	<row><cell align="right" width="40%">展示方式<label style="color:red">*</label></cell><cell align="left"><combobox id="dis_method"></combobox></cell></row>
-	<row><cell align="right" width="40%">依赖表</cell><cell align="left"><textbox id="dependency"></textbox></cell></row>
+	<row><cell align="right" width="40%">依赖表</cell><cell align="left"><h:input type="hidden" id="depend"/><button id="chooseDep" label="请选择" width="60%"/></cell></row>
 	<row><cell align="right" width="40%">定制页面</cell><cell align="left"><textbox id="customize" value="填写自定义界面名称" onFocus="txt1_disapear()" onBlur="txt1_show()"></textbox></cell></row>
 	<row><cell align="right" width="40%">说明</cell><cell align="left"><textbox id="memo" rows="3"></textbox></cell></row>
 	<row><cell align="right" colspan="2"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="修改" id="updateBtn"></button></cell></row>

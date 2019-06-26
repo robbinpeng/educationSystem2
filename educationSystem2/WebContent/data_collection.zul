@@ -7,8 +7,8 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.excel.ExcelManager;
 FormManager formManager = new FormManager();
 ]]></zscript>
-<include src="/head.zul"/>
-<window id="dbWindow" title="数据采集" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
+<include src="head.zul"/>
+<window id="dbWindow" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
 <listbox id="formlist" emptyMessage="系统中还没有表" >
         <listhead>
             <listheader label="序号" width="5%"/>
@@ -21,7 +21,7 @@ FormManager formManager = new FormManager();
         <template name="model" sclass="narrow">
             <listitem value="${each.id}">
                 <listcell label="${each.id}"></listcell>
-                <listcell><toolbarbutton href="/data_list.zul?form_id=${each.id}" label="${each.bus_name}"/></listcell>
+                <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
                 <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); Filedownload.save(file_name, null);]]></attribute></button></listcell>
                 <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>

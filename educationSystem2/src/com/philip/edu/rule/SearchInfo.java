@@ -5,7 +5,7 @@ public class SearchInfo {
 	private String field2Name;
 	private int field1Column;
 	private int field2Column;
-	private int andColumn = 0;
+	private String andName = "";
 	private String andValue = "";
 	private String form_physic;
 	
@@ -34,11 +34,11 @@ public class SearchInfo {
 		this.field2Column = field2Column;
 	}
 	
-	public int getAndColumn() {
-		return andColumn;
+	public String getAndName() {
+		return andName;
 	}
-	public void setAndColumn(int andColumn) {
-		this.andColumn = andColumn;
+	public void setAndName(String andName) {
+		this.andName = andName;
 	}
 	public String getAndValue() {
 		return andValue;

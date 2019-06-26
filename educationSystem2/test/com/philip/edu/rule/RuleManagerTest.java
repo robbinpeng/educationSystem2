@@ -94,4 +94,16 @@ public class RuleManagerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testGetRules(){
+		RuleManager manager = new RuleManager();
+		ArrayList al = null;
+		
+		al = manager.getRules(26);
+		assertEquals(al.size(), 4);
+		
+		al = manager.getActiveRules(26);
+		assertEquals(al.size(), 3);
+	}
 }

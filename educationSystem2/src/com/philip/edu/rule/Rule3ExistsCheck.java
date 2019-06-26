@@ -122,23 +122,23 @@ public class Rule3ExistsCheck {
 				// one field:
 				for(int j=0; j<al.size(); j++){
 					SearchInfo info = (SearchInfo)al.get(j);
-					if(info.getAndColumn()!=0 && !info.getAndValue().equals("")){
-						Cell cell = row.getCell(info.getAndColumn());
-						Object o = helper.getCellValue(cell);
-						String tempValue = o.toString();
-						if(!tempValue.equals(info.getAndValue()))continue;	
-					}
 						
 						Cell cell = row.getCell(info.getField1Column());
 						Object o = helper.getCellValue(cell);
 						leftValue = o.toString();
+						Query query = null;
 						
 						try{
 							session = HibernateUtil.getSession();
-							String sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"'";
-							logger.info(sql);
+							String sql = "";
+							if(!(info.getAndName()==null || info.getAndName().equals(""))){
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"' and " + info.getAndName() + "='" + info.getAndValue() + "'";
+							} else {
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"'";
+							}
+							logger.info(sql);		
 							
-							Query query = session.createSQLQuery(sql);
+							query = session.createSQLQuery(sql);
 							ArrayList resultL = (ArrayList)query.list();
 							
 							if(resultL.size()!=0){
@@ -169,14 +169,7 @@ public class Rule3ExistsCheck {
 				// one field:
 				for(int j=0; j<al.size(); j++){
 					SearchInfo info = (SearchInfo)al.get(j);
-					
-					if(info.getAndColumn()!=0 && !info.getAndValue().equals("")){
-						Cell cell = row.getCell(info.getAndColumn());
-						Object o = helper.getCellValue(cell);
-						String tempValue = o.toString();
-						if(!tempValue.equals(info.getAndValue()))continue;						
-					}
-					
+										
 						Cell cell1 = row.getCell(info.getField1Column());
 						Object o1 = helper.getCellValue(cell1);
 						leftValue1 = o1.toString();
@@ -186,7 +179,13 @@ public class Rule3ExistsCheck {
 						
 						try{
 							session = HibernateUtil.getSession();
-							String sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "'";
+							String sql = "";
+							if(!(info.getAndName().equals("")||info.getAndValue().equals(""))){
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "' and " + info.getAndName() + "='" + info.getAndValue() + "'";
+							} else {
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "'";
+							}
+							
 							logger.info(sql);
 							
 							Query query = session.createSQLQuery(sql);
@@ -267,9 +266,7 @@ public class Rule3ExistsCheck {
 					info1.setField1Column(column1);
 				}else if(Constants.RULE_FIELD_EQUAL.equals(type1)){
 					String andField = ob1.getString("value");
-					FormField fieldAnd = fManager.getFieldByPhysicName(form_id, andField);
-					int column11 = helper.getColumn2Check(wb, fieldAnd.getBus_name(), columnTotal);
-					info1.setAndColumn(column11);
+					info1.setAndName(andField);
 					String andValue = ob1.getString("field");
 					info1.setAndValue(andValue);
 				}
@@ -302,9 +299,7 @@ public class Rule3ExistsCheck {
 					info2.setField2Column(column2);
 				} else if(Constants.RULE_FIELD_EQUAL.equals(type2)){
 					String andField = ob2.getString("value");
-					FormField fieldAnd = fManager.getFieldByPhysicName(form_id, andField);
-					int column21 = helper.getColumn2Check(wb, fieldAnd.getBus_name(), columnTotal);
-					info2.setAndColumn(column21);
+					info2.setAndName(andField);
 					String andValue = ob2.getString("field");
 					info2.setAndValue(andValue);
 				}

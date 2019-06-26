@@ -2,3 +2,9 @@
 2019-06-24 13:57:53 [ http-nio-8080-exec-45 ] Data truncation: Data too long for column 'TJSJ' at row 1
 2019-06-24 22:39:18 [ http-nio-8080-exec-76 ] Unknown column 'ZYJBQK' in 'where clause'
 2019-06-24 22:50:20 [ http-nio-8080-exec-75 ] Unknown column 'JZGJBXX' in 'where clause'
+2019-06-25 10:05:42 [ http-nio-8080-exec-17 ] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from TBL_XQDZ order by id' at line 1
+2019-06-25 10:07:11 [ http-nio-8080-exec-21 ] You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from TBL_XQDZ order by id' at line 1
+2019-06-25 14:16:45 [ http-nio-8080-exec-125 ] Data truncation: Data too long for column 'rule_content' at row 1
+2019-06-25 14:21:14 [ http-nio-8080-exec-121 ] Data truncation: Data too long for column 'rule_content' at row 1
+2019-06-25 15:06:18 [ http-nio-8080-exec-145 ] Data truncation: Data too long for column 'TJSJ' at row 1
+2019-06-25 20:45:46 [ http-nio-8080-exec-259 ] Data truncation: Data too long for column 'ZDJSGH' at row 1

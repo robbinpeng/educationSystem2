@@ -8,7 +8,7 @@ import com.philip.edu.basic.*;
 <grid>
 <rows>
 <row align="right">
-<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton></cell>
+<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database"></toolbarbutton></cell>
 </row>
 </rows>
 </grid>

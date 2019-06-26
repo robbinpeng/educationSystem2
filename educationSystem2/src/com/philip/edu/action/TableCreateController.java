@@ -1,9 +1,12 @@
 package com.philip.edu.action;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.zkoss.zhtml.Input;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
@@ -51,6 +54,8 @@ public class TableCreateController extends SelectorComposer<Component>{
 	private Combobox dis_method;
 	@Wire
 	private Textbox memo;
+	@Wire
+	private Input depend;
 	
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
@@ -60,6 +65,29 @@ public class TableCreateController extends SelectorComposer<Component>{
 		form_type.setSelectedIndex(0);
 		is_null.setSelectedIndex(0);
 		dis_method.setSelectedIndex(0);
+	}
+	
+	@Listen("onClick = #chooseDep")
+	public void chooseDependency(Event e) {
+		ArrayList al = new ArrayList();
+		String name = "";
+		String dp = depend.getValue();
+		String[] str = null;
+		if(dp!=null && !dp.equals("")){
+			str = dp.split(",");
+			for(int i=0; i<str.length; i++){
+				String temp = str[i].substring(1, str[i].length()-1);
+				int table_id = Integer.parseInt(temp);
+				al.add("" + table_id);
+			}
+		}	
+		HashMap map = new HashMap();
+		map.put("dependency", al);
+		
+		Window window = (Window) Executions.createComponents("/dependency.zul", null, map);
+		window.setPosition("center");
+		
+		window.doModal();
 	}
 	
 	@Listen("onClick = #closeBtn")
@@ -85,6 +113,7 @@ public class TableCreateController extends SelectorComposer<Component>{
 		form.setForm_type(form_type.getSelectedItem().getValue().toString().charAt(0));
 		form.setIs_null(is_null.getSelectedItem().getValue().toString().charAt(0));
 		form.setDisplay_method(dis_method.getSelectedItem().getValue().toString().charAt(0));
+		form.setDependency_form(depend.getValue().toString());
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 		form.setCreate_time(new Date());
 		

@@ -5,7 +5,7 @@
 <grid>
 <rows>
 <row align="right">
-<toolbarbutton label="返回" href="/database_list.zul"></toolbarbutton>
+<toolbarbutton label="返回" href="/database"></toolbarbutton>
 </row>
 </rows>
 </grid>

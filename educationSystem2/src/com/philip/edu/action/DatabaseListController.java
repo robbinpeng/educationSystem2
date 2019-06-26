@@ -9,6 +9,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -67,7 +68,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	
 	@Listen("onClick = #update")
 	public void editTable() {
-		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");return;}
+		if(tblChose.getSelectedItem()==null){Clients.evalJavaScript("alert('没有数据表被选中！')");return;}
 		
 		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, null);
 		

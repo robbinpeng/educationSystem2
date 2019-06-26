@@ -10,6 +10,33 @@ import com.philip.edu.basic.HibernateUtil;
 import com.philip.edu.basic.Rule;
 
 public class RuleDAO {
+	
+	public boolean changeActive(int rule_id){
+		Session session = null;
+		boolean isSuccess = false;
+		
+		try {
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Rule rule = session.get(Rule.class, rule_id);
+			
+			if(rule.getRule_active()=='Y')rule.setRule_active('N');
+			else rule.setRule_active('Y');
+			
+			session.update(rule);
+			session.getTransaction().commit();
+			
+			isSuccess = true;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
 
 	public ArrayList getRules(int form_id) {
 		Session session = null;

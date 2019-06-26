@@ -65,4 +65,19 @@ public class RuleController  extends SelectorComposer<Component> {
 			Messagebox.show("É¾³ý¹æÔòÊ§°Ü£¡");
 		}
 	}
+	
+	@Listen("onActive = #ruleList")
+	public void doChangeActive(Event event){
+		Rule rule = (Rule)event.getData();
+		boolean is_success = ruleManager.changeActive(rule.getId());
+				
+		if(is_success){
+			listModel.remove(rule);
+			if(rule.getRule_active()=='Y')rule.setRule_active('N');
+			else rule.setRule_active('Y');
+			listModel.add(rule);
+		} else {
+			Messagebox.show("ÐÞ¸ÄÆô¶¯×´Ì¬Ê§°Ü£¡");
+		}
+	}
 }

@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -67,7 +68,9 @@ public class FieldCreateController extends SelectorComposer<Component> {
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
-
+		
+		//Label test = new Label();
+		
 		Integer sForm = (Integer) Executions.getCurrent().getArg().get("form_id");
 		int form_id = sForm.intValue();
 		store_formid = form_id;
