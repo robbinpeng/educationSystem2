@@ -62,7 +62,7 @@ public class RuleController  extends SelectorComposer<Component> {
 		if(is_success){
 			listModel.remove(rule);
 		} else {
-			Messagebox.show("É¾³ı¹æÔòÊ§°Ü£¡");
+			Messagebox.show("É¾³ı¹æÔòÊ§°Ü£¡","´íÎó",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class RuleController  extends SelectorComposer<Component> {
 			else rule.setRule_active('Y');
 			listModel.add(rule);
 		} else {
-			Messagebox.show("ĞŞ¸ÄÆô¶¯×´Ì¬Ê§°Ü£¡");
+			Messagebox.show("ĞŞ¸ÄÆô¶¯×´Ì¬Ê§°Ü£¡","´íÎó",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
 }

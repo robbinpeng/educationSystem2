@@ -87,7 +87,7 @@ public class UploadController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #update")
 	public void editTable() {
-		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");return;}
+		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, null);
 		
@@ -96,7 +96,7 @@ public class UploadController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #delete")
 	public void deleteTable() {
-		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");return;}
+		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		String sId = tblChose.getSelectedItem().getId();
 		int form_id = Integer.parseInt(sId);
@@ -182,15 +182,15 @@ public class UploadController extends SelectorComposer<Component> {
 						if (tempSuccess) {
 							isSuccess = uploadManager.uploadUpdate(form.getId());
 							if (isSuccess) {
-								Messagebox.show("上传成功！");
+								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
 
 								List<Form> forms = formManager.getForms(Constants.USER_ID);
 								formlist.setModel(new ListModelList<Form>(forms));
 							} else {
-								Messagebox.show("更新上传数据时出错，请联系管理员！");
+								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
 							}
 						} else {
-							Messagebox.show("上传表格过程中出错!");
+							Messagebox.show("上传表格过程中出错!","错误",Messagebox.OK,Messagebox.ERROR);
 						}
 					} else {
 						HashMap map = new HashMap();
@@ -200,7 +200,7 @@ public class UploadController extends SelectorComposer<Component> {
 						window1.doModal();
 					}
 				} else {
-					Messagebox.show("上传的表格与要求不符！");
+					Messagebox.show("上传的表格与要求不符！","错误",Messagebox.OK,Messagebox.ERROR);
 				}
 			} catch (EncryptedDocumentException | IOException e) {
 				// TODO Auto-generated catch block
@@ -208,7 +208,7 @@ public class UploadController extends SelectorComposer<Component> {
 				logger.error(e);
 			}
 		} else {
-			Messagebox.show("您上传的不是excel表格！");
+			Messagebox.show("您上传的不是excel表格！","错误",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
 
@@ -223,10 +223,10 @@ public class UploadController extends SelectorComposer<Component> {
 				List<Form> forms = formManager.getForms(Constants.USER_ID);
 				formlist.setModel(new ListModelList<Form>(forms));
 			}else{
-				Messagebox.show("退回错误！");
+				Messagebox.show("退回错误！","错误",Messagebox.OK,Messagebox.ERROR);
 			}
 		}else{
-			Messagebox.show("退回错误！");
+			Messagebox.show("退回错误！","错误",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
 

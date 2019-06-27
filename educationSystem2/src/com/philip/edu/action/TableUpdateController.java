@@ -95,7 +95,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		Form form = storeForm;
 		
         //1.check:
-		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("业务表名不能为空！");return;}
+		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("业务表名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		//2.save:
 		form.setBus_name(bus_name.getValue());
 		form.setUser_id(Constants.USER_ID);
@@ -109,12 +109,12 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		boolean b = dbManager.updateTable(form);
 		
 		if(b){
-			Messagebox.show("成功修改！");
+			Messagebox.show("成功修改！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			Listbox pList = (Listbox)Path.getComponent("/dbWindow/formlist");
 			List<Form> forms = formManager.getForms(Constants.USER_ID);
 			pList.setModel(new ListModelList<Form>(forms));
 			cWindow.detach();
-		}else{Messagebox.show("表修改过程中遇到问题！");}
+		}else{Messagebox.show("表修改过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}
     }
 	
 	@Override

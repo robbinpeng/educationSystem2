@@ -95,29 +95,29 @@ public class FieldCreateController extends SelectorComposer<Component> {
 
 		// 1.check:
 		if (bus_name.getValue() == null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())) {
-			Messagebox.show("字段业务名不能为空！");
+			Messagebox.show("字段业务名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
 		if (physic_name.getValue() == null || "".equals(physic_name.getValue())
 				|| "必填项".equals(physic_name.getValue())) {
-			Messagebox.show("字段物理名不能为空！");
+			Messagebox.show("字段物理名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		} else if (dbManager.isFieldExsits(form.getPhsic_name(), physic_name.getValue())) {
-			Messagebox.show("该字段已经存在，请重新输入！");
+			Messagebox.show("该字段已经存在，请重新输入！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
 		if (sequence.getValue() == null || "".equals(sequence.getValue()) || "必填项".equals(sequence.getValue())) {
-			Messagebox.show("字段顺序不能为空！");
+			Messagebox.show("字段顺序不能为空！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		} else if (!isNumeric(sequence.getValue())) {
-			Messagebox.show("字段顺序必须是数字！");
+			Messagebox.show("字段顺序必须是数字！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
 		if (length.getValue() == null || "".equals(length.getValue()) || "必填项".equals(length.getValue())) {
-			Messagebox.show("字段长度不能为空!");
+			Messagebox.show("字段长度不能为空!","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		} else if (!isNumeric(length.getValue())) {
-			Messagebox.show("字段长度必须是数字！");
+			Messagebox.show("字段长度必须是数字！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
 
@@ -144,7 +144,7 @@ public class FieldCreateController extends SelectorComposer<Component> {
 					rootPath + "/template/" + form.getBus_name() + ".xls");
 
 			if (b1) {*/
-				Messagebox.show("成功创建字段！");
+				Messagebox.show("成功创建字段！","信息",Messagebox.OK,Messagebox.INFORMATION);
 				
 				Listbox pList = (Listbox) Path.getComponent("/fWindow/fieldList");
 				List<FormField> fields = formManager.getFormFields(store_formid);
@@ -154,7 +154,7 @@ public class FieldCreateController extends SelectorComposer<Component> {
 				Messagebox.show("在生成Excel模板时出错！");
 			}*/
 		} else {
-			Messagebox.show("添加字段时出错！");
+			Messagebox.show("添加字段时出错！","错误",Messagebox.OK,Messagebox.ERROR);
 		}
 
 	}

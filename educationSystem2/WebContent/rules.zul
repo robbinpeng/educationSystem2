@@ -233,7 +233,7 @@ String form_name = session.getAttribute("form_name");
     void addCondition1(){
     	
     	if(numCon1 >= 1){
-    		Messagebox.show("前置条件最多只有一个！");
+    		Messagebox.show("前置条件最多只有一个！","错误",Messagebox.OK,Messagebox.ERROR);
     	} else {
     		divCon1[indexCon1] = (Div)div.clone();
     		//divCon1[indexCon1].setClass("mydiv");
@@ -445,7 +445,7 @@ String form_name = session.getAttribute("form_name");
     void addCondition3(){
     	
     	if(numCon3 >= 1){
-    		Messagebox.show("前置条件最多只有一个！");
+    		Messagebox.show("前置条件最多只有一个！","错误",Messagebox.OK,Messagebox.ERROR);
     	} else {
     		divCon3[indexCon3] = (Div)div.clone();
     		Input input = new Input();
@@ -711,7 +711,7 @@ String form_name = session.getAttribute("form_name");
     void addCondition4(){
     	
     	if(numCon4 >= 1){
-    		Messagebox.show("前置条件最多只有一个！");
+    		Messagebox.show("前置条件最多只有一个！","错误",Messagebox.OK,Messagebox.ERROR);
     	} else {
     		divCon4[indexCon4] = (Div)div.clone();
     		Input input = new Input();
@@ -1006,7 +1006,7 @@ String form_name = session.getAttribute("form_name");
     void addCondition6(){
     	
     	if(numCon6 >= 1){
-    		Messagebox.show("前置条件最多只有一个！");
+    		Messagebox.show("前置条件最多只有一个！","错误",Messagebox.OK,Messagebox.ERROR);
     	} else {
     		divCon6[indexCon6] = (Div)div.clone();
     		Input input = new Input();
@@ -1231,10 +1231,10 @@ String form_name = session.getAttribute("form_name");
 			//Messagebox.show("winodw1");
 			
 			//basic check:
-			if(rule_pattern.getSelectedItem()==null){Messagebox.show("必须选择校验规则模式!"); return;}
-			if(rule_name==null||"".equals(rule_name.getValue())){Messagebox.show("必须输入校验规则名称！"); return;}
-			if(rule_seq==null||"".equals(rule_seq.getValue().toString())){Messagebox.show("校验规则顺序必须输入！"); return;}
-			if(fail_information==null||"".equals(fail_information.getValue())){Messagebox.show("必须输入检验失败信息！"); return;}
+			if(rule_pattern.getSelectedItem()==null){Messagebox.show("必须选择校验规则模式!","错误",Messagebox.OK,Messagebox.ERROR); return;}
+			if(rule_name==null||"".equals(rule_name.getValue())){Messagebox.show("必须输入校验规则名称！","错误",Messagebox.OK,Messagebox.ERROR); return;}
+			if(rule_seq==null||"".equals(rule_seq.getValue().toString())){Messagebox.show("校验规则顺序必须输入！","错误",Messagebox.OK,Messagebox.ERROR); return;}
+			if(fail_information==null||"".equals(fail_information.getValue())){Messagebox.show("必须输入检验失败信息！","错误",Messagebox.OK,Messagebox.ERROR); return;}
 		
 			//enter:
 			Rule rule = new Rule();
@@ -1255,7 +1255,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule1(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
@@ -1281,7 +1281,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule2(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
@@ -1297,7 +1297,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule3(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
@@ -1313,7 +1313,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule4(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
@@ -1329,7 +1329,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule5(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
@@ -1346,7 +1346,7 @@ String form_name = session.getAttribute("form_name");
 			if(rules!=null){
 				boolean b = checkRule6(rules);
 				if(!b){
-					Messagebox.show("您输入的规则不正确，请校验后再输入！");
+					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				System.out.println("rule checked.");
@@ -1355,7 +1355,7 @@ String form_name = session.getAttribute("form_name");
 				Div div = (Div)al.get(0);
 				Combobox comDate = div.getLastChild();
 				if(comDate.getSelectedItem()==null){
-					Messagebox.show("必须选择一种日期格式!");
+					Messagebox.show("必须选择一种日期格式!","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				String format = comDate.getSelectedItem().getValue();
@@ -1374,8 +1374,8 @@ String form_name = session.getAttribute("form_name");
 				is_new = true;
 			}
 			
-		if(is_new){Messagebox.show("规则成功保存！");Executions.getCurrent().sendRedirect("");}
-		else Messagebox.show("没有规则被保存!");
+		if(is_new){Messagebox.show("规则成功保存！","信息",Messagebox.OK,Messagebox.INFORMATION);Executions.getCurrent().sendRedirect("");}
+		else Messagebox.show("没有规则被保存!","错误",Messagebox.OK,Messagebox.ERROR);
 	}
 	
 	JSONObject getWindowRules(Window window){
@@ -1518,7 +1518,7 @@ String form_name = session.getAttribute("form_name");
 					List al = window.getChildren();
 					Div div = (Div)al.get(0);
 					Combobox comDate = div.getLastChild();
-					if(comDate.getSelectedItem()==null){Messagebox.show("必须先选择日期格式!");break;}
+					if(comDate.getSelectedItem()==null){Messagebox.show("必须先选择日期格式!","错误",Messagebox.OK,Messagebox.ERROR);break;}
 					String format = comDate.getSelectedItem().getValue();
 					Textbox textS = (Textbox)divChildren.get(1);
 					if(format.length()==textS.getValue().length()){
@@ -1526,7 +1526,7 @@ String form_name = session.getAttribute("form_name");
 						textObj.put("format",format).put("value",textS.getValue()).put("type",Constants.RULE_TEXTBOX_DATE);
 						rulesArray.put(textObj);
 					} else {
-						Messagebox.show("文本框中输入的日期格式不正确！");
+						Messagebox.show("文本框中输入的日期格式不正确！","错误",Messagebox.OK,Messagebox.ERROR);
 					}
 					break;
 				case 't':

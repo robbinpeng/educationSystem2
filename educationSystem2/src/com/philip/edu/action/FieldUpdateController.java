@@ -77,12 +77,12 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		FormField field = store_field;
 		
         //1.check:
-		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("字段业务名不能为空！");return;}
+		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("字段业务名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		if (sequence.getValue() == null || "".equals(sequence.getValue()) || "必填项".equals(sequence.getValue())) {
-			Messagebox.show("字段顺序不能为空！");
+			Messagebox.show("字段顺序不能为空！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		} else if (!isNumeric(sequence.getValue())) {
-			Messagebox.show("字段顺序必须是数字！");
+			Messagebox.show("字段顺序必须是数字！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
 		
@@ -100,14 +100,14 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		boolean b = dbManager.updateField(field);
 		
 		if(b){
-			Messagebox.show("成功修改！");
+			Messagebox.show("成功修改！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			
 			Listbox pList = (Listbox)Path.getComponent("/fWindow/fieldList");
 		    logger.info("store_formid:" + store_formid);
 			List<FormField> fields = formManager.getFormFields(store_formid);
 			pList.setModel(new ListModelList<FormField>(fields));
 			ufWindow.detach();
-		}else{Messagebox.show("字段修改过程中遇到问题！");}
+		}else{Messagebox.show("字段修改过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}
     }
 	
 	@Override

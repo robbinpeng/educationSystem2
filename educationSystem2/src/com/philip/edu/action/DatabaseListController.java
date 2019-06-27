@@ -68,7 +68,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	
 	@Listen("onClick = #update")
 	public void editTable() {
-		if(tblChose.getSelectedItem()==null){Clients.evalJavaScript("alert('没有数据表被选中！')");return;}
+		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, null);
 		
@@ -77,7 +77,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	
 	@Listen("onClick = #delete")
 	public void deleteTable() {
-		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！");return;}
+		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		String sId = tblChose.getSelectedItem().getId();
 		int form_id = Integer.parseInt(sId);

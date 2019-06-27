@@ -101,9 +101,9 @@ public class TableCreateController extends SelectorComposer<Component>{
 		FormStatus status = new FormStatus();
 		
         //1.check:
-		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("业务表名不能为空！");return;}
-		if(physic_name.getValue()==null || "".equals(physic_name.getValue()) || "必填项".equals(physic_name.getValue())){Messagebox.show("物理表名不能为空！");return;}
-		else if(dbManager.isTableExsits("tbl_" + physic_name.getValue())){Messagebox.show("该物理表名已经存在，请重新输入！");return;}
+		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("业务表名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
+		if(physic_name.getValue()==null || "".equals(physic_name.getValue()) || "必填项".equals(physic_name.getValue())){Messagebox.show("物理表名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
+		else if(dbManager.isTableExsits("tbl_" + physic_name.getValue())){Messagebox.show("该物理表名已经存在，请重新输入！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		//2.save:
 		form.setBus_name(bus_name.getValue());
 		form.setPhsic_name("tbl_" + physic_name.getValue());
@@ -127,11 +127,11 @@ public class TableCreateController extends SelectorComposer<Component>{
 		boolean b = dbManager.createTable(form);
 		
 		if(b){
-			Messagebox.show("成功创建！");
+			Messagebox.show("成功创建！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			Listbox pList = (Listbox)Path.getComponent("/dbWindow/formlist");
 			List<Form> forms = formManager.getForms(Constants.USER_ID);
 			pList.setModel(new ListModelList<Form>(forms));
 			cWindow.detach();
-		}else{Messagebox.show("表创建过程中遇到问题！");}
+		}else{Messagebox.show("表创建过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}
     }
 }

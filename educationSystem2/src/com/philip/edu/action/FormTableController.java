@@ -71,7 +71,7 @@ public class FormTableController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #update")
 	public void editTable() {
-		if(fieldChose.getSelectedItem()==null){Messagebox.show("没有字段被选中！");return;}
+		if(fieldChose.getSelectedItem()==null){Messagebox.show("没有字段被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		HashMap map = new HashMap();
 		map.put("form_id", store_id);
 		
@@ -82,7 +82,7 @@ public class FormTableController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #delete")
 	public void deleteField() {
-		if(fieldChose.getSelectedItem()==null){Messagebox.show("没有字段被选中！");return;}
+		if(fieldChose.getSelectedItem()==null){Messagebox.show("没有字段被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		String sId = fieldChose.getSelectedItem().getId();
 		int field_id = Integer.parseInt(sId);

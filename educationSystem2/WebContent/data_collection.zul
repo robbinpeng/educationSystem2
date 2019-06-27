@@ -7,7 +7,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.excel.ExcelManager;
 FormManager formManager = new FormManager();
 ]]></zscript>
-<include src="head.zul"/>
+<include src="headC.zul"/>
 <window id="dbWindow" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
 <listbox id="formlist" emptyMessage="系统中还没有表" >
         <listhead>
