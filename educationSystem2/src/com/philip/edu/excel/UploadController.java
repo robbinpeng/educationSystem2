@@ -21,6 +21,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -31,6 +32,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
 import com.philip.edu.rule.MessageInfo;
 import com.philip.edu.rule.RuleManager;
@@ -54,6 +56,9 @@ public class UploadController extends SelectorComposer<Component> {
 	private Listbox formlist;
 	
 	@Wire
+	private Grid groupList;
+	
+	@Wire
 	private Button create;
 	
 	@Wire
@@ -67,12 +72,21 @@ public class UploadController extends SelectorComposer<Component> {
 	
 	@Wire
 	private Radiogroup tblChose;
+	
+	private int group_id;
 
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
-
-		List<Form> forms = formManager.getForms(Constants.USER_ID);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		groupList.setModel(new ListModelList<Group>(groups));
+		
+		String sGroup = Executions.getCurrent().getParameter("group_id");
+		int groupid = Integer.parseInt(sGroup);
+		group_id = groupid;
+		
+		List<Form> forms = formManager.getFormsByGroup(group_id);
 		formlist.setModel(new ListModelList<Form>(forms));
 
 		// formlist.getChildren();
@@ -106,7 +120,8 @@ public class UploadController extends SelectorComposer<Component> {
 				 if(e.getName().equals("onOK")){
 					 //Messagebox.show("删除了");
 					 dbManager.deleteTable(form_id);
-					 List<Form> forms = formManager.getForms(Constants.USER_ID);
+
+					 List<Form> forms = formManager.getFormsByGroup(group_id);
 					 formlist.setModel(new ListModelList<Form>(forms));
 				 }else{
 					 
@@ -154,8 +169,22 @@ public class UploadController extends SelectorComposer<Component> {
 				wb = WorkbookFactory.create(media.getStreamData());
 				boolean format_right = ruleManager.formatCheck(form.getId(), wb);
 				if (format_right) {
-					// 3.check the rules:
 					boolean checkpass = true;
+					// 2.5 check text format:
+					MessageInfo m = engine.textFormatCheck(form.getId(), wb);
+					if(m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS){
+						
+					} else {
+						sMessage += "上传表格中有数据类型、格式错误： \n";
+						ArrayList al = m.getMessage_info();
+						if(al.size()!=0){
+							checkpass = false;
+							for (int i = 0; i<al.size(); i++){
+								sMessage += al.get(i).toString() + "\n";
+							}
+						}
+					}
+					// 3.check the rules:
 					list = engine.rulesCheck(form.getId(), wb);
 					for (int j = 0; j < list.size(); j++) {
 						message = (MessageInfo) list.get(j);
@@ -184,7 +213,7 @@ public class UploadController extends SelectorComposer<Component> {
 							if (isSuccess) {
 								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
 
-								List<Form> forms = formManager.getForms(Constants.USER_ID);
+								List<Form> forms = formManager.getFormsByGroup(group_id);
 								formlist.setModel(new ListModelList<Form>(forms));
 							} else {
 								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
@@ -220,7 +249,7 @@ public class UploadController extends SelectorComposer<Component> {
 		if(lines!=0){
 			success = uploadManager.updateRollback(form.getId());
 			if(success){
-				List<Form> forms = formManager.getForms(Constants.USER_ID);
+				List<Form> forms = formManager.getFormsByGroup(group_id);
 				formlist.setModel(new ListModelList<Form>(forms));
 			}else{
 				Messagebox.show("退回错误！","错误",Messagebox.OK,Messagebox.ERROR);

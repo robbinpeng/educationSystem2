@@ -1,5 +1,6 @@
 package com.philip.edu.action;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -20,6 +22,7 @@ import org.zkoss.zul.Window;
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
 import com.philip.edu.excel.UploadController;
 import com.philip.edu.rule.RuleManager;
@@ -59,9 +62,17 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	@Wire
 	private Radiogroup tblChose;
 	
+	@Wire
+	private Grid groupList;
+	
+	private int group_id;
+	
 	@Listen("onClick = #create")
 	public void createTable() {
-		Window window2 = (Window) Executions.createComponents("/new_table.zul", null, null);
+		HashMap map = new HashMap();
+		map.put("group_id", ""+group_id);
+		
+		Window window2 = (Window) Executions.createComponents("/new_table.zul", null, map);
 		
 		window2.doModal();
 	}
@@ -70,7 +81,10 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	public void editTable() {
 		if(tblChose.getSelectedItem()==null){Messagebox.show("没有数据表被选中！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
-		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, null);
+		HashMap map = new HashMap();
+		map.put("group_id", ""+group_id);
+		
+		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, map);
 		
 		window3.doModal();
 	}
@@ -87,7 +101,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 				 if(e.getName().equals("onOK")){
 					 //Messagebox.show("删除了");
 					 dbManager.deleteTable(form_id);
-					 List<Form> forms = formManager.getForms(Constants.USER_ID);
+					 List<Form> forms = formManager.getFormsByGroup(group_id);
 					 formlist.setModel(new ListModelList<Form>(forms));
 				 }else{
 					 
@@ -99,8 +113,14 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
-
-		List<Form> forms = formManager.getForms(Constants.USER_ID);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		groupList.setModel(new ListModelList<Group>(groups));
+		
+		String sGroup = Executions.getCurrent().getParameter("group_id");
+		group_id = Integer.parseInt(sGroup);
+		
+		List<Form> forms = formManager.getFormsByGroup(group_id);
 		formlist.setModel(new ListModelList<Form>(forms));
 
 	}

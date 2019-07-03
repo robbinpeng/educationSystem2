@@ -4,26 +4,47 @@
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
 import com.philip.edu.basic.Form;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
+import org.zkoss.util.media.AMedia;
 import com.philip.edu.excel.ExcelManager;
 FormManager formManager = new FormManager();
 ]]></zscript>
 <include src="headC.zul"/>
 <window id="dbWindow" apply="com.philip.edu.excel.UploadController" xmlns:h="http://www.w3.org/1999/xhtml">
-<listbox id="formlist" emptyMessage="系统中还没有表" >
+<hlayout width="100%">
+<grid width="250px" id="groupList">
+<rows>
+<zscript>
+<![CDATA[
+String group_id = Executions.getCurrent().getParameter("group_id");
+if(group_id==null)group_id="1";
+
+int iGroup = Integer.parseInt(group_id);
+]]>
+</zscript>
+<template name="model">
+<row>
+<cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/collection/${each.id}"></toolbarbutton></cell>
+</row>
+</template>
+</rows>
+</grid>
+<listbox id="formlist" emptyMessage="系统中还没有表" width="1100px">
         <listhead>
-            <listheader label="序号" width="5%"/>
-            <listheader label="待采集表" width="35%"/>
+            <listheader label="序号" width="4%"/>
+            <listheader label="待采集表" width="25%"/>
             <listheader label="采集状态" />
             <listheader label="数据模板下载" />
             <listheader label="数据文件上传" />
-            <listheader label="退回"  width="8%"/>
+            <listheader label="退回"/>
         </listhead>
         <template name="model" sclass="narrow">
             <listitem value="${each.id}">
-                <listcell label="${each.id}"></listcell>
+                <listcell label="${forEachStatus.index}"></listcell>
                 <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
-                <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); Filedownload.save(file_name, null);]]></attribute></button></listcell>
+                <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); Executions.getCurrent().addResponseHeader("Content-disposition", "attachment;filename=\"" + temp + ".xls" + "\""); Filedownload.save(file_name, null);]]></attribute></button></listcell>
                 <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>
                 <popup width="300px">
         			<groupbox closable="true">
@@ -50,6 +71,7 @@ FormManager formManager = new FormManager();
             </listitem>
         </template>
 </listbox>
+</hlayout>
 </window>
 <zscript>
 

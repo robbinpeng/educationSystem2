@@ -62,6 +62,8 @@ public class FieldCreateController extends SelectorComposer<Component> {
 	private Combobox is_report;
 	@Wire
 	private Combobox is_hidden;
+	@Wire
+	private Combobox text_format;
 
 	private int store_formid;
 
@@ -132,6 +134,7 @@ public class FieldCreateController extends SelectorComposer<Component> {
 		field.setCompute(compute.getSelectedItem().getValue().toString().charAt(0));
 		field.setIs_report(is_report.getSelectedItem().getValue().toString().charAt(0));
 		field.setIs_hidden(is_hidden.getSelectedItem().getValue().toString().charAt(0));
+		field.setText_format(text_format.getSelectedItem().getValue().toString().charAt(0));
 		field.setForm_id(store_formid);
 		field.setMemo(memo.getValue());
 

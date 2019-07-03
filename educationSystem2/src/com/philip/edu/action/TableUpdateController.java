@@ -28,6 +28,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.FormStatus;
+import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
 
 public class TableUpdateController extends SelectorComposer<Component> {
@@ -52,13 +53,14 @@ public class TableUpdateController extends SelectorComposer<Component> {
 	@Wire
 	private Combobox is_null;
 	@Wire
-	private Combobox dis_method;
-	@Wire
 	private Textbox memo;
 	@Wire
 	private Input depend;
 	@Wire
 	private Button chooseDep;
+	@Wire
+	private Combobox table_class;
+	private int group_id;
 	
 	private Form storeForm;
 	
@@ -102,7 +104,10 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		form.setStats_time(stat_time.getSelectedItem().getValue().toString().charAt(0));
 		form.setForm_type(form_type.getSelectedItem().getValue().toString().charAt(0));
 		form.setIs_null(is_null.getSelectedItem().getValue().toString().charAt(0));
-		form.setDisplay_method(dis_method.getSelectedItem().getValue().toString().charAt(0));
+		form.setDisplay_method(Constants.V_DISPLAY_GENERAL_LIST);
+		String sGroup = table_class.getSelectedItem().getValue().toString();
+		int groupid = Integer.parseInt(sGroup);
+		form.setGroup_id(groupid);
 		form.setDependency_form(depend.getValue());
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 				
@@ -111,7 +116,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		if(b){
 			Messagebox.show("成功修改！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			Listbox pList = (Listbox)Path.getComponent("/dbWindow/formlist");
-			List<Form> forms = formManager.getForms(Constants.USER_ID);
+			List<Form> forms = formManager.getFormsByGroup(group_id);
 			pList.setModel(new ListModelList<Form>(forms));
 			cWindow.detach();
 		}else{Messagebox.show("表修改过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}
@@ -178,14 +183,17 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		is_null.appendChild(item);
 		if(form.getIs_null()=='Y')is_null.setSelectedItem(item);
 		
-		item = new Comboitem(Constants.DIP_DISPLAY_SINGLE_RECORD);
-		item.setValue(Constants.V_DISPLAY_SINGLE_RECORD);
-		dis_method.appendChild(item);
-		if(form.getDisplay_method()==Constants.V_DISPLAY_SINGLE_RECORD)dis_method.setSelectedItem(item);
-		item = new Comboitem(Constants.DIP_DISPLAY_GENERAL_LIST);
-		item.setValue(Constants.V_DISPLAY_GENERAL_LIST);
-		dis_method.appendChild(item);
-		if(form.getDisplay_method()==Constants.V_DISPLAY_GENERAL_LIST)dis_method.setSelectedItem(item);
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		for(int i=0; i<groups.size(); i++){
+			Group group = (Group)groups.get(i);
+			item = new Comboitem(group.getClass_name());
+			item.setValue(group.getId());
+			table_class.appendChild(item);
+			if(group.getId()==form.getGroup_id())table_class.setSelectedItem(item);
+		}
+		
+		String sGroup = (String) Executions.getCurrent().getArg().get("group_id");
+		group_id = Integer.parseInt(sGroup);
 		
 		depend.setValue("" + form.getDependency_form());
 		

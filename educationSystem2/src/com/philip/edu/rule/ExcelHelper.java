@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.zkoss.zk.ui.Executions;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.FormField;
@@ -36,10 +37,11 @@ public class ExcelHelper {
 		List al1 = manager.getFormFields(form_id);
 		for(int i=0; i<al1.size(); i++){
 			FormField temp = (FormField)al1.get(i);
-			if(temp.getIs_report()=='Y'&&temp.getIs_hidden()=='N')al2.add(temp);
+			if(temp.getIs_hidden()=='N')al2.add(temp);
 		}
 		
-		tableColumns = al2.size();
+		tableColumns = al2.size() - 1;
+		logger.info("tableColumns=" + tableColumns + ", excelColumns=" + excelColumns);
 		if(excelColumns != tableColumns){logger.info("----------ERROR:导入数据表格式不正确！---------");is_right=false;}
 		
 		return is_right;
@@ -62,7 +64,7 @@ public class ExcelHelper {
 			if(cellValue==null || "".equals(cellValue.toString()))break;
 			i++;
 		}
-		excelColumns = i -1;
+		excelColumns = i - 1;
 		
 		logger.info("the excel has " + excelColumns + " columns!");
 		

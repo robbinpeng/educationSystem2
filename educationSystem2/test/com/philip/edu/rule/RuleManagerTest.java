@@ -78,11 +78,11 @@ public class RuleManagerTest {
 		FileInputStream in = null;
 		Workbook wb = null;
 		try {
-			in = new FileInputStream("D:/Develop/education/test/1-11.xls");
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
 			wb = WorkbookFactory.create(in);
 			
-			test = manager.formatCheck(Constants.FORM_ID, wb);
-			//assertEquals(test, true);
+			test = manager.formatCheck(21, wb);
+			assertEquals(test, true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,9 +101,41 @@ public class RuleManagerTest {
 		ArrayList al = null;
 		
 		al = manager.getRules(26);
-		assertEquals(al.size(), 4);
+		//assertEquals(al.size(), 4);
 		
 		al = manager.getActiveRules(26);
-		assertEquals(al.size(), 3);
+		//assertEquals(al.size(), 3);
+	}
+	
+	@Test
+	public void testTextFormat(){
+		RuleManager manager = new RuleManager();
+		FileInputStream in = null;
+		Workbook wb = null;
+		
+		try {
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
+			wb = WorkbookFactory.create(in);
+			
+			MessageInfo message = manager.textFormatCheck(21, wb);
+			if(message.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
+				
+			} else {
+				ArrayList al = message.getMessage_info();
+				for(int i=0; i<al.size(); i++){
+					String error = (String)al.get(i);
+					System.out.println(error);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

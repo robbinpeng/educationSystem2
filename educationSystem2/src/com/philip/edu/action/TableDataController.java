@@ -12,6 +12,7 @@ import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -19,20 +20,25 @@ import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
+import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.DataInfo;
 import com.philip.edu.basic.DataManager;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.Group;
 
 public class TableDataController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = 1L;
 	
 	private static Logger logger = Logger.getLogger(TableDataController.class);
 	private DataManager manager = new DataManager();
+	private FormManager formManager = new FormManager();
 	
 	@Wire
 	private Listbox dataList;
 	private ArrayList datas;
+	@Wire
+	private Grid groupList;
 	
 	@Override
 	public ComponentInfo doBeforeCompose(Page page, Component parent,
@@ -49,6 +55,15 @@ public class TableDataController extends SelectorComposer<Component> {
 		//generateList();
 		
 		return super.doBeforeCompose(page, parent, compInfo);
+	}
+	
+	@Override
+	public void doAfterCompose(Component window) throws Exception {
+		super.doAfterCompose(window);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		groupList.setModel(new ListModelList<Group>(groups));
+	
 	}
 	
 	public void generateList(){

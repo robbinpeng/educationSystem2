@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.zkoss.zk.ui.util.Clients;
 
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
@@ -38,7 +39,7 @@ public class ExcelManager {
 		
 		for(int i=0; i<fields.size(); i++){
 			FormField field = (FormField) fields.get(i);
-			if(field.getIs_report() == 'N' || field.getIs_hidden() == 'Y')continue;
+			if(field.getIs_hidden() == 'Y' || field.getPhysic_name().equals("TJSJ"))continue;
 			
 			al.add(field);
 		}

@@ -153,4 +153,23 @@ public class Constants {
 	public static final String DIP_DATA_TYPE_DATE = "日期型";
 	public static final int V_DATA_TYPE_BIG_STRING = 5;
 	public static final String DIP_DATA_TYPE_BIG_STRING = "字符型（字数大于2000）";
+	
+	public static final char V_TEXT_FORMAT_WEBSITE = 'w';
+	public static final String DIP_TEXT_FORMAT_WEBSITE = "网址";
+	public static final char V_TEXT_FORMAT_MOBILEPHONE = 'p';
+	public static final String DIP_TEXT_FORMAT_MOBILEPHONE = "手机号码";
+	public static final char V_TEXT_FORMAT_EMAIL = 'e';
+	public static final String DIP_TEXT_FORMAT_EMAIL = "Email";
+	public static final char V_TEXT_FORMAT_IDENTITY = 'i';
+	public static final String DIP_TEXT_FORMAT_IDENTITY = "身份证";
+	public static final char V_TEXT_FORMAT_DATE_YEAR = 'y';
+	public static final String DIP_TEXT_FORMAT_DATE_YEAR = "YYYY";
+	public static final char V_TEXT_FORMAT_DATE_MONTH = 'm';
+	public static final String DIP_TEXT_FORMAT_DATE_MONTH = "YYYY-MM";
+	public static final char V_TEXT_FORMAT_DATE_MONTH_NOSLASH = 'n';
+	public static final String DIP_TEXT_FORMAT_DATE_MONTH_NOSLASH = "YYYYMM";
+	public static final char V_TEXT_FORMAT_DATE_DAY = 'd';
+	public static final String DIP_TEXT_FORMAT_DATE_DAY = "YYYY-MM-DD";
+	public static final char V_TEXT_FORMAT_NO = 'o';
+	public static final String DIP_TEXT_FORMAT_NO = " ";
 }

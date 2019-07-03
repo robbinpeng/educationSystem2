@@ -6,9 +6,26 @@ import com.philip.edu.basic.*;
 import com.philip.edu.basic.Form;
 import com.philip.edu.excel.ExcelManager;
 FormManager formManager = new FormManager();
+
+String group_id = Executions.getCurrent().getParameter("group_id");
+if(group_id==null)group_id="1";
+int iGroup = Integer.parseInt(group_id);
+
+int index=1;
 ]]></zscript>
 <include src="head.zul"/>
 <window id="dbWindow" apply="com.philip.edu.action.DatabaseListController">
+<hlayout width="100%">
+<grid width="250px" id="groupList">
+<rows>
+<template name="model">
+<row>
+<cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/database/${each.id}"></toolbarbutton></cell>
+</row>
+</template>
+</rows>
+</grid>
+<vlayout width="1050px">
 <grid>
 <rows>
 <row align="right">
@@ -32,7 +49,7 @@ FormManager formManager = new FormManager();
         <template name="model" sclass="narrow">
             <listitem value="${each.id}">
             	<listcell><radio id="${each.id}" radiogroup="tblChose" /></listcell>
-                <listcell label="${each.id}"></listcell>
+                <listcell label="${forEachStatus.index}"></listcell>
                 <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell label="${each.phsic_name}"></listcell>
                 <listcell><zscript><![CDATA[if(each.stats_time==Constants.V_TYPE_STAT_TIME_POINT){self.label=Constants.DIP_TYPE_STAT_TIME_POINT;}else if(each.stats_time==Constants.V_TYPE_STAT_TIME_STUDY_YEAR){self.label=Constants.DIP_TYPE_STAT_TIME_STUDY_YEAR;}else if(each.stats_time==Constants.V_TYPE_STAT_TIME_NATURE_YEAR){self.label=Constants.DIP_TYPE_STAT_TIME_NATURE_YEAR;}else{self.label=Constants.DIP_TYPE_STAT_TIME_CURRENT_YEAR;}]]></zscript></listcell>
@@ -56,5 +73,7 @@ FormManager formManager = new FormManager();
             </listitem>
         </template>
 </listbox>
+</vlayout>
+</hlayout>
 </window>
 </zk>

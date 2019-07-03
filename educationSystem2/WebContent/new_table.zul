@@ -12,9 +12,8 @@ import org.zkoss.zhtml.Input;
 	<row><cell align="right" width="40%">统计时间<label style="color:red">*</label></cell><cell align="left"><combobox id="stat_time"><comboitem label="时点" value="P"/><comboitem label="学年" value="S"/><comboitem label="自然年" value="N"/><comboitem label="当前年" value="C"/></combobox></cell></row>
 	<row><cell align="right" width="40%">表类型<label style="color:red">*</label></cell><cell align="left"><combobox id="form_type"><comboitem label="自定义表" value="P"/><comboitem label="教学基本状态表" value="S"/><comboitem label="专业评估" value="V"/><comboitem label="课程评估" value="C"/><comboitem label="高基报表" value="H"/></combobox></cell></row>
 	<row><cell align="right" width="40%">是否可空<label style="color:red">*</label></cell><cell align="left"><combobox id="is_null"><comboitem label="否" value="N"/><comboitem label="是" value="Y"/></combobox></cell></row>
-	<row><cell align="right" width="40%">展示方式<label style="color:red">*</label></cell><cell align="left"><combobox id="dis_method"><comboitem label="通用列表" value="G"/><comboitem label="单条记录" value="S"/></combobox></cell></row>
+	<row><cell align="right" width="40%">表类别<label style="color:red">*</label></cell><cell align="left"><combobox id="table_class"></combobox></cell></row>
 	<row><cell align="right" width="40%">依赖表</cell><cell align="left"><h:input type="hidden" id="depend"/><button id="chooseDep" label="请选择" width="60%"/></cell></row>
-	<row><cell align="right" width="40%">定制页面</cell><cell align="left"><textbox id="customize" value="填写自定义界面名称" onFocus="txt1_disapear()" onBlur="txt1_show()"></textbox></cell></row>
 	<row><cell align="right" width="40%">说明</cell><cell align="left"><textbox id="memo" rows="3"></textbox></cell></row>
 	<row><cell align="right" colspan="2"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="创建" id="createBtn"></button></cell></row>
 </rows>

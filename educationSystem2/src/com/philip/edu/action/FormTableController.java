@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Html;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
@@ -24,6 +25,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
 import com.philip.edu.excel.UploadController;
 
@@ -46,11 +48,16 @@ public class FormTableController extends SelectorComposer<Component> {
 	private Button delete;
 	@Wire
 	private Radiogroup fieldChose;
+	@Wire
+	private Grid groupList;
 	private int store_id;
 	
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		groupList.setModel(new ListModelList<Group>(groups));
 		
 		String sForm = Executions.getCurrent().getParameter("form_id");
 		int form_id = Integer.parseInt(sForm);

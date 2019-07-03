@@ -6,6 +6,7 @@
 	<row><cell align="left" width="15%">长度<label style="color:red">*</label></cell><cell align="left"><textbox id="length" value="必填项" disabled="true" onFocus="txt_disapear()" onBlur="txt_show()"/></cell><cell width="15%">必填字段</cell><cell><combobox id="is_required"></combobox></cell></row>
 	<row><cell align="left" width="15%">是否上报</cell><cell><combobox id="is_report"></combobox></cell><cell width="15%">是否隐藏</cell><cell><combobox id="is_hidden"></combobox></cell></row>
 	<row><cell align="left" width="15%">显示方式</cell><cell align="left"><combobox id="display_method"></combobox></cell><cell width="15%">字段类型</cell><cell><combobox id="compute"></combobox></cell></row>
+	<row><cell align="left" width="15%">格式</cell><cell align="left"><combobox id="text_format"/></cell></row>
 	<row><cell align="left">备注</cell><cell align="left" colspan="3"><textbox id="memo" rows="3" cols="80"></textbox></cell></row>
 	<row><cell align="right" colspan="4"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="修改" id="updateBtn"></button></cell></row>
 </rows>

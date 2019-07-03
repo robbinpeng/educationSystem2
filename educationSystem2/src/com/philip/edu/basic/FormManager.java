@@ -39,4 +39,12 @@ public class FormManager {
 	public FormField getFieldById(int field_id){
 		return dao.getFieldById(field_id);
 	}
+	
+	public ArrayList getGroups(int user_id){
+		return dao.getGroups(user_id);
+	}
+	
+	public ArrayList getFormsByGroup(int group_id){
+		return dao.getFormsByGroup(group_id);
+	}
 }

@@ -17,12 +17,13 @@ import org.zkoss.zul.Label;
 <zscript>
 Session session1 = Sessions.getCurrent();
 String form_name = session.getAttribute("form_name");
+
 </zscript>
 <window title="自定义校验--${form_name}" apply="com.philip.edu.action.RuleController">
 <grid>
 <rows>
 <row align="right">
-<toolbarbutton label="返回" href="/database"></toolbarbutton>
+<toolbarbutton label="返回" href="/database/1"></toolbarbutton>
 </row>
 </rows>
 </grid>

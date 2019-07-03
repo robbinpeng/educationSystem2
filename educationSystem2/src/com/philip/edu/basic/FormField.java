@@ -13,12 +13,19 @@ public class FormField{
 	private char is_hidden;
 	private char compute;
 	private int form_id;
+	private char text_format;
 	private String memo;
 	public String getMemo() {
 		return memo;
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public char getText_format() {
+		return text_format;
+	}
+	public void setText_format(char text_format) {
+		this.text_format = text_format;
 	}
 	public int getId() {
 		return id;

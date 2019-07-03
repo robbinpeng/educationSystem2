@@ -2,13 +2,28 @@
 <zk>
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
+
+String group_id = Executions.getCurrent().getParameter("group_id");
+if(group_id==null)group_id="1";
+int iGroup = Integer.parseInt(group_id);
 ]]></zscript>
 <include src="/head.zul"/>
 <window id="fWindow" title="字段设计" apply="com.philip.edu.action.FormTableController">
+<hlayout width="100%">
+<grid width="250px" id="groupList">
+<rows>
+<template name="model">
+<row>
+<cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/database/${each.id}"></toolbarbutton></cell>
+</row>
+</template>
+</rows>
+</grid>
+<vlayout width="80%">
 <grid>
 <rows>
 <row align="right">
-<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database"></toolbarbutton></cell>
+<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database/1"></toolbarbutton></cell>
 </row>
 </rows>
 </grid>
@@ -47,7 +62,7 @@ import com.philip.edu.basic.*;
                 default:
                 	break;
                 }]]></zscript></listcell>
-                <listcell label="${each.dis_method}"></listcell>
+                <listcell label="${each.length}"></listcell>
                 <listcell><zscript><![CDATA[switch(each.dis_method){
                 case Constants.V_DISPLAY_SINGLE_TEXTBOX:
                 	self.label = Constants.DIP_DISPLAY_SINGLE_TEXTBOX;break;
@@ -81,5 +96,7 @@ import com.philip.edu.basic.*;
             </listitem>
         </template>
 </listbox>
+</vlayout>
+</hlayout>
 </window>
 </zk>

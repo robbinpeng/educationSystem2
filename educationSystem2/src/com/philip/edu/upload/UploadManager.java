@@ -50,7 +50,7 @@ public class UploadManager {
 		HashMap map = new HashMap();
 		for(int j=0; j<formFields.size(); j++){
 			FormField field = (FormField)formFields.get(j);
-			if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
+			if(field.getIs_hidden()=='Y')continue;
 			map.put(field.getBus_name(), field);
 		}
 		

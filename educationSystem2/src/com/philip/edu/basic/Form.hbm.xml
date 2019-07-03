@@ -21,6 +21,7 @@
 		<property name="dependency_form" column="dependency_form" type="java.lang.String" />
 		<property name="template_loc" column="template_loc" type="java.lang.String" />
 		<property name="create_time" column="create_time" type="java.util.Date" />
+		<property name="group_id" column="group_id" type="int" />
 		<property name="memo" column="memo" type="java.lang.String" />
 		<one-to-one name="status" class="com.philip.edu.basic.FormStatus"
 			cascade="all"></one-to-one>
@@ -42,7 +43,19 @@
 		<property name="is_hidden" column="is_hidden" type="java.lang.Character" />
 		<property name="compute" column="compute" type="java.lang.Character" />
 		<property name="form_id" column="form_id" type="int" />
+		<property name="text_format" column="text_format" type="java.lang.Character" />
 		<property name="memo" column="memo" type="java.lang.String" />
+	</class>
+	
+	<class name="com.philip.edu.basic.Group" lazy="true" table="tbl_form_group">
+		<id name="id">
+			<column name="id"/>
+			<generator class="native"/>
+		</id>
+		<property name="class_name" column="Class_Name" type="java.lang.String" />
+		<property name="sequence" column="sequence" type="int" />
+		<property name="group_type" column="group_type" type="java.lang.Character" />
+		<property name="description" column="description" type="java.lang.String"></property>
 	</class>
 	
 	<class name="com.philip.edu.basic.Rule" lazy="true" table="tbl_form_rules">

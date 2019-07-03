@@ -62,6 +62,8 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 	private Combobox is_report;
 	@Wire
 	private Combobox is_hidden;
+	@Wire
+	private Combobox text_format;
 
 	private int store_formid;
 	private FormField store_field;
@@ -95,6 +97,7 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		field.setIs_hidden(is_hidden.getSelectedItem().getValue().toString().charAt(0));
 		field.setDis_method(display_method.getSelectedItem().getValue().toString().charAt(0));
 		field.setCompute(compute.getSelectedItem().getValue().toString().charAt(0));
+		field.setText_format(text_format.getSelectedItem().getValue().toString().charAt(0));
 		field.setMemo(memo.getValue());
 				
 		boolean b = dbManager.updateField(field);
@@ -195,6 +198,43 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		item.setValue(Constants.V_FIELD_TYPE_COMPUTE_COLUMN);
 		compute.appendChild(item);
 		if(field.getCompute()==Constants.V_FIELD_TYPE_COMPUTE_COLUMN)compute.setSelectedItem(item);
+		
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_NO);
+		item.setValue(Constants.V_TEXT_FORMAT_NO);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_NO)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_WEBSITE);
+		item.setValue(Constants.V_TEXT_FORMAT_WEBSITE);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_WEBSITE)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_MOBILEPHONE);
+		item.setValue(Constants.V_TEXT_FORMAT_MOBILEPHONE);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_MOBILEPHONE)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_IDENTITY);
+		item.setValue(Constants.V_TEXT_FORMAT_IDENTITY);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_IDENTITY)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_EMAIL);
+		item.setValue(Constants.V_TEXT_FORMAT_EMAIL);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_EMAIL)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_DATE_YEAR);
+		item.setValue(Constants.V_TEXT_FORMAT_DATE_YEAR);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_DATE_YEAR)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_DATE_MONTH);
+		item.setValue(Constants.V_TEXT_FORMAT_DATE_MONTH);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_DATE_MONTH)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_DATE_MONTH_NOSLASH);
+		item.setValue(Constants.V_TEXT_FORMAT_DATE_MONTH_NOSLASH);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_DATE_MONTH_NOSLASH)text_format.setSelectedItem(item);
+		item = new Comboitem(Constants.DIP_TEXT_FORMAT_DATE_DAY);
+		item.setValue(Constants.V_TEXT_FORMAT_DATE_DAY);
+		text_format.appendChild(item);
+		if(field.getText_format()==Constants.V_TEXT_FORMAT_DATE_DAY)text_format.setSelectedItem(item);
 		
 		item = new Comboitem("ÊÇ");
 		item.setValue("Y");

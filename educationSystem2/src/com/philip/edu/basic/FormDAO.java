@@ -189,4 +189,42 @@ public class FormDAO {
 		return field;
 	}
 	
+	public ArrayList getGroups(int user_id){
+		ArrayList al = new ArrayList();
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			Query query = session.createQuery("from Group order by sequence");
+			al = (ArrayList)query.list();
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return al;
+	}
+	
+	public ArrayList getFormsByGroup(int group_id){
+		ArrayList al = new ArrayList();
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			al = (ArrayList) session.createQuery("FROM Form WHERE group_id="+group_id).list();
+			
+			session.getTransaction().commit();
+		}  catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return al;
+	}
 }

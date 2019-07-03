@@ -6,10 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.zkoss.zk.ui.Executions;
 
 public class FormManagerTest {
 	private FormManager manager = new FormManager();
 
+	@Test
+	public void testGetGroups() {
+		ArrayList groups = manager.getGroups(Constants.USER_ID);
+		
+		assertEquals(groups.size(), 9);
+	}
+	
+	@Test
+	public void testGetFormsByGroup() {
+		ArrayList forms = manager.getFormsByGroup(1);
+		
+		assertNotEquals(forms.size(), 0);
+	}
+	
 	@Test
 	public void testGetForms() {
 		ArrayList forms = manager.getForms(Constants.USER_ID);

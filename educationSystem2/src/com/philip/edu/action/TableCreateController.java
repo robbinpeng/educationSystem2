@@ -9,13 +9,16 @@ import org.apache.log4j.Logger;
 import org.zkoss.zhtml.Input;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -26,6 +29,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.FormStatus;
+import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
 
 public class TableCreateController extends SelectorComposer<Component>{
@@ -51,11 +55,12 @@ public class TableCreateController extends SelectorComposer<Component>{
 	@Wire
 	private Combobox is_null;
 	@Wire
-	private Combobox dis_method;
-	@Wire
 	private Textbox memo;
 	@Wire
 	private Input depend;
+	@Wire
+	private Combobox table_class;
+	private int group_id;
 	
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
@@ -64,7 +69,25 @@ public class TableCreateController extends SelectorComposer<Component>{
 		stat_time.setSelectedIndex(0);
 		form_type.setSelectedIndex(0);
 		is_null.setSelectedIndex(0);
-		dis_method.setSelectedIndex(0);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		for(int i=0; i<groups.size(); i++){
+			Group group = (Group)groups.get(i);
+			Comboitem item = new Comboitem(group.getClass_name());
+			item.setValue(group.getId());
+			table_class.appendChild(item);
+			if(group.getId()==1)table_class.setSelectedItem(item);
+		}
+		
+		String sGroup = (String)Executions.getCurrent().getArg().get("group_id");
+		group_id = Integer.parseInt(sGroup);
+	}
+	
+	@Override
+	public ComponentInfo doBeforeCompose(Page page, Component parent,
+			ComponentInfo compInfo) {
+		
+		return super.doBeforeCompose(page, parent, compInfo);
 	}
 	
 	@Listen("onClick = #chooseDep")
@@ -112,8 +135,11 @@ public class TableCreateController extends SelectorComposer<Component>{
 		form.setStats_time(stat_time.getSelectedItem().getValue().toString().charAt(0));
 		form.setForm_type(form_type.getSelectedItem().getValue().toString().charAt(0));
 		form.setIs_null(is_null.getSelectedItem().getValue().toString().charAt(0));
-		form.setDisplay_method(dis_method.getSelectedItem().getValue().toString().charAt(0));
+		form.setDisplay_method(Constants.V_DISPLAY_GENERAL_LIST);
 		form.setDependency_form(depend.getValue().toString());
+		String sGroup = table_class.getSelectedItem().getValue().toString();
+		int group_id = Integer.parseInt(sGroup);
+		form.setGroup_id(group_id);
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 		form.setCreate_time(new Date());
 		
@@ -129,7 +155,7 @@ public class TableCreateController extends SelectorComposer<Component>{
 		if(b){
 			Messagebox.show("成功创建！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			Listbox pList = (Listbox)Path.getComponent("/dbWindow/formlist");
-			List<Form> forms = formManager.getForms(Constants.USER_ID);
+			List<Form> forms = formManager.getFormsByGroup(group_id);
 			pList.setModel(new ListModelList<Form>(forms));
 			cWindow.detach();
 		}else{Messagebox.show("表创建过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}

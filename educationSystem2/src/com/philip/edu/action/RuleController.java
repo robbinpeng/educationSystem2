@@ -15,12 +15,15 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 
+import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.Group;
 import com.philip.edu.basic.Rule;
 import com.philip.edu.rule.RuleManager;
 
@@ -34,6 +37,9 @@ public class RuleController  extends SelectorComposer<Component> {
 	@Wire
 	private Listbox ruleList;
 	private ListModelList<Rule> listModel;
+	
+	//@Wire
+	//private Grid groupList;
 
 	
 	@Override
@@ -50,6 +56,9 @@ public class RuleController  extends SelectorComposer<Component> {
 		
 		String form_name = formManager.getFormById(form_id).getBus_name();
 		session.setAttribute("form_name", form_name);
+		
+		//List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		//groupList.setModel(new ListModelList<Group>(groups));
 	}
 	
 	@Listen("onDelete = #ruleList")

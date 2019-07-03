@@ -20,6 +20,11 @@ public class RuleManager {
 		return excelHelper.is_format_right(wb,form_id);
 	}
 	
+	public MessageInfo textFormatCheck(int form_id, Workbook wb){
+		FieldFormatCheck checker = new FieldFormatCheck();
+		return checker.formatCheck(wb, form_id);
+	}
+	
 	public boolean changeActive(int rule_id){
 		return dao.changeActive(rule_id);
 	}

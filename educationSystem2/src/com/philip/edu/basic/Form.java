@@ -17,7 +17,14 @@ public class Form {
 	private Date create_time;
 	private String memo;
 	private FormStatus status;
+	private int group_id;
 	
+	public int getGroup_id() {
+		return group_id;
+	}
+	public void setGroup_id(int group_id) {
+		this.group_id = group_id;
+	}
 	public char getStats_time() {
 		return stats_time;
 	}

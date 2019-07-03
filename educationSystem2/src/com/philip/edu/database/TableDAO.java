@@ -7,9 +7,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.DataInfo;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
+import com.philip.edu.basic.FormStatus;
 import com.philip.edu.basic.HibernateUtil;
 
 public class TableDAO {
@@ -170,11 +172,39 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
+			//1¡¢create physic table£º
 			sql = "create table " + form.getPhsic_name() + " (ID bigint not null auto_increment, CREATOR bigint, CREATE_TIME VARCHAR(50), LAST_OPERATOR bigint, LAST_OPERATE_TIME VARCHAR(50), STATUS int, TASK_ID bigint, TASK_VER_ int, primary key (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			
 			Query query = session.createSQLQuery(sql);
 			query.executeUpdate();
 			
+			//whether is uploadable:
+			FormStatus status = form.getStatus();
+			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
+				//uploadable:
+				status.setStatus(Constants.STATUS_UPLOADABLE);
+			} else {
+				String dependency = form.getDependency_form();
+				boolean canUpload = true;
+				
+				String[] str = null;
+				if(dependency!=null && !dependency.equals("")){
+					str = dependency.split(",");
+					for(int i=0; i<str.length; i++){
+						String temp = str[i].substring(1, str[i].length()-1);
+						int table_id = Integer.parseInt(temp);
+						
+						FormStatus tempStatus = session.get(FormStatus.class, table_id);
+						char stat = tempStatus.getStatus();
+						if(stat!=Constants.STATUS_SUCCESS){canUpload=false; break;}
+					}
+				}
+				
+				if(canUpload)status.setStatus(Constants.STATUS_UPLOADABLE);
+				else status.setStatus(Constants.STATUS_CREATED);
+			}
+			
+			form.setStatus(status);
 			session.save(form);
 			
 			session.getTransaction().commit();
@@ -197,6 +227,32 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
+			FormStatus status = form.getStatus();
+			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
+				//uploadable:
+				status.setStatus(Constants.STATUS_UPLOADABLE);
+			} else {
+				String dependency = form.getDependency_form();
+				boolean canUpload = true;
+				
+				String[] str = null;
+				if(dependency!=null && !dependency.equals("")){
+					str = dependency.split(",");
+					for(int i=0; i<str.length; i++){
+						String temp = str[i].substring(1, str[i].length()-1);
+						int table_id = Integer.parseInt(temp);
+						
+						FormStatus tempStatus = session.get(FormStatus.class, table_id);
+						char stat = tempStatus.getStatus();
+						if(stat!=Constants.STATUS_SUCCESS){canUpload=false; break;}
+					}
+				}
+				
+				if(canUpload)status.setStatus(Constants.STATUS_UPLOADABLE);
+				else status.setStatus(Constants.STATUS_CREATED);
+			}
+			
+			form.setStatus(status);
 			session.update(form);
 			
 			session.getTransaction().commit();
