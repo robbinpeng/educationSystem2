@@ -13,6 +13,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormStatus;
 import com.philip.edu.basic.HibernateUtil;
+import com.philip.edu.basic.StatusTemp;
 
 public class TableDAO {
 	
@@ -179,7 +180,10 @@ public class TableDAO {
 			query.executeUpdate();
 			
 			//whether is uploadable:
-			FormStatus status = form.getStatus();
+			String sqlStatus = "From StatusTemp where form_id=" + form.getId();
+			query = session.createQuery(sqlStatus);
+			ArrayList qStatus = (ArrayList)query.list();
+			StatusTemp status = (StatusTemp)qStatus.get(0);
 			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
 				//uploadable:
 				status.setStatus(Constants.STATUS_UPLOADABLE);
@@ -194,7 +198,7 @@ public class TableDAO {
 						String temp = str[i].substring(1, str[i].length()-1);
 						int table_id = Integer.parseInt(temp);
 						
-						FormStatus tempStatus = session.get(FormStatus.class, table_id);
+						StatusTemp tempStatus = session.get(StatusTemp.class, table_id);
 						char stat = tempStatus.getStatus();
 						if(stat!=Constants.STATUS_SUCCESS){canUpload=false; break;}
 					}
@@ -204,7 +208,7 @@ public class TableDAO {
 				else status.setStatus(Constants.STATUS_CREATED);
 			}
 			
-			form.setStatus(status);
+			session.save(status);
 			session.save(form);
 			
 			session.getTransaction().commit();
@@ -227,7 +231,10 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			FormStatus status = form.getStatus();
+			String sqlStatus = "From StatusTemp where form_id=" + form.getId();
+			Query query = session.createQuery(sqlStatus);
+			ArrayList qStatus = (ArrayList)query.list();
+			StatusTemp status = (StatusTemp)qStatus.get(0);
 			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
 				//uploadable:
 				status.setStatus(Constants.STATUS_UPLOADABLE);
@@ -242,7 +249,7 @@ public class TableDAO {
 						String temp = str[i].substring(1, str[i].length()-1);
 						int table_id = Integer.parseInt(temp);
 						
-						FormStatus tempStatus = session.get(FormStatus.class, table_id);
+						StatusTemp tempStatus = session.get(StatusTemp.class, table_id);
 						char stat = tempStatus.getStatus();
 						if(stat!=Constants.STATUS_SUCCESS){canUpload=false; break;}
 					}
@@ -252,7 +259,7 @@ public class TableDAO {
 				else status.setStatus(Constants.STATUS_CREATED);
 			}
 			
-			form.setStatus(status);
+			session.update(status);
 			session.update(form);
 			
 			session.getTransaction().commit();

@@ -1,6 +1,7 @@
 package com.philip.edu.basic;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -226,5 +227,137 @@ public class FormDAO {
 		}
 		
 		return al;
+	}
+	
+	public ArrayList getAllStatusTemp(){
+		Session session = null;
+		ArrayList template = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("From StatusTemp order by form_id");
+			template = (ArrayList)query.list();
+			
+			session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return template;
+	}
+	
+	public boolean createTask(Task task){
+		Session session = null;
+		boolean isSuccess = false;
+		int sucTask = 0;
+		ArrayList forms = null;
+		ArrayList template = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			//create task:
+			sucTask = ((Integer)session.save(task)).intValue();
+			
+			//create data collection:
+			template = this.getAllStatusTemp();
+			
+			for(int i=0; i<template.size(); i++){
+				StatusTemp temp = (StatusTemp)template.get(i);
+				FormStatus status = new FormStatus();
+				
+				status.setForm_id(temp.getForm_id());
+				status.setForm_status(temp.getStatus());
+				status.setTask_id(sucTask);
+				status.setUser_id(temp.getUser_id());
+				status.setUpdate_time(new Date());
+				
+				session.save(status);
+			}
+			
+			session.getTransaction().commit();
+			isSuccess = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
+	
+	public ArrayList getDataCollection(int task_id){
+		Session session = null;
+		ArrayList collection = new ArrayList();
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			ArrayList al = (ArrayList)session.createQuery("From Form order by id").list();
+			for(int i=0; i<al.size(); i++){
+				UploadInfo info = new UploadInfo();
+				Form form = (Form)al.get(i);
+				
+				info.setBus_name(form.getBus_name());
+				info.setDependency_form(form.getDependency_form());
+				info.setId(form.getId());
+				
+				Query query = session.createQuery("From FormStatus where form_id=" + form.getId() + " and task_id=" + task_id);
+				ArrayList sAl = (ArrayList)query.list();
+				FormStatus status = (FormStatus)sAl.get(0);
+				
+				info.setStatus(status.getForm_status());
+				collection.add(info);
+			}
+			
+			session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return collection;
+	}
+	
+	public ArrayList getDataCollectionByGroup(int task_id, int group_id){
+		Session session = null;
+		ArrayList collection = new ArrayList();
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			ArrayList al = (ArrayList)session.createQuery("From Form where group_id=" + group_id + " order by id").list();
+			for(int i=0; i<al.size(); i++){
+				UploadInfo info = new UploadInfo();
+				Form form = (Form)al.get(i);
+				
+				info.setBus_name(form.getBus_name());
+				info.setDependency_form(form.getDependency_form());
+				info.setId(form.getId());
+				
+				Query query = session.createQuery("From FormStatus where form_id=" + form.getId() + " and task_id=" + task_id);
+				ArrayList sAl = (ArrayList)query.list();
+				FormStatus status = (FormStatus)sAl.get(0);
+				
+				info.setStatus(status.getForm_status());
+				collection.add(info);
+			}
+			
+			session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return collection;
 	}
 }

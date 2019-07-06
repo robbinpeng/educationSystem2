@@ -43,9 +43,9 @@ int iGroup = Integer.parseInt(group_id);
             <listitem value="${each.id}">
                 <listcell label="${forEachStatus.index}"></listcell>
                 <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
-                <listcell><zscript><![CDATA[if(each.status.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
+                <listcell><zscript><![CDATA[if(each.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
                 <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); Executions.getCurrent().addResponseHeader("Content-disposition", "attachment;filename=\"" + temp + ".xls" + "\""); Filedownload.save(file_name, null);]]></attribute></button></listcell>
-                <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>
+                <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>
                 <popup width="300px">
         			<groupbox closable="true">
         			<caption>依赖表</caption>
@@ -67,7 +67,7 @@ int iGroup = Integer.parseInt(group_id);
             		]]></zscript></html>
         			</groupbox>
     			</popup></listcell>
-                <listcell><button label="退回" forward="onClick=formlist.onRollback(${each})"><zscript><![CDATA[if(each.status.status!=Constants.STATUS_SUCCESS)self.setDisabled(true);]]></zscript></button></listcell>
+                <listcell><button label="退回" forward="onClick=formlist.onRollback(${each})"><zscript><![CDATA[if(each.status!=Constants.STATUS_SUCCESS)self.setDisabled(true);]]></zscript></button></listcell>
             </listitem>
         </template>
 </listbox>

@@ -143,8 +143,8 @@ public class TableCreateController extends SelectorComposer<Component>{
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 		form.setCreate_time(new Date());
 		
-		status.setForm(form);
-		status.setStatus(Constants.STATUS_CREATED);
+		status.setTask_id(Constants.TASK_ID);
+		status.setForm_status(Constants.STATUS_CREATED);
 		status.setUser_id(Constants.USER_ID);
 		status.setUpdate_time(new Date());
 		

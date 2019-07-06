@@ -3,7 +3,8 @@ package com.philip.edu.basic;
 public class Constants {
 	public static final int USER_ID = 1;
 	public static final int FORM_ID = 2;
-	public static final int FORM_ID_TEST = 3;
+	public static final int FORM_ID_TEST = 22;
+	public static final int TASK_ID = 3;
 	public static final String FORM_NAME = "XXGK";
 	public static final String FIELD_NAME = "XQMC";
 	public static final int RULE_CLASS = 3;
@@ -172,4 +173,7 @@ public class Constants {
 	public static final String DIP_TEXT_FORMAT_DATE_DAY = "YYYY-MM-DD";
 	public static final char V_TEXT_FORMAT_NO = 'o';
 	public static final String DIP_TEXT_FORMAT_NO = " ";
+	
+	public static final char TASK_STATUS_ACTIVE = 'A';
+	public static final char TASK_STATUS_CLOSE = 'C';
 }

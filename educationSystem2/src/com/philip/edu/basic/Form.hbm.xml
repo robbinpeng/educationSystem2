@@ -74,15 +74,36 @@
 		<property name="rule_active" column="rule_active" type="java.lang.Character" />
 	</class>
 	
-	<class name="com.philip.edu.basic.FormStatus" lazy="true" table="tbl_datacol">
-		<id name="form_id" type="int">
-			<column name="form_id"/>
-			<generator class="foreign">
-				<param name="property">form</param>
-			</generator>
+	<class name="com.philip.edu.basic.Task" lazy="true" table="tbl_form_task">
+		<id name="id" type="int">
+			<column name="id"/>
+			<generator class="native"/>
 		</id>
-		<one-to-one name="form" class="com.philip.edu.basic.Form"
-			constrained="true"></one-to-one>
+		<property name="task_name" column="task_name" type="java.lang.String"/>
+		<property name="task_status" column="task_status" type="java.lang.Character"/>
+		<property name="start_time" column="start_time" type="java.lang.String"/>
+		<property name="end_time" column="end_time" type="java.lang.String"/>
+		<property name="stat_time" column="stat_time" type="java.lang.String"/>
+		<property name="internal_stat_time" column="internal_stat_time" type="java.lang.String"/> 
+	</class>
+	
+	<class name="com.philip.edu.basic.FormStatus" lazy="true" table="tbl_datacol_new">
+		<id name="id" type="int">
+			<column name="id"/>
+			<generator class="native" />
+		</id>
+		<property name="task_id" column="task_id" type="int" />
+		<property name="form_id" column="form_id" type="int" />
+		<property name="user_id" column="user_id" type="int" />
+		<property name="form_status" column="form_status" type="java.lang.Character" />
+		<property name="update_time" column="update_time" type="java.util.Date" />
+	</class>
+	
+	<class name="com.philip.edu.basic.StatusTemp" lazy="true" table="tbl_datacol">
+		<id name="form_id" type="int">
+			<column name="form_id" />
+			<generator class="native" />
+		</id>
 		<property name="user_id" column="user_id" type="int" />
 		<property name="status" column="status" type="java.lang.Character" />
 		<property name="update_time" column="update_time" type="java.util.Date" />

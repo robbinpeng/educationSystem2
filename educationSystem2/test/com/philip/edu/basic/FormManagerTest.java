@@ -36,13 +36,12 @@ public class FormManagerTest {
 			System.out.println("form_id:" + form.getId());
 			System.out.println("form name:" + form.getTbl_name());
 			System.out.println("form bussiness name:" + form.getBus_name());
-			System.out.println("form status:" + form.getStatus().getStatus());
 		}	
 	}
 	
 	@Test
 	public void testGetFields() {
-		ArrayList fields = manager.getFormFields(Constants.FORM_ID);
+		ArrayList fields = manager.getFormFields(Constants.FORM_ID_TEST);
 		
 		assertNotEquals(fields.size(), 0);
 		//print some:
@@ -94,7 +93,6 @@ public class FormManagerTest {
 		System.out.println(form.getBus_name());
 		System.out.println(form.getTbl_name());
 		System.out.println(form.getPhsic_name());
-		System.out.println("form by name status:"+ form.getStatus().getStatus());
 			
 	}
 	
@@ -112,7 +110,7 @@ public class FormManagerTest {
 	
 	@Test 
 	public void testGetFormById(){
-		int id = Constants.FORM_ID;
+		int id = Constants.FORM_ID_TEST;
 		
 		Form form = manager.getFormById(id);
 		
@@ -121,6 +119,19 @@ public class FormManagerTest {
 		System.out.println(form.getBus_name());
 		System.out.println(form.getTbl_name());
 		System.out.println(form.getPhsic_name());
-		System.out.println(form.getStatus().getStatus());
+	}
+	
+	@Test
+	public void testCreateTask() {
+		Task task = new Task();
+		task.setTask_name("第一个测试任务");
+		task.setTask_status(Constants.TASK_STATUS_ACTIVE);
+		task.setStart_time("2019-07-06");
+		task.setEnd_time("2019-07-30");
+		task.setStat_time("2019-09-01");
+		task.setInternal_stat_time("2019-07-01");
+		
+		//boolean success = manager.createTask(task);
+		//assertEquals(success, true);
 	}
 }

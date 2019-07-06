@@ -33,6 +33,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.Group;
+import com.philip.edu.basic.UploadInfo;
 import com.philip.edu.database.DatabaseManager;
 import com.philip.edu.rule.MessageInfo;
 import com.philip.edu.rule.RuleManager;
@@ -86,8 +87,8 @@ public class UploadController extends SelectorComposer<Component> {
 		int groupid = Integer.parseInt(sGroup);
 		group_id = groupid;
 		
-		List<Form> forms = formManager.getFormsByGroup(group_id);
-		formlist.setModel(new ListModelList<Form>(forms));
+		List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, groupid);
+		formlist.setModel(new ListModelList<UploadInfo>(forms));
 
 		// formlist.getChildren();
 	}
@@ -145,7 +146,7 @@ public class UploadController extends SelectorComposer<Component> {
 
 	@Listen("onUpload = #formlist")
 	public void uploadExcel(Event event) {
-		Form form = (Form) event.getData();
+		UploadInfo form = (UploadInfo) event.getData();
 		boolean isSuccess = false;
 
 		UploadEvent ue = null;
@@ -207,14 +208,14 @@ public class UploadController extends SelectorComposer<Component> {
 					// dialog.
 					if (checkpass) {
 						// 3.save data into database;
-						boolean tempSuccess = uploadManager.uploadData(wb, form.getId(), Constants.USER_ID);
+						boolean tempSuccess = uploadManager.uploadData(wb, form.getId(), Constants.USER_ID, Constants.TASK_ID);
 						if (tempSuccess) {
-							isSuccess = uploadManager.uploadUpdate(form.getId());
+							isSuccess = uploadManager.uploadUpdate(form.getId(), Constants.TASK_ID);
 							if (isSuccess) {
 								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
 
-								List<Form> forms = formManager.getFormsByGroup(group_id);
-								formlist.setModel(new ListModelList<Form>(forms));
+								List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, group_id);
+								formlist.setModel(new ListModelList<UploadInfo>(forms));
 							} else {
 								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
 							}
@@ -243,14 +244,15 @@ public class UploadController extends SelectorComposer<Component> {
 
 	@Listen("onRollback = #formlist")
 	public void rollback(Event event) {
-		Form form = (Form) event.getData();
-		int lines = uploadManager.rollbackData(form);
+		UploadInfo form = (UploadInfo) event.getData();
+		Form form1 = formManager.getFormById(form.getId());
+		int lines = uploadManager.rollbackData(form1, Constants.TASK_ID);
 		boolean success = false;
 		if(lines!=0){
-			success = uploadManager.updateRollback(form.getId());
+			success = uploadManager.updateRollback(form.getId(), Constants.TASK_ID);
 			if(success){
-				List<Form> forms = formManager.getFormsByGroup(group_id);
-				formlist.setModel(new ListModelList<Form>(forms));
+				List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, group_id);
+				formlist.setModel(new ListModelList<UploadInfo>(forms));
 			}else{
 				Messagebox.show("退回错误！","错误",Messagebox.OK,Messagebox.ERROR);
 			}

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.philip.edu.basic.Constants;
@@ -65,7 +65,7 @@ public class UploadDAO {
 		return b;
 	}
 
-	public boolean uploadUpdate(int form_id) {
+	public boolean uploadUpdate(int form_id, int task_id) {
 		// TODO Auto-generated method stub
 		boolean isSuccess = false;
 		Session session = null;
@@ -75,17 +75,19 @@ public class UploadDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			FormStatus status = session.get(FormStatus.class, form_id);
-
-			status.setStatus(Constants.STATUS_SUCCESS);
-			session.save(status);
+			//FormStatus status = session.get(FormStatus.class, task);
+			Query query = session.createQuery("From FormStatus where form_id=" + form_id + " and task_id=" + task_id);
+			ArrayList al = (ArrayList) query.list();
+			FormStatus status = (FormStatus)al.get(0);
+			status.setForm_status(Constants.STATUS_SUCCESS);
+			session.update(status);
 
 			// 2.update depency table to check whether can be changed to
 			// uploadable:
-			Query query = session.createQuery("From Form where dependency_form like :dependency");
+			query = session.createQuery("From Form where dependency_form like :dependency");
 			query.setParameter("dependency", "%(" + form_id + ")%");
-			ArrayList list = (ArrayList) query.getResultList();
-
+			ArrayList list = (ArrayList) query.list();
+			
 			for (int i = 0; i < list.size(); i++) {
 				boolean isUploadable = true;
 
@@ -94,19 +96,25 @@ public class UploadDAO {
 
 				for (int j = 0; j < tables.size(); j++) {
 					Integer table_id = (Integer) tables.get(j);
-					FormStatus status1 = session.get(FormStatus.class, table_id.intValue());
+					//FormStatus status1 = session.get(FormStatus.class, table_id.intValue());
+					Query qSql = session.createQuery("From FormStatus where form_id="+table_id+" and task_id=" + task_id);
+					ArrayList al1 = (ArrayList) qSql.list();
+					FormStatus status1 = (FormStatus)al1.get(0);
 
-					if (status1.getStatus() != Constants.STATUS_SUCCESS) {
+					if (status1.getForm_status() != Constants.STATUS_SUCCESS) {
 						isUploadable = false;
 						break;
 					}
 				}
 
 				if (isUploadable) {
-					FormStatus status2 = session.get(FormStatus.class, form.getId());
-
-					status2.setStatus(Constants.STATUS_UPLOADABLE);
-					session.save(status2);
+					//FormStatus status2 = session.get(FormStatus.class, form.getId());
+					Query qSql = session.createQuery("From FormStatus where form_id=" + form.getId() + " and task_id=" + task_id);
+					ArrayList al1 = (ArrayList) qSql.list();
+					FormStatus status2 = (FormStatus)al1.get(0);
+					
+					status2.setForm_status(Constants.STATUS_UPLOADABLE);
+					session.update(status2);
 				}
 
 			}
@@ -145,7 +153,7 @@ public class UploadDAO {
 		return al;
 	}
 
-	public int rollbackData(String table_name) {
+	public int rollbackData(String table_name, int task_id) {
 		int deleted = 0;
 		Session session = null;
 		String sql = null;
@@ -154,7 +162,7 @@ public class UploadDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			sql = "delete from " + table_name;
+			sql = "delete from " + table_name + " where task_id=" + task_id;
 
 			Query query = session.createSQLQuery(sql);
 			deleted = query.executeUpdate();
@@ -171,7 +179,7 @@ public class UploadDAO {
 		return deleted;
 	}
 
-	public boolean updateRollback(int form_id) {
+	public boolean updateRollback(int form_id, int task_id) {
 		boolean isSuccess = false;
 		Session session = null;
 
@@ -181,7 +189,10 @@ public class UploadDAO {
 			session.beginTransaction();
 
 			Form form = session.get(Form.class, form_id);
-			FormStatus status = form.getStatus();
+			Query query = session.createQuery("From FormStatus where form_id=" + form_id + " and task_id=" + task_id);
+			ArrayList al = (ArrayList)query.list();
+			
+			FormStatus status = (FormStatus)al.get(0);
 			boolean isUploadable = true;
 
 			if (form.getDependency_form() == null || form.getDependency_form().equals(""))
@@ -191,9 +202,12 @@ public class UploadDAO {
 
 				for (int j = 0; j < tables.size(); j++) {
 					Integer table_id = (Integer) tables.get(j);
-					FormStatus status1 = session.get(FormStatus.class, table_id.intValue());
+					query = session.createQuery("From FormStatus where form_id=" + form_id + " and task_id=" + task_id);
+					ArrayList al1 = (ArrayList)query.list();
+					
+					FormStatus status1 = (FormStatus)al1.get(0);
 
-					if (status1.getStatus() != Constants.STATUS_SUCCESS) {
+					if (status1.getForm_status() != Constants.STATUS_SUCCESS) {
 						isUploadable = false;
 						break;
 					}
@@ -201,26 +215,29 @@ public class UploadDAO {
 			}
 
 			if (isUploadable) {
-				status.setStatus(Constants.STATUS_UPLOADABLE);
+				status.setForm_status(Constants.STATUS_UPLOADABLE);
 
 				session.update(status);
 			} else {
-				status.setStatus(Constants.STATUS_CREATED);
+				status.setForm_status(Constants.STATUS_CREATED);
 
 				session.update(status);
 			}
 
 			// 2.update depency table to create;
-			Query query = session.createQuery("From Form where dependency_form like :dependency");
+			query = session.createQuery("From Form where dependency_form like :dependency");
 			query.setParameter("dependency", "%(" + form_id + ")%");
 			ArrayList list = (ArrayList) query.getResultList();
 
 			for (int i = 0; i < list.size(); i++) {
 				Form form1 = (Form) list.get(i);
 
-				FormStatus status1 = session.get(FormStatus.class, form1.getId());
-
-				status1.setStatus(Constants.STATUS_CREATED);
+				//FormStatus status1 = session.get(FormStatus.class, form1.getId());
+				query = session.createQuery("From FormStatus where form_id=" + form1.getId() + " and task_id=" + task_id);
+				ArrayList al1 = (ArrayList)query.list();
+				
+				FormStatus status1 = (FormStatus)al1.get(0);
+				status1.setForm_status(Constants.STATUS_CREATED);
 				session.update(status1);
 			}
 

@@ -30,7 +30,7 @@ public class UploadManager {
 	private static ExcelHelper excelHelper = new ExcelHelper();
 	private static UploadDAO dao = new UploadDAO();
 	
-	public boolean uploadData(Workbook wb, int form_id, int user_id){
+	public boolean uploadData(Workbook wb, int form_id, int user_id, int task_id){
 		boolean isSuccess = false;
 		
 		// check format is right:
@@ -88,6 +88,8 @@ public class UploadManager {
 			sql2.append("1, ");
 			sql1.append("TJSJ, ");
 			sql2.append("?, ");
+			sql1.append("TASK_ID, ");
+			sql2.append(""+task_id+", ");
 			
 			row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){
@@ -126,15 +128,15 @@ public class UploadManager {
 		return isSuccess;
 	}
 	
-	public int rollbackData(Form form){
-		return dao.rollbackData(form.getPhsic_name());
+	public int rollbackData(Form form, int task_id){
+		return dao.rollbackData(form.getPhsic_name(), task_id);
 	}
 	
-	public boolean updateRollback(int form_id){
-		return dao.updateRollback(form_id);
+	public boolean updateRollback(int form_id, int task_id){
+		return dao.updateRollback(form_id, task_id);
 	}
 	
-	public boolean uploadUpdate(int form_id){
-		return dao.uploadUpdate(form_id);
+	public boolean uploadUpdate(int form_id, int task_id){
+		return dao.uploadUpdate(form_id, task_id);
 	}
 }

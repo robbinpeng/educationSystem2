@@ -42,8 +42,8 @@ public class TableDAOTest {
 		form.setMemo("do a test");
 		
 		FormStatus status = new FormStatus();
-		status.setForm(form);
-		status.setStatus(Constants.STATUS_CREATED);
+		//status.setForm(form);
+		status.setForm_status(Constants.STATUS_CREATED);
 		status.setUser_id(Constants.USER_ID);
 		status.setUpdate_time(new Date());
 		
