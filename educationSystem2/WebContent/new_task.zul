@@ -1,0 +1,32 @@
+<?page title="新建一个任务" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="window" width="600px" action="show: slideDown;hide: slideUp" apply="com.philip.edu.action.TaskCreateController">
+<grid>
+<rows>
+	<row><cell align="right" width="40%">任务名称<label style="color:red">*</label></cell><cell align="left"><textbox id="task_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
+	<row><cell align="right" width="40%">开始时间<label style="color:red">*</label></cell><cell align="left"><datebox id="start_time" cols="15" format="yyyy-MM-dd" readonly="true"/></cell></row>
+	<row><cell align="right" width="40%">结束时间<label style="color:red">*</label></cell><cell align="left"><datebox id="end_time" cols="15" format="yyyy-MM-dd" readonly="true" /></cell></row>
+	<row><cell align="right" width="40%">统计时间<label style="color:red">*</label></cell><cell align="left"><datebox id="stat_time" cols="15" format="yyyy-MM-dd" readonly="true" /></cell></row>
+	<row><cell align="right" width="40%">学年<label style="color:red">*</label></cell><cell align="left"><combobox id="study_year"></combobox></cell></row>
+	<row><cell align="right" width="40%">自然年<label style="color:red">*</label></cell><cell align="left"><textbox id="natural_year" value="请输入(yyyy)" onFocus="txt_disapear1()" onBlur="txt_show1()"/></cell></row>
+	<row><cell align="right" width="40%">内部统计时间<label style="color:red">*</label></cell><cell align="left"><datebox id="internal_stat_time" cols="15" format="yyyy-MM-dd" readonly="true" /></cell></row>
+	<row><cell align="right" width="40%">任务状态<label style="color:red">*</label></cell><cell align="left"><combobox id="task_status"><comboitem label="正常" value="A"/><comboitem label="关闭" value="C"/></combobox></cell></row>
+	<row><cell align="right" colspan="2"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="创建" id="createBtn"></button></cell></row>
+</rows>
+</grid>
+</window>
+<zscript>
+void txt_disapear(){
+	if("必填项".equals(self.value)){self.value="";}
+}
+void txt_show(){
+	if("".equals(self.value)){self.value="必填项"; self.style="color:grey";}
+}
+void txt_disapear1(){
+	if("请输入(yyyy)".equals(self.value)){self.value="";}
+}
+void txt_show1(){
+	if("".equals(self.value)){self.value="请输入(yyyy)"; self.style="color:grey";}
+}
+</zscript>
+</zk>

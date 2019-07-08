@@ -1,0 +1,63 @@
+<?page title="任务列表" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?> 
+<zk>
+<zscript><![CDATA[
+import com.philip.edu.basic.*;
+
+]]></zscript>
+<include src="head.zul"/>
+<window id="tWindow" apply="com.philip.edu.action.TaskListController">
+<hlayout width="100%">
+<grid width="250px">
+<rows>
+<row>
+<cell align="center"><toolbarbutton label="采集任务管理" href=""/></cell>
+</row>
+</rows>
+</grid>
+<vlayout width="1050px">
+<grid>
+<rows>
+<row align="right">
+<cell colspan="4" align="right">
+<radiogroup id="taskChose"/><button id="open" label="开始采集任务"/><space bar="false" spacing="20px" /><button id="create" label="新建"/>
+</cell>
+</row>
+</rows>
+</grid>
+<listbox id="tasklist" emptyMessage="系统中还没有任务"  mold="paging" pageSize="10">
+        <listhead>
+        	<listheader></listheader>
+            <listheader label="任务名称" />
+            <listheader label="开始时间" />
+            <listheader label="结束时间" />
+            <listheader label="统计时间" />
+            <listheader label="学年" />
+            <listheader label="自然年" />
+            <listheader label="任务状态" />
+            <listheader label="操作" />
+        </listhead>
+        <template name="model" sclass="narrow">
+            <listitem value="${each.id}">
+            	<listcell><radio id="${each.id}" radiogroup="taskChose" /></listcell>
+            	<listcell label="${each.task_name}"></listcell>
+                <listcell label="${each.start_time}"></listcell>
+                <listcell label="${each.end_time}"></listcell>
+                <listcell label="${each.stat_time}"></listcell>
+                <listcell label="${each.study_year}"></listcell>
+                <listcell label="${each.natural_year}"></listcell>
+                <listcell><zscript><![CDATA[
+                    if(each.task_status==Constants.TASK_STATUS_ACTIVE){
+                    	self.label="正常";
+                    }else{
+                    	self.label="关闭";
+                    }
+            		]]></zscript></listcell>
+            	<listcell><button label="删除" forward="onClick=tasklist.onDelete(${each})"/></listcell>
+            </listitem>
+        </template>
+</listbox>
+</vlayout>
+</hlayout>
+</window>
+</zk>

@@ -10,6 +10,21 @@ public class Task {
 	private String end_time;
 	private String stat_time;
 	private String internal_stat_time;
+	private String study_year;
+	private String natural_year;
+	
+	public String getStudy_year() {
+		return study_year;
+	}
+	public void setStudy_year(String study_year) {
+		this.study_year = study_year;
+	}
+	public String getNatural_year() {
+		return natural_year;
+	}
+	public void setNatural_year(String natural_year) {
+		this.natural_year = natural_year;
+	}
 	public int getId() {
 		return id;
 	}

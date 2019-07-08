@@ -134,4 +134,10 @@ public class FormManagerTest {
 		//boolean success = manager.createTask(task);
 		//assertEquals(success, true);
 	}
+	
+	@Test
+	public void testDeleteTask() {
+		boolean success = manager.deleteTask(4);
+		assertEquals(success, true);
+	}
 }

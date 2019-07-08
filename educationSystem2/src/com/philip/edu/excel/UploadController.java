@@ -75,6 +75,8 @@ public class UploadController extends SelectorComposer<Component> {
 	private Radiogroup tblChose;
 	
 	private int group_id;
+	
+	private int task_id;
 
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
@@ -87,7 +89,10 @@ public class UploadController extends SelectorComposer<Component> {
 		int groupid = Integer.parseInt(sGroup);
 		group_id = groupid;
 		
-		List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, groupid);
+		String sTask = (String)Executions.getCurrent().getSession().getAttribute("task_id");
+		task_id = Integer.parseInt(sTask);
+		
+		List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, groupid);
 		formlist.setModel(new ListModelList<UploadInfo>(forms));
 
 		// formlist.getChildren();
@@ -208,13 +213,13 @@ public class UploadController extends SelectorComposer<Component> {
 					// dialog.
 					if (checkpass) {
 						// 3.save data into database;
-						boolean tempSuccess = uploadManager.uploadData(wb, form.getId(), Constants.USER_ID, Constants.TASK_ID);
+						boolean tempSuccess = uploadManager.uploadData(wb, form.getId(), Constants.USER_ID, task_id);
 						if (tempSuccess) {
-							isSuccess = uploadManager.uploadUpdate(form.getId(), Constants.TASK_ID);
+							isSuccess = uploadManager.uploadUpdate(form.getId(), task_id);
 							if (isSuccess) {
 								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
 
-								List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, group_id);
+								List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, group_id);
 								formlist.setModel(new ListModelList<UploadInfo>(forms));
 							} else {
 								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
@@ -249,9 +254,9 @@ public class UploadController extends SelectorComposer<Component> {
 		int lines = uploadManager.rollbackData(form1, Constants.TASK_ID);
 		boolean success = false;
 		if(lines!=0){
-			success = uploadManager.updateRollback(form.getId(), Constants.TASK_ID);
+			success = uploadManager.updateRollback(form.getId(), task_id);
 			if(success){
-				List<UploadInfo> forms = formManager.getDataCollectionByGroup(Constants.TASK_ID, group_id);
+				List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, group_id);
 				formlist.setModel(new ListModelList<UploadInfo>(forms));
 			}else{
 				Messagebox.show("退回错误！","错误",Messagebox.OK,Messagebox.ERROR);

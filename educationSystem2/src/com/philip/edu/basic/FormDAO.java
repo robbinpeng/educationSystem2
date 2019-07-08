@@ -291,6 +291,66 @@ public class FormDAO {
 		return isSuccess;
 	}
 	
+	public ArrayList getTaskList(){
+		ArrayList taskList = null;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			Query query = session.createQuery("From Task order by id");
+			taskList = (ArrayList)query.list();
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return taskList; 
+	}
+	
+	public boolean deleteTask(int task_id){
+		Session session = null;
+		boolean isSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("delete from FormStatus where task_id=" + task_id);
+			query.executeUpdate();
+			
+			Task task = session.get(Task.class, task_id);
+			session.delete(task);
+			
+			session.getTransaction().commit();
+			isSuccess = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
+	
+	public Task getTaskById(int task_id){
+		Session session = null;
+		Task task = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			task = session.get(Task.class, task_id);
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return task;
+	}
+	
 	public ArrayList getDataCollection(int task_id){
 		Session session = null;
 		ArrayList collection = new ArrayList();

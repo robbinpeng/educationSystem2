@@ -59,4 +59,16 @@ public class FormManager {
 	public ArrayList getDataCollectionByGroup(int task_id, int group_id){
 		return dao.getDataCollectionByGroup(task_id, group_id);
 	}
+	
+	public ArrayList getTaskList(){
+		return dao.getTaskList();
+	}
+	
+	public boolean deleteTask(int task_id){
+		return dao.deleteTask(task_id);
+	}
+	
+	public Task getTaskById(int task_id){
+		return dao.getTaskById(task_id);
+	}
 }

@@ -84,6 +84,8 @@
 		<property name="start_time" column="start_time" type="java.lang.String"/>
 		<property name="end_time" column="end_time" type="java.lang.String"/>
 		<property name="stat_time" column="stat_time" type="java.lang.String"/>
+		<property name="study_year" column="study_year" type="java.lang.String"/>
+		<property name="natural_year" column="natural_year" type="java.lang.String"/>
 		<property name="internal_stat_time" column="internal_stat_time" type="java.lang.String"/> 
 	</class>
 	

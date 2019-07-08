@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 import java.net.URLDecoder;
 import org.zkoss.util.media.AMedia;
 import com.philip.edu.excel.ExcelManager;
+import java.io.File;
+
 FormManager formManager = new FormManager();
 ]]></zscript>
 <include src="headC.zul"/>
@@ -21,6 +23,10 @@ String group_id = Executions.getCurrent().getParameter("group_id");
 if(group_id==null)group_id="1";
 
 int iGroup = Integer.parseInt(group_id);
+
+String sTask = Executions.getCurrent().getSession().getAttribute("task_id");
+int task_id = Integer.parseInt(sTask);
+Task task = formManager.getTaskById(task_id);
 ]]>
 </zscript>
 <template name="model">
@@ -28,6 +34,14 @@ int iGroup = Integer.parseInt(group_id);
 <cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/collection/${each.id}"></toolbarbutton></cell>
 </row>
 </template>
+</rows>
+</grid>
+<vlayout width="1050px">
+<grid>
+<rows>
+<row>
+<cell>最新工作内容:<label value="${task.task_name}"/></cell><cell>截止时间：<label value="${task.end_time}"/></cell><cell>统计时间：<label value="${task.stat_time}"/></cell><cell>内部统计时间：<label value="${task.internal_stat_time}"/></cell>
+</row>
 </rows>
 </grid>
 <listbox id="formlist" emptyMessage="系统中还没有表" width="1100px">
@@ -44,7 +58,7 @@ int iGroup = Integer.parseInt(group_id);
                 <listcell label="${forEachStatus.index}"></listcell>
                 <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>
                 <listcell><zscript><![CDATA[if(each.status==Constants.STATUS_SUCCESS){self.setLabel("已采集");}else{self.setLabel("未采集");}]]></zscript></listcell>
-                <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); Executions.getCurrent().addResponseHeader("Content-disposition", "attachment;filename=\"" + temp + ".xls" + "\""); Filedownload.save(file_name, null);]]></attribute></button></listcell>
+                <listcell><h:input type="hidden" value="${each.bus_name}"/><button label="下载模板" ><attribute name="onClick"><![CDATA[String temp=(String)self.getParent().getFirstChild().getValue();String file_name="/template/" + temp + ".xls";Integer sForm=self.getParent().getParent().getValue(); int form_id=sForm.intValue(); String path=Sessions.getCurrent().getWebApp().getRealPath(""); path+="/template/" + temp +".xls";ExcelManager.generateTemplate(form_id, path); File file=new File(path); Filedownload.save(file, null);]]></attribute></button></listcell>
                 <listcell><button label="导入数据" upload="true,maxsize=30000" forward="onUpload=formlist.onUpload(${each})"><zscript><![CDATA[if(each.status!=Constants.STATUS_UPLOADABLE)self.setDisabled(true);]]></zscript></button><attribute name="onMouseOver"><![CDATA[if(self.getFirstChild().isDisabled()){Popup popup = (Popup)self.getLastChild(); popup.open(popup);}]]></attribute><attribute name="onMouseOut"><![CDATA[Popup popup = (Popup)self.getLastChild(); popup.close();]]></attribute>
                 <popup width="300px">
         			<groupbox closable="true">
@@ -71,6 +85,7 @@ int iGroup = Integer.parseInt(group_id);
             </listitem>
         </template>
 </listbox>
+</vlayout>
 </hlayout>
 </window>
 <zscript>
