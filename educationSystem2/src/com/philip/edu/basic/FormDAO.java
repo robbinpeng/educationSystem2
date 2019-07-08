@@ -420,4 +420,52 @@ public class FormDAO {
 		
 		return collection;
 	}
+	
+	public School getSchoolInfo(){
+		School s = null;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			ArrayList list = (ArrayList)session.createQuery("From School order by id").list();
+			
+			s = (School)list.get(0);
+			
+			session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return s;
+	}
+	
+	public boolean updateSchoolInfo(School school){
+		Session session = null;
+		boolean isSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			ArrayList list = (ArrayList)session.createQuery("From School order by id").list();
+			
+			School s = (School)list.get(0);
+			school.setId(s.getId());
+			
+			session.update(school);
+			
+			session.getTransaction().commit();
+			isSuccess = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
 }

@@ -71,4 +71,12 @@ public class FormManager {
 	public Task getTaskById(int task_id){
 		return dao.getTaskById(task_id);
 	}
+	
+	public School getSchoolInfo(){
+		return dao.getSchoolInfo();
+	}
+	
+	public boolean updateSchoolInfo(School school){
+		return dao.updateSchoolInfo(school);
+	}
 }

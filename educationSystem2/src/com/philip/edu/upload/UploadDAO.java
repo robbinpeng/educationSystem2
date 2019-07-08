@@ -49,7 +49,7 @@ public class UploadDAO {
 				Query query = session.createSQLQuery(sql);
 				query.setParameter(0, new Date());
 				query.setParameter(1, new Date());
-				query.setParameter(2, format.format(new Date()));
+				//query.setParameter(2, format.format(new Date()));
 				query.executeUpdate();
 			}
 

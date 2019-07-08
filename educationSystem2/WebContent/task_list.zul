@@ -11,7 +11,7 @@ import com.philip.edu.basic.*;
 <grid width="250px">
 <rows>
 <row>
-<cell align="center"><toolbarbutton label="采集任务管理" href=""/></cell>
+<cell align="center"><toolbarbutton label="采集任务管理" href="/task"/></cell>
 </row>
 </rows>
 </grid>

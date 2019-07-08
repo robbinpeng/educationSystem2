@@ -21,6 +21,8 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.basic.School;
+import com.philip.edu.basic.Task;
 import com.philip.edu.rule.ExcelHelper;
 
 public class UploadManager {
@@ -70,6 +72,24 @@ public class UploadManager {
 		//     add phrase to List
 		
 		ArrayList sqlList = new ArrayList();
+		
+		Task task = formManager.getTaskById(task_id);
+		String tjsj = null;
+		switch(form.getStats_time()){
+		case Constants.V_TYPE_STAT_TIME_POINT:
+			tjsj = task.getStat_time();
+			break;
+		case Constants.V_TYPE_STAT_TIME_STUDY_YEAR:
+			tjsj = task.getStudy_year();
+			break;
+		case Constants.V_TYPE_STAT_TIME_NATURE_YEAR:
+			tjsj = task.getNatural_year();
+			break;
+		default:
+			break;
+		}
+		
+		School school = formManager.getSchoolInfo();
 
 		for(int k=1; k<lines; k++){
 			StringBuffer sql1 = new StringBuffer("insert into " + table_name + "(");
@@ -87,9 +107,16 @@ public class UploadManager {
 			sql1.append("STATUS, ");
 			sql2.append("1, ");
 			sql1.append("TJSJ, ");
-			sql2.append("?, ");
+			sql2.append("'" + tjsj + "', ");
 			sql1.append("TASK_ID, ");
 			sql2.append(""+task_id+", ");
+			sql1.append("INTERNAL_TJSJ, ");
+			sql2.append("'" + task.getInternal_stat_time() + "', ");
+			sql1.append("SCHOOL_NUMBER, ");
+			sql2.append("'" + school.getSchool_number() + "', ");
+			sql1.append("SCHOOL_NAME, ");
+			sql2.append("'" + school.getSchool_name() + "', ");
+			
 			
 			row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){

@@ -251,7 +251,7 @@ public class UploadController extends SelectorComposer<Component> {
 	public void rollback(Event event) {
 		UploadInfo form = (UploadInfo) event.getData();
 		Form form1 = formManager.getFormById(form.getId());
-		int lines = uploadManager.rollbackData(form1, Constants.TASK_ID);
+		int lines = uploadManager.rollbackData(form1, task_id);
 		boolean success = false;
 		if(lines!=0){
 			success = uploadManager.updateRollback(form.getId(), task_id);

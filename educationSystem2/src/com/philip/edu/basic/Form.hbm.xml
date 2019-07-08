@@ -110,4 +110,13 @@
 		<property name="status" column="status" type="java.lang.Character" />
 		<property name="update_time" column="update_time" type="java.util.Date" />
 	</class>
+	
+	<class name="com.philip.edu.basic.School" lazy="true" table="tbl_school_config">
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="school_number" column="school_number" type="java.lang.String" />
+		<property name="school_name" column="school_name" type="java.lang.String" />
+	</class>
 </hibernate-mapping>
