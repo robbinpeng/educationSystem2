@@ -123,6 +123,6 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		
 		List<Form> forms = formManager.getFormsByGroup(group_id);
 		formlist.setModel(new ListModelList<Form>(forms));
-
+		
 	}
 }

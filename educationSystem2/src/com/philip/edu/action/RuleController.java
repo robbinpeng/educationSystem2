@@ -19,6 +19,7 @@ import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.FormField;
@@ -37,6 +38,9 @@ public class RuleController  extends SelectorComposer<Component> {
 	@Wire
 	private Listbox ruleList;
 	private ListModelList<Rule> listModel;
+	
+	@Wire
+	private Window window2;
 	
 	@Wire
 	private Grid groupList;

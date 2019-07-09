@@ -126,7 +126,7 @@ int iGroup = Integer.parseInt(group_id);
         <tabpanel><button label="表字段+" onClick="addFormField2()"/><button label="运算符+" onClick="addOp2()"/><button label="关联表+" onClick="addRelateForm2()"/>
         	<html><![CDATA[<hr/>]]></html>
         <window id="window2" xmlns:h="http://www.w3.org/1999/xhtml">
-        	<div><h:input type="hidden" value="n"/>校验内容如下:</div>
+        	<div><h:input type="hidden" value="n"/>校验内容如下:</div><hlayout></hlayout>
         </window>
         </tabpanel>
         <tabpanel><button label="前置条件+" onClick="addCondition3()"/><button label="表字段+" onClick="addFormField3()"/><button label="运算符+" onClick="addOperator3()"/><button label="关联表（一字段）+" onClick="addRelateForm3()"/><button label="关联表（两字段）+" onClick="addRelateForm32()"/><button label="关联表条件+" onClick="addConditionR3()"/><button label="不存在（取反）+" onClick="addConditionNo3()"/>
