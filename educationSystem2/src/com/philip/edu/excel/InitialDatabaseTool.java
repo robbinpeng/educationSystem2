@@ -26,8 +26,59 @@ public class InitialDatabaseTool {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		InitialDatabaseTool tool = new InitialDatabaseTool();
-		tool.updateFormat();
+		tool.updateDict();
 
+	}
+	
+	public void updateDict() {
+		FileInputStream in = null;
+		Workbook wb = null;
+		Session session = null;
+		ExcelHelper helper = new ExcelHelper();
+
+		try {
+			in = new FileInputStream("D:/Develop/education/tool.xls");
+			wb = WorkbookFactory.create(in);
+
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+
+			Sheet sheet = wb.getSheetAt(0);
+
+			for(int i=1; i<1032; i++){
+				Row row = sheet.getRow(i);
+				Cell cell = row.getCell(21);
+				
+				double form_id = row.getCell(2).getNumericCellValue();
+				String physic_name = row.getCell(12).getStringCellValue();
+				if(cell == null){
+					
+					String sql1 = "update FormField set dictid=0 where form_id=" +form_id+ " and physic_name='" + physic_name +"'";
+					
+					Query query = session.createQuery(sql1);
+					query.executeUpdate();
+				} else {
+					double d = cell.getNumericCellValue();
+					String sql2 = "update FormField set dictid="+ d +" where form_id=" +form_id+ " and physic_name='" + physic_name +"'";
+					Query query = session.createQuery(sql2);
+					query.executeUpdate();
+				}
+			}
+
+			session.getTransaction().commit();
+			System.out.println("success!");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
 	}
 
 	public void updateFormat() {

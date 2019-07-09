@@ -10,6 +10,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormStatus;
+import com.philip.edu.basic.StatusTemp;
 
 public class TableDAOTest {
 
@@ -41,13 +42,14 @@ public class TableDAOTest {
 		form.setCreate_time(new Date());
 		form.setMemo("do a test");
 		
-		FormStatus status = new FormStatus();
+		StatusTemp status = new StatusTemp();
 		//status.setForm(form);
-		status.setForm_status(Constants.STATUS_CREATED);
+		status.setForm(form);
+		status.setStatus(Constants.STATUS_CREATED);
 		status.setUser_id(Constants.USER_ID);
 		status.setUpdate_time(new Date());
 		
-		form.setStatus(status);
+		form.setStatusTemp(status);
 		
 		//boolean test = dao.createTable(form);
 		//assertEquals(test, true);

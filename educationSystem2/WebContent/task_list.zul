@@ -5,13 +5,13 @@
 import com.philip.edu.basic.*;
 
 ]]></zscript>
-<include src="head.zul"/>
+<include src="headC.zul"/>
 <window id="tWindow" apply="com.philip.edu.action.TaskListController">
 <hlayout width="100%">
 <grid width="250px">
 <rows>
 <row>
-<cell align="center"><toolbarbutton label="采集任务管理" href="/task"/></cell>
+<cell align="center"  style="background:lightblue"><toolbarbutton label="采集任务管理" href="/task"/></cell>
 </row>
 </rows>
 </grid>

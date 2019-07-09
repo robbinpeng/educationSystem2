@@ -108,6 +108,7 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		String sGroup = table_class.getSelectedItem().getValue().toString();
 		int groupid = Integer.parseInt(sGroup);
 		form.setGroup_id(groupid);
+		logger.info("dependency:" + depend.getValue());
 		form.setDependency_form(depend.getValue());
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 				

@@ -1,14 +1,7 @@
 <?page title="数据表" contentType="text/html;charset=UTF-8"?>
 <zk>
 <include src="/head.zul"/>
-<window id="window1" title="数据表" apply="com.philip.edu.action.TableDataController">
-<grid>
-<rows>
-<row align="right">
-<toolbarbutton label="返回" href="/database/1"></toolbarbutton>
-</row>
-</rows>
-</grid>
+<window id="window1" apply="com.philip.edu.action.TableDataController">
 <zscript><![CDATA[
 import com.philip.edu.basic.DataInfo; 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +22,14 @@ int iGroup = Integer.parseInt(group_id);
 <cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/database/${each.id}"></toolbarbutton></cell>
 </row>
 </template>
+</rows>
+</grid>
+<vlayout width="1050px">
+<grid>
+<rows>
+<row align="right">
+<toolbarbutton label="返回" href="/database/1"></toolbarbutton>
+</row>
 </rows>
 </grid>
 <listbox id="dataList" emptyMessage="系统中还没有表" mold="paging" pageSize="20" width="90%">  
@@ -57,6 +58,7 @@ if(datas!=null){
 }
 ]]></zscript>
 </listbox>
+</vlayout>
 </hlayout>
 </window>
 </zk>

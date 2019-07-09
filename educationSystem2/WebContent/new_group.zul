@@ -1,0 +1,21 @@
+<zk>
+<window id="gWindow" title="新建分类" apply="com.philip.edu.action.GroupCreateController" width="500px" action="show: slideDown;hide: slideUp">
+<grid>
+<rows>
+	<row><cell align="right" width="40%">分类名称<label style="color:red">*</label></cell><cell align="left"><textbox id="class_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
+	<row><cell align="right" width="40%">排序<label style="color:red">*</label></cell><cell align="left"><textbox id="sequence" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
+	<row><cell align="right" width="40%">描述：</cell><cell align="left"><textbox id="description" rows="4"/></cell></row>
+	<row><cell align="right" width="40%">分类类型<label style="color:red">*</label></cell><cell align="left"><combobox id="group_type"><comboitem label="自定义表" value="P"/><comboitem label="教学基本状态表" value="S"/><comboitem label="专业评估" value="V"/><comboitem label="课程评估" value="C"/><comboitem label="高基报表" value="H"/></combobox></cell></row>
+	<row><cell align="right" colspan="2"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="创建" id="createBtn"></button></cell></row>
+</rows>
+</grid>
+<zscript>
+void txt_disapear(){
+	if("必填项".equals(self.value)){self.value="";}
+}
+void txt_show(){
+	if("".equals(self.value)){self.value="必填项"; self.style="color:grey";}
+}
+</zscript>
+</window>
+</zk>

@@ -68,8 +68,10 @@ public class TableDataController extends SelectorComposer<Component> {
 	
 	public void generateList(){
 		logger.info("get in generate.");
-		logger.info("data has:" + datas.size() + "records");
+
 		dataList = new Listbox();
+		if(datas == null) return;
+		
 		ArrayList caption = (ArrayList)datas.get(0);
 		Listhead head = new Listhead();
 		for(int i=0; i<caption.size(); i++){

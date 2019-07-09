@@ -30,6 +30,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.FormStatus;
 import com.philip.edu.basic.Group;
+import com.philip.edu.basic.StatusTemp;
 import com.philip.edu.database.DatabaseManager;
 
 public class TableCreateController extends SelectorComposer<Component>{
@@ -121,7 +122,7 @@ public class TableCreateController extends SelectorComposer<Component>{
 	@Listen("onClick = #createBtn")
     public void createTable(Event e) {
 		Form form = new Form();
-		FormStatus status = new FormStatus();
+		StatusTemp status = new StatusTemp();
 		
         //1.check:
 		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("业务表名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
@@ -143,12 +144,12 @@ public class TableCreateController extends SelectorComposer<Component>{
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
 		form.setCreate_time(new Date());
 		
-		status.setTask_id(Constants.TASK_ID);
-		status.setForm_status(Constants.STATUS_CREATED);
+		status.setStatus(Constants.STATUS_CREATED);
 		status.setUser_id(Constants.USER_ID);
 		status.setUpdate_time(new Date());
+		status.setForm(form);
 		
-		form.setStatus(status);
+		form.setStatusTemp(status);
 		
 		boolean b = dbManager.createTable(form);
 		

@@ -176,4 +176,6 @@ public class Constants {
 	
 	public static final char TASK_STATUS_ACTIVE = 'A';
 	public static final char TASK_STATUS_CLOSE = 'C';
+	
+	public static final int DICT_GROUP_ID = 4;
 }

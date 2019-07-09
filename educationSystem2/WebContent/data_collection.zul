@@ -40,7 +40,7 @@ Task task = formManager.getTaskById(task_id);
 <grid>
 <rows>
 <row>
-<cell>最新工作内容:<label value="${task.task_name}"/></cell><cell>截止时间：<label value="${task.end_time}"/></cell><cell>统计时间：<label value="${task.stat_time}"/></cell><cell>内部统计时间：<label value="${task.internal_stat_time}"/></cell>
+<cell><label style="font-weight: bold">最新工作内容:</label><label value="${task.task_name}"/></cell><cell><label style="font-weight: bold">截止时间：</label><label value="${task.end_time}"/></cell><cell><label style="font-weight: bold">统计时间：</label><label value="${task.stat_time}"/></cell><cell><label style="font-weight: bold">内部统计时间：</label><label value="${task.internal_stat_time}"/></cell>
 </row>
 </rows>
 </grid>

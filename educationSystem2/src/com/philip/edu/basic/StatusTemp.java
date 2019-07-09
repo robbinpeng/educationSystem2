@@ -7,6 +7,14 @@ public class StatusTemp {
 	private int user_id=0;
 	private char status='C';
 	private Date update_time;
+	private Form form;
+	
+	public Form getForm() {
+		return form;
+	}
+	public void setForm(Form form) {
+		this.form = form;
+	}
 	public int getForm_id() {
 		return form_id;
 	}

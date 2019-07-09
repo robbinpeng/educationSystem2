@@ -18,8 +18,22 @@ import org.zkoss.zul.Label;
 Session session1 = Sessions.getCurrent();
 String form_name = session.getAttribute("form_name");
 
+String group_id = Executions.getCurrent().getParameter("group_id");
+if(group_id==null)group_id="1";
+int iGroup = Integer.parseInt(group_id);
 </zscript>
-<window title="自定义校验--${form_name}" apply="com.philip.edu.action.RuleController">
+<window apply="com.philip.edu.action.RuleController">
+<hlayout width="100%">
+<grid width="250px" id="groupList">
+<rows>
+<template name="model">
+<row>
+<cell align="center"><zscript><![CDATA[if(iGroup==each.id){self.setStyle("background:lightblue");}]]></zscript><toolbarbutton label="${each.class_name}" href="/database/${each.id}"></toolbarbutton></cell>
+</row>
+</template>
+</rows>
+</grid>
+<vlayout width="1050px">
 <grid>
 <rows>
 <row align="right">
@@ -77,8 +91,6 @@ String form_name = session.getAttribute("form_name");
             </listitem>
         </template>
 </listbox>
-</window>
-<window title="校验设计">
 <grid>
 <columns>
 <column></column>
@@ -157,6 +169,9 @@ String form_name = session.getAttribute("form_name");
 </row>
 </rows>
 </grid>
+</vlayout>
+</hlayout>
+</window>
 <zscript><![CDATA[
     Div div = new Div();
     Combobox formCom = new Combobox();
@@ -1899,5 +1914,4 @@ String form_name = session.getAttribute("form_name");
 			return result;
 		}
 ]]></zscript>
-</window>
 </zk>

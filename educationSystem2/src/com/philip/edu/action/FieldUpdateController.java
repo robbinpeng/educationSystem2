@@ -1,5 +1,6 @@
 package com.philip.edu.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,8 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.philip.edu.basic.Constants;
+import com.philip.edu.basic.Dict;
+import com.philip.edu.basic.DictManager;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
@@ -33,6 +36,7 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 	private static DatabaseManager dbManager = new DatabaseManager();
 	private static FormManager formManager = new FormManager();
 	private static ExcelManager excelManager = new ExcelManager();
+	private static DictManager dictManager = new DictManager();
 	
 	@Wire
 	private Window ufWindow;
@@ -64,6 +68,8 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 	private Combobox is_hidden;
 	@Wire
 	private Combobox text_format;
+	@Wire
+	private Combobox dictionary;
 
 	private int store_formid;
 	private FormField store_field;
@@ -98,6 +104,7 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		field.setDis_method(display_method.getSelectedItem().getValue().toString().charAt(0));
 		field.setCompute(compute.getSelectedItem().getValue().toString().charAt(0));
 		field.setText_format(text_format.getSelectedItem().getValue().toString().charAt(0));
+		field.setDictid(Integer.parseInt(dictionary.getSelectedItem().getValue().toString()));
 		field.setMemo(memo.getValue());
 				
 		boolean b = dbManager.updateField(field);
@@ -253,6 +260,19 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		item.setValue("Y");
 		is_hidden.appendChild(item);
 		if(field.getIs_hidden()=='Y')is_hidden.setSelectedItem(item);
+		
+		item = new Comboitem("");
+		item.setValue("0");
+		dictionary.appendChild(item);
+		if(field.getDictid()==0)dictionary.setSelectedItem(item);
+		ArrayList dicts = dictManager.getDictByGroup(Constants.DICT_GROUP_ID);
+		for(int i=0; i<dicts.size(); i++){
+			Dict dict = (Dict)dicts.get(i);
+			item = new Comboitem(dict.getDictname());
+			item.setValue("" + dict.getId());
+			dictionary.appendChild(item);
+			if(field.getDictid()==dict.getId())dictionary.setSelectedItem(item);
+		}
 		
 		bus_name.setValue(field.getBus_name());
 		physic_name.setValue(field.getPhysic_name());

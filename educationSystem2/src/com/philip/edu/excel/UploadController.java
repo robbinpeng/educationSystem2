@@ -190,6 +190,21 @@ public class UploadController extends SelectorComposer<Component> {
 							}
 						}
 					}
+					
+					//2.6 check dictionary:
+					m = engine.DictionCheck(form.getId(), wb);
+					if(m.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
+						
+					} else {
+						sMessage += "上传表格中有字段不在数据字典中：   \n";
+						ArrayList al = m.getMessage_info();
+						if(al.size()!=0){
+							checkpass = false;
+							for (int j=0; j<al.size(); j++){
+								sMessage += (String)al.get(j) + "\n";
+							}
+						}
+					}
 					// 3.check the rules:
 					list = engine.rulesCheck(form.getId(), wb);
 					for (int j = 0; j < list.size(); j++) {

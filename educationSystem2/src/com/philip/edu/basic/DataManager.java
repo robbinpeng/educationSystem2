@@ -11,6 +11,8 @@ public class DataManager {
 		Form form = formManager.getFormById(form_id);
 		ArrayList fields = formManager.getFormFields(form_id);
 		
+		if(fields==null || fields.size()==0)return null;
+		
 		return dao.getTableData(fields, form.getPhsic_name());
 	}
 }

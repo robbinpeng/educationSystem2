@@ -37,6 +37,6 @@
 		<url-pattern>/zkau/*</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>database_list.zul?group_id=1</welcome-file>
+		<welcome-file>database_list.zul</welcome-file>
 	</welcome-file-list>
 </web-app>

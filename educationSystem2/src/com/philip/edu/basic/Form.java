@@ -16,9 +16,15 @@ public class Form {
 	private String template_loc;
 	private Date create_time;
 	private String memo;
-	private FormStatus status;
 	private int group_id;
+	private StatusTemp statusTemp;
 	
+	public StatusTemp getStatusTemp() {
+		return statusTemp;
+	}
+	public void setStatusTemp(StatusTemp statusTemp) {
+		this.statusTemp = statusTemp;
+	}
 	public int getGroup_id() {
 		return group_id;
 	}
@@ -54,12 +60,6 @@ public class Form {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
-	}
-	public FormStatus getStatus() {
-		return status;
-	}
-	public void setStatus(FormStatus status) {
-		this.status = status;
 	}
 	public int getId() {
 		return id;

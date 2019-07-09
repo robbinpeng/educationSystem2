@@ -16,6 +16,13 @@
 </row>
 </rows>
 </grid>
+<grid width="100%">
+<rows>
+<row>
+<cell align="center"><toolbarbutton label="系统管理" href="/admin1"></toolbarbutton></cell>
+</row>
+</rows>
+</grid>
 </hbox>
 </window>
 </zk>

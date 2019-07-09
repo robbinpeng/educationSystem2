@@ -1,5 +1,6 @@
 package com.philip.edu.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -22,6 +24,8 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.philip.edu.basic.Constants;
+import com.philip.edu.basic.Dict;
+import com.philip.edu.basic.DictManager;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
@@ -33,6 +37,7 @@ public class FieldCreateController extends SelectorComposer<Component> {
 	private static DatabaseManager dbManager = new DatabaseManager();
 	private static FormManager formManager = new FormManager();
 	private static ExcelManager excelManager = new ExcelManager();
+	private static DictManager dictManager = new DictManager();
 
 	@Wire
 	private Window cfWindow;
@@ -64,6 +69,8 @@ public class FieldCreateController extends SelectorComposer<Component> {
 	private Combobox is_hidden;
 	@Wire
 	private Combobox text_format;
+	@Wire
+	private Combobox dictionary;
 
 	private int store_formid;
 
@@ -83,6 +90,19 @@ public class FieldCreateController extends SelectorComposer<Component> {
 		compute.setSelectedIndex(0);
 		is_report.setSelectedIndex(0);
 		is_hidden.setSelectedIndex(0);
+		text_format.setSelectedIndex(0);
+		
+		Comboitem item = new Comboitem("");
+		item.setValue("0");
+		dictionary.appendChild(item);
+		dictionary.setSelectedItem(item);
+		ArrayList dicts = dictManager.getDictByGroup(Constants.DICT_GROUP_ID);
+		for(int i=0; i<dicts.size(); i++){
+			Dict dict = (Dict)dicts.get(i);
+			item = new Comboitem(dict.getDictname());
+			item.setValue(dict.getId());
+			dictionary.appendChild(item);
+		}
 	}
 
 	@Listen("onClick = #closeBtn")
@@ -137,6 +157,9 @@ public class FieldCreateController extends SelectorComposer<Component> {
 		field.setText_format(text_format.getSelectedItem().getValue().toString().charAt(0));
 		field.setForm_id(store_formid);
 		field.setMemo(memo.getValue());
+		String sDict = dictionary.getSelectedItem().getValue().toString();
+		int dictid = Integer.parseInt(sDict);
+		field.setDictid(dictid);
 
 		boolean b = dbManager.addField(form.getPhsic_name(), field);
 

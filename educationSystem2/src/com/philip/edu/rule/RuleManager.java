@@ -25,6 +25,11 @@ public class RuleManager {
 		return checker.formatCheck(wb, form_id);
 	}
 	
+	public MessageInfo DictionCheck(int form_id, Workbook wb){
+		DictionCheck checker = new DictionCheck();
+		return checker.dictionCheck(wb, form_id);
+	}
+	
 	public boolean changeActive(int rule_id){
 		return dao.changeActive(rule_id);
 	}

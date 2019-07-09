@@ -38,6 +38,9 @@ public class RuleController  extends SelectorComposer<Component> {
 	private Listbox ruleList;
 	private ListModelList<Rule> listModel;
 	
+	@Wire
+	private Grid groupList;
+	
 	//@Wire
 	//private Grid groupList;
 
@@ -45,6 +48,9 @@ public class RuleController  extends SelectorComposer<Component> {
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
+		
+		List<Group> groups = formManager.getGroups(Constants.USER_ID);
+		groupList.setModel(new ListModelList<Group>(groups));
 		
 		String sForm = Executions.getCurrent().getParameter("form_id");
 		Session session = Sessions.getCurrent();

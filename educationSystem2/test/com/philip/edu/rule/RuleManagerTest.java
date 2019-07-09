@@ -96,6 +96,38 @@ public class RuleManagerTest {
 	}
 	
 	@Test
+	public void testDictionCheck(){
+		boolean test = true;
+		RuleManager manager = new RuleManager();
+		FileInputStream in = null;
+		Workbook wb = null;
+		try {
+			in = new FileInputStream("D:/Develop/education/test/表1-2 校区及地址.xls");
+			wb = WorkbookFactory.create(in);
+			
+			MessageInfo message = manager.DictionCheck(22, wb);
+			if(message.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
+				
+			} else {
+				ArrayList al = message.getMessage_info();
+				for(int i=0; i<al.size(); i++){
+					String error = (String)al.get(i);
+					System.out.println(error);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testGetRules(){
 		RuleManager manager = new RuleManager();
 		ArrayList al = null;
@@ -117,7 +149,7 @@ public class RuleManagerTest {
 			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
 			wb = WorkbookFactory.create(in);
 			
-			MessageInfo message = manager.textFormatCheck(21, wb);
+			MessageInfo message = manager.textFormatCheck(22, wb);
 			if(message.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
 				
 			} else {

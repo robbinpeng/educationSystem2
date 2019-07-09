@@ -3,8 +3,10 @@ package com.philip.edu.basic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class FormManager {
-	//private Logger logger = Logger.getLogger(FormManager.class);
+	private Logger logger = Logger.getLogger(FormManager.class);
 	
 	private FormDAO dao = new FormDAO();
 	
@@ -78,5 +80,21 @@ public class FormManager {
 	
 	public boolean updateSchoolInfo(School school){
 		return dao.updateSchoolInfo(school);
+	}
+	
+	public boolean createGroup(Group group){
+		return dao.createGroup(group);
+	}
+	
+	public boolean updateGroup(Group group){
+		return dao.updateGroup(group);
+	}
+	
+	public boolean deleteGroup(int group_id){
+		return dao.deleteGroup(group_id);
+	}
+	
+	public Group getGroupById(int group_id){
+		return dao.getGroupById(group_id);
 	}
 }

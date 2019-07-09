@@ -15,6 +15,14 @@ public class FormField{
 	private int form_id;
 	private char text_format;
 	private String memo;
+	private int dictid;
+	
+	public int getDictid() {
+		return dictid;
+	}
+	public void setDictid(int dictid) {
+		this.dictid = dictid;
+	}
 	public String getMemo() {
 		return memo;
 	}

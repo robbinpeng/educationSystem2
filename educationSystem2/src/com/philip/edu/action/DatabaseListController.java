@@ -118,6 +118,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		groupList.setModel(new ListModelList<Group>(groups));
 		
 		String sGroup = Executions.getCurrent().getParameter("group_id");
+		if(sGroup==null)sGroup = "1";
 		group_id = Integer.parseInt(sGroup);
 		
 		List<Form> forms = formManager.getFormsByGroup(group_id);

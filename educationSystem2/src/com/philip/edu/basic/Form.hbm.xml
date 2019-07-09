@@ -23,7 +23,7 @@
 		<property name="create_time" column="create_time" type="java.util.Date" />
 		<property name="group_id" column="group_id" type="int" />
 		<property name="memo" column="memo" type="java.lang.String" />
-		<one-to-one name="status" class="com.philip.edu.basic.FormStatus"
+		<one-to-one name="statusTemp" class="com.philip.edu.basic.StatusTemp"
 			cascade="all"></one-to-one>
 	</class>
 	
@@ -45,6 +45,7 @@
 		<property name="form_id" column="form_id" type="int" />
 		<property name="text_format" column="text_format" type="java.lang.Character" />
 		<property name="memo" column="memo" type="java.lang.String" />
+		<property name="dictid" column="dictid" type="int" />
 	</class>
 	
 	<class name="com.philip.edu.basic.Group" lazy="true" table="tbl_form_group">
@@ -104,11 +105,15 @@
 	<class name="com.philip.edu.basic.StatusTemp" lazy="true" table="tbl_datacol">
 		<id name="form_id" type="int">
 			<column name="form_id" />
-			<generator class="native" />
+			<generator class="foreign">
+				<param name="property">form</param>
+			</generator>
 		</id>
 		<property name="user_id" column="user_id" type="int" />
 		<property name="status" column="status" type="java.lang.Character" />
 		<property name="update_time" column="update_time" type="java.util.Date" />
+		
+		<one-to-one name="form" constrained="true" class="com.philip.edu.basic.Form" />
 	</class>
 	
 	<class name="com.philip.edu.basic.School" lazy="true" table="tbl_school_config">
@@ -118,5 +123,40 @@
 		</id>
 		<property name="school_number" column="school_number" type="java.lang.String" />
 		<property name="school_name" column="school_name" type="java.lang.String" />
+	</class>
+	
+	<class name="com.philip.edu.basic.DictGroup" lazy="true" table="tdictgroup" >
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="native" />	
+		</id>
+		<property name="groupcode" column="groupcode" type="java.lang.String" />
+		<property name="groupname" column="groupname" type="java.lang.String" />
+		<property name="status" column="status" type="int" />
+	</class>
+	
+	<class name="com.philip.edu.basic.Dict" lazy="true" table="tdict" >
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="dictcode" column="dictcode" type="java.lang.String" />
+		<property name="dictname" column="dictname" type="java.lang.String" />
+		<property name="remark" column="remark" type="java.lang.String" />
+		<property name="status" column="status" type="int" />
+		<property name="dictgroupid" column="dictgroupid" type="int" />
+	</class>
+	
+	<class name="com.philip.edu.basic.DictItem" lazy="true" table="tdictitem" >
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="itemcode" column="itemcode" type="java.lang.String" />
+		<property name="itemname" column="itemname" type="java.lang.String" />
+		<property name="itemvalue" column="itemvalue" type="java.lang.String" />
+		<property name="dictid" column="dictid" type="int" />
+		<property name="status" column="status" type="int" />
+		<property name="parent_value" column="parent_value" type="java.lang.String" />
 	</class>
 </hibernate-mapping>

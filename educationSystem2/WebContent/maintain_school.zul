@@ -1,0 +1,35 @@
+<?page title="任务列表" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?> 
+<zk>
+<zscript><![CDATA[
+import com.philip.edu.basic.*;
+
+]]></zscript>
+<include src="headA.zul"/>
+<window id="sWindow" apply="com.philip.edu.action.SchoolMaintainController">
+<hlayout width="100%">
+<grid width="250px">
+<rows>
+<row>
+<cell align="center" style="background:lightblue"><toolbarbutton label="系统参数设置" href="/admin1"/></cell>
+</row>
+<row>
+<cell align="center"><toolbarbutton label="数据仓库分类" href="/group"/></cell>
+</row>
+</rows>
+</grid>
+<vlayout width="1050px">
+<grid>
+<rows>
+<row>
+<cell align="right">学校代码：</cell><cell align="left"><textbox id="school_num"></textbox></cell><cell align="right">学校名称：</cell><cell align="left"><textbox id="school_name" cols="30"></textbox></cell>
+</row>
+<row>
+<cell colspan="4" align="center"><button id="modify" label="修改"/><space bar="false" spacing="20px" /><button id="save" label="保存"/></cell>
+</row>
+</rows>
+</grid>
+</vlayout>
+</hlayout>
+</window>
+</zk>

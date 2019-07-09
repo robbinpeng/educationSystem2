@@ -456,6 +456,7 @@ public class FormDAO {
 			School s = (School)list.get(0);
 			school.setId(s.getId());
 			
+			session.clear();
 			session.update(school);
 			
 			session.getTransaction().commit();
@@ -467,5 +468,87 @@ public class FormDAO {
 		}
 		
 		return isSuccess;
+	}
+	
+	public boolean createGroup(Group group){
+		Session session = null;
+		boolean bSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			session.save(group);
+			session.getTransaction().commit();
+			bSuccess = true;
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return bSuccess;
+	}
+	
+	public boolean updateGroup(Group group){
+		Session session = null;
+		boolean bSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			session.update(group);
+			session.getTransaction().commit();
+			bSuccess = true;
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return bSuccess;
+	}
+	
+	public boolean deleteGroup(int group_id){
+		Session session = null;
+		boolean bSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Group group = session.get(Group.class, group_id);
+			session.delete(group);
+			
+			session.getTransaction().commit();
+			bSuccess = true;
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return bSuccess;
+	}
+	
+	public Group getGroupById(int group_id){
+		Session session = null;
+		Group group = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			group = session.get(Group.class, group_id);
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return group;
 	}
 }

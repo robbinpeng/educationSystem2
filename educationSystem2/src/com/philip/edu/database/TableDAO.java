@@ -1,6 +1,7 @@
 package com.philip.edu.database;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -174,16 +175,16 @@ public class TableDAO {
 			session.beginTransaction();
 			
 			//1¡¢create physic table£º
-			sql = "create table " + form.getPhsic_name() + " (ID bigint not null auto_increment, CREATOR bigint, CREATE_TIME VARCHAR(50), LAST_OPERATOR bigint, LAST_OPERATE_TIME VARCHAR(50), STATUS int, TASK_ID bigint, TASK_VER_ int, primary key (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+			sql = "create table " + form.getPhsic_name() + " (ID bigint not null auto_increment, CREATOR bigint, CREATE_TIME VARCHAR(50), LAST_OPERATOR bigint, LAST_OPERATE_TIME VARCHAR(50), STATUS int, TASK_ID bigint, TASK_VER_ int, SCHOOL_NUMBER varchar(100), SCHOOL_NAME varchar(100), INTERNAL_TJSJ varchar(100), primary key (ID)) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			
 			Query query = session.createSQLQuery(sql);
 			query.executeUpdate();
 			
 			//whether is uploadable:
-			String sqlStatus = "From StatusTemp where form_id=" + form.getId();
-			query = session.createQuery(sqlStatus);
-			ArrayList qStatus = (ArrayList)query.list();
-			StatusTemp status = (StatusTemp)qStatus.get(0);
+			StatusTemp status = new StatusTemp();
+			status.setForm_id(form.getId());
+			status.setUser_id(Constants.USER_ID);
+			status.setUpdate_time(new Date());
 			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
 				//uploadable:
 				status.setStatus(Constants.STATUS_UPLOADABLE);
@@ -208,7 +209,8 @@ public class TableDAO {
 				else status.setStatus(Constants.STATUS_CREATED);
 			}
 			
-			session.save(status);
+			status.setForm(form);
+			form.setStatusTemp(status);
 			session.save(form);
 			
 			session.getTransaction().commit();
@@ -231,10 +233,8 @@ public class TableDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			String sqlStatus = "From StatusTemp where form_id=" + form.getId();
-			Query query = session.createQuery(sqlStatus);
-			ArrayList qStatus = (ArrayList)query.list();
-			StatusTemp status = (StatusTemp)qStatus.get(0);
+			StatusTemp status = form.getStatusTemp();
+			
 			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
 				//uploadable:
 				status.setStatus(Constants.STATUS_UPLOADABLE);
@@ -259,7 +259,7 @@ public class TableDAO {
 				else status.setStatus(Constants.STATUS_CREATED);
 			}
 			
-			session.update(status);
+			form.setStatusTemp(status);
 			session.update(form);
 			
 			session.getTransaction().commit();
