@@ -102,7 +102,7 @@ public class RuleManagerTest {
 		FileInputStream in = null;
 		Workbook wb = null;
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-2 校区及地址.xls");
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
 			wb = WorkbookFactory.create(in);
 			
 			MessageInfo message = manager.DictionCheck(22, wb);

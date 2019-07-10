@@ -1,10 +1,15 @@
 package com.philip.edu.rule;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,7 +21,7 @@ import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 
 public class FieldFormatCheck {
-
+	private static Logger logger = Logger.getLogger(FieldFormatCheck.class);
 	private static FormManager formManager = new FormManager();
 	private static ExcelHelper excelHelper = new ExcelHelper();
 
@@ -63,6 +68,7 @@ public class FieldFormatCheck {
 			for (int k = 0; k < checkFields.size(); k++) {
 				FormatLine line1 = (FormatLine) checkFields.get(k);
 				String value = "";
+				String vFormat = "";
 				Cell cell = row.getCell(line1.getColumnCheck());
 
 				if (cell != null) {
@@ -71,9 +77,20 @@ public class FieldFormatCheck {
 						value = cell.getStringCellValue();
 					} else if (cellType == CellType.NUMERIC) {
 						if (DateUtil.isCellDateFormatted(cell)) {
-							value = cell.getDateCellValue().toString();
+							Date vDate = cell.getDateCellValue();
+							CellStyle style = cell.getCellStyle();
+							
+							vFormat = style.getDataFormatString();
+							
+							SimpleDateFormat sdf = new SimpleDateFormat(vFormat);
+							value = sdf.format(vDate);
+							logger.info(vFormat);
+							logger.info(value);
 						} else {
-							value = new Double(cell.getNumericCellValue()).toString();
+							DecimalFormat df = new DecimalFormat("0");    
+							value = df.format(cell.getNumericCellValue()); 
+							//if(cell.getNumericCellValue()%1==0)value = new Integer(new Double(cell.getNumericCellValue()).intValue()).toString();
+							//else value = String.valueOf(cell.getNumericCellValue());
 						}
 					}
 
@@ -133,6 +150,7 @@ public class FieldFormatCheck {
 							}
 							break;
 						case Constants.V_TEXT_FORMAT_DATE_DAY:
+							logger.info("date is:" + value);
 							if (value.length() != 10 || value.charAt(4) != '-' || value.charAt(7) != '-') {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
@@ -165,7 +183,8 @@ public class FieldFormatCheck {
 
 					switch (line1.getTextFormat()) {
 					case Constants.V_TEXT_FORMAT_MOBILEPHONE:
-						if (value.length() != 11 || !isNumeric(value) || value.charAt(0) != '1') {
+						logger.info("value is: " + value);
+						if (!isMobile(value)) {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是电话号码！");
 						}
@@ -195,6 +214,7 @@ public class FieldFormatCheck {
 						}
 						break;
 					case Constants.V_TEXT_FORMAT_DATE_MONTH:
+						logger.info("date is:" + value);
 						if (value.length() != 7 || value.charAt(4) != '-') {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
@@ -228,20 +248,27 @@ public class FieldFormatCheck {
 						}
 						break;
 					case Constants.V_TEXT_FORMAT_DATE_DAY:
+						logger.info("date is:" + value);
 						if (value.length() != 10 || value.charAt(4) != '-' || value.charAt(7) != '-') {
+							logger.info("entering 1.");
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 						} else {
-							String year = value.substring(0, 3);
-							String month = value.substring(5, 6);
-							String day = value.substring(8, 9);
+							String year = value.substring(0, 4);
+							String month = value.substring(5, 7);
+							String day = value.substring(8, 10);
+							logger.info("year:" + year);
+							logger.info("month" + month);
+							logger.info("day:" + day);
 							if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
+								logger.info("entering 2.");
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 							} else {
 								int iMonth = Integer.parseInt(month);
 								int iDay = Integer.parseInt(day);
 								if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
+									logger.info("entering 3.");
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									messageList.add(
 											"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");

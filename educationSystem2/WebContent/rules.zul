@@ -22,7 +22,7 @@ String group_id = Executions.getCurrent().getParameter("group_id");
 if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
 </zscript>
-<window apply="com.philip.edu.action.RuleController">
+<window id="mainWindow" apply="com.philip.edu.action.RuleController">
 <hlayout width="100%">
 <grid width="250px" id="groupList">
 <rows>
@@ -126,7 +126,7 @@ int iGroup = Integer.parseInt(group_id);
         <tabpanel><button label="表字段+" onClick="addFormField2()"/><button label="运算符+" onClick="addOp2()"/><button label="关联表+" onClick="addRelateForm2()"/>
         	<html><![CDATA[<hr/>]]></html>
         <window id="window2" xmlns:h="http://www.w3.org/1999/xhtml">
-        	<div><h:input type="hidden" value="n"/>校验内容如下:</div><hlayout></hlayout>
+        	<div><h:input type="hidden" value="n"/>校验内容如下:</div>
         </window>
         </tabpanel>
         <tabpanel><button label="前置条件+" onClick="addCondition3()"/><button label="表字段+" onClick="addFormField3()"/><button label="运算符+" onClick="addOperator3()"/><button label="关联表（一字段）+" onClick="addRelateForm3()"/><button label="关联表（两字段）+" onClick="addRelateForm32()"/><button label="关联表条件+" onClick="addConditionR3()"/><button label="不存在（取反）+" onClick="addConditionNo3()"/>
@@ -171,7 +171,6 @@ int iGroup = Integer.parseInt(group_id);
 </grid>
 </vlayout>
 </hlayout>
-</window>
 <zscript><![CDATA[
     Div div = new Div();
     Combobox formCom = new Combobox();
@@ -191,9 +190,10 @@ int iGroup = Integer.parseInt(group_id);
     	if(i==0)formCom.setSelectedItem(item);
     }
     //fields:
-    Session session = Sessions.getCurrent();
-    String form_id = session.getAttribute("form_id");
-    int iForm_id = Integer.parseInt(form_id);
+    //Session session = Sessions.getCurrent();
+    //String sForm_id = session.getAttribute("form_id");
+    String sForm_id = Executions.getCurrent().getParameter("form_id");
+    int iForm_id = Integer.parseInt(sForm_id);
     ArrayList fields = manager.getFormFields(iForm_id);
 	System.out.println("field size:" + fields.size());
     for(int i=0; i<fields.size(); i++){
@@ -1914,4 +1914,5 @@ int iGroup = Integer.parseInt(group_id);
 			return result;
 		}
 ]]></zscript>
+</window>
 </zk>

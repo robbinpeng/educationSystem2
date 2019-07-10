@@ -3,6 +3,8 @@ package com.philip.edu.rule;
 import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -66,7 +68,19 @@ public class DictionCheck {
 					messageList.add("第" + (j+1) + "行,第" + (line.getColumn()+1) +"的信息为空！");
 					break;
 				} else {
-					String value = (String)excelHelper.getCellValue(cell);
+					String value = null;
+					CellType cellType = cell.getCellTypeEnum();
+					if(cellType==CellType.STRING){
+						value = cell.getStringCellValue();
+					} else if(cellType == CellType.NUMERIC){
+						if(DateUtil.isCellDateFormatted(cell)){
+							value = cell.getDateCellValue().toString();
+						}else{
+							if(cell.getNumericCellValue()%1==0)value = new Integer(new Double(cell.getNumericCellValue()).intValue()).toString();
+							else value = String.valueOf(cell.getNumericCellValue());
+						}
+					}
+					
 					ArrayList dict_items = line.getDict_items();
 					for(int l=0; l<dict_items.size(); l++){
 						DictItem item = (DictItem)dict_items.get(l);

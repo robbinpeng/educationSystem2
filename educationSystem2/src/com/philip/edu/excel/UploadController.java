@@ -196,7 +196,7 @@ public class UploadController extends SelectorComposer<Component> {
 					if(m.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
 						
 					} else {
-						sMessage += "上传表格中有字段不在数据字典中：   \n";
+						sMessage += "\n 上传表格中有字段不在数据字典中：   \n";
 						ArrayList al = m.getMessage_info();
 						if(al.size()!=0){
 							checkpass = false;
@@ -211,6 +211,7 @@ public class UploadController extends SelectorComposer<Component> {
 						message = (MessageInfo) list.get(j);
 						if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 						} else {
+							sMessage += "\n 规则校验不通过： \n";
 							ArrayList al = message.getMessage_info();
 							if (al.size() != 0) {
 								checkpass = false;

@@ -15,4 +15,9 @@ public class DataManager {
 		
 		return dao.getTableData(fields, form.getPhsic_name());
 	}
+	
+	public boolean deleteRecords(String table_name, ArrayList ids){
+		return dao.deleteRecords(table_name, ids);
+	}
 }
+

@@ -36,6 +36,9 @@ public class RuleController  extends SelectorComposer<Component> {
 	private FormManager formManager = new FormManager();
 	
 	@Wire
+	private Window mainWindow;
+	
+	@Wire
 	private Listbox ruleList;
 	private ListModelList<Rule> listModel;
 	
@@ -57,6 +60,7 @@ public class RuleController  extends SelectorComposer<Component> {
 		groupList.setModel(new ListModelList<Group>(groups));
 		
 		String sForm = Executions.getCurrent().getParameter("form_id");
+		logger.info("sForm:" + sForm);
 		Session session = Sessions.getCurrent();
 		session.setAttribute("form_id", sForm);
 		int form_id = Integer.parseInt(sForm);

@@ -25,6 +25,8 @@ if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
 
 String sTask = Executions.getCurrent().getSession().getAttribute("task_id");
+if(sTask==null)sTask="1";
+		
 int task_id = Integer.parseInt(sTask);
 Task task = formManager.getTaskById(task_id);
 ]]>
