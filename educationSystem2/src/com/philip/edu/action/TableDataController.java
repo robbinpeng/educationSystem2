@@ -1,6 +1,7 @@
 package com.philip.edu.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -134,20 +135,20 @@ public class TableDataController extends SelectorComposer<Component> {
 		logger.info("data all loaded");
 	}
 	
-	@Listen("onOK = #search")
+/*	@Listen("onOK = #search")
 	public void searchData(Event e){
 		ArrayList newData = new ArrayList();
 		dataList.getItems().clear();
 		DataInfo data = null;
 		
-		/*ArrayList al = (ArrayList)datas.get(0);
+		ArrayList al = (ArrayList)datas.get(0);
 		Listhead head = new Listhead();
 		for(int j=0; j<al.size(); j++){
 			data = (DataInfo) al.get(j);
 			Listheader header = new Listheader(data.getValue());
 			head.appendChild(header);
 		}
-		dataList.appendChild(head);*/
+		dataList.appendChild(head);
 		
 		for(int i=1; i<datas.size(); i++){
 			ArrayList line = (ArrayList)datas.get(i);
@@ -176,6 +177,45 @@ public class TableDataController extends SelectorComposer<Component> {
 		}
 		
 			
+	}*/
+	
+	@Listen("onOK = #search")
+	public void searchData(Event e){
+		ArrayList newData = new ArrayList();
+		//dataList.getItems().clear();
+		DataInfo data = null;
+	
+		Listhead head = (Listhead)dataList.getFirstChild();
+		Listitem item = (Listitem)head.getNextSibling();
+		
+		while(item!=null){
+			boolean bFound = false;
+			
+			List<Listcell> dataAL = item.getChildren();
+			for(int j=0; j<dataAL.size(); j++){
+				Listcell cell = (Listcell)dataAL.get(j);
+				logger.info("cell info:" + j + ":" + cell.getLabel());
+				if(cell.getLabel().contains(search.getValue())){
+					bFound = true;
+					break;
+				}
+			}
+			
+			if(bFound){
+				item = (Listitem) item.getNextSibling();
+			} else {
+				Listitem temp = item;
+				Object obj = item.getNextSibling();
+				if(obj instanceof Listitem){
+					Listitem temp1 = (Listitem) item.getNextSibling();
+					dataList.removeChild(temp);
+					item = temp1;
+				} else {
+					dataList.removeChild(temp);
+					break;
+				}
+			}
+		}
 	}
 	
 	@Listen("onCheck = Checkbox")
@@ -206,13 +246,29 @@ public class TableDataController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #create")
 	public void createRecord(Event e){
-		Messagebox.show("新建记录");
+		HashMap map = new HashMap();
+		map.put("form_id", form.getId());
+		
+		Window window2 = (Window) Executions.createComponents("/new_record.zul", null, map);
+		
+		window2.doModal();
 	}
 	
 	@Listen("onClick = #update")
 	public void updateRecord(Event e){
-		if(checked.size()==0)Messagebox.show("没有选中任何记录！","错误",Messagebox.OK,Messagebox.ERROR);
+		if(checked==null || checked.size()==0)Messagebox.show("没有选中任何记录！","错误",Messagebox.OK,Messagebox.ERROR);
 		if(checked.size()>1)Messagebox.show("一次只能修改一条记录！","错误",Messagebox.OK,Messagebox.ERROR);
+		
+		String sid = (String)checked.get(0);
+		int id = Integer.parseInt(sid);
+		
+		HashMap map = new HashMap();
+		map.put("form_id", form.getId());
+		map.put("id", id);
+		
+		Window window3 = (Window) Executions.createComponents("/update_record.zul", null, map);
+		
+		window3.doModal();
 	}
 	
 	@Listen("onClick = #delete")

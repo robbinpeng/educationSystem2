@@ -1,0 +1,104 @@
+<?page title="更改表记录" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[
+import com.philip.edu.basic.*; 
+import java.text.SimpleDateFormat;
+                  
+FormManager formManager = new FormManager();
+DictManager dictManager = new DictManager();
+]]>
+</zscript>
+<window id="bdlBody" style="padding: 0px 0px 0px 0px;" hflex="1" vflex="1" apply="com.philip.edu.action.RecordUpdateController" visible="true" action="show: slideDown;hide: slideUp">
+		<listbox id="lbClient" width="600px">
+			<listhead>
+				<listheader label="修改纪录" align="center"  />				 
+			</listhead>
+			<template name="model"  >
+				<listitem >
+					<listcell label="${each.bus_name}" style="background-color:#fFF;color:black;"><label style="color:red">*</label></listcell>
+					<listcell style="background-color:#fFF;color:black;text-align:center;" >
+						<zscript><![CDATA[char c = each.dis_method; String s = String.valueOf(c);]]></zscript>
+						<zk switch="${s}"> 
+							<zk case="T"> 
+								<textbox id="${each.dis_method}_${each.id}_${each.sequence}" hflex="1" value="${each.value }"></textbox>
+							</zk> 
+							
+							<zk case="M"> 
+								<textbox id="${each.dis_method}_${each.id}_${each.sequence}" value="${each.value }" multiline="true" hflex="1" height="200px"></textbox>
+							</zk> 
+							
+							<zk case="D"> 
+								<datebox id="${each.dis_method}_${each.id}_${each.sequence}"  readonly="true">
+								<zscript><![CDATA[
+								    SimpleDateFormat sdf = null;
+									switch(each.text_format){
+									case Constants.V_TEXT_FORMAT_DATE_YEAR:
+										sdf = new SimpleDateFormat("yyyy");
+										break;
+									case Constants.V_TEXT_FORMAT_DATE_MONTH:
+										sdf = new SimpleDateFormat("yyyy-MM");
+										break;
+									case Constants.V_TEXT_FORMAT_DATE_MONTH_NOSLASH:
+										sdf = new SimpleDateFormat("yyyyMM");
+										break;
+									case Constants.V_TEXT_FORMAT_DATE_DAY:
+										sdf = new SimpleDateFormat("yyyy-MM-dd");
+										break;
+									}
+									Date date = sdf.parse(each.value);
+									self.setValue(date);
+								]]>
+								</zscript>
+								</datebox>
+							</zk> 
+							
+							<zk case="C"> 
+								<combobox id="${each.dis_method}_${each.id}_${each.sequence}"  hflex="1" readonly="true"  >
+								<zscript><![CDATA[
+									ArrayList al = dictManager.getDictItemByDict(each.dictid);
+									for(int i=0; i<al.size(); i++){
+										DictItem dictItem = (DictItem)al.get(i);
+										Comboitem item = new Comboitem(dictItem.getItemname());
+										item.setValue(dictItem.getId());
+										self.appendChild(item);
+										System.out.println("each.value:" + each.value);
+										System.out.println("item label:" + item.getLabel());
+										if(each.value.equals(item.getLabel()))self.setSelectedItem(item);
+									}
+								]]>
+								</zscript>
+								</combobox>
+							</zk> 
+							
+							<zk case="P"> 
+								<combobox id="${each.dis_method}_${each.id}_${each.sequence}"  hflex="1" readonly="true"  >
+								<zscript><![CDATA[
+									ArrayList al = dictManager.getDictItemByDict(each.dictid);
+									for(int i=0; i<al.size(); i++){
+										DictItem dictItem = (DictItem)al.get(i);
+										Comboitem item = new Comboitem(dictItem.getItemname());
+										item.setValue(dictItem.getId());
+										self.appendChild(item);
+										if(each.value.equals(item.getLabel()))self.setSelectedItem(item);
+									}
+								]]>
+								</zscript>
+								</combobox>
+							</zk> 
+							
+							<zk case="U"> 
+									<fileupload   label="上传"   onUpload="bdlBody$composer.FileUpload(event)"  /> 
+							</zk> 
+						</zk>
+					</listcell>
+				</listitem>
+			</template> 
+			<listfoot  style="background-color: #fff;"><listfooter align="right"><button id="closeBtn" label="取消" style="background:lightblue"/><button label="保存"  id ="butSave" style="background-color:#0087CC;"/></listfooter> </listfoot>
+			 
+		</listbox>
+	 	
+		
+		
+</window>
+ 
+</zk>

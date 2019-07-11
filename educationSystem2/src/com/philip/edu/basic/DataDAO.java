@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ public class DataDAO {
 	}
 	
 	private Logger logger = Logger.getLogger(DataDAO.class);
+	private FormManager formManager = new FormManager();
 	
 	public ArrayList getTableData(ArrayList fields, String tbl_name){
 		Session session = null;
@@ -115,6 +117,90 @@ public class DataDAO {
 		return result;
 	}
 	
+	public ArrayList getTableDataById(ArrayList fields, String tbl_name, int id){
+		Session session = null;
+		DataInfo data = null;
+		ArrayList result = new ArrayList();
+		ArrayList line = new ArrayList();
+		StringBuffer sb = new StringBuffer("select id, ");
+		logger.info("get into getTableData() method"); 
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+
+			//create sql:
+				
+			for(int i=0; i<fields.size(); i++){
+				FormField field = (FormField) fields.get(i);
+				//if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
+				//Caption:
+				data = new DataInfo();
+				data.setId(i+1);
+				data.setKey(field.getPhysic_name());
+				data.setValue(field.getBus_name());
+				line.add(data);
+				
+				//sql:
+				if(i != fields.size()-1){
+					sb.append(field.getPhysic_name() + ", ");
+				} else {
+					sb.append(field.getPhysic_name());
+				}
+			}
+			//result.add(line);
+			ArrayList caption = line;
+			logger.info("the caption size:" + caption.size());
+			
+			sb.append(" from " + tbl_name + " where id=" + id +" order by id");
+			
+			logger.info("sql:" + sb.toString());
+			
+			Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			ArrayList al = (ArrayList)query.list();
+			
+			HashMap map = (HashMap)al.get(0);
+			
+			DataInfo data1 = new DataInfo();
+				
+			logger.info("fields.size:" + fields.size());
+				
+			Object oId = map.get("id");
+			if(oId!=null){
+				data1.setValue(oId.toString());
+			} else {
+				data1.setValue("");
+			}
+			result.add(data1);
+				
+			for(int j=0; j<fields.size(); j++){
+				data = new DataInfo();
+				logger.info("j:" + j);
+				DataInfo captionD = (DataInfo)caption.get(j);
+				logger.info("caption key is:" + captionD.getKey());
+					
+				data.setId(j);
+					
+				Object o = map.get(captionD.getKey());
+				if(o!=null){
+					data.setValue(o.toString());
+				} else {
+					data.setValue("");
+				}
+					
+					result.add(data);
+			}
+			//session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+			
+		return result;
+	}
+	
 	public boolean deleteRecords(String table_name, ArrayList ids){
 		Session session = null;
 		boolean b = false;
@@ -128,6 +214,142 @@ public class DataDAO {
 				String sqlF = sql + (String)ids.get(i);
 				session.createSQLQuery(sqlF).executeUpdate();
 			}
+			session.getTransaction().commit();
+			b = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return b;
+	}
+	
+	public boolean createRecord(Form form, ArrayList record, int task_id){
+		Session session = null;
+		boolean b = false;
+		StringBuffer sql1 = new StringBuffer("insert into " + form.getPhsic_name() + "(");
+		StringBuffer sql2 = new StringBuffer(" values(");
+		
+		School school = formManager.getSchoolInfo();
+		Task task = formManager.getTaskById(task_id);
+		String tjsj = null;
+		switch(form.getStats_time()){
+		case Constants.V_TYPE_STAT_TIME_POINT:
+			tjsj = task.getStat_time();
+			break;
+		case Constants.V_TYPE_STAT_TIME_STUDY_YEAR:
+			tjsj = task.getStudy_year();
+			break;
+		case Constants.V_TYPE_STAT_TIME_NATURE_YEAR:
+			tjsj = task.getNatural_year();
+			break;
+		default:
+			break;
+		}
+		
+		//default data:
+		sql1.append("CREATOR, ");
+		sql2.append("" + Constants.USER_ID + ", ");
+		sql1.append("CREATE_TIME, ");
+		sql2.append("?, ");
+		sql1.append("LAST_OPERATOR, ");
+		sql2.append("" + Constants.USER_ID + ", ");
+		sql1.append("LAST_OPERATE_TIME, ");
+		sql2.append("?, ");
+		sql1.append("STATUS, ");
+		sql2.append("1, ");
+		sql1.append("TASK_ID, ");
+		sql2.append(""+task_id+", ");
+		sql1.append("INTERNAL_TJSJ, ");
+		sql2.append("'" + task.getInternal_stat_time() + "', ");
+		sql1.append("SCHOOL_NUMBER, ");
+		sql2.append("'" + school.getSchool_number() + "', ");
+		sql1.append("SCHOOL_NAME, ");
+		sql2.append("'" + school.getSchool_name() + "', ");
+		
+		for(int i = 0; i<record.size(); i++){
+			DataInfo data = (DataInfo)record.get(i);
+			if(i != record.size()-1){
+				sql1.append("" + data.getKey() + ", ");
+				sql2.append("'" + data.getValue() + "', ");
+			} else {
+				sql1.append("" + data.getKey() + ")");
+				sql2.append("'" + data.getValue() + "')"); 
+			}
+		}
+		
+		StringBuffer sql = sql1.append(sql2);
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Query query = session.createSQLQuery(sql.toString());
+			query.setParameter(0, new Date());
+			query.setParameter(1, new Date());
+			query.executeUpdate();
+			
+			session.getTransaction().commit();
+			b = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return b;
+	}
+	
+	public boolean updateRecord(Form form, ArrayList record, int task_id, int id){
+		Session session = null;
+		boolean b = false;
+		StringBuffer sql1 = new StringBuffer("update " + form.getPhsic_name() + " set ");
+		
+		School school = formManager.getSchoolInfo();
+		Task task = formManager.getTaskById(task_id);
+		String tjsj = null;
+		switch(form.getStats_time()){
+		case Constants.V_TYPE_STAT_TIME_POINT:
+			tjsj = task.getStat_time();
+			break;
+		case Constants.V_TYPE_STAT_TIME_STUDY_YEAR:
+			tjsj = task.getStudy_year();
+			break;
+		case Constants.V_TYPE_STAT_TIME_NATURE_YEAR:
+			tjsj = task.getNatural_year();
+			break;
+		default:
+			break;
+		}
+		
+		//default data:
+		sql1.append("LAST_OPERATOR=" + Constants.USER_ID + ","); 
+		sql1.append("LAST_OPERATE_TIME=?, ");
+		sql1.append("TASK_ID=" + task_id + ", ");
+		sql1.append("INTERNAL_TJSJ='" + task.getInternal_stat_time() + "', ");
+
+		
+		for(int i = 0; i<record.size(); i++){
+			DataInfo data = (DataInfo)record.get(i);
+			if(i != record.size()-1){
+				sql1.append("" + data.getKey() + "='" + data.getValue() + "',");
+
+			} else {
+				sql1.append("" + data.getKey() + "='" + data.getValue() + "' where id=" + id);
+			}
+		}
+		
+		StringBuffer sql = sql1;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Query query = session.createSQLQuery(sql.toString());
+			query.setParameter(0, new Date());
+			query.executeUpdate();
+			
 			session.getTransaction().commit();
 			b = true;
 		} catch(HibernateException e) {

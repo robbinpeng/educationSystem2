@@ -26,8 +26,95 @@ public class InitialDatabaseTool {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		InitialDatabaseTool tool = new InitialDatabaseTool();
-		tool.updateDict();
+		tool.updateDis_method();
 
+	}
+	
+	private static ExcelHelper excelHelper = new ExcelHelper();
+	
+	public void updateDis_method() {
+		FileInputStream in = null;
+		Workbook wb = null;
+		Session session = null;
+		ExcelHelper helper = new ExcelHelper();
+
+		try {
+			in = new FileInputStream("D:/Develop/education/dis_method.xls");
+			wb = WorkbookFactory.create(in);
+
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Sheet sheet = wb.getSheetAt(1);
+			
+			for(int i=1; i<1245; i++){
+				Row row = sheet.getRow(i);
+				
+				Cell cell = row.getCell(3);
+				double dTable = cell.getNumericCellValue();
+				int table_id = new Double(dTable).intValue();
+				
+				if(table_id==0) continue;
+				
+				cell = row.getCell(4);
+				String physic_name = cell.getStringCellValue();
+				
+				cell = row.getCell(9);
+				Integer type = (Integer)excelHelper.getCellValue(cell);
+				
+				int method = type.intValue();
+				char dis_method = 'T';
+				
+				switch(method){
+				case 1:
+					dis_method = Constants.V_DISPLAY_SINGLE_TEXTBOX;
+					break;
+				case 2:
+					dis_method = Constants.V_DISPLAY_MUTIPLE_TEXTBOX;
+					break;
+				case 3:
+					dis_method = Constants.V_DISPLAY_RICH_TEXT;
+					break;
+				case 4:
+					dis_method = Constants.V_DISPLAY_DATE_CONTROL;
+					break;
+				case 5:
+					dis_method = Constants.V_DISPLAY_SINGLE_COMBOBOX;
+					break;
+				case 6:
+					dis_method = Constants.V_DISPLAY_MULTIPLE_COMBOBOX;
+					break;
+				case 7:
+					dis_method = Constants.V_DISPLAY_UPLOAD_CONTROL;
+					break;
+				default:
+					break;
+				}
+				
+				Query query = session.createQuery("From FormField where form_id=" + table_id + " and physic_name='"+ physic_name +"'");
+				ArrayList result = (ArrayList) query.list();
+				
+				FormField field = (FormField)result.get(0);
+				field.setDis_method(dis_method);
+				
+				session.update(field);
+				
+				
+			}
+				session.getTransaction().commit();
+				System.out.println("success!");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
 	}
 	
 	public void updateDict() {

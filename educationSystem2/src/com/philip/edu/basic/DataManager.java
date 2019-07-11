@@ -19,5 +19,17 @@ public class DataManager {
 	public boolean deleteRecords(String table_name, ArrayList ids){
 		return dao.deleteRecords(table_name, ids);
 	}
+	
+	public boolean createRecord(Form form, ArrayList record, int task_id){
+		return dao.createRecord(form, record, task_id);
+	}
+	
+	public ArrayList getTableDataById(ArrayList fields, String tbl_name, int id){
+		return dao.getTableDataById(fields, tbl_name, id);
+	}
+	
+	public boolean updateRecord(Form form, ArrayList record, int task_id, int id){
+		return dao.updateRecord(form, record, task_id,id);
+	}
 }
 

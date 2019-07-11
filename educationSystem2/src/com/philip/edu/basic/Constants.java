@@ -10,6 +10,7 @@ public class Constants {
 	public static final int RULE_CLASS = 3;
 	public static final char RULE_ACTIVE = 'Y';
 	public static final int LAP_YEAR = 1900;
+	public static final int SYSTEM_TASK_ID = 11;
 	
 	//Operator:
 	public static final String LESST = "<";

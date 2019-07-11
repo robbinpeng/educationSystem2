@@ -63,7 +63,12 @@ public class FormManager {
 	}
 	
 	public ArrayList getTaskList(){
-		return dao.getTaskList();
+		ArrayList al = dao.getTaskList();
+		for(int i=0; i<al.size(); i++){
+			Task task = (Task)al.get(i);
+			if(task.getId()==Constants.SYSTEM_TASK_ID)al.remove(i);
+		}
+		return al;
 	}
 	
 	public boolean deleteTask(int task_id){
