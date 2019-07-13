@@ -187,7 +187,20 @@ public class TableDataController extends SelectorComposer<Component> {
 			
 			for(int k=1; k<line.size(); k++){
 				DataInfo data = (DataInfo)line.get(k);
-				Listcell cell = new Listcell(data.getValue());
+				Listcell cell = null;
+				if(data.getKey()!=null&& "URL".equals(data.getKey())){
+					String path = data.getUrl();
+					String name = data.getValue();
+					Button b = new Toolbarbutton(name);
+					//logger.info(path);
+					//file = new File(path);
+					ZScript script = new ZScript("java","File file = new File(\"" +path+ "\");Filedownload.save(file,null)");
+			        EventHandler evthdl = new EventHandler(script);
+			        b.addEventHandler("onClick", evthdl);
+			        cell = new Listcell();
+			        cell.appendChild(b);
+				}
+				else cell = new Listcell(data.getValue());
 				item.appendChild(cell);
 			}
 			dataList.appendChild(item);
