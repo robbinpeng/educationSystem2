@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.zkoss.util.media.Media;
@@ -43,34 +44,35 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 
-public class RecordCreateController extends SelectorComposer<Component>{
+public class RecordCreateController extends SelectorComposer<Component> {
 
 	private static Logger logger = Logger.getLogger(RecordCreateController.class);
 	private static DataManager dataManager = new DataManager();
-	
+
 	@Wire
 	private Listbox lbClient;
 	@Wire
 	private Button butSave;
-	private static FormManager formManager = new FormManager(); 
+	private static FormManager formManager = new FormManager();
 	private ArrayList fields;
 	private Form form;
-		
+
 	@Wire
 	private Window bdlBody;
 	@Wire
 	private Button closeBtn;
-	 
+
 	private ListModelList<FormField> lmlField;
-	//加载页面时方法
+
+	// 加载页面时方法
 	@SuppressWarnings("null")
 	public void doAfterCompose(Component comp) throws Exception {
-		 
+
 		super.doAfterCompose(comp);// 关联前端页面控件的必要方法
-		
-		Integer sForm = (Integer)Executions.getCurrent().getArg().get("form_id");
+
+		Integer sForm = (Integer) Executions.getCurrent().getArg().get("form_id");
 		int form_id = sForm.intValue();
-		
+
 		form = formManager.getFormById(form_id);
 		fields = formManager.getFormFields(form_id);
 		lmlField = new ListModelList(fields);
@@ -78,51 +80,56 @@ public class RecordCreateController extends SelectorComposer<Component>{
 
 		lbClient.setModel(lmlField);
 	}
-	
+
 	@Listen("onClick = #closeBtn")
-    public void closeModal(Event e) {
+	public void closeModal(Event e) {
 		logger.info("to close.");
 		bdlBody.detach();
-    }
-	
-	//保存数据按钮
+	}
+
+	// 保存数据按钮
 	@Listen("onClick = #butSave")
 	public void saveInfo(Event e) {
 		int task_id;
 		String sTask = (String) Sessions.getCurrent().getAttribute("task_id");
-		if(sTask==null){
+		if (sTask == null) {
 			task_id = Constants.SYSTEM_TASK_ID;
-		}
-		else{
+		} else {
 			task_id = Integer.parseInt(sTask);
 		}
-		
+
 		List<Listitem> list = lbClient.getItems();
 		ArrayList record = new ArrayList();
-		
-		for(int i=0; i<list.size(); i++){
-			Listitem item = (Listitem)list.get(i);
-			Listcell cell = (Listcell)item.getLastChild();
-			FormField field = (FormField)fields.get(i);
-			
+
+		for (int i = 0; i < list.size(); i++) {
+			Listitem item = (Listitem) list.get(i);
+			Listcell cell = (Listcell) item.getLastChild();
+			FormField field = (FormField) fields.get(i);
+
 			DataInfo data = new DataInfo();
-			switch(field.getDis_method()){
+			switch (field.getDis_method()) {
 			case Constants.V_DISPLAY_SINGLE_TEXTBOX:
-				Textbox text = (Textbox)cell.getLastChild();
-				if(text.getValue()==null || "".equals(text.getValue())){Messagebox.show("" + field.getBus_name() + "字段不能为空","错误",Messagebox.OK,Messagebox.ERROR);return;}
+				Textbox text = (Textbox) cell.getLastChild();
+				if (text.getValue() == null || "".equals(text.getValue())) {
+					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
+				}
 				data.setKey(field.getPhysic_name());
 				data.setValue(text.getValue());
 				break;
 			case Constants.V_DISPLAY_MUTIPLE_TEXTBOX:
-				Textbox textM = (Textbox)cell.getLastChild();
-				if(textM.getValue()==null || "".equals(textM.getValue())){Messagebox.show("" + field.getBus_name() + "字段不能为空","错误",Messagebox.OK,Messagebox.ERROR);return;}
+				Textbox textM = (Textbox) cell.getLastChild();
+				if (textM.getValue() == null || "".equals(textM.getValue())) {
+					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
+				}
 				data.setKey(field.getPhysic_name());
 				data.setValue(textM.getValue());
 				break;
 			case Constants.V_DISPLAY_DATE_CONTROL:
-				Datebox date = (Datebox)cell.getLastChild();
+				Datebox date = (Datebox) cell.getLastChild();
 				SimpleDateFormat sdf = null;
-				switch(field.getText_format()){
+				switch (field.getText_format()) {
 				case Constants.V_TEXT_FORMAT_DATE_YEAR:
 					sdf = new SimpleDateFormat("yyyy");
 					break;
@@ -136,76 +143,73 @@ public class RecordCreateController extends SelectorComposer<Component>{
 					sdf = new SimpleDateFormat("yyyy-MM-dd");
 					break;
 				}
-				if(date.getValue()==null){Messagebox.show("" + field.getBus_name() + "字段不能为空","错误",Messagebox.OK,Messagebox.ERROR);return;}
+				if (date.getValue() == null) {
+					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
+				}
 				data.setKey(field.getPhysic_name());
 				data.setValue(sdf.format(date.getValue()));
 				break;
 			case Constants.V_DISPLAY_SINGLE_COMBOBOX:
-				Combobox box = (Combobox)cell.getLastChild();
-				if(box.getSelectedItem()==null || "".equals(box.getSelectedItem().getValue())){Messagebox.show("" + field.getBus_name() + "字段不能为空","错误",Messagebox.OK,Messagebox.ERROR);return;}
+				Combobox box = (Combobox) cell.getLastChild();
+				if (box.getSelectedItem() == null || "".equals(box.getSelectedItem().getValue())) {
+					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
+				}
 				data.setKey(field.getPhysic_name());
 				data.setValue(box.getSelectedItem().getLabel());
 				break;
 			case Constants.V_DISPLAY_MULTIPLE_COMBOBOX:
-				Combobox box1 = (Combobox)cell.getLastChild();
-				if(box1.getSelectedItem()==null || "".equals(box1.getSelectedItem().getValue())){Messagebox.show("" + field.getBus_name() + "字段不能为空","错误",Messagebox.OK,Messagebox.ERROR);return;}
+				Combobox box1 = (Combobox) cell.getLastChild();
+				if (box1.getSelectedItem() == null || "".equals(box1.getSelectedItem().getValue())) {
+					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
+				}
 				data.setKey(field.getPhysic_name());
 				data.setValue(box1.getSelectedItem().getLabel());
 				break;
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:
-				Fileupload upload = (Fileupload)cell.getLastChild();
+				Fileupload upload = (Fileupload) cell.getLastChild();
+				String path = (String)upload.getAttribute("file_path");
+				data.setKey(field.getPhysic_name());
+				data.setValue(path);
 				break;
 			}
-			record.add(data);			
+			record.add(data);
 		}
-		
+
 		dataManager.createRecord(form, record, task_id);
-		Window pList = (Window)Path.getComponent("/window1");
+		Window pList = (Window) Path.getComponent("/window1");
 		bdlBody.detach();
 		Executions.getCurrent().sendRedirect("");
 	}
-	
-	//文件上传
+
+	// 文件上传
+	@Listen("onUpload = Fileupload")
 	public void FileUpload(UploadEvent event) {
-		
-		
- 
+
 		Media media = event.getMedia();
-		// 判断上传文件的格式是否是Excel
-		if (!checkFileFormat(media.getName())) {
-			Messagebox.show("非EXCEL文件");
-			return;
-		}
 
 		// 保存上传的Excel文件
-		File fExcel = saveUploadedExcel(media, "C:/TMP/");
+		File fExcel = saveUploadedExcel(media, "fileUpload\\");
 		if (fExcel == null) {
-			Messagebox.show("无内容");
+			Messagebox.show("没有内容！", "错误", Messagebox.OK, Messagebox.ERROR);
 			return;
 		}
 		System.out.println("Excel saved to: " + fExcel.getAbsolutePath());
+		
+		Fileupload upload = (Fileupload)event.getTarget();
+		String path = fExcel.getAbsolutePath().replaceAll(Pattern.quote(File.separator), "\\\\\\\\\\\\\\\\");
+		upload.setAttribute("file_path", path);
+		upload.setLabel(media.getName());
 	}
-	
-	 // Excel文件格式校验
-	 public static boolean checkFileFormat(String sFileName) {
-			// 获取扩展名
-			String sFileExt = sFileName.substring(sFileName.lastIndexOf(".") + 1);
 
-			String[] checkFormat = { "XLSX" };
-			for (int i = 0; i < checkFormat.length; i++) {
-				if (sFileExt.equalsIgnoreCase(checkFormat[i])) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-	
 	public File saveUploadedExcel(Media media, String sSavePath) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS_");// 设置日期格式作为文件名前缀
-		File fExcel = new File(sSavePath + df.format(new Date()) + "_" + media.getName());
-
+		File fExcel = new File(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
+		logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
+		
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(fExcel);

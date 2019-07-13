@@ -3,6 +3,8 @@
 <zscript><![CDATA[
 import com.philip.edu.basic.*; 
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
+import java.io.File;
                   
 FormManager formManager = new FormManager();
 DictManager dictManager = new DictManager();
@@ -87,7 +89,13 @@ DictManager dictManager = new DictManager();
 							</zk> 
 							
 							<zk case="U"> 
-									<fileupload   label="上传"   onUpload="bdlBody$composer.FileUpload(event)"  /> 
+									<fileupload   label="上传"   onUpload="bdlBody$composer.FileUpload(event)" ><zscript><![CDATA[
+									String path = each.value;
+									self.setAttribute("file_path", path);
+									String[] sPath = path.split(Pattern.quote(File.separator));
+									String name = sPath[sPath.length-1];
+									self.setLabel(name);
+									]]></zscript></fileupload> 
 							</zk> 
 						</zk>
 					</listcell>

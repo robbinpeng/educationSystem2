@@ -1,23 +1,32 @@
 package com.philip.edu.action;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.metainfo.ComponentInfo;
+import org.zkoss.zk.ui.metainfo.EventHandler;
+import org.zkoss.zk.ui.metainfo.ZScript;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -27,6 +36,7 @@ import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 import com.philip.edu.basic.Constants;
@@ -61,6 +71,10 @@ public class TableDataController extends SelectorComposer<Component> {
 	private Button delete;
 	private ArrayList checked = new ArrayList();
 	private Form form;
+	private int form_id;
+	private File file;
+	
+	private Listbox storedList;
 	
 	@Override
 	public ComponentInfo doBeforeCompose(Page page, Component parent,
@@ -80,7 +94,7 @@ public class TableDataController extends SelectorComposer<Component> {
 		String sForm = Executions.getCurrent().getParameter("form_id");
 		logger.info("form_id:" + sForm);
 
-		int form_id = Integer.parseInt(sForm);
+		form_id = Integer.parseInt(sForm);
 		
 		form = formManager.getFormById(form_id);
 		datas = manager.getTableData(form_id);
@@ -94,6 +108,7 @@ public class TableDataController extends SelectorComposer<Component> {
 	public void generateList(){
 		logger.info("get in generate.");
 
+		int fileColumn=0;
 		//dataList = new Listbox();
 		if(datas == null) return;
 		
@@ -104,11 +119,58 @@ public class TableDataController extends SelectorComposer<Component> {
 		head.appendChild(empty);
 		for(int i=0; i<caption.size(); i++){
 			DataInfo data = (DataInfo)caption.get(i);
+			FormField field = formManager.getFieldByPhysicName(form_id, data.getKey());
+			if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)fileColumn = i+1;
 			Listheader header = new Listheader(data.getValue());
 			head.appendChild(header);
 		}
 		dataList.appendChild(head);
 		logger.info("Caption load correct");
+		
+		logger.info("fileColumn: " + fileColumn);
+		for(int j=1; j<datas.size(); j++){
+			ArrayList line = (ArrayList)datas.get(j);
+			Listitem item = new Listitem();
+			//add checkbox:
+			Listcell cell1 = new Listcell();
+			Checkbox box = new Checkbox();
+			
+			DataInfo dInfo = (DataInfo)line.get(0);
+			box.setId(dInfo.getValue());
+			//item.setId("item" + dInfo.getValue());
+								
+			cell1.appendChild(box);
+			item.appendChild(cell1);
+			
+			for(int k=1; k<line.size(); k++){
+				DataInfo data = (DataInfo)line.get(k);
+				Listcell cell = null;
+				if(data.getKey()!=null&& "URL".equals(data.getKey())){
+					String path = data.getUrl();
+					String name = data.getValue();
+					Button b = new Toolbarbutton(name);
+					//logger.info(path);
+					//file = new File(path);
+					ZScript script = new ZScript("java","File file = new File(\"" +path+ "\");Filedownload.save(file,null)");
+			        EventHandler evthdl = new EventHandler(script);
+			        b.addEventHandler("onClick", evthdl);
+			        cell = new Listcell();
+			        cell.appendChild(b);
+				}
+				else cell = new Listcell(data.getValue());
+				item.appendChild(cell);
+			}
+			dataList.appendChild(item);
+			logger.info("load one item data");
+		}
+		
+		logger.info("data all loaded");
+	}
+	
+	public void generateListData() {
+		if(datas == null) return;
+		
+		dataList.getItems().clear();
 		
 		for(int j=1; j<datas.size(); j++){
 			ArrayList line = (ArrayList)datas.get(j);
@@ -131,8 +193,6 @@ public class TableDataController extends SelectorComposer<Component> {
 			dataList.appendChild(item);
 			logger.info("load one item data");
 		}
-		
-		logger.info("data all loaded");
 	}
 	
 /*	@Listen("onOK = #search")
@@ -181,6 +241,37 @@ public class TableDataController extends SelectorComposer<Component> {
 	
 	@Listen("onOK = #search")
 	public void searchData(Event e){
+		generateListData();
+		
+		List<Listitem> listItemList = dataList.getItems();
+		List<Listcell> listCellList = null;
+		boolean bFound = false;
+		
+		for(int i =0; i<listItemList.size(); i++){
+			listCellList = listItemList.get(i).getChildren();
+			bFound = false;
+			
+			for(int j=0; j<listCellList.size(); j++){
+				Listcell cell = (Listcell)listCellList.get(j);
+				if(cell.getLabel().contains(search.getValue())){
+					bFound = true;
+					break;
+				}
+			}
+			
+			if(bFound){
+				
+			} else {
+				listItemList.remove(i);
+				i--;
+			}
+
+		}
+		
+	}
+	
+	@Listen("onOK = #search1")
+	public void searchData1(Event e){
 		ArrayList newData = new ArrayList();
 		//dataList.getItems().clear();
 		DataInfo data = null;
@@ -202,7 +293,8 @@ public class TableDataController extends SelectorComposer<Component> {
 			}
 			
 			if(bFound){
-				item = (Listitem) item.getNextSibling();
+				if(!(item.getNextSibling() instanceof Listitem))item = (Listitem)item.getNextSibling().getNextSibling();
+				else item = (Listitem) item.getNextSibling();
 			} else {
 				Listitem temp = item;
 				Object obj = item.getNextSibling();
@@ -256,8 +348,8 @@ public class TableDataController extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #update")
 	public void updateRecord(Event e){
-		if(checked==null || checked.size()==0)Messagebox.show("没有选中任何记录！","错误",Messagebox.OK,Messagebox.ERROR);
-		if(checked.size()>1)Messagebox.show("一次只能修改一条记录！","错误",Messagebox.OK,Messagebox.ERROR);
+		if(checked==null || checked.size()==0){Messagebox.show("没有选中任何记录！","错误",Messagebox.OK,Messagebox.ERROR);return;}
+		if(checked.size()>1){Messagebox.show("一次只能修改一条记录！","错误",Messagebox.OK,Messagebox.ERROR);return;}
 		
 		String sid = (String)checked.get(0);
 		int id = Integer.parseInt(sid);
@@ -290,4 +382,5 @@ public class TableDataController extends SelectorComposer<Component> {
 		}
 		
 	}
+	
 }

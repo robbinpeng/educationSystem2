@@ -83,7 +83,14 @@ public class UploadController extends SelectorComposer<Component> {
 		super.doAfterCompose(window);
 		
 		List<Group> groups = formManager.getGroups(Constants.USER_ID);
-		groupList.setModel(new ListModelList<Group>(groups));
+		List<Group> newGroups = new ArrayList();
+		for(int i=0; i<groups.size(); i++){
+			Group group = (Group)groups.get(i);
+			if(!"»ù´¡´úÂë±í".equals(group.getClass_name())){
+				newGroups.add(group);
+			}
+		}
+		groupList.setModel(new ListModelList<Group>(newGroups));
 		
 		String sGroup = Executions.getCurrent().getParameter("group_id");
 		int groupid = Integer.parseInt(sGroup);
@@ -206,7 +213,7 @@ public class UploadController extends SelectorComposer<Component> {
 						}
 					}
 					// 3.check the rules:
-					list = engine.rulesCheck(form.getId(), wb);
+					list = engine.rulesCheck(form.getId(), wb, task_id);
 					for (int j = 0; j < list.size(); j++) {
 						message = (MessageInfo) list.get(j);
 						if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {

@@ -120,7 +120,7 @@ public class Rule4NoRepeatCheck {
 				}			
 			}
 			
-			for(int l=j+1; l<lines; l++){
+			for(int l=0; l<j; l++){
 				Row row1 = sheet.getRow(l);
 				StringBuffer compare = new StringBuffer("");
 				
@@ -134,6 +134,7 @@ public class Rule4NoRepeatCheck {
 					}
 				}
 				
+				logger.info("result:"+result + ", compare:" + compare);
 				if(result.toString().equals(compare.toString())){
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (j+1) + "行的主键" + keyInfo + "与第" + (l+1) +"行记录重复！");

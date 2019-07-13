@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.zkoss.util.media.Media;
@@ -57,6 +58,7 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 	private ArrayList fields;
 	private Form form;
 	private int id;
+	private FormFieldData fieldD;
 		
 	@Wire
 	private Window bdlBody;
@@ -68,7 +70,7 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 	@SuppressWarnings("null")
 	public void doAfterCompose(Component comp) throws Exception {
 		 
-		super.doAfterCompose(comp);// 关联前端页面控件的必要方法
+		super.doAfterCompose(comp);// 关联前端页面控件的必要方法 
 		ArrayList fieldData = new ArrayList();
 		
 		Integer sForm = (Integer)Executions.getCurrent().getArg().get("form_id");
@@ -84,7 +86,7 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 			FormField field = (FormField)fields.get(i);
 			DataInfo data = (DataInfo)record.get(i+1);
 			
-			FormFieldData fieldD = new FormFieldData();
+			fieldD = new FormFieldData();
 			fieldD.setId(field.getId());
 			fieldD.setBus_name(field.getBus_name());
 			fieldD.setDis_method(field.getDis_method());
@@ -93,6 +95,8 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 			fieldD.setSequence(field.getSequence());
 			fieldD.setText_format(field.getText_format());
 			fieldD.setValue(data.getValue());
+			
+			if(data.getUrl()!=null)fieldD.setUrl(data.getUrl());
 			
 			fieldData.add(fieldD);
 		}
@@ -177,7 +181,10 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 				data.setValue(box1.getSelectedItem().getLabel());
 				break;
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:
-				Fileupload upload = (Fileupload)cell.getLastChild();
+				Fileupload upload = (Fileupload) cell.getLastChild();
+				data.setKey(field.getPhysic_name());
+				String path = (String)upload.getAttribute("file_path");
+				data.setValue(path);
 				break;
 			}
 			record.add(data);			
@@ -189,80 +196,52 @@ public class RecordUpdateController extends SelectorComposer<Component>{
 		Executions.getCurrent().sendRedirect("");
 	}
 	
-	//多选框赋值
-	public void setField(Combobox comp)  {
-		
-		//如果没有选择，则刷新值列表
-		if(comp.getSelectedItem() == null ) {
-			 ListModelList<Object> list = new ListModelList();
-			 list.add("1");
-			 list.add("2");
-			 list.add("3");
-			 list.add("4");
-			 comp.setModel(list); 
-		 }
-	}
-	
-	//文件上传
-	public void FileUpload(UploadEvent event) {
-		
-		
- 
-		Media media = event.getMedia();
-		// 判断上传文件的格式是否是Excel
-		if (!checkFileFormat(media.getName())) {
-			Messagebox.show("非EXCEL文件");
-			return;
+	// 文件上传
+		@Listen("onUpload = Fileupload")
+		public void FileUpload(UploadEvent event) {
+
+			Media media = event.getMedia();
+
+			// 保存上传的Excel文件
+			File fExcel = saveUploadedExcel(media, "fileUpload\\");
+			if (fExcel == null) {
+				Messagebox.show("没有内容！", "错误", Messagebox.OK, Messagebox.ERROR);
+				return;
+			}
+			System.out.println("Excel saved to: " + fExcel.getAbsolutePath());
+			
+			Fileupload upload = (Fileupload)event.getTarget();
+			//String path = fExcel.getAbsolutePath().replaceAll(Pattern.quote(File.separator), "\\\\\\\\\\\\\\\\");
+			fieldD.setUrl(fExcel.getAbsolutePath());
+			upload.setAttribute("file_path", fExcel.getAbsolutePath().replaceAll(Pattern.quote(File.separator), "\\\\\\\\\\\\\\\\"));
+			upload.setLabel(media.getName());
 		}
 
-		// 保存上传的Excel文件
-		File fExcel = saveUploadedExcel(media, "C:/TMP/");
-		if (fExcel == null) {
-			Messagebox.show("无内容");
-			return;
-		}
-		System.out.println("Excel saved to: " + fExcel.getAbsolutePath());
-	}
-	
-	 // Excel文件格式校验
-	 public static boolean checkFileFormat(String sFileName) {
-			// 获取扩展名
-			String sFileExt = sFileName.substring(sFileName.lastIndexOf(".") + 1);
+		public File saveUploadedExcel(Media media, String sSavePath) {
 
-			String[] checkFormat = { "XLSX" };
-			for (int i = 0; i < checkFormat.length; i++) {
-				if (sFileExt.equalsIgnoreCase(checkFormat[i])) {
-					return true;
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS_");// 设置日期格式作为文件名前缀
+			File fExcel = new File(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
+			logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
+			
+			FileOutputStream fos = null;
+			try {
+				fos = new FileOutputStream(fExcel);
+				fos.write(media.getByteData());
+				fos.close();
+			} catch (Exception e) {
+				System.out.println("路径或文件有误");
+				return null;
+			} finally {
+				if (fos != null) {
+					try {
+						fos.close(); // 关闭流
+					} catch (Exception e) {
+						System.out.println("上传失败");
+						return null;
+					}
 				}
 			}
 
-			return false;
+			return fExcel;
 		}
-	
-	public File saveUploadedExcel(Media media, String sSavePath) {
-
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS_");// 设置日期格式作为文件名前缀
-		File fExcel = new File(sSavePath + df.format(new Date()) + "_" + media.getName());
-
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(fExcel);
-			fos.write(media.getByteData());
-			fos.close();
-		} catch (Exception e) {
-			System.out.println("路径或文件有误");
-			return null;
-		} finally {
-			if (fos != null) {
-				try {
-					fos.close(); // 关闭流
-				} catch (Exception e) {
-					System.out.println("上传失败");
-					return null;
-				}
-			}
-		}
-
-		return fExcel;
-	}
 }

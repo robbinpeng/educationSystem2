@@ -32,6 +32,7 @@ public class Rule1ConstraintCheck {
 		int conditionColumn = 0;
 		String conOperator = "";
 		String conValue = "";
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		columns = helper.getExcelColumns(wb);
 		lines = helper.getExcelLines(wb);

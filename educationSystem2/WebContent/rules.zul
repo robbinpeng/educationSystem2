@@ -418,6 +418,7 @@ int iGroup = Integer.parseInt(group_id);
 		input.setType("hidden");
 		input.setValue("f");
 		divRForm2[indexRForm2].appendChild(input);
+		divRForm2[indexRForm2].appendChild(new Label("存在于"));
 		formCom2 = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields("+indexRForm2+")");
 	    EventHandler evthdl1 = new EventHandler(script);
@@ -557,6 +558,7 @@ int iGroup = Integer.parseInt(group_id);
 		input.setType("hidden");
 		input.setValue("f");
 		divRForm3[indexRForm3].appendChild(input);
+		divRForm3[indexRForm3].appendChild(new Label("存在于"));
 		formCom3 = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields3("+indexRForm3+")");
 	    EventHandler evthdl1 = new EventHandler(script);
@@ -575,6 +577,7 @@ int iGroup = Integer.parseInt(group_id);
 	    window3.appendChild(divRForm3[indexRForm3]);
 	    
 	    indexRForm3++;
+	    indexRForm36++;
 	}
 	
 	//3.5 related forms two field:
@@ -613,6 +616,7 @@ int iGroup = Integer.parseInt(group_id);
 	    window3.appendChild(divRForm32[indexRForm32]);
 	    
 	    indexRForm32++;
+	    indexRForm36++;
 	}
 	
 	void loadFields32(int index){
@@ -642,6 +646,7 @@ int iGroup = Integer.parseInt(group_id);
 	
 	void loadFields3(int index){
 		//Messagebox.show(formCom3.getSelectedItem().getValue());
+		System.out.println("index:"+index);
 		ArrayList fields3 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom3.getSelectedItem().getValue());
 		fieldsChangeCom3[index].getItems().clear();
 		fieldsChangeCom36[index].getItems().clear();
@@ -673,7 +678,8 @@ int iGroup = Integer.parseInt(group_id);
 		input.setValue("o");
 		divConR3[indexConR3].appendChild(input);
     	divConR3[indexConR3].appendChild(new Label("且当"));
-        divConR3[indexConR3].appendChild(fieldsChangeCom36[indexRForm36]);
+        divConR3[indexConR3].appendChild(fieldsChangeCom36[--indexRForm36]);
+        indexRForm36++;
 		divConR3[indexConR3].appendChild(new Label("="));
 		divConR3[indexConR3].appendChild(new Textbox());
 		divConR3[indexConR3].appendChild(new Label("时"));
@@ -686,12 +692,10 @@ int iGroup = Integer.parseInt(group_id);
         window3.appendChild(divConR3[indexConR3]);
         	
         indexConR3++;
-        indexRForm36++;
 	}
 	
 	void delConditionR3(int index){
 		window3.removeChild(divConR3[index]);
-		indexRForm36--;
 	}
 	
 	//3.7 no:
@@ -898,6 +902,7 @@ int iGroup = Integer.parseInt(group_id);
 		input.setType("hidden");
 		input.setValue("f");
 		divRForm5[indexRForm5].appendChild(input);
+		divRForm5[indexRForm5].appendChild(new Label("存在于"));
 		formCom5 = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields5("+indexRForm5+")");
 	    EventHandler evthdl1 = new EventHandler(script);
@@ -1453,9 +1458,9 @@ int iGroup = Integer.parseInt(group_id);
 				case 'f':
 					//Combobox,Combobox:	
 					JSONObject fieldObj = new JSONObject(true);
-					Combobox formCom = (Combobox)divChildren.get(1);
+					Combobox formCom = (Combobox)divChildren.get(2);
 					String formValue = formCom.getSelectedItem().getValue();
-					Combobox fieldCom = (Combobox)divChildren.get(2);
+					Combobox fieldCom = (Combobox)divChildren.get(3);
 					String fieldValue = fieldCom.getSelectedItem().getValue();
 					fieldObj.put("relateField",fieldValue).put("relateForm",formValue).put("type",Constants.RULE_RELATE_FORM);
 					rulesArray.put(fieldObj);
@@ -1690,7 +1695,7 @@ int iGroup = Integer.parseInt(group_id);
 						}
 					}
 				} else {
-					return false;
+					//return false;
 				}
 			} else if(fieldNum==2){
 				JSONObject obj = ruleList.getJSONObject(index);
@@ -1712,7 +1717,7 @@ int iGroup = Integer.parseInt(group_id);
 						}
 					}
 				} else {
-					return false;
+					//return false;
 				}
 				
 			}

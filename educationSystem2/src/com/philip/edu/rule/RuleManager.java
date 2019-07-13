@@ -34,7 +34,7 @@ public class RuleManager {
 		return dao.changeActive(rule_id);
 	}
 	
-	public ArrayList rulesCheck(int form_id, Workbook wb){
+	public ArrayList rulesCheck(int form_id, Workbook wb, int task_id){
 		MessageInfo message = null;
 		ArrayList returnMessage = new ArrayList();
 		
@@ -59,7 +59,7 @@ public class RuleManager {
 					//Exclusive Check:
 					logger.info("处理第二类规则");
 					Rule2ExclusiveCheck engine2 = new Rule2ExclusiveCheck();
-					message = engine2.getMessage(wb, object, form_id);
+					message = engine2.getMessage(wb, object, form_id, task_id);
 					message.setFail_information(rule.getRule_name() + rule.getFail_information());
 					returnMessage.add(message);
 					break;
@@ -67,7 +67,7 @@ public class RuleManager {
 					//
 					logger.info("处理第三类规则");
 					Rule3ExistsCheck engine3 = new Rule3ExistsCheck();
-					message = engine3.getMessage(wb, object, form_id);
+					message = engine3.getMessage(wb, object, form_id, task_id);
 					message.setFail_information(rule.getRule_name() + rule.getFail_information());
 					returnMessage.add(message);
 					break;
@@ -83,7 +83,7 @@ public class RuleManager {
 					//
 					logger.info("处理第五类规则");
 					Rule5OutsideConstraintCheck engine5 = new Rule5OutsideConstraintCheck();
-					message = engine5.getMessage(wb, object, form_id);
+					message = engine5.getMessage(wb, object, form_id, task_id);
 					message.setFail_information(rule.getRule_name() + rule.getFail_information());
 					returnMessage.add(message);
 					break;

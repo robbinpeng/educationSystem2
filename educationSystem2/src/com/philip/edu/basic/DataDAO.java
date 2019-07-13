@@ -1,11 +1,13 @@
 package com.philip.edu.basic;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -50,6 +52,7 @@ public class DataDAO {
 				data.setId(i+1);
 				data.setKey(field.getPhysic_name());
 				data.setValue(field.getBus_name());
+				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)data.setUrl("URL");
 				line.add(data);
 				
 				//sql:
@@ -96,6 +99,16 @@ public class DataDAO {
 					Object o = map.get(captionD.getKey());
 					if(o!=null){
 						data.setValue(o.toString());
+						logger.info("captionD url:" + captionD.getUrl());
+						if("URL".equals(captionD.getUrl())){
+							String path = o.toString();
+							String[] sPath = path.split(Pattern.quote(File.separator));;
+							String name = sPath[sPath.length-1];
+							logger.info("path:" + sPath[sPath.length-1]);
+							data.setUrl(path);
+							data.setValue(name);
+							data.setKey("URL");
+						}
 					} else {
 						data.setValue("");
 					}
@@ -139,6 +152,7 @@ public class DataDAO {
 				data.setId(i+1);
 				data.setKey(field.getPhysic_name());
 				data.setValue(field.getBus_name());
+				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)data.setUrl("URL");
 				line.add(data);
 				
 				//sql:
@@ -184,6 +198,16 @@ public class DataDAO {
 				Object o = map.get(captionD.getKey());
 				if(o!=null){
 					data.setValue(o.toString());
+					logger.info("captionD url:" + captionD.getUrl());
+					if("URL".equals(captionD.getUrl())){
+						String path = o.toString();
+						String[] sPath = path.split(Pattern.quote(File.separator));;
+						String name = sPath[sPath.length-1];
+						logger.info("path:" + sPath[sPath.length-1]);
+						data.setUrl(path);
+						data.setValue(name);
+						data.setKey("URL");
+					}
 				} else {
 					data.setValue("");
 				}

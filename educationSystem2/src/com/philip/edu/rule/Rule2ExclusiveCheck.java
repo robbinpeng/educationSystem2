@@ -35,7 +35,7 @@ public class Rule2ExclusiveCheck {
 	private static ExcelHelper helper = new ExcelHelper();
 	private static RuleDAO dao = new RuleDAO();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject object, int form_id) {
+	public MessageInfo getMessage(Workbook wb, JSONObject object, int form_id, int task_id) {
 		logger.info("start to check the uploaded excel:");
 
 		MessageInfo message = new MessageInfo();
@@ -45,10 +45,12 @@ public class Rule2ExclusiveCheck {
 		String relate_table = null;
 		String relate_field = null;
 		ArrayList al = null;
+		
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		// 1. fetch the sql:
 		try {
-			al = this.TranslateRuleSimple(object, form_id);
+			al = this.TranslateRuleSimple(object, form_id, task_id);
 
 			ruleSQL = (String) al.get(0);
 			bus_name = (String) al.get(1);
@@ -90,7 +92,7 @@ public class Rule2ExclusiveCheck {
 		return message;
 	}
 
-	private ArrayList TranslateRuleSimple(JSONObject rule, int form_id) throws NotImplementException {
+	private ArrayList TranslateRuleSimple(JSONObject rule, int form_id, int task_id) throws NotImplementException {
 
 		logger.info("begin to translate rule simple.");
 
@@ -111,7 +113,7 @@ public class Rule2ExclusiveCheck {
 		String field = obj.get("relateField").toString();
 		FormField formField = manager.getFieldByPhysicName(form_id, field);
 		String relate_field = formField.getBus_name();
-		ruleSQL = "select * from " + table + " where " + field + "=?";
+		ruleSQL = "select * from " + table + " where " + field + "=? and task_id=" + task_id;
 		logger.info("the sql is:" + ruleSQL);
 		
 		// get check fieldName:

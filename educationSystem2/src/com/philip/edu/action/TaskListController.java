@@ -64,16 +64,26 @@ public class TaskListController extends SelectorComposer<Component>{
 	}
 	
 	@Listen("onDelete = #tasklist")
-	public void doDeleteRule(Event event){
+	public void doDeleteTask(Event event){
 		
-		Task task = (Task)event.getData();
-		boolean is_success = formManager.deleteTask(task.getId());
-		if(is_success){
-			listModel.remove(task);
-			tasklist.setModel(listModel);
-		} else {
-			Messagebox.show("删除任务失败！","错误",Messagebox.OK,Messagebox.ERROR);
-		}
+		Messagebox.show("你确定要删除这项任务吗？","确定删除",Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener(){
+			 public void onEvent(Event e) throws InterruptedException {
+				 if(e.getName().equals("onOK")){
+					 Task task = (Task)event.getData();
+						boolean is_success = formManager.deleteTask(task.getId());
+						if(is_success){
+							listModel.remove(task);
+							tasklist.setModel(listModel);
+						} else {
+							Messagebox.show("删除任务失败！","错误",Messagebox.OK,Messagebox.ERROR);
+						}
+				 }else{
+					 
+				 }
+			 }
+		});
+		
+		
 	}
 	
 	@Listen("onClick = #open")

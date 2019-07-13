@@ -29,10 +29,10 @@ public class RuleManagerTest {
 		ArrayList list = null;
 		
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表SF-1：学生发展成长指导教师情况.xls");
+			in = new FileInputStream("D:/Develop/education/test/表7-3-2 教学成果奖（近一届）.xls");
 			wb = WorkbookFactory.create(in);
 			 
-			list = engine.rulesCheck(108, wb);
+			list = engine.rulesCheck(105, wb, 10);
 			for(int j=0; j<list.size(); j++){
 				message = (MessageInfo)list.get(j);
 				if(message.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){}

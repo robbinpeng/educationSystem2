@@ -34,6 +34,7 @@ public class FieldFormatCheck {
 		int lines = excelHelper.getExcelLines(wb);
 		int columns = excelHelper.getExcelColumns(wb);
 
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 		Sheet sheet = wb.getSheetAt(0);
 
 		// Caption:
@@ -47,6 +48,7 @@ public class FieldFormatCheck {
 			int columnCh = excelHelper.getColumn2Check(wb, caption.getBus_name(), columns);
 			line.setColumnCheck(columnCh);
 			line.setColumnName(caption.getBus_name());
+			if (caption.getIs_hidden() == 'Y') continue;
 			if (caption.getData_type() != 0) {
 				line.setDataType(caption.getData_type());
 				set = true;
@@ -102,7 +104,7 @@ public class FieldFormatCheck {
 						}
 						break;
 					case Constants.V_DATA_TYPE_FLOAT:
-						if (!isFloat(value)) {
+						if (!(isFloat(value)||isNumeric(value))) {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是小数！");
 						}
@@ -120,8 +122,8 @@ public class FieldFormatCheck {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
 							} else {
-								String year = value.substring(0, 3);
-								String month = value.substring(5, 6);
+								String year = value.substring(0, 4);
+								String month = value.substring(5, 7);
 								if (!isNumeric(year) || !isNumeric(month)) {
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									messageList
@@ -141,7 +143,7 @@ public class FieldFormatCheck {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
 							} else {
-								String month = value.substring(4, 5);
+								String month = value.substring(4, 6);
 								int iMonth = Integer.parseInt(month);
 								if (iMonth < 1 || iMonth > 12) {
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -155,9 +157,9 @@ public class FieldFormatCheck {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 							} else {
-								String year = value.substring(0, 3);
-								String month = value.substring(5, 6);
-								String day = value.substring(8, 9);
+								String year = value.substring(0, 4);
+								String month = value.substring(5, 7);
+								String day = value.substring(8, 10);
 								if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									messageList.add(
@@ -219,8 +221,8 @@ public class FieldFormatCheck {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
 						} else {
-							String year = value.substring(0, 3);
-							String month = value.substring(5, 6);
+							String year = value.substring(0, 4);
+							String month = value.substring(5, 7);
 							if (!isNumeric(year) || !isNumeric(month)) {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
@@ -239,7 +241,7 @@ public class FieldFormatCheck {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
 						} else {
-							String month = value.substring(4, 5);
+							String month = value.substring(4, 6);
 							int iMonth = Integer.parseInt(month);
 							if (iMonth < 1 || iMonth > 12) {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);

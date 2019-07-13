@@ -31,13 +31,14 @@ public class Rule5OutsideConstraintCheck {
 	private static FormManager fManager = new FormManager();
 	private static RuleDAO dao = new RuleDAO();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id) {
+	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id, int task_id) {
 		MessageInfo message = new MessageInfo();
 		ArrayList messageList = new ArrayList();
 		ArrayList rules = null;
 		int columns = 0;
 		int lines = 0;
 
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 		columns = helper.getExcelColumns(wb);
 		lines = helper.getExcelLines(wb);
 
@@ -191,7 +192,7 @@ public class Rule5OutsideConstraintCheck {
 				Object value1 = helper.getCellValue(cell);
 				String sTotal = value1.toString();
 
-				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal + "'";
+				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal + "' and task_id=" + task_id;
 				logger.info("sql: " + sql);
 				Session session = null;
 				ArrayList al = null;

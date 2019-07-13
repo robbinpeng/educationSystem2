@@ -24,7 +24,7 @@ public class Rule3ExistsCheck {
 	private static FormManager fManager = new FormManager();
 	private static ExcelHelper helper = new ExcelHelper();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id) {
+	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id, int task_id) {
 		MessageInfo message = new MessageInfo();
 		int columns = 0;
 		int lines = 0;
@@ -36,6 +36,8 @@ public class Rule3ExistsCheck {
 
 		columns = helper.getExcelColumns(wb);
 		lines = helper.getExcelLines(wb);
+		
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) obj.get("rules");
@@ -132,9 +134,9 @@ public class Rule3ExistsCheck {
 							session = HibernateUtil.getSession();
 							String sql = "";
 							if(!(info.getAndName()==null || info.getAndName().equals(""))){
-								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"' and " + info.getAndName() + "='" + info.getAndValue() + "'";
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"' and " + info.getAndName() + "='" + info.getAndValue() + "' and task_id=" + task_id;
 							} else {
-								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"'";
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue +"' and task_id=" + task_id;
 							}
 							logger.info(sql);		
 							
@@ -181,9 +183,9 @@ public class Rule3ExistsCheck {
 							session = HibernateUtil.getSession();
 							String sql = "";
 							if(!(info.getAndName().equals("")||info.getAndValue().equals(""))){
-								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "' and " + info.getAndName() + "='" + info.getAndValue() + "'";
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "' and " + info.getAndName() + "='" + info.getAndValue() + "' and task_id=" + task_id;
 							} else {
-								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "'";
+								sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='" + leftValue1 +"' and " + info.getField2Name() + "='" + leftValue2 + "' and task_id=" + task_id;
 							}
 							
 							logger.info(sql);
