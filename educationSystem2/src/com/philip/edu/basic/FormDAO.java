@@ -190,6 +190,26 @@ public class FormDAO {
 		return field;
 	}
 	
+	public FormField getFormFieldByBusName(int form_id, String bus_name){
+		Session session = null;
+		FormField field = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			List l = session.createQuery("from FormField where form_id=" + form_id + " and bus_name='" + bus_name + "'").list();
+			
+			field = (FormField) l.get(0);
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return field;
+	}
+	
 	public ArrayList getGroups(int user_id){
 		ArrayList al = new ArrayList();
 		Session session = null;
@@ -217,7 +237,7 @@ public class FormDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			al = (ArrayList) session.createQuery("FROM Form WHERE group_id="+group_id).list();
+			al = (ArrayList) session.createQuery("FROM Form WHERE group_id="+group_id + " order by bus_name").list();
 			
 			session.getTransaction().commit();
 		}  catch(HibernateException e) {
@@ -394,7 +414,7 @@ public class FormDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			ArrayList al = (ArrayList)session.createQuery("From Form where group_id=" + group_id + " order by id").list();
+			ArrayList al = (ArrayList)session.createQuery("From Form where group_id=" + group_id + " order by bus_name").list();
 			for(int i=0; i<al.size(); i++){
 				UploadInfo info = new UploadInfo();
 				Form form = (Form)al.get(i);

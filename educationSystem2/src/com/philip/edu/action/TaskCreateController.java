@@ -3,6 +3,7 @@ package com.philip.edu.action;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,8 @@ public class TaskCreateController extends SelectorComposer<Component>{
 	
 	@Wire
 	private Combobox study_year;
+	private ListModelList listYear;
+	private ArrayList al;
 	
 	@Wire
 	private Textbox natural_year;
@@ -82,10 +85,34 @@ public class TaskCreateController extends SelectorComposer<Component>{
 		
 		LocalDate now = LocalDate.now(ZoneId.systemDefault());	
 		int currentYear = now.getYear();
+		al = new ArrayList();
 		for(int i=currentYear-10; i<currentYear+10; i++){
+			String year = "" + (i) + "-" + (i+1);
+			al.add(year);
+		}	
+		listYear = new ListModelList(al);
+		study_year.setModel(listYear);
+		listYear.addToSelection(al.get(10));
+		
+		/*for(int i=currentYear-10; i<currentYear+10; i++){
 			Comboitem item = new Comboitem(""+i+"-"+(i+1));
 			study_year.appendChild(item);
 			if(i==currentYear)study_year.setSelectedItem(item);
+		}*/
+	}
+	
+	@Listen("onChange = #stat_time")
+	public void selectTime() {
+		Date st_time = stat_time.getValue();
+		LocalDate local = st_time.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int year = local.getYear() - 1;
+		natural_year.setValue("" + year);
+		
+		for(int i=0; i<study_year.getItemCount(); i++){
+			Comboitem item = study_year.getItemAtIndex(i);
+			String chose_year = ((String)al.get(i)).substring(0, 4);
+			logger.info("year=" + chose_year);
+			if(chose_year.equals("" +year)){listYear.addToSelection(al.get(i));logger.info("entered");}
 		}
 	}
 	

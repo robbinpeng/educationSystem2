@@ -35,7 +35,7 @@ public class Rule4NoRepeatCheck {
 		ArrayList messageList = new ArrayList();
 		
 		int excelColumns = helper.getExcelColumns(wb);
-		int lines = helper.getExcelLines(wb);
+		int lines = helper.getExcelLines(wb, form_id, excelColumns);
 		
 		//Precondition:
 		JSONArray preArray = (JSONArray) object.get("rules");

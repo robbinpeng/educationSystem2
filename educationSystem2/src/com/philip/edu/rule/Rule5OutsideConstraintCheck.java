@@ -40,7 +40,7 @@ public class Rule5OutsideConstraintCheck {
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb);
+		lines = helper.getExcelLines(wb, form_id, columns);
 
 		rules = this.translateRulesSured(obj);
 
@@ -77,7 +77,8 @@ public class Rule5OutsideConstraintCheck {
 							}
 						} else {
 							String sTemp = value.toString();
-							double temp = new Double(sTemp).doubleValue();
+							double temp = 0;
+							if(sTemp!=null&&!"".equals(sTemp))temp = new Double(sTemp).doubleValue();
 							leftValue += temp;
 						}
 					} else if (Constants.RULE_OPERATOR.equals(type1)) {

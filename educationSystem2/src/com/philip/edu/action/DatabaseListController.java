@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Page;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -111,6 +113,14 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	}
 	
 	@Override
+	public ComponentInfo doBeforeCompose(Page page, Component parent,
+			ComponentInfo compInfo) {
+		// TODO Auto-generated method stub
+		
+		return super.doBeforeCompose(page, parent, compInfo);
+	}
+	
+	@Override
 	public void doAfterCompose(Component window) throws Exception {
 		super.doAfterCompose(window);
 		
@@ -120,9 +130,11 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		String sGroup = Executions.getCurrent().getParameter("group_id");
 		if(sGroup==null)sGroup = "1";
 		group_id = Integer.parseInt(sGroup);
+		Executions.getCurrent().getSession().setAttribute("group_id", sGroup);
 		
 		List<Form> forms = formManager.getFormsByGroup(group_id);
 		formlist.setModel(new ListModelList<Form>(forms));
 		
+		//Executions.getCurrent().getSession().setAttribute("group_id", sGroup);	
 	}
 }

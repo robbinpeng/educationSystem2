@@ -112,8 +112,11 @@ public class TableDataController extends SelectorComposer<Component> {
 		//dataList = new Listbox();
 		if(datas == null) return;
 		
+		dataList.setSizedByContent(true);
+		
 		ArrayList caption = (ArrayList)datas.get(0);
 		Listhead head = new Listhead();
+		head.setSizable(true);
 		Listheader empty = new Listheader();
 		empty.setWidth("3%");
 		head.appendChild(empty);

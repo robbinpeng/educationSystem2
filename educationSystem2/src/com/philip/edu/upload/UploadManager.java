@@ -37,7 +37,7 @@ public class UploadManager {
 		
 		// check format is right:
 		int excelColumns = excelHelper.getExcelColumns(wb);
-		int lines = excelHelper.getExcelLines(wb);
+		int lines = excelHelper.getExcelLines(wb, form_id, excelColumns);
 		
 		// get table_name by form_id:
 		Form form = formManager.getFormById(form_id);

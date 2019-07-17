@@ -11,7 +11,7 @@ ArrayList datas = null;
 ArrayList al=null;
 DataInfo data = null;
 
-String group_id = Executions.getCurrent().getParameter("group_id");
+String group_id = Executions.getCurrent().getSession().getAttribute("group_id");
 if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
 ]]></zscript>
@@ -30,7 +30,7 @@ int iGroup = Integer.parseInt(group_id);
 <rows>
 <row align="right">
 <cell colspan="2">
-<toolbarbutton label="返回" href="/database/1"></toolbarbutton>
+<toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton>
 </cell>
 </row>
 <row align="right">

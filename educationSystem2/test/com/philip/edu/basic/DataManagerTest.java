@@ -11,7 +11,7 @@ public class DataManagerTest {
 	@Test
 	public void testGetTableData() {
 		DataManager manager = new DataManager();
-		ArrayList al = manager.getTableData(5);
+		ArrayList al = manager.getTableData(35);
 		assertNotEquals(al.size(),0);
 	}
 

@@ -50,6 +50,10 @@ public class FormManager {
 		return dao.getFormsByGroup(group_id);
 	}
 	
+	public FormField getFieldByBusName(int form_id, String bus_name){
+		return dao.getFormFieldByBusName(form_id, bus_name);
+	}
+	
 	public boolean createTask(Task task){
 		return dao.createTask(task);
 	}

@@ -18,7 +18,7 @@ import org.zkoss.zul.Label;
 Session session1 = Sessions.getCurrent();
 String form_name = session.getAttribute("form_name");
 
-String group_id = Executions.getCurrent().getParameter("group_id");
+String group_id = Executions.getCurrent().getSession().getAttribute("group_id");
 if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
 </zscript>
@@ -37,7 +37,7 @@ int iGroup = Integer.parseInt(group_id);
 <grid>
 <rows>
 <row align="right">
-<toolbarbutton label="返回" href="/database/1"></toolbarbutton>
+<toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton>
 </row>
 </rows>
 </grid>

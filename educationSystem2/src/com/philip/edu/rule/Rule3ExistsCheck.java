@@ -35,7 +35,7 @@ public class Rule3ExistsCheck {
 		ArrayList messageList = new ArrayList();
 
 		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb);
+		lines = helper.getExcelLines(wb, form_id, columns);
 		
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 

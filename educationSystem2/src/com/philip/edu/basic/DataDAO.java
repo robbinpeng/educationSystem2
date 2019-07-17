@@ -43,6 +43,17 @@ public class DataDAO {
 			session.beginTransaction();
 
 			//create sql:
+			ArrayList al0 = new ArrayList();
+			for(int i1=0; i1<fields.size(); i1++){
+				FormField field = (FormField) fields.get(i1);
+				if(field.getIs_hidden()=='Y'){
+					
+				} else {
+					al0.add(field);
+				}
+			}
+			
+			fields = (ArrayList)al0.clone();
 				
 			for(int i=0; i<fields.size(); i++){
 				FormField field = (FormField) fields.get(i);
@@ -143,6 +154,18 @@ public class DataDAO {
 			session.beginTransaction();
 
 			//create sql:
+			
+			ArrayList al0 = new ArrayList();
+			for(int i1=0; i1<fields.size(); i1++){
+				FormField field = (FormField) fields.get(i1);
+				if(field.getIs_hidden()=='Y'){
+					
+				} else {
+					al0.add(field);
+				}
+			}
+			
+			fields = al0;
 				
 			for(int i=0; i<fields.size(); i++){
 				FormField field = (FormField) fields.get(i);

@@ -29,17 +29,17 @@ public class RuleManagerTest {
 		ArrayList list = null;
 		
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表7-3-2 教学成果奖（近一届）.xls");
+			in = new FileInputStream("D:/Develop/education/test/表1-4 学校教学科研单位.xls");
 			wb = WorkbookFactory.create(in);
 			 
-			list = engine.rulesCheck(105, wb, 10);
+			list = engine.rulesCheck(24, wb, 10);
 			for(int j=0; j<list.size(); j++){
 				message = (MessageInfo)list.get(j);
 				if(message.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){}
 				else {
 					ArrayList al = message.getMessage_info();
 					for(int i=0; i<al.size(); i++){ 
-						System.out.println(al.get(i).toString());
+						//System.out.println(al.get(i).toString());
 						logger.info(al.get(i).toString());
 					}
 				}

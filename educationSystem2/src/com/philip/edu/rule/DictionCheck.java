@@ -28,7 +28,7 @@ public class DictionCheck {
 		ArrayList fields = formManager.getFormFields(form_id);
 		ArrayList checkFields = new ArrayList();
 		int columns = excelHelper.getExcelColumns(wb);
-		int lines = excelHelper.getExcelLines(wb);
+		int lines = excelHelper.getExcelLines(wb, form_id, columns);
 		
 		for(int i=0; i<fields.size(); i++){
 			FormField caption = (FormField) fields.get(i);

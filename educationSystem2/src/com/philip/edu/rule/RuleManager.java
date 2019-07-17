@@ -52,7 +52,7 @@ public class RuleManager {
 					logger.info("处理第一类规则");
 					Rule1ConstraintCheck engine1 = new Rule1ConstraintCheck();
 					message = engine1.getMessage(wb, object, form_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				case 2:
@@ -60,7 +60,7 @@ public class RuleManager {
 					logger.info("处理第二类规则");
 					Rule2ExclusiveCheck engine2 = new Rule2ExclusiveCheck();
 					message = engine2.getMessage(wb, object, form_id, task_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				case 3:
@@ -68,7 +68,7 @@ public class RuleManager {
 					logger.info("处理第三类规则");
 					Rule3ExistsCheck engine3 = new Rule3ExistsCheck();
 					message = engine3.getMessage(wb, object, form_id, task_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				case 4:
@@ -76,7 +76,7 @@ public class RuleManager {
 					logger.info("处理第四类规则");
 					Rule4NoRepeatCheck engine4 = new Rule4NoRepeatCheck();
 					message = engine4.getMessage(wb, object, form_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				case 5:
@@ -84,7 +84,7 @@ public class RuleManager {
 					logger.info("处理第五类规则");
 					Rule5OutsideConstraintCheck engine5 = new Rule5OutsideConstraintCheck();
 					message = engine5.getMessage(wb, object, form_id, task_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				case 6:
@@ -92,7 +92,7 @@ public class RuleManager {
 					logger.info("处理第六类规则");
 					Rule6TimeCheck engine6 = new Rule6TimeCheck();
 					message = engine6.getMessage(wb, object, form_id);
-					message.setFail_information(rule.getRule_name() + rule.getFail_information());
+					message.setFail_information(rule.getFail_information());
 					returnMessage.add(message);
 					break;
 				default:

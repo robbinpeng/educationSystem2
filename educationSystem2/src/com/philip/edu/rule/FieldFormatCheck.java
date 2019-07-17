@@ -31,8 +31,8 @@ public class FieldFormatCheck {
 		boolean isRight = false;
 		ArrayList fields = formManager.getFormFields(form_id);
 		ArrayList checkFields = new ArrayList();
-		int lines = excelHelper.getExcelLines(wb);
 		int columns = excelHelper.getExcelColumns(wb);
+		int lines = excelHelper.getExcelLines(wb, form_id, columns);
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 		Sheet sheet = wb.getSheetAt(0);
@@ -42,13 +42,19 @@ public class FieldFormatCheck {
 			boolean set = false;
 			FormatLine line = new FormatLine();
 			FormField caption = (FormField) fields.get(j);
-			
-			if("TJSJ".equals(caption.getPhysic_name()))continue;
+
+			if ("TJSJ".equals(caption.getPhysic_name()))
+				continue;
 
 			int columnCh = excelHelper.getColumn2Check(wb, caption.getBus_name(), columns);
 			line.setColumnCheck(columnCh);
 			line.setColumnName(caption.getBus_name());
-			if (caption.getIs_hidden() == 'Y') continue;
+			if (caption.getIs_required() == 'Y')
+				line.setIs_required(true);
+			else
+				line.setIs_required(false);
+			if (caption.getIs_hidden() == 'Y')
+				continue;
 			if (caption.getData_type() != 0) {
 				line.setDataType(caption.getData_type());
 				set = true;
@@ -81,36 +87,141 @@ public class FieldFormatCheck {
 						if (DateUtil.isCellDateFormatted(cell)) {
 							Date vDate = cell.getDateCellValue();
 							CellStyle style = cell.getCellStyle();
-							
+
 							vFormat = style.getDataFormatString();
-							
+
 							SimpleDateFormat sdf = new SimpleDateFormat(vFormat);
 							value = sdf.format(vDate);
 							logger.info(vFormat);
 							logger.info(value);
 						} else {
-							DecimalFormat df = new DecimalFormat("0");    
-							value = df.format(cell.getNumericCellValue()); 
-							//if(cell.getNumericCellValue()%1==0)value = new Integer(new Double(cell.getNumericCellValue()).intValue()).toString();
-							//else value = String.valueOf(cell.getNumericCellValue());
+							DecimalFormat df = new DecimalFormat("0");
+							value = df.format(cell.getNumericCellValue());
+							// if(cell.getNumericCellValue()%1==0)value = new
+							// Integer(new
+							// Double(cell.getNumericCellValue()).intValue()).toString();
+							// else value =
+							// String.valueOf(cell.getNumericCellValue());
 						}
 					}
+					if (!"".equals(value)) {
 
-					switch (line1.getDataType()) {
-					case Constants.V_DATA_TYPE_INTEGER:
-						if (!isNumeric(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是整数！");
+						switch (line1.getDataType()) {
+						case Constants.V_DATA_TYPE_INTEGER:
+							if (!isNumeric(value)) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是整数！");
+							}
+							break;
+						case Constants.V_DATA_TYPE_FLOAT:
+							if (!(isFloat(value) || isNumeric(value))) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是小数！");
+							}
+							break;
+						case Constants.V_DATA_TYPE_DATE:
+							switch (line1.getTextFormat()) {
+							case Constants.V_TEXT_FORMAT_DATE_YEAR:
+								if (value.length() != 4 || !isNumeric(value)) {
+									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+									messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY'格式");
+								}
+								break;
+							case Constants.V_TEXT_FORMAT_DATE_MONTH:
+								if (value.length() != 7 || value.charAt(4) != '-') {
+									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+									messageList
+											.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
+								} else {
+									String year = value.substring(0, 4);
+									String month = value.substring(5, 7);
+									if (!isNumeric(year) || !isNumeric(month)) {
+										message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+										messageList.add(
+												"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
+									} else {
+										int iMonth = Integer.parseInt(month);
+										if (iMonth < 1 || iMonth > 12) {
+											message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+											messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName()
+													+ "]日期不符合'YYYY-MM'格式");
+										}
+									}
+								}
+								break;
+							case Constants.V_TEXT_FORMAT_DATE_MONTH_NOSLASH:
+								if (value.length() != 6 || !isNumeric(value)) {
+									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+									messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
+								} else {
+									String month = value.substring(4, 6);
+									int iMonth = Integer.parseInt(month);
+									if (iMonth < 1 || iMonth > 12) {
+										message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+										messageList.add(
+												"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
+									}
+								}
+								break;
+							case Constants.V_TEXT_FORMAT_DATE_DAY:
+								logger.info("date is:" + value);
+								if (value.length() != 10 || value.charAt(4) != '-' || value.charAt(7) != '-') {
+									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+									messageList.add(
+											"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
+								} else {
+									String year = value.substring(0, 4);
+									String month = value.substring(5, 7);
+									String day = value.substring(8, 10);
+									if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
+										message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+										messageList.add(
+												"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
+									} else {
+										int iMonth = Integer.parseInt(month);
+										int iDay = Integer.parseInt(day);
+										if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
+											message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+											messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName()
+													+ "]日期不符合'YYYY-MM-DD'格式");
+										}
+									}
+								}
+								break;
+							default:
+								break;
+							}
+							break;
+						default:
+							break;
 						}
-						break;
-					case Constants.V_DATA_TYPE_FLOAT:
-						if (!(isFloat(value)||isNumeric(value))) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是小数！");
-						}
-						break;
-					case Constants.V_DATA_TYPE_DATE:
+
 						switch (line1.getTextFormat()) {
+						case Constants.V_TEXT_FORMAT_MOBILEPHONE:
+							logger.info("value is: " + value);
+							if (!isMobile(value)) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是电话号码！");
+							}
+							break;
+						case Constants.V_TEXT_FORMAT_EMAIL:
+							if (!isEmail(value)) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是email！");
+							}
+							break;
+						case Constants.V_TEXT_FORMAT_IDENTITY:
+							if (!isIdentity(value)) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是身份证号！");
+							}
+							break;
+						case Constants.V_TEXT_FORMAT_WEBSITE:
+							if (!isWebsite(value)) {
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是网址！");
+							}
+							break;
 						case Constants.V_TEXT_FORMAT_DATE_YEAR:
 							if (value.length() != 4 || !isNumeric(value)) {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -118,6 +229,7 @@ public class FieldFormatCheck {
 							}
 							break;
 						case Constants.V_TEXT_FORMAT_DATE_MONTH:
+							logger.info("date is:" + value);
 							if (value.length() != 7 || value.charAt(4) != '-') {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
@@ -154,13 +266,18 @@ public class FieldFormatCheck {
 						case Constants.V_TEXT_FORMAT_DATE_DAY:
 							logger.info("date is:" + value);
 							if (value.length() != 10 || value.charAt(4) != '-' || value.charAt(7) != '-') {
+								logger.info("entering 1.");
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 							} else {
 								String year = value.substring(0, 4);
 								String month = value.substring(5, 7);
 								String day = value.substring(8, 10);
+								logger.info("year:" + year);
+								logger.info("month" + month);
+								logger.info("day:" + day);
 								if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
+									logger.info("entering 2.");
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									messageList.add(
 											"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
@@ -168,119 +285,28 @@ public class FieldFormatCheck {
 									int iMonth = Integer.parseInt(month);
 									int iDay = Integer.parseInt(day);
 									if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
+										logger.info("entering 3.");
 										message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 										messageList.add(
 												"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 									}
 								}
 							}
+						case Constants.V_TEXT_FORMAT_NO:
 							break;
 						default:
 							break;
 						}
-						break;
-					default:
-						break;
+					} else {
+						if (line1.isIs_required()) {
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]值为空！");
+						}
 					}
-
-					switch (line1.getTextFormat()) {
-					case Constants.V_TEXT_FORMAT_MOBILEPHONE:
-						logger.info("value is: " + value);
-						if (!isMobile(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是电话号码！");
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_EMAIL:
-						if (!isEmail(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是email！");
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_IDENTITY:
-						if (!isIdentity(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是身份证号！");
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_WEBSITE:
-						if (!isWebsite(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是网址！");
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_DATE_YEAR:
-						if (value.length() != 4 || !isNumeric(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY'格式");
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_DATE_MONTH:
-						logger.info("date is:" + value);
-						if (value.length() != 7 || value.charAt(4) != '-') {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
-						} else {
-							String year = value.substring(0, 4);
-							String month = value.substring(5, 7);
-							if (!isNumeric(year) || !isNumeric(month)) {
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
-							} else {
-								int iMonth = Integer.parseInt(month);
-								if (iMonth < 1 || iMonth > 12) {
-									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-									messageList
-											.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
-								}
-							}
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_DATE_MONTH_NOSLASH:
-						if (value.length() != 6 || !isNumeric(value)) {
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
-						} else {
-							String month = value.substring(4, 6);
-							int iMonth = Integer.parseInt(month);
-							if (iMonth < 1 || iMonth > 12) {
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYYMM'格式");
-							}
-						}
-						break;
-					case Constants.V_TEXT_FORMAT_DATE_DAY:
-						logger.info("date is:" + value);
-						if (value.length() != 10 || value.charAt(4) != '-' || value.charAt(7) != '-') {
-							logger.info("entering 1.");
-							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
-						} else {
-							String year = value.substring(0, 4);
-							String month = value.substring(5, 7);
-							String day = value.substring(8, 10);
-							logger.info("year:" + year);
-							logger.info("month" + month);
-							logger.info("day:" + day);
-							if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
-								logger.info("entering 2.");
-								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
-							} else {
-								int iMonth = Integer.parseInt(month);
-								int iDay = Integer.parseInt(day);
-								if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
-									logger.info("entering 3.");
-									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-									messageList.add(
-											"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
-								}
-							}
-						}
-					case Constants.V_TEXT_FORMAT_NO:
-						break;
-					default:
-						break;
+				} else {
+					if (line1.isIs_required()) {
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]值为空！");
 					}
 				}
 			}

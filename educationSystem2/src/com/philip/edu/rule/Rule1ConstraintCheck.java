@@ -35,7 +35,7 @@ public class Rule1ConstraintCheck {
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb);
+		lines = helper.getExcelLines(wb, form_id, columns);
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) obj.get("rules");
@@ -83,6 +83,7 @@ public class Rule1ConstraintCheck {
 			if (Constants.RULE_FORMFIELD.equals(type)) {
 				String name1 = obj1.getString("field");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
+				//if(field1.getIs_required()=='N')continue;
 				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
 				line.setColumn(column1);
 				line.setType(Constants.LINE_TYPE_FIELD_NAME);

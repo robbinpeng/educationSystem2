@@ -95,6 +95,7 @@ public class UploadController extends SelectorComposer<Component> {
 		String sGroup = Executions.getCurrent().getParameter("group_id");
 		int groupid = Integer.parseInt(sGroup);
 		group_id = groupid;
+		Executions.getCurrent().getSession().setAttribute("group_id", sGroup);
 		
 		String sTask = (String)Executions.getCurrent().getSession().getAttribute("task_id");
 		task_id = Integer.parseInt(sTask);
@@ -258,7 +259,7 @@ public class UploadController extends SelectorComposer<Component> {
 						window1.doModal();
 					}
 				} else {
-					Messagebox.show("上传的表格与要求不符！","错误",Messagebox.OK,Messagebox.ERROR);
+					Messagebox.show("上传的表格与要求不符！请检查列数和列标题是否正确！","错误",Messagebox.OK,Messagebox.ERROR);
 				}
 			} catch (EncryptedDocumentException | IOException e) {
 				// TODO Auto-generated catch block

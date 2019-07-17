@@ -8,7 +8,14 @@ public class LineInfo {
 	private int column = 0; 
 	private int dict_id = 0;
 	private ArrayList dict_items = null;
+	private boolean is_required = false;
 	
+	public boolean isIs_required() {
+		return is_required;
+	}
+	public void setIs_required(boolean is_required) {
+		this.is_required = is_required;
+	}
 	public ArrayList getDict_items() {
 		return dict_items;
 	}

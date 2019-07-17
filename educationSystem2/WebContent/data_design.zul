@@ -3,7 +3,7 @@
 <zscript><![CDATA[
 import com.philip.edu.basic.*;
 
-String group_id = Executions.getCurrent().getParameter("group_id");
+String group_id = Executions.getCurrent().getSession().getAttribute("group_id");
 if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
 ]]></zscript>
@@ -23,7 +23,7 @@ int iGroup = Integer.parseInt(group_id);
 <grid>
 <rows>
 <row align="right">
-<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database/1"></toolbarbutton></cell>
+<cell colspan="4" align="right"><radiogroup id="fieldChose"/><button id="create" label="新增"></button><space bar="false" spacing="20px" /><button id="update" label="修改"></button><space bar="false" spacing="20px" /><button id="delete" label="删除"></button><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton></cell>
 </row>
 </rows>
 </grid>
@@ -46,7 +46,7 @@ int iGroup = Integer.parseInt(group_id);
             	<listcell><radio id="${each.id}" radiogroup="fieldChose" /></listcell>
                 <listcell label="${each.bus_name}"></listcell>
                 <listcell label="${each.physic_name}"></listcell>
-                <listcell><zscript><![CDATA[if(each.is_required=='Y')self.label="必填";else self.label="可选";]]></zscript></listcell>
+                <listcell><zscript><![CDATA[if(each.is_required=='Y')self.label="必填";else self.label="可空";]]></zscript></listcell>
                 <listcell label="${each.sequence}"></listcell>
                 <listcell><zscript><![CDATA[switch(each.data_type){
                 case Constants.V_DATA_TYPE_STRING:

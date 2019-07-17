@@ -63,7 +63,7 @@ public class Rule6TimeCheck {
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb);
+		lines = helper.getExcelLines(wb, form_id, columns);
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) object.get("rules");
@@ -168,6 +168,8 @@ public class Rule6TimeCheck {
 							int year = 0;
 							int month = 0;
 							int day = 0;
+							
+							if("".equals(sDate))throw new TimeErrorException("时间为空");
 							switch (format.length()) {
 							case 4: // "yyyy"
 								year = Integer.parseInt(sDate.substring(0, 4));
@@ -195,6 +197,7 @@ public class Rule6TimeCheck {
 							}
 						} else if (Constants.RULE_TEXTBOX_DATE.equals(typeL)) {
 							String sDate = objLeft.getString("value");
+							if("".equals(sDate))throw new TimeErrorException("时间为空");
 
 							int year = 0;
 							int month = 0;
@@ -219,7 +222,7 @@ public class Rule6TimeCheck {
 						} else if (Constants.RULE_YEAR_ADD.equals(typeL)) {
 							String sDate = objLeft.getString("value");
 							int yearAdd = Integer.parseInt(sDate);
-							leftLDate = LocalDate.now().plusYears(yearAdd);
+							leftLDate = LocalDate.now().plusYears(yearAdd-1);
 							leftLDate = leftLDate.withMonth(1);
 							leftLDate = leftLDate.withDayOfMonth(1);
 						} else if (Constants.RULE_MONTH.equals(typeL)) {
@@ -257,6 +260,7 @@ public class Rule6TimeCheck {
 								sDate = ((Integer)value).toString(); 
 							}
 							
+							if("".equals(sDate))throw new TimeErrorException("时间为空");;
 							switch (format.length()) {
 							case 4: // "yyyy"
 								year = Integer.parseInt(sDate.substring(0, 4));
@@ -279,6 +283,7 @@ public class Rule6TimeCheck {
 							}
 						} else if (Constants.RULE_TEXTBOX_DATE.equals(typeR)) {
 							String sDate = objRight.getString("value");
+							if("".equals(sDate))throw new TimeErrorException("时间为空");;
 
 							switch (format.length()) {
 							case 4: // "yyyy"
@@ -300,6 +305,7 @@ public class Rule6TimeCheck {
 						} else if (Constants.RULE_YEAR_ADD.equals(typeR)) {
 							String sDate = objRight.getString("value");
 							int yearAdd = Integer.parseInt(sDate);
+							rightLDate = LocalDate.now().plusYears(yearAdd-1);
 							rightLDate = rightLDate.withMonth(1);
 							rightLDate = rightLDate.withDayOfMonth(1);
 						} else if (Constants.RULE_MONTH.equals(typeR)) {
@@ -320,6 +326,9 @@ public class Rule6TimeCheck {
 					isDate = false;
 					isRight = false;
 					break;
+				} catch (TimeErrorException e) {
+					isDate = false;
+					isRight = true;
 				}
 				// operator: 
 				
@@ -346,7 +355,7 @@ public class Rule6TimeCheck {
 						break;
 					}
 				} else if(Constants.V_GREATTE.equals(sOP)){
-					if(!(leftLDate.isAfter(rightLDate))&&!(leftLDate.isEqual(rightLDate))){
+					if(!(leftLDate.isAfter(rightLDate))||(leftLDate.isEqual(rightLDate))){
 						//message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						//messageList.add("第" + (i+1) + "行的不等式不成立！");
 						isRight = false;
@@ -366,7 +375,8 @@ public class Rule6TimeCheck {
 						break;
 					}
 				} else if(Constants.V_LESSTE.equals(sOP)){
-					if(!(leftLDate.isBefore(rightLDate)&&!(leftLDate.isEqual(rightLDate)))){
+					logger.info("leftLDate:" + leftLDate.toString() + ",rightLDate:" + rightLDate.toString());
+					if(!(leftLDate.isBefore(rightLDate)||(leftLDate.isEqual(rightLDate)))){
 						//message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						//messageList.add("第" + (i+1) + "行的不等式不成立！");
 						isRight = false;
@@ -378,7 +388,7 @@ public class Rule6TimeCheck {
 			}
 			if(!isRight){
 				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-				messageList.add("第" + (i+1) + "行的条件不满足！");
+				messageList.add("第" + (i+1) + "行的时间条件不满足！");
 			}
 		}
 		message.setMessage_info(messageList);

@@ -5,6 +5,14 @@ public class FormatLine {
 	int dataType = 1;
 	char textFormat = 'o';
 	String columnName = "";
+	boolean is_required = false;
+	
+	public boolean isIs_required() {
+		return is_required;
+	}
+	public void setIs_required(boolean is_required) {
+		this.is_required = is_required;
+	}
 	public String getColumnName() {
 		return columnName;
 	}
