@@ -14,7 +14,7 @@ DictManager dictManager = new DictManager();
 			</listhead>
 			<template name="model"  >
 				<listitem >
-					<listcell label="${each.bus_name}" style="background-color:#fFF;color:black;"><label style="color:red">*</label></listcell>
+					<listcell label="${each.bus_name}" style="background-color:#fFF;color:black;"><label><zscript><![CDATA[if(each.is_required=='Y'){self.value="*";self.style="color:red";}]]></zscript></label></listcell>
 					<listcell style="background-color:#fFF;color:black;text-align:center;" >
 						<zscript><![CDATA[char c = each.dis_method; String s = String.valueOf(c);]]></zscript>
 						<zk switch="${s}"> 
@@ -27,7 +27,7 @@ DictManager dictManager = new DictManager();
 							</zk> 
 							
 							<zk case="D"> 
-								<datebox id="${each.dis_method}_${each.id}_${each.sequence}"  format="yyyy-MM-dd" onCreate="self.value = new Date()" hflex="1" readonly="true"/>
+								<datebox id="${each.dis_method}_${each.id}_${each.sequence}"  format="yyyy-MM-dd" hflex="1" readonly="true"/>
 							</zk> 
 							
 							<zk case="C"> 

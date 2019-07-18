@@ -10,7 +10,14 @@ public class FormFieldData {
 	private int dictid;
 	private String value;
 	private String url;
+	private char is_required;
 	
+	public char getIs_required() {
+		return is_required;
+	}
+	public void setIs_required(char is_required) {
+		this.is_required = is_required;
+	}
 	public String getUrl() {
 		return url;
 	}

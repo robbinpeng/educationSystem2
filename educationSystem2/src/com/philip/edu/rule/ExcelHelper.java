@@ -38,6 +38,7 @@ public class ExcelHelper {
 
 		Row row = sheet.getRow(0);
 
+		int index = 0;
 		for (int i = 0; i < al1.size(); i++) {
 			FormField temp = (FormField) al1.get(i);
 			if (temp.getPhysic_name().equals("TJSJ")) {
@@ -45,7 +46,7 @@ public class ExcelHelper {
 				continue;
 			}
 			if (temp.getIs_hidden() == 'N') {
-				Cell cell = row.getCell(i - 1);
+				Cell cell = row.getCell(index++);
 				String content = cell.getStringCellValue();
 				if (!content.equals(temp.getBus_name())) {
 					logger.info("" + content + "²»·û" + temp.getBus_name());

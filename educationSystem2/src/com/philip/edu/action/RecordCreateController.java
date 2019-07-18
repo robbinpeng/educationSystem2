@@ -110,21 +110,33 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			switch (field.getDis_method()) {
 			case Constants.V_DISPLAY_SINGLE_TEXTBOX:
 				Textbox text = (Textbox) cell.getLastChild();
-				if (text.getValue() == null || "".equals(text.getValue())) {
+				if ((text.getValue() == null || "".equals(text.getValue()))) {
+					if(field.getIs_required()=='Y'){
 					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
 					return;
+					} else {
+						data.setKey(field.getPhysic_name());
+						data.setValue("");
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(text.getValue());
 				}
-				data.setKey(field.getPhysic_name());
-				data.setValue(text.getValue());
 				break;
 			case Constants.V_DISPLAY_MUTIPLE_TEXTBOX:
 				Textbox textM = (Textbox) cell.getLastChild();
-				if (textM.getValue() == null || "".equals(textM.getValue())) {
+				if ((textM.getValue() == null || "".equals(textM.getValue()))) {
+					if(field.getIs_required()=='Y'){
 					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
 					return;
+					} else {
+						data.setKey(field.getPhysic_name());
+						data.setValue("");
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(textM.getValue());
 				}
-				data.setKey(field.getPhysic_name());
-				data.setValue(textM.getValue());
 				break;
 			case Constants.V_DISPLAY_DATE_CONTROL:
 				Datebox date = (Datebox) cell.getLastChild();
@@ -144,35 +156,64 @@ public class RecordCreateController extends SelectorComposer<Component> {
 					break;
 				}
 				if (date.getValue() == null) {
-					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+					if(field.getIs_required()=='Y'){
+						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
 					return;
+					} else {
+						//data.setKey(field.getPhysic_name());
+						//data.setValue(null);
+						continue;
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(sdf.format(date.getValue()));
 				}
-				data.setKey(field.getPhysic_name());
-				data.setValue(sdf.format(date.getValue()));
 				break;
 			case Constants.V_DISPLAY_SINGLE_COMBOBOX:
 				Combobox box = (Combobox) cell.getLastChild();
-				if (box.getSelectedItem() == null || "".equals(box.getSelectedItem().getValue())) {
+				if ((box.getSelectedItem() == null || "".equals(box.getSelectedItem().getValue()))) {
+					if (field.getIs_required() == 'Y') {
 					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
 					return;
+					} else {
+						data.setKey(field.getPhysic_name());
+						data.setValue("");
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(box.getSelectedItem().getLabel());
 				}
-				data.setKey(field.getPhysic_name());
-				data.setValue(box.getSelectedItem().getLabel());
 				break;
 			case Constants.V_DISPLAY_MULTIPLE_COMBOBOX:
 				Combobox box1 = (Combobox) cell.getLastChild();
-				if (box1.getSelectedItem() == null || "".equals(box1.getSelectedItem().getValue())) {
+				if ((box1.getSelectedItem() == null || "".equals(box1.getSelectedItem().getValue()))) {
+					if(field.getIs_required()=='Y'){
 					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
 					return;
+					} else {
+						data.setKey(field.getPhysic_name());
+						data.setValue("");
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(box1.getSelectedItem().getLabel());
 				}
-				data.setKey(field.getPhysic_name());
-				data.setValue(box1.getSelectedItem().getLabel());
 				break;
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:
 				Fileupload upload = (Fileupload) cell.getLastChild();
-				String path = (String)upload.getAttribute("file_path");
-				data.setKey(field.getPhysic_name());
-				data.setValue(path);
+				String path = (String) upload.getAttribute("file_path");
+				if (path == null ) {
+					if(field.getIs_required()=='Y'){
+						Messagebox.show("" + field.getBus_name() + "字段必须上传文件", "错误", Messagebox.OK, Messagebox.ERROR);
+						return;
+					} else {
+						data.setKey(field.getPhysic_name());
+						data.setValue("");
+					}
+				} else {
+					data.setKey(field.getPhysic_name());
+					data.setValue(path);
+				}
 				break;
 			}
 			record.add(data);
@@ -197,8 +238,8 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			return;
 		}
 		System.out.println("Excel saved to: " + fExcel.getAbsolutePath());
-		
-		Fileupload upload = (Fileupload)event.getTarget();
+
+		Fileupload upload = (Fileupload) event.getTarget();
 		String path = fExcel.getAbsolutePath().replaceAll(Pattern.quote(File.separator), "\\\\\\\\\\\\\\\\");
 		upload.setAttribute("file_path", path);
 		upload.setLabel(media.getName());
@@ -207,9 +248,11 @@ public class RecordCreateController extends SelectorComposer<Component> {
 	public File saveUploadedExcel(Media media, String sSavePath) {
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS_");// 设置日期格式作为文件名前缀
-		File fExcel = new File(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
-		logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_" + media.getName());
-		
+		File fExcel = new File(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date())
+				+ "_" + media.getName());
+		logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_"
+				+ media.getName());
+
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(fExcel);

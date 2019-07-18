@@ -120,7 +120,7 @@ public class FieldFormatCheck {
 							}
 							break;
 						case Constants.V_DATA_TYPE_DATE:
-							switch (line1.getTextFormat()) {
+							/*switch (line1.getTextFormat()) {
 							case Constants.V_TEXT_FORMAT_DATE_YEAR:
 								if (value.length() != 4 || !isNumeric(value)) {
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -190,7 +190,7 @@ public class FieldFormatCheck {
 								break;
 							default:
 								break;
-							}
+							}*/
 							break;
 						default:
 							break;
