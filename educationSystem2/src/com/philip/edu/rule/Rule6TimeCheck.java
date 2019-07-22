@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -154,14 +155,14 @@ public class Rule6TimeCheck {
 							if(cell==null)continue;
 							String sDate = "";
 							Object value = helper.getCellValue(cell);
-							CellType cellType = cell.getCellTypeEnum();
-							if (cellType == CellType.STRING) {
+							int cellType = cell.getCellType();
+							if (cellType == HSSFCell.CELL_TYPE_STRING) {
 								sDate = value.toString();
 							} else if (DateUtil.isCellDateFormatted(cell)) {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								Date temp = cell.getDateCellValue();
 								sDate = sdf.format(cell.getDateCellValue());
-							} else if (cellType == CellType.NUMERIC) {
+							} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
 								sDate = ((Integer)value).toString();
 							}
 							
@@ -250,13 +251,13 @@ public class Rule6TimeCheck {
 							if(cell==null)continue;
 							String sDate = "";
 							Object value = helper.getCellValue(cell);
-							CellType cellType = cell.getCellTypeEnum();
-							if (cellType == CellType.STRING) {
+							int cellType = cell.getCellType();
+							if (cellType == HSSFCell.CELL_TYPE_STRING) {
 								sDate = value.toString();
 							} else if (DateUtil.isCellDateFormatted(cell)) {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								sDate = sdf.format(value);
-							} else if (cellType == CellType.NUMERIC) {
+							} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
 								sDate = ((Integer)value).toString(); 
 							}
 							

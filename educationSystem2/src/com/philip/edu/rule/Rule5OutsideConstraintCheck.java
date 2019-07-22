@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -67,7 +68,7 @@ public class Rule5OutsideConstraintCheck {
 						int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
 						Cell cell = row.getCell(column1);
 						Object value = helper.getCellValue(cell);
-						if (CellType.NUMERIC == cell.getCellTypeEnum()) {
+						if (HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType()) {
 							try {
 								double temp = (double) value;
 								leftValue += temp;
@@ -166,7 +167,7 @@ public class Rule5OutsideConstraintCheck {
 				int column = helper.getColumn2Check(wb, field.getBus_name(), columns);
 				Cell cell = row.getCell(column);
 				Object value = helper.getCellValue(cell);
-				if (CellType.NUMERIC == cell.getCellTypeEnum())
+				if (HSSFCell.CELL_TYPE_NUMERIC == cell.getCellType())
 					try {
 						sum = ((Double) value).doubleValue();
 					} catch (ClassCastException e) {

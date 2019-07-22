@@ -2,6 +2,7 @@ package com.philip.edu.rule;
 
 import java.util.ArrayList;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -69,10 +70,10 @@ public class DictionCheck {
 					break;
 				} else {
 					String value = null;
-					CellType cellType = cell.getCellTypeEnum();
-					if(cellType==CellType.STRING){
+					int cellType = cell.getCellType();
+					if(cellType==HSSFCell.CELL_TYPE_STRING){
 						value = cell.getStringCellValue();
-					} else if(cellType == CellType.NUMERIC){
+					} else if(cellType == HSSFCell.CELL_TYPE_NUMERIC){
 						if(DateUtil.isCellDateFormatted(cell)){
 							value = cell.getDateCellValue().toString();
 						}else{

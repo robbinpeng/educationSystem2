@@ -235,6 +235,9 @@ public class TableDAO {
 			
 			StatusTemp status = form.getStatusTemp();
 			
+			Form origin = session.get(Form.class, form.getId());
+			form.setId(origin.getId());
+			
 			if(form.getDependency_form()==null || form.getDependency_form().equals("")){
 				//uploadable:
 				status.setStatus(Constants.STATUS_UPLOADABLE);
@@ -259,7 +262,56 @@ public class TableDAO {
 				else status.setStatus(Constants.STATUS_CREATED);
 			}
 			
+			status.setForm_id(origin.getId());
 			form.setStatusTemp(status);
+			
+			//2¡¢Every task:
+			Query query = session.createQuery("From FormStatus where form_id=" + form.getId());
+			ArrayList al = (ArrayList)query.list();
+			
+			for(int i=0; i<al.size(); i++){
+				FormStatus status1 = (FormStatus)al.get(i);
+				
+				if(form.getDependency_form()==null || form.getDependency_form().equals("")){
+					//uploadable:
+					status1.setForm_status(Constants.STATUS_UPLOADABLE);
+				} else {
+					String dependency = form.getDependency_form();
+					boolean canUpload = true;
+					
+					String[] str = null;
+					if(dependency!=null && !dependency.equals("")){
+						str = dependency.split(",");
+						for(int j=0; j<str.length; j++){
+							String temp = str[j].substring(1, str[j].length()-1);
+							int table_id = Integer.parseInt(temp);
+							
+							String sql = "From FormStatus where form_id=" + table_id + " and task_id=" + status1.getTask_id();
+							logger.info("sql is: " + sql);
+							Query query1 = session.createQuery(sql);
+							ArrayList al1 = (ArrayList)query1.list();
+							FormStatus tempStatus1 = (FormStatus)al1.get(0);
+							char stat = tempStatus1.getForm_status();
+							if(stat!=Constants.STATUS_SUCCESS){canUpload=false; break;}
+						}
+					}
+					
+					if(status1.getForm_status()==Constants.STATUS_SUCCESS){}
+					else {
+						logger.info("canUpload: " + canUpload);
+						if(canUpload)status1.setForm_status(Constants.STATUS_UPLOADABLE);
+						else status1.setForm_status(Constants.STATUS_CREATED);
+					}
+				}
+				
+				session.update(status1);
+			}
+			session.getTransaction().commit();
+			
+			session.beginTransaction();
+			
+			session.clear();
+
 			session.update(form);
 			
 			session.getTransaction().commit();

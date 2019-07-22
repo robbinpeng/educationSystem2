@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -135,10 +136,10 @@ public class ExcelHelper {
 	public Object getCellValue(Cell cell) {
 		Object cellValue = null;
 
-		CellType cellType = cell.getCellTypeEnum();// CellType.forInt(cell.getCellType());
-		if (cellType == CellType.STRING) {
+		int cellType = cell.getCellType();// CellType.forInt(cell.getCellType());
+		if (cellType == HSSFCell.CELL_TYPE_STRING) {
 			cellValue = cell.getStringCellValue();
-		} else if (cellType == CellType.NUMERIC) {
+		} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
 			if (DateUtil.isCellDateFormatted(cell)) {
 				cellValue = cell.getDateCellValue();
 			} else {
@@ -147,11 +148,11 @@ public class ExcelHelper {
 				else
 					cellValue = cell.getNumericCellValue();
 			}
-		} else if (cellType == CellType.BOOLEAN) {
+		} else if (cellType == HSSFCell.CELL_TYPE_BOOLEAN) {
 			cellValue = cell.getBooleanCellValue();
-		} else if (cellType == CellType.FORMULA) {
+		} else if (cellType == HSSFCell.CELL_TYPE_FORMULA) {
 			cellValue = cell.getCellFormula();
-		} else if (cellType == CellType.BLANK) {
+		} else if (cellType == HSSFCell.CELL_TYPE_BLANK) {
 			cellValue = "";
 		}
 		return cellValue;

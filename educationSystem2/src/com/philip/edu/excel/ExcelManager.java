@@ -48,11 +48,11 @@ public class ExcelManager {
 		
 		Row row = sheet.createRow(0);
 		CellStyle style = wb.createCellStyle();
-		style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.index);
-		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+		style.setFillPattern(PatternFormatting.SOLID_FOREGROUND);
 		
 		Font font = wb.createFont();
-		font.setColor(IndexedColors.WHITE.index);
+		font.setColor(IndexedColors.WHITE.getIndex()); 
 		style.setFont(font);
 		
 		for(int i=0; i<al.size(); i++){
@@ -69,7 +69,7 @@ public class ExcelManager {
 			wb.write(output);
 			
 			output.close();
-			wb.close();
+			//wb.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

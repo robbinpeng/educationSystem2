@@ -360,6 +360,7 @@ public class TableDataController extends SelectorComposer<Component> {
 		Window window2 = (Window) Executions.createComponents("/new_record.zul", null, map);
 		
 		window2.doModal();
+		map = null;
 	}
 	
 	@Listen("onClick = #update")
@@ -377,6 +378,7 @@ public class TableDataController extends SelectorComposer<Component> {
 		Window window3 = (Window) Executions.createComponents("/update_record.zul", null, map);
 		
 		window3.doModal();
+		map = null;
 	}
 	
 	@Listen("onClick = #delete")

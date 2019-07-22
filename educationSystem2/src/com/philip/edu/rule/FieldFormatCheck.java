@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -80,10 +81,10 @@ public class FieldFormatCheck {
 				Cell cell = row.getCell(line1.getColumnCheck());
 
 				if (cell != null) {
-					CellType cellType = cell.getCellTypeEnum();
-					if (cellType == CellType.STRING) {
+					int cellType = cell.getCellType();
+					if (cellType == HSSFCell.CELL_TYPE_STRING) {
 						value = cell.getStringCellValue();
-					} else if (cellType == CellType.NUMERIC) {
+					} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
 						if (DateUtil.isCellDateFormatted(cell)) {
 							Date vDate = cell.getDateCellValue();
 							CellStyle style = cell.getCellStyle();

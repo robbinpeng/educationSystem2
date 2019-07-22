@@ -26,11 +26,76 @@ public class InitialDatabaseTool {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		InitialDatabaseTool tool = new InitialDatabaseTool();
-		tool.updateDis_method();
+		tool.createSchoolInfo();
 
 	}
 	
 	private static ExcelHelper excelHelper = new ExcelHelper();
+	
+	public void createSchoolInfo() {
+		FileInputStream in = null;
+		Workbook wb = null;
+		Session session = null;
+		ExcelHelper helper = new ExcelHelper();
+
+		try {
+			in = new FileInputStream("D:/Develop/education/全国高校名称目录.xls");
+			wb = WorkbookFactory.create(in);
+
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			Sheet sheet = wb.getSheetAt(0);
+			
+			for(int i=1; i<2632; i++){
+				Row row = sheet.getRow(i);
+				
+				Cell cell = row.getCell(1);
+				if(cell==null)break;
+				String name = cell.getStringCellValue();
+				
+				cell = row.getCell(2);
+				String code = cell.getStringCellValue();
+				
+				cell = row.getCell(3);
+				String management = cell.getStringCellValue();
+				
+				cell = row.getCell(4);
+				String province = cell.getStringCellValue();
+				
+				cell = row.getCell(5);
+				String city = cell.getStringCellValue();
+				
+				cell = row.getCell(6);
+				String level = cell.getStringCellValue();
+				
+				cell = row.getCell(7);
+				String memo;
+				if(cell==null)memo = null;
+				else memo = cell.getStringCellValue();
+				
+				String sql = "insert into TBL_SCHOOL_INFO(SCHOOL_NAME,SCHOOL_CODE,MANAGEMENT_DEPARTMENT,PROVINCE,CITY,SCHOOL_LEVEL,MEMO) values('" + name +"', '"+code + "', '" + management + "','" + province +"','" + city + "','" +level + "','" + memo+ "')";
+				
+				Query query = session.createSQLQuery(sql);
+				query.executeUpdate();
+				
+			}
+				session.getTransaction().commit();
+				System.out.println("success!");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+	}
+	
 	
 	public void updateDis_method() {
 		FileInputStream in = null;

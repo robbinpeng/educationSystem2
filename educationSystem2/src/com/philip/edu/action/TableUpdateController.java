@@ -29,6 +29,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.FormStatus;
 import com.philip.edu.basic.Group;
+import com.philip.edu.basic.StatusTemp;
 import com.philip.edu.database.DatabaseManager;
 
 public class TableUpdateController extends SelectorComposer<Component> {
@@ -111,6 +112,15 @@ public class TableUpdateController extends SelectorComposer<Component> {
 		logger.info("dependency:" + depend.getValue());
 		form.setDependency_form(depend.getValue());
 		if(memo.getValue()!=null && !"".equals(memo.getValue()))form.setMemo(memo.getValue());
+		
+		StatusTemp status = new StatusTemp();
+		if(form.getDependency_form()!=null && !"".equals(form.getDependency_form()))status.setStatus(Constants.STATUS_UPLOADABLE);
+		else status.setStatus(Constants.STATUS_CREATED);
+		status.setUser_id(Constants.USER_ID);
+		status.setUpdate_time(new Date());
+		status.setForm(form);
+		
+		form.setStatusTemp(status);
 				
 		boolean b = dbManager.updateTable(form);
 		

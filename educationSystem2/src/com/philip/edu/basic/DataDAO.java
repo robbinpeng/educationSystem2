@@ -36,6 +36,7 @@ public class DataDAO {
 		ArrayList result = new ArrayList();
 		ArrayList line = new ArrayList();
 		StringBuffer sb = new StringBuffer("select id, ");
+		Query query = null;
 		logger.info("get into getTableData() method"); 
 		
 		try{
@@ -81,7 +82,9 @@ public class DataDAO {
 			
 			logger.info("sql:" + sb.toString());
 			
-			Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			
+			//query = session.createSQLQuery().
 			ArrayList al = (ArrayList)query.list();
 			
 			for(int i=0; i<al.size(); i++){
@@ -193,6 +196,7 @@ public class DataDAO {
 			
 			logger.info("sql:" + sb.toString());
 			
+			//Query query = session.createQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			ArrayList al = (ArrayList)query.list();
 			

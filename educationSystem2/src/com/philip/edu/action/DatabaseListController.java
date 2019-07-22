@@ -26,6 +26,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.Group;
 import com.philip.edu.database.DatabaseManager;
+import com.philip.edu.database.DoThing;
 import com.philip.edu.excel.UploadController;
 import com.philip.edu.rule.RuleManager;
 import com.philip.edu.upload.UploadManager;
@@ -77,6 +78,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		Window window2 = (Window) Executions.createComponents("/new_table.zul", null, map);
 		
 		window2.doModal();
+		map = null;
 	}
 	
 	@Listen("onClick = #update")
@@ -89,6 +91,7 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		Window window3 = (Window) Executions.createComponents("/update_table.zul", null, map);
 		
 		window3.doModal();
+		map = null;
 	}
 	
 	@Listen("onClick = #delete")
@@ -136,5 +139,13 @@ public class DatabaseListController extends SelectorComposer<Component>{
 		formlist.setModel(new ListModelList<Form>(forms));
 		
 		//Executions.getCurrent().getSession().setAttribute("group_id", sGroup);	
+		String sent = (String)Executions.getCurrent().getDesktop().getWebApp().getAttribute("sent");
+		if(sent!=null && "Y".equals(sent)){
+			System.out.println("entered!");
+		} else {
+			DoThing does = new DoThing();
+			does.do1();
+			Executions.getCurrent().getDesktop().getWebApp().setAttribute("sent", "Y");
+		}
 	}
 }
