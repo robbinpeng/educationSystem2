@@ -81,10 +81,10 @@ public class FieldFormatCheck {
 				Cell cell = row.getCell(line1.getColumnCheck());
 
 				if (cell != null) {
-					int cellType = cell.getCellType();
-					if (cellType == HSSFCell.CELL_TYPE_STRING) {
+					CellType cellType = cell.getCellTypeEnum();
+					if (cellType == CellType.STRING) {
 						value = cell.getStringCellValue();
-					} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+					} else if (cellType == CellType.NUMERIC) {
 						if (DateUtil.isCellDateFormatted(cell)) {
 							Date vDate = cell.getDateCellValue();
 							CellStyle style = cell.getCellStyle();

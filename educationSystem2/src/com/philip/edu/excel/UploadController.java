@@ -242,17 +242,17 @@ public class UploadController extends SelectorComposer<Component> {
 							isSuccess = uploadManager.uploadUpdate(form.getId(), task_id);
 							if (isSuccess) {
 								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
-								//wb.close();
+								wb.close();
 								
 								List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, group_id);
 								formlist.setModel(new ListModelList<UploadInfo>(forms));
 							} else {
 								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
-								//wb.close();
+								wb.close();
 							}
 						} else {
 							Messagebox.show("上传表格过程中出错!","错误",Messagebox.OK,Messagebox.ERROR);
-							//wb.close();
+							wb.close();
 						}
 					} else {
 						HashMap map = new HashMap();
@@ -260,7 +260,7 @@ public class UploadController extends SelectorComposer<Component> {
 						Window window1 = (Window) Executions.createComponents("/rule_check.zul", null, map);
 
 						window1.doModal();
-						//wb.close();
+						wb.close();
 					}
 				} else {
 					Messagebox.show("上传的表格与要求不符！请检查列数和列标题是否正确！","错误",Messagebox.OK,Messagebox.ERROR);

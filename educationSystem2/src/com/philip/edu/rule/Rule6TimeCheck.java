@@ -155,14 +155,14 @@ public class Rule6TimeCheck {
 							if(cell==null)continue;
 							String sDate = "";
 							Object value = helper.getCellValue(cell);
-							int cellType = cell.getCellType();
-							if (cellType == HSSFCell.CELL_TYPE_STRING) {
+							CellType cellType = cell.getCellTypeEnum();
+							if (cellType == CellType.STRING) {
 								sDate = value.toString();
 							} else if (DateUtil.isCellDateFormatted(cell)) {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								Date temp = cell.getDateCellValue();
 								sDate = sdf.format(cell.getDateCellValue());
-							} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+							} else if (cellType == CellType.NUMERIC) {
 								sDate = ((Integer)value).toString();
 							}
 							
@@ -251,13 +251,13 @@ public class Rule6TimeCheck {
 							if(cell==null)continue;
 							String sDate = "";
 							Object value = helper.getCellValue(cell);
-							int cellType = cell.getCellType();
-							if (cellType == HSSFCell.CELL_TYPE_STRING) {
+							CellType cellType = cell.getCellTypeEnum();
+							if (cellType == CellType.STRING) {
 								sDate = value.toString();
 							} else if (DateUtil.isCellDateFormatted(cell)) {
 								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 								sDate = sdf.format(value);
-							} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+							} else if (cellType == CellType.NUMERIC) {
 								sDate = ((Integer)value).toString(); 
 							}
 							

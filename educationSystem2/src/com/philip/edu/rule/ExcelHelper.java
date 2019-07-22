@@ -136,10 +136,10 @@ public class ExcelHelper {
 	public Object getCellValue(Cell cell) {
 		Object cellValue = null;
 
-		int cellType = cell.getCellType();// CellType.forInt(cell.getCellType());
-		if (cellType == HSSFCell.CELL_TYPE_STRING) {
+		CellType cellType = cell.getCellTypeEnum();// CellType.forInt(cell.getCellType());
+		if (cellType == CellType.STRING) {
 			cellValue = cell.getStringCellValue();
-		} else if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {
+		} else if (cellType == CellType.NUMERIC) {
 			if (DateUtil.isCellDateFormatted(cell)) {
 				cellValue = cell.getDateCellValue();
 			} else {
@@ -148,11 +148,11 @@ public class ExcelHelper {
 				else
 					cellValue = cell.getNumericCellValue();
 			}
-		} else if (cellType == HSSFCell.CELL_TYPE_BOOLEAN) {
+		} else if (cellType == CellType.BOOLEAN) {
 			cellValue = cell.getBooleanCellValue();
-		} else if (cellType == HSSFCell.CELL_TYPE_FORMULA) {
+		} else if (cellType == CellType.FORMULA) {
 			cellValue = cell.getCellFormula();
-		} else if (cellType == HSSFCell.CELL_TYPE_BLANK) {
+		} else if (cellType == CellType.BLANK) {
 			cellValue = "";
 		}
 		return cellValue;

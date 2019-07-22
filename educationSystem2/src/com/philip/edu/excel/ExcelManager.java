@@ -49,7 +49,7 @@ public class ExcelManager {
 		Row row = sheet.createRow(0);
 		CellStyle style = wb.createCellStyle();
 		style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
-		style.setFillPattern(PatternFormatting.SOLID_FOREGROUND);
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		
 		Font font = wb.createFont();
 		font.setColor(IndexedColors.WHITE.getIndex()); 
@@ -69,7 +69,7 @@ public class ExcelManager {
 			wb.write(output);
 			
 			output.close();
-			//wb.close();
+			wb.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
