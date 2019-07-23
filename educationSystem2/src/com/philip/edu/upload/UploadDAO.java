@@ -47,8 +47,8 @@ public class UploadDAO {
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 				Query query = session.createSQLQuery(sql);
-				query.setParameter(0, new Date());
 				query.setParameter(1, new Date());
+				query.setParameter(2, new Date());
 				//query.setParameter(2, format.format(new Date()));
 				query.executeUpdate();
 			}

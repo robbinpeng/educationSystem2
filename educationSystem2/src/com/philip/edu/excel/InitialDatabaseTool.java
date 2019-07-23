@@ -343,29 +343,29 @@ public class InitialDatabaseTool {
 				String sql = "insert into TBL_PTGDXXBKZYML( CREATOR, CREATE_TIME, LAST_OPERATOR, LAST_OPERATE_TIME, STATUS, ZYDM, ZYMC, DMBB, XKML) values (?,?,?,?,?,?,?,?,?)";
 
 				Query query = session.createSQLQuery(sql);
-				query.setParameter(0, 1);
-				query.setParameter(1, new Date());
-				query.setParameter(2, 1);
-				query.setParameter(3, new Date());
-				query.setParameter(4, 1);
+				query.setParameter(1, 1);
+				query.setParameter(2, new Date());
+				query.setParameter(3, 1);
+				query.setParameter(4, new Date());
+				query.setParameter(5, 1);
 
 				System.out.println(i);
 
 				Cell cell = row.getCell(0);
 				String value = (String) helper.getCellValue(cell);
-				query.setParameter(5, value);
+				query.setParameter(6, value);
 
 				cell = row.getCell(1);
 				value = (String) helper.getCellValue(cell);
-				query.setParameter(6, value);
+				query.setParameter(7, value);
 
 				cell = row.getCell(2);
 				value = (String) helper.getCellValue(cell);
-				query.setParameter(7, value);
+				query.setParameter(8, value);
 
 				cell = row.getCell(3);
 				value = (String) helper.getCellValue(cell);
-				query.setParameter(8, value);
+				query.setParameter(9, value);
 
 				query.executeUpdate();
 			}

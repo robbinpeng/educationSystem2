@@ -337,8 +337,8 @@ public class DataDAO {
 			session.beginTransaction();
 			
 			Query query = session.createSQLQuery(sql.toString());
-			query.setParameter(0, new Date());
 			query.setParameter(1, new Date());
+			query.setParameter(2, new Date());
 			query.executeUpdate();
 			
 			session.getTransaction().commit();
@@ -398,7 +398,7 @@ public class DataDAO {
 			session.beginTransaction();
 			
 			Query query = session.createSQLQuery(sql.toString());
-			query.setParameter(0, new Date());
+			query.setParameter(1, new Date());
 			query.executeUpdate();
 			
 			session.getTransaction().commit();

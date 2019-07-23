@@ -46,7 +46,7 @@ DictManager dictManager = new DictManager();
 							</zk> 
 							
 							<zk case="P"> 
-								<combobox id="${each.dis_method}_${each.id}_${each.sequence}"  hflex="1" readonly="true"" >
+								<combobox id="${each.dis_method}_${each.id}_${each.sequence}"  hflex="1" readonly="true" >
 								<zscript><![CDATA[
 									ArrayList al = dictManager.getDictItemByDict(each.dictid);
 									for(int i=0; i<al.size(); i++){

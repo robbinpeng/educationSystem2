@@ -70,7 +70,7 @@ public class RuleDAO {
 			session = HibernateUtil.getSession();
 			
 			Query query = session.createSQLQuery(sql);
-			query.setParameter(0, field_value);
+			query.setParameter(1, field_value);
 			
 			al = (ArrayList) query.list();
 		} catch(HibernateException e) {
