@@ -2,6 +2,7 @@ package com.philip.edu.rule;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -17,6 +18,8 @@ import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 
 public class DictionCheck {
+	private static final Logger logger = Logger.getLogger(DictionCheck.class);
+	
 	private static FormManager formManager = new FormManager();
 	private static ExcelHelper excelHelper = new ExcelHelper();
 	private static DictManager dictManager = new DictManager();
@@ -43,6 +46,8 @@ public class DictionCheck {
 				if(column!=0)info.setColumn(column);
 				else continue;
 				
+				info.setDis_method(caption.getDis_method());
+				
 				info.setDict_id(caption.getDictid());
 				
 				ArrayList dict_items = dictManager.getDictItemByDict(caption.getDictid());
@@ -62,6 +67,7 @@ public class DictionCheck {
 			for(int k=0; k<checkFields.size(); k++){
 				LineInfo line = (LineInfo)checkFields.get(k);
 				boolean isFound = false;
+				boolean allFound = false;
 				
 				Cell cell = row.getCell(line.getColumn());
 				if(cell==null){
@@ -90,9 +96,37 @@ public class DictionCheck {
 							break;
 						}
 					}
+					
+					if(line.getDis_method()==Constants.V_DISPLAY_MULTIPLE_COMBOBOX){
+						//String value1 = line.getValue();
+						logger.info("column:" + line.getColumn());
+						logger.info("value :" + line.getValue());
+						if(value.charAt(0)=='[' && value.charAt(value.length()-1)==']'){
+							allFound = true;
+							String temp = value.substring(1, value.length()-1);
+							String[] str = temp.split(",");
+							for(int m=0; m<str.length; m++){
+								String temp1 = str[m];
+								isFound = false;
+								for(int n=0; n<dict_items.size(); n++){
+									DictItem item1 = (DictItem)dict_items.get(n);
+									if(temp1.equals(item1.getItemname())){
+										isFound = true;
+										break;
+									}
+								}
+								if(!isFound){
+									allFound = false;
+									break;
+								}
+							}
+						}
+					}
 				}
 				
 				if(isFound){
+					
+				} else if(allFound){
 					
 				} else {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);

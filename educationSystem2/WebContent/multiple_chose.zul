@@ -1,0 +1,48 @@
+<?page title="多选记录" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="mWindow" title="多选记录" apply="com.philip.edu.action.MultipleChoseController" height="400px" width="300px">
+<vlayout>
+	<zscript>
+	<![CDATA[
+	String chosed = (String)Executions.getCurrent().getArg().get("chosed");
+	ArrayList al = new ArrayList();
+	if (chosed != null && chosed.length() > 0) {
+		//String str1 = chosed.substring(1, chosed.length()-1); 
+		String[] str = chosed.split(",");
+		for (int i = 0; i < str.length; i++) {
+			String temp = str[i];
+			// System.out.println(temp);
+			//int table_id = Integer.parseInt(temp);
+			al.add(temp);
+		}
+	}
+	]]>
+	</zscript>
+<grid id="dicList" hflex="1" height="270px">
+<rows>
+<template name="model">
+	<row><cell colspan="2"><checkbox id="${each.id}" label="${each.itemname}" forward="onCheck=dicList.onCheck(${self})">
+	<zscript>
+	<![CDATA[
+	for(int i=0; i<al.size(); i++){
+		String sName = (String)al.get(i);
+		System.out.println("sName:" + sName);
+		System.out.println("name:" + each.itemname);
+		if(sName.equals(each.itemname)){
+			self.setChecked(true);
+		}
+	}
+	]]>
+	</zscript>
+	</checkbox></cell></row>
+</template>
+</rows>
+</grid>
+<grid>
+<rows>
+<row><cell align="right"><button id="closeBtn" label="取消" style="background:lightblue"/><button id="create" label="确定"/></cell></row>
+</rows>
+</grid>
+</vlayout>
+</window>
+</zk>

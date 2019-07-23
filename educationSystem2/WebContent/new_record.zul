@@ -46,18 +46,7 @@ DictManager dictManager = new DictManager();
 							</zk> 
 							
 							<zk case="P"> 
-								<combobox id="${each.dis_method}_${each.id}_${each.sequence}"  hflex="1" readonly="true" >
-								<zscript><![CDATA[
-									ArrayList al = dictManager.getDictItemByDict(each.dictid);
-									for(int i=0; i<al.size(); i++){
-										DictItem dictItem = (DictItem)al.get(i);
-										Comboitem item = new Comboitem(dictItem.getItemname());
-										item.setValue(dictItem.getId());
-										self.appendChild(item);
-									}
-								]]>
-								</zscript>
-								</combobox>
+								<button id="${each.dis_method}_${each.id}_${each.sequence}" forward="onClick=lbClient.onClick(${each})" label="==请选择==" />
 							</zk> 
 							
 							<zk case="U"> 

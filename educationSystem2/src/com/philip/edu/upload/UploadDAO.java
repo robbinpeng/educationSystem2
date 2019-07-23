@@ -24,7 +24,11 @@ public class UploadDAO {
 	public static void main(String[] args) {
 		ArrayList al = new ArrayList();
 		String[] str = null;
-		String dependency = "(1),(3),(5)";
+		String dependency = "[(1),(3),(5)]";
+		
+		dependency = dependency.substring(1, dependency.length()-1);
+		System.out.println(dependency);
+		
 		str = dependency.split(",");
 
 		for (int i = 0; i < str.length; i++) {

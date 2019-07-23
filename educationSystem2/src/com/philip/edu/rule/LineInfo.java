@@ -9,7 +9,14 @@ public class LineInfo {
 	private int dict_id = 0;
 	private ArrayList dict_items = null;
 	private boolean is_required = false;
+	private char dis_method = 'T';
 	
+	public char getDis_method() {
+		return dis_method;
+	}
+	public void setDis_method(char dis_method) {
+		this.dis_method = dis_method;
+	}
 	public boolean isIs_required() {
 		return is_required;
 	}

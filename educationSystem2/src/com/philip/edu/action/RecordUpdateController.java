@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -115,6 +116,29 @@ public class RecordUpdateController extends SelectorComposer<Component> {
 		logger.info("to close.");
 		bdlBody.detach();
 	}
+	
+	@Listen("onClick = #lbClient")
+	public void openSelect(Event event) {
+		logger.info("entering open select");
+		FormFieldData field = (FormFieldData) event.getData();
+		if(field == null)return;
+		int dic_id = field.getDictid();
+		
+		String id = field.getDis_method() + "_" + field.getId() + "_" + field.getSequence();
+		Button p = (Button)Path.getComponent("/bdlBody/" + id);
+		
+		HashMap map = new HashMap();
+		map.put("dict_id", dic_id);
+		map.put("button_id", id);
+		if(p.getLabel().equals("==请选择=="))
+			p.setLabel("");
+		map.put("chosed", p.getLabel());
+		
+		Window window1 = (Window) Executions.createComponents("/multiple_chose.zul", null, map);
+		
+		window1.doModal();
+		map = null;
+	}
 
 	// 保存数据按钮
 	@Listen("onClick = #butSave")
@@ -214,18 +238,18 @@ public class RecordUpdateController extends SelectorComposer<Component> {
 				}
 				break;
 			case Constants.V_DISPLAY_MULTIPLE_COMBOBOX:
-				Combobox box1 = (Combobox) cell.getLastChild();
-				if (box1.getSelectedItem() == null || "".equals(box1.getSelectedItem().getValue())) {
-					if (field.getIs_required() == 'Y') {
-						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
-						return;
+				Button button1 = (Button) cell.getLastChild();
+				if ((button1.getLabel() == null || "".equals(button1.getLabel()))) {
+					if(field.getIs_required()=='Y'){
+					Messagebox.show("" + field.getBus_name() + "您没有选择必选项", "错误", Messagebox.OK, Messagebox.ERROR);
+					return;
 					} else {
 						data.setKey(field.getPhysic_name());
 						data.setValue("");
 					}
 				} else {
 					data.setKey(field.getPhysic_name());
-					data.setValue(box1.getSelectedItem().getLabel());
+					data.setValue(button1.getLabel());
 				}
 				break;
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:

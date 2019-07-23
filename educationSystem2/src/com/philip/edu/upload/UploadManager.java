@@ -132,12 +132,24 @@ public class UploadManager {
 					Object value = excelHelper.getCellValue(cell);
 					testValue = value.toString();
 					
+					if(field1.getDis_method()==Constants.V_DISPLAY_MULTIPLE_COMBOBOX){
+						if(testValue.charAt(0)=='[' && testValue.charAt(testValue.length()-1)==']'){
+							testValue = testValue.substring(1,testValue.length()-1);
+						}
+					}
+					
 					sql2.append("'" + testValue + "')");
 				} else {
 					sql1.append(fieldName + ", ");
 					String testValue="";
 					Object value = excelHelper.getCellValue(cell);
 					testValue = value.toString();
+					
+					if(field1.getDis_method()==Constants.V_DISPLAY_MULTIPLE_COMBOBOX){
+						if(testValue.charAt(0)=='[' && testValue.charAt(testValue.length()-1)==']'){
+							testValue = testValue.substring(1,testValue.length()-1);
+						}
+					}
 					
 					sql2.append("'" + testValue + "', ");
 				}

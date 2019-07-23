@@ -78,12 +78,12 @@ public class RuleManagerTest {
 		FileInputStream in = null;
 		Workbook wb = null;
 		try {
-			in = new FileInputStream("D:/Develop/education/test/2-7.xls");
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
 			wb = WorkbookFactory.create(in);
 			
 			test = manager.formatCheck(21, wb);
 			
-			//assertEquals(test, true);
+			assertEquals(test, true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
