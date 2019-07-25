@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.philip.edu.basic.Constants;
+import com.philip.edu.basic.DataInfo;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
@@ -80,7 +81,7 @@ public class Rule2ExclusiveCheck {
 		// 3. make sure total lines:
 		int excelColumns = helper.getExcelColumns(wb);
 		int lines = 0;
-		lines = helper.getExcelLines(wb,form_id,excelColumns);
+		lines = helper.getExcelLines(wb, form_id, excelColumns);
 
 		// 4. get the correct column:
 
@@ -113,24 +114,24 @@ public class Rule2ExclusiveCheck {
 		// 4. get the correct column:
 
 		Sheet sheet = wb.getSheetAt(0);
-		
+
 		al = this.TranslateRuleComplex(object, form_id, task_id);
-		
+
 		for (int i = 1; i <= lines - 1; i++) {
 			Row row = sheet.getRow(i);
-			
-			for(int j = 0; j < al.size(); j++){
+
+			for (int j = 0; j < al.size(); j++) {
 
 				// 1. fetch the sql:
-				ArrayList result = (ArrayList)al.get(j);
-				
+				ArrayList result = (ArrayList) al.get(j);
+
 				ruleSQL = (String) result.get(0);
 				bus_name = (String) result.get(1);
 				relate_table = (String) result.get(2);
 				relate_field = (String) result.get(3);
-				
+
 				int column = helper.getColumn2Check(wb, bus_name, excelColumns);
-				
+
 				Cell cell = row.getCell(column);
 				if (cell == null)
 					continue;
@@ -141,13 +142,72 @@ public class Rule2ExclusiveCheck {
 				ArrayList al1 = dao.getRelateField(ruleSQL, fieldValue);
 
 				if (al1 != null && al1.size() != 0) {
-					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);;
-					messageList.add("第" + (i+1) + "行的：'" + bus_name + "'中的'" + fieldValue + "'在关联表'" + relate_table + "'的'" + relate_field
-							+ "'中有重复！");
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					;
+					messageList.add("第" + (i + 1) + "行的：'" + bus_name + "'中的'" + fieldValue + "'在关联表'" + relate_table
+							+ "'的'" + relate_field + "'中有重复！");
 				}
 			}
-						
+
 		}
+		message.setMessage_info(messageList);
+
+		return message;
+	}
+
+	public MessageInfo getMessageSingleLine(ArrayList record, JSONObject object, int form_id, int task_id) {
+		logger.info("start to check the uploaded excel:");
+
+		MessageInfo message = new MessageInfo();
+		ArrayList messageList = new ArrayList();
+		String ruleSQL = null;
+		String bus_name = null;
+		String relate_table = null;
+		String relate_field = null;
+		ArrayList al = null;
+
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
+
+		al = this.TranslateRuleComplex(object, form_id, task_id);
+
+		for (int j = 0; j < al.size(); j++) {
+
+			// 1. fetch the sql:
+			ArrayList result = (ArrayList) al.get(j);
+
+			ruleSQL = (String) result.get(0);
+			bus_name = (String) result.get(1);
+			FormField field = manager.getFieldByBusName(form_id, bus_name);
+			
+			relate_table = (String) result.get(2);
+			relate_field = (String) result.get(3);
+			
+			DataInfo data = null;
+			for(int k=0; k<record.size(); k++){
+				data = (DataInfo)record.get(k);
+				if(field.getPhysic_name().equals(data.getKey()))break;
+			}
+
+			String value = data.getValue();
+			
+			if (value == null){
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("字段[" + bus_name + "]的值为空！");
+				message.setMessage_info(messageList);
+				return message;
+			}
+
+			String fieldValue = value;
+			ArrayList al1 = dao.getRelateField(ruleSQL, fieldValue);
+
+			if (al1 != null && al1.size() != 0) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				;
+				messageList.add("字段[" + bus_name + "]的值'" + fieldValue + "'在关联表'" + relate_table
+						+ "'的'" + relate_field + "'中有重复！");
+			}
+		}
+
 		message.setMessage_info(messageList);
 
 		return message;

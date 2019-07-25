@@ -8,7 +8,22 @@ public class SearchInfo {
 	private String andName = "";
 	private String andValue = "";
 	private String form_physic;
+	private String physic_field;
+	private String physic_field2;
 	
+	
+	public String getPhysic_field2() {
+		return physic_field2;
+	}
+	public void setPhysic_field2(String physic_field2) {
+		this.physic_field2 = physic_field2;
+	}
+	public String getPhysic_field() {
+		return physic_field;
+	}
+	public void setPhysic_field(String physic_field) {
+		this.physic_field = physic_field;
+	}
 	public String getField1Name() {
 		return field1Name;
 	}

@@ -6,10 +6,18 @@ public class LineInfo {
 	private int type = 0;
 	private String value;
 	private int column = 0; 
+	private String columnName = "";
 	private int dict_id = 0;
 	private ArrayList dict_items = null;
 	private boolean is_required = false;
 	private char dis_method = 'T';
+	
+	public String getColumnName() {
+		return columnName;
+	}
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
+	}
 	
 	public char getDis_method() {
 		return dis_method;

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.philip.edu.basic.Constants;
+import com.philip.edu.basic.DataInfo;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 
@@ -67,6 +68,75 @@ public class Rule1ConstraintCheck {
 		return message;
 	}
 
+	public MessageInfo getMessageSingleLine(ArrayList record, JSONObject obj, int form_id) {
+		MessageInfo message = new MessageInfo();
+		ArrayList messageList = new ArrayList();
+		ArrayList rules = null;
+		int columns = 0;
+		int lines = 0;
+		int bit = 0;
+		boolean isCondition = false;
+		int conditionColumn = 0;
+		String conOperator = "";
+		String conValue = "";
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
+
+		// columns = helper.getExcelColumns(wb);
+		// lines = helper.getExcelLines(wb, form_id, columns);
+
+		ArrayList fields = fManager.getFormFields(form_id);
+		ArrayList displayFields = new ArrayList();
+		for (int i = 0; i < fields.size(); i++) {
+			FormField fieldTemp = (FormField) fields.get(i);
+			if (fieldTemp.getIs_hidden() == 'N')
+				displayFields.add(fieldTemp);
+		}
+
+		// Precondition:
+		JSONArray preArray = (JSONArray) obj.get("rules");
+		JSONObject preObj = (JSONObject) preArray.get(0);
+		String type = preObj.getString("type");
+		LineInfo preLine = null;
+
+		if (Constants.RULE_CONDITION.equals(type)) {
+			preLine = new LineInfo();
+
+			isCondition = true;
+			String physic_name = preObj.getString("field");
+			FormField field = fManager.getFieldByPhysicName(form_id, physic_name);
+			// conditionColumn = helper.getColumn2Check(wb, field.getBus_name(),
+			// columns);
+
+			for (int j = 0; j < displayFields.size(); j++) {
+				FormField fieldTemp0 = (FormField) displayFields.get(j);
+				if (fieldTemp0.getPhysic_name().equals(physic_name)) {
+					preLine.setColumn(j);
+					break;
+				}
+			}
+
+			conOperator = preObj.getString("operator");
+			conValue = preObj.getString("value");
+			preLine.setValue(conValue);
+		}
+
+		rules = translateRulesSured(obj);
+
+		String method = (String) rules.get(0);
+
+		if (method.equals("2")) {
+			// continue compare:
+			message = this.continueCompareSingleLine(rules, form_id, record, isCondition, preLine, conOperator,
+					displayFields);
+		} else if (method.equals("1")) {
+			// 2 side compare:
+			message = this.compare2sidesSingleLine(rules, form_id, record, isCondition, preLine, displayFields,
+					conValue, conOperator);
+		}
+
+		return message;
+	}
+
 	public MessageInfo continueCompare(ArrayList rules, int form_id, Workbook wb, int columns, int lines,
 			boolean isCondition, int conditionColumn, String conValue, String conOperator) {
 		ArrayList messageList = new ArrayList();
@@ -83,7 +153,7 @@ public class Rule1ConstraintCheck {
 			if (Constants.RULE_FORMFIELD.equals(type)) {
 				String name1 = obj1.getString("field");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
-				//if(field1.getIs_required()=='N')continue;
+				// if(field1.getIs_required()=='N')continue;
 				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
 				line.setColumn(column1);
 				line.setType(Constants.LINE_TYPE_FIELD_NAME);
@@ -244,6 +314,177 @@ public class Rule1ConstraintCheck {
 						}
 					}
 				}
+			}
+
+		}
+		message.setMessage_info(messageList);
+
+		return message;
+	}
+
+	public MessageInfo continueCompareSingleLine(ArrayList rules, int form_id, ArrayList record, boolean isCondition,
+			LineInfo preLine, String conOperator, ArrayList displayFields) {
+		ArrayList messageList = new ArrayList();
+		MessageInfo message = new MessageInfo();
+		ArrayList valueList = new ArrayList();
+
+		ArrayList arrayNum = (ArrayList) rules.get(1);
+		JSONObject ob = (JSONObject) rules.get(2);
+
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
+
+		for (int i = 0; i < arrayNum.size(); i++) {
+			LineInfo line = new LineInfo();
+			JSONObject obj1 = (JSONObject) arrayNum.get(i);
+			String type = obj1.getString("type");
+			if (Constants.RULE_FORMFIELD.equals(type)) {
+				String name1 = obj1.getString("field");
+				for (int j = 0; j < displayFields.size(); j++) {
+					FormField fieldTemp = (FormField) displayFields.get(j);
+					if (fieldTemp.getPhysic_name().equals(name1)) {
+						line.setColumn(j);
+						line.setColumnName(fieldTemp.getBus_name());
+					}
+				}
+				line.setType(Constants.LINE_TYPE_FIELD_NAME);
+			} else if (Constants.RULE_TEXTBOX.equals(type)) {
+				String value = obj1.getString("value");
+				line.setValue(value);
+				line.setType(Constants.LINE_TYPE_VALUE);
+			}
+			valueList.add(line);
+		}
+
+		String sOP = ob.getString("operator");
+
+		// 0。precondition:
+		if (isCondition) {
+			DataInfo data = (DataInfo) record.get(preLine.getColumn());
+
+			if (data == null)
+				return message;
+
+			String testValue = data.getValue();
+
+			// operator:
+			if (Constants.V_EQUAL.equals(conOperator)) {
+				// =
+				if (!preLine.getValue().equals(testValue))
+					return message;
+			} else if (Constants.V_NOEQUAL.equals(conOperator)) {
+				if (preLine.getValue().equals(testValue))
+					return message;
+			} else {
+				double left = 0;
+				double right = 0;
+				try {
+					left = Double.parseDouble(testValue);
+					right = Double.parseDouble(preLine.getValue());
+					if (Constants.V_GREATT.equals(conOperator)) {
+						if (!(left > right))
+							return message;
+					} else if (Constants.V_GREATTE.equals(conOperator)) {
+						if (!(left >= right))
+							return message;
+					} else if (Constants.V_LESST.equals(conOperator)) {
+						if (!(left < right))
+							return message;
+					} else if (Constants.V_LESSTE.equals(conOperator)) {
+						if (!(left <= right))
+							return message;
+					}
+				} catch (NumberFormatException e) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("条件的值不是数字,不能进行比较！！");
+					message.setMessage_info(messageList);
+					return message;
+				}
+
+			}
+		}
+
+		// check continue:
+		for (int j = 1; j < valueList.size(); j++) {
+			String value1 = "";
+			String value2 = "";
+			LineInfo line1 = (LineInfo) valueList.get(j - 1);
+			LineInfo line2 = (LineInfo) valueList.get(j);
+			Cell cell1 = null;
+			Object o1 = null;
+			Cell cell2 = null;
+			Object o2 = null;
+			if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+				logger.info("line1.getColumn=" + line1.getColumn());
+				DataInfo data1 = (DataInfo) record.get(line1.getColumn());
+				logger.info("data.getKey:" + data1.getKey());
+				value1 = data1.getValue();
+				logger.info("value1: " + value1);
+				// o1 = helper.getCellValue(cell1);
+				// value1 = o1.toString();
+			} else {
+				value1 = line1.getValue();
+			}
+			if (line2.getType() == Constants.LINE_TYPE_FIELD_NAME) {
+				DataInfo data2 = (DataInfo) record.get(line2.getColumn());
+				value2 = data2.getValue();
+				// o2 = helper.getCellValue(cell2);
+				// value2 = o2.toString();
+			} else {
+				value2 = line2.getValue();
+			}
+			try {
+				if (sOP.equals(Constants.V_EQUAL)) {
+					if (!value1.equals(value2)) {
+						messageList.add("该条记录不满足等式！");
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						break;
+					}
+				} else {
+					double dV1 = 0;
+					double dV2 = 0;
+					if (value1 != null)
+						dV1 = Double.parseDouble(value1);
+
+					if (value2 != null)
+						dV2 = Double.parseDouble(value2);
+
+					if (sOP.equals(Constants.V_LESST)) {
+						if (!(dV1 < dV2)) {
+							messageList.add("该条记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_LESSTE)) {
+						if (!(dV1 <= dV2)) {
+							messageList.add("该条记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_GREATT)) {
+						if (!(dV1 > dV2)) {
+							messageList.add("该条记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_GREATTE)) {
+						if (!(dV1 >= dV2)) {
+							messageList.add("该条记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					} else if (sOP.equals(Constants.V_NOEQUAL)) {
+						if (dV1 == dV2) {
+							messageList.add("该条记录不满足不等式！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
+						}
+					}
+				}
+			} catch (NumberFormatException nfe) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录不是数字,不能进行比较！");
+				message.setMessage_info(messageList);
+				return message;
 			}
 
 		}
@@ -561,6 +802,325 @@ public class Rule1ConstraintCheck {
 		message.setMessage_info(messageList);
 
 		return message;
+	}
+
+	public MessageInfo compare2sidesSingleLine(ArrayList rules, int form_id, ArrayList record, boolean isCondition,
+			LineInfo preLine, ArrayList displayFields, String conValue, String conOperator) {
+
+		ArrayList messageList = new ArrayList();
+		MessageInfo message = new MessageInfo();
+
+		ArrayList arrayLeft = new ArrayList();
+		ArrayList arrayRight = new ArrayList();
+
+		JSONArray tempLeft = (JSONArray) rules.get(1);
+		JSONArray tempRight = (JSONArray) rules.get(2);
+
+		JSONObject objOP = (JSONObject) rules.get(3);
+		String sOP = objOP.getString("operator");
+
+		for (int j = 0; j < tempLeft.length(); j++) {
+			LineInfo line = new LineInfo();
+			JSONObject obj1 = (JSONObject) tempLeft.get(j);
+			String type1 = obj1.getString("type");
+			if (Constants.RULE_FORMFIELD.equals(type1)) {
+				line.setType(Constants.LINE_TYPE_FIELD_NAME);
+				String name1 = obj1.getString("field");
+				for (int k = 0; k < displayFields.size(); k++) {
+					FormField fieldTemp = (FormField) displayFields.get(k);
+					if (fieldTemp.getPhysic_name().equals(name1)) {
+						line.setColumn(k);
+						line.setColumnName(fieldTemp.getBus_name());
+					}
+				}
+				line.setType(Constants.LINE_TYPE_FIELD_NAME);
+				arrayLeft.add(line);
+			} else if (Constants.RULE_TEXTBOX.equals(type1)) {
+				line.setType(Constants.LINE_TYPE_VALUE);
+				String value2 = obj1.getString("value");
+				line.setValue(value2);
+				arrayLeft.add(line);
+			} else if (Constants.RULE_OPERATOR.equals(type1)) {
+				line.setType(Constants.LINE_TYPE_OPERATOR);
+				String value3 = obj1.getString("operator");
+				line.setValue(value3);
+				arrayLeft.add(line);
+			}
+		}
+
+		for (int j = 0; j < tempRight.length(); j++) {
+			LineInfo line = new LineInfo();
+			JSONObject obj1 = (JSONObject) tempRight.get(j);
+			String type1 = obj1.getString("type");
+			if (Constants.RULE_FORMFIELD.equals(type1)) {
+				String name1 = obj1.getString("field");
+				for (int k = 0; k < displayFields.size(); k++) {
+					FormField fieldTemp = (FormField) displayFields.get(k);
+					if (fieldTemp.getPhysic_name().equals(name1)) {
+						line.setColumn(k);
+						line.setColumnName(fieldTemp.getBus_name());
+					}
+				}
+				line.setType(Constants.LINE_TYPE_FIELD_NAME);
+				arrayRight.add(line);
+			} else if (Constants.RULE_TEXTBOX.equals(type1)) {
+				line.setType(Constants.LINE_TYPE_VALUE);
+				String value2 = obj1.getString("value");
+				line.setValue(value2);
+				arrayRight.add(line);
+			} else if (Constants.RULE_OPERATOR.equals(type1)) {
+				line.setType(Constants.LINE_TYPE_OPERATOR);
+				String value3 = obj1.getString("operator");
+				line.setValue(value3);
+				arrayRight.add(line);
+			}
+		}
+
+		// 0。precondition:
+		if (isCondition) {
+			DataInfo data = (DataInfo) record.get(preLine.getColumn());
+
+			if (data == null)
+				return message;
+
+			String testValue = data.getValue();
+
+			// operator:
+			if (Constants.V_EQUAL.equals(conOperator)) {
+				// =
+				if (!preLine.getValue().equals(testValue))
+					return message;
+			} else if (Constants.V_NOEQUAL.equals(conOperator)) {
+				if (preLine.getValue().equals(testValue))
+					return message;
+			} else {
+				double left = 0;
+				double right = 0;
+				try {
+					left = Double.parseDouble(testValue);
+					right = Double.parseDouble(conValue);
+					if (Constants.V_GREATT.equals(conOperator)) {
+						if (!(left > right))
+							return message;
+					} else if (Constants.V_GREATTE.equals(conOperator)) {
+						if (!(left >= right))
+							return message;
+					} else if (Constants.V_LESST.equals(conOperator)) {
+						if (!(left < right))
+							return message;
+					} else if (Constants.V_LESSTE.equals(conOperator)) {
+						if (!(left <= right))
+							return message;
+					}
+				} catch (NumberFormatException e) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("条件不是数字,不能进行比较！");
+					message.setMessage_info(messageList);
+					return message;
+				}
+			}
+		}
+
+		double leftResult = 0;
+		double rightResult = 0;
+		String leftString = "";
+		String rightString = "";
+		LineInfo line = null;
+		boolean isNum = true;
+		// 1、 get left result:
+		String currentOperator = Constants.V_ADD;
+		logger.info("arrayLeft.size:" + arrayLeft.size());
+		for (int k = 0; k < arrayLeft.size(); k++) {
+			line = (LineInfo) arrayLeft.get(k);
+			try {
+				switch (line.getType()) {
+				case Constants.LINE_TYPE_FIELD_NAME:
+					DataInfo data = (DataInfo) record.get(line.getColumn());
+					if (data == null)
+						return message;
+					String tempValue = "";
+					tempValue = data.getValue();
+					logger.info("tempValue:" + tempValue);
+					if (arrayLeft.size() == 1) {
+						leftString = tempValue;
+						try {
+							leftResult = Double.parseDouble(leftString);
+						} catch (NumberFormatException e) {
+							isNum = false;
+						}
+						break;
+					}
+
+					double iValue = Double.parseDouble(tempValue);
+					if (Constants.V_ADD.equals(currentOperator)) {
+						leftResult += iValue;
+					} else if (Constants.V_MINUS.equals(currentOperator)) {
+						leftResult -= iValue;
+					} else if (Constants.V_MUTIPL.equals(currentOperator)) {
+						leftResult *= iValue;
+					} else if (Constants.V_DIVIDE.equals(currentOperator)) {
+						leftResult /= iValue;
+					}
+					break;
+				case Constants.LINE_TYPE_OPERATOR:
+					currentOperator = line.getValue();
+					break;
+				case Constants.LINE_TYPE_VALUE:
+					String tempValue2 = line.getValue();
+					if (arrayLeft.size() == 1) {
+						leftString = tempValue2;
+						try {
+							leftResult = Double.parseDouble(leftString);
+						} catch (NumberFormatException e) {
+							isNum = false;
+						}
+						break;
+					}
+
+					double iValue2 = Double.parseDouble(tempValue2);
+					if (Constants.V_ADD.equals(currentOperator)) {
+						leftResult += iValue2;
+					} else if (Constants.V_MINUS.equals(currentOperator)) {
+						leftResult -= iValue2;
+					} else if (Constants.V_MUTIPL.equals(currentOperator)) {
+						leftResult *= iValue2;
+					} else if (Constants.V_DIVIDE.equals(currentOperator)) {
+						leftResult /= iValue2;
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (NumberFormatException e) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录不是数字,不能进行比较！");
+				isNum = false;
+				message.setMessage_info(messageList);
+				return message;
+			}
+		}
+
+		// 2、get right result:
+		currentOperator = Constants.V_ADD;
+		for (int k = 0; k < arrayRight.size(); k++) {
+			line = (LineInfo) arrayRight.get(k);
+			try {
+				switch (line.getType()) {
+				case Constants.LINE_TYPE_FIELD_NAME:
+					DataInfo data = (DataInfo) record.get(line.getColumn());
+					if (data == null)
+						return message;
+					String tempValue = "";
+					// Object value = helper.getCellValue(cell);
+					tempValue = data.getValue();
+					if (arrayRight.size() == 1) {
+						rightString = tempValue;
+						try {
+							rightResult = Double.parseDouble(rightString);
+						} catch (NumberFormatException e) {
+							isNum = false;
+						}
+						break;
+					}
+
+					double iValue = Double.parseDouble(tempValue);
+					if (Constants.V_ADD.equals(currentOperator)) {
+						rightResult += iValue;
+					} else if (Constants.V_MINUS.equals(currentOperator)) {
+						rightResult -= iValue;
+					} else if (Constants.V_MUTIPL.equals(currentOperator)) {
+						rightResult *= iValue;
+					} else if (Constants.V_DIVIDE.equals(currentOperator)) {
+						rightResult /= iValue;
+					}
+					break;
+				case Constants.LINE_TYPE_OPERATOR:
+					currentOperator = line.getValue();
+					break;
+				case Constants.LINE_TYPE_VALUE:
+					String tempValue2 = line.getValue();
+					if (arrayRight.size() == 1) {
+						rightString = tempValue2;
+						try {
+							rightResult = Double.parseDouble(rightString);
+						} catch (NumberFormatException e) {
+							isNum = false;
+						}
+						break;
+					}
+					double iValue2 = Double.parseDouble(tempValue2);
+
+					if (Constants.V_ADD.equals(currentOperator)) {
+						rightResult += iValue2;
+					} else if (Constants.V_MINUS.equals(currentOperator)) {
+						rightResult -= iValue2;
+					} else if (Constants.V_MUTIPL.equals(currentOperator)) {
+						rightResult *= iValue2;
+					} else if (Constants.V_DIVIDE.equals(currentOperator)) {
+						rightResult /= iValue2;
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (NumberFormatException e) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录不是数字,不能进行比较！");
+				isNum = false;
+				message.setMessage_info(messageList);
+				return message;
+			}
+		}
+		// 3、compare:
+		if (arrayLeft.size() == 1 && arrayRight.size() == 1) {
+			logger.info("sOP:" + sOP);
+			if (Constants.V_EQUAL.equals(sOP)) {
+				logger.info("leftString:" + leftString + "; rightString:" + rightString);
+				if (!leftString.equals(rightString)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("等式不成立！");
+				}
+			}
+		}
+		if (!isNum){
+			message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+			message.setMessage_info(messageList);
+			return message;
+		}
+
+		logger.info("left result:" + leftResult + "right result:" + rightResult);
+		if (Constants.V_EQUAL.equals(sOP)) {
+			if (!(leftResult == rightResult)) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录的等式不成立！");
+			}
+		} else if (Constants.V_GREATT.equals(sOP)) {
+			if (!(leftResult > rightResult)) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录的不等式不成立！");
+			}
+		} else if (Constants.V_GREATTE.equals(sOP)) {
+			if (!(leftResult >= rightResult)) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录的不等式不成立！");
+			}
+		} else if (Constants.V_LESST.equals(sOP)) {
+			if (!(leftResult < rightResult)) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录的不等式不成立！");
+			}
+		} else if (Constants.V_LESSTE.equals(sOP)) {
+			logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
+			if (!(leftResult <= rightResult)) {
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该记录的不等式不成立！");
+			}
+		}
+
+		message.setMessage_info(messageList);
+
+		return message;
+
 	}
 
 	public ArrayList translateRulesSured(JSONObject obj) {
