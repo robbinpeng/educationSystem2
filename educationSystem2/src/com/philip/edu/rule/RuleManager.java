@@ -154,25 +154,25 @@ public class RuleManager {
 					//Only Check:
 					logger.info("处理第四类规则");
 					Rule4NoRepeatCheck engine4 = new Rule4NoRepeatCheck();
-					//message = engine4.getMessage(wb, object, form_id);
-					//message.setFail_information(rule.getFail_information());
-					//returnMessage.add(message);
+					message = engine4.getMessageSingleLine(record, object, form_id, task_id);
+					message.setFail_information(rule.getFail_information());
+					returnMessage.add(message);
 					break;
 				case 5:
 					//
 					logger.info("处理第五类规则");
 					Rule5OutsideConstraintCheck engine5 = new Rule5OutsideConstraintCheck();
-					//message = engine5.getMessage(wb, object, form_id, task_id);
-					//message.setFail_information(rule.getFail_information());
-					//returnMessage.add(message);
+					message = engine5.getMessageSingleLine(record, object, form_id, task_id);
+					message.setFail_information(rule.getFail_information());
+					returnMessage.add(message);
 					break;
 				case 6:
 					//
 					logger.info("处理第六类规则");
 					Rule6TimeCheck engine6 = new Rule6TimeCheck();
-					//message = engine6.getMessage(wb, object, form_id);
-					//message.setFail_information(rule.getFail_information());
-					//returnMessage.add(message);
+					message = engine6.getMessageSingleLine(record, object, form_id);
+					message.setFail_information(rule.getFail_information());
+					returnMessage.add(message);
 					break;
 				default:
 					break;

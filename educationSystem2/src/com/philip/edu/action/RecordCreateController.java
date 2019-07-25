@@ -46,11 +46,14 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.UploadInfo;
+import com.philip.edu.rule.MessageInfo;
+import com.philip.edu.rule.RuleManager;
 
 public class RecordCreateController extends SelectorComposer<Component> {
 
 	private static Logger logger = Logger.getLogger(RecordCreateController.class);
 	private static DataManager dataManager = new DataManager();
+	private static RuleManager engine = new RuleManager();
 
 	@Wire
 	private Listbox lbClient;
@@ -89,35 +92,33 @@ public class RecordCreateController extends SelectorComposer<Component> {
 		logger.info("to close.");
 		bdlBody.detach();
 	}
-	
+
 	@Listen("onClick = #lbClient")
 	public void openSelect(Event event) {
 		logger.info("entering open select");
-		/*Button thisButton = null;
-		Event se = event;
-		Component temp = se.getTarget();
-		String id = temp.getId();
-		logger.info("type is:" + temp);
-		logger.info("id is:" + id);
-		if(temp instanceof Button)
-			thisButton = (Button)temp;
-		else return;*/
+		/*
+		 * Button thisButton = null; Event se = event; Component temp =
+		 * se.getTarget(); String id = temp.getId(); logger.info("type is:" +
+		 * temp); logger.info("id is:" + id); if(temp instanceof Button)
+		 * thisButton = (Button)temp; else return;
+		 */
 		FormField field = (FormField) event.getData();
-		if(field == null)return;
+		if (field == null)
+			return;
 		int dic_id = field.getDictid();
-		
+
 		String id = field.getDis_method() + "_" + field.getId() + "_" + field.getSequence();
-		Button p = (Button)Path.getComponent("/bdlBody/" + id);
-		
+		Button p = (Button) Path.getComponent("/bdlBody/" + id);
+
 		HashMap map = new HashMap();
 		map.put("dict_id", dic_id);
 		map.put("button_id", id);
-		if(p.getLabel().equals("==请选择=="))
+		if (p.getLabel().equals("==请选择=="))
 			p.setLabel("");
 		map.put("chosed", p.getLabel());
-		
+
 		Window window1 = (Window) Executions.createComponents("/multiple_chose.zul", null, map);
-		
+
 		window1.doModal();
 		map = null;
 	}
@@ -146,9 +147,9 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			case Constants.V_DISPLAY_SINGLE_TEXTBOX:
 				Textbox text = (Textbox) cell.getLastChild();
 				if ((text.getValue() == null || "".equals(text.getValue()))) {
-					if(field.getIs_required()=='Y'){
-					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
-					return;
+					if (field.getIs_required() == 'Y') {
+						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+						return;
 					} else {
 						data.setKey(field.getPhysic_name());
 						data.setValue("");
@@ -161,9 +162,9 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			case Constants.V_DISPLAY_MUTIPLE_TEXTBOX:
 				Textbox textM = (Textbox) cell.getLastChild();
 				if ((textM.getValue() == null || "".equals(textM.getValue()))) {
-					if(field.getIs_required()=='Y'){
-					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
-					return;
+					if (field.getIs_required() == 'Y') {
+						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+						return;
 					} else {
 						data.setKey(field.getPhysic_name());
 						data.setValue("");
@@ -191,12 +192,12 @@ public class RecordCreateController extends SelectorComposer<Component> {
 					break;
 				}
 				if (date.getValue() == null) {
-					if(field.getIs_required()=='Y'){
+					if (field.getIs_required() == 'Y') {
 						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
-					return;
+						return;
 					} else {
-						//data.setKey(field.getPhysic_name());
-						//data.setValue(null);
+						// data.setKey(field.getPhysic_name());
+						// data.setValue(null);
 						continue;
 					}
 				} else {
@@ -208,8 +209,8 @@ public class RecordCreateController extends SelectorComposer<Component> {
 				Combobox box = (Combobox) cell.getLastChild();
 				if ((box.getSelectedItem() == null || "".equals(box.getSelectedItem().getValue()))) {
 					if (field.getIs_required() == 'Y') {
-					Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
-					return;
+						Messagebox.show("" + field.getBus_name() + "字段不能为空", "错误", Messagebox.OK, Messagebox.ERROR);
+						return;
 					} else {
 						data.setKey(field.getPhysic_name());
 						data.setValue("");
@@ -222,9 +223,9 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			case Constants.V_DISPLAY_MULTIPLE_COMBOBOX:
 				Button button1 = (Button) cell.getLastChild();
 				if ((button1.getLabel() == null || "".equals(button1.getLabel()))) {
-					if(field.getIs_required()=='Y'){
-					Messagebox.show("" + field.getBus_name() + "您没有选择必选项", "错误", Messagebox.OK, Messagebox.ERROR);
-					return;
+					if (field.getIs_required() == 'Y') {
+						Messagebox.show("" + field.getBus_name() + "您没有选择必选项", "错误", Messagebox.OK, Messagebox.ERROR);
+						return;
 					} else {
 						data.setKey(field.getPhysic_name());
 						data.setValue("");
@@ -237,8 +238,8 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:
 				Fileupload upload = (Fileupload) cell.getLastChild();
 				String path = (String) upload.getAttribute("file_path");
-				if (path == null ) {
-					if(field.getIs_required()=='Y'){
+				if (path == null) {
+					if (field.getIs_required() == 'Y') {
 						Messagebox.show("" + field.getBus_name() + "字段必须上传文件", "错误", Messagebox.OK, Messagebox.ERROR);
 						return;
 					} else {
@@ -254,10 +255,78 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			record.add(data);
 		}
 
-		dataManager.createRecord(form, record, task_id);
-		Window pList = (Window) Path.getComponent("/window1");
-		bdlBody.detach();
-		Executions.getCurrent().sendRedirect("");
+		boolean checkpass = true;
+		String sMessage = "";
+		// 2.5 check text format:
+		MessageInfo m = engine.textFormatSingleCheck(form.getId(), record);
+		if (m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+
+		} else {
+			sMessage += "添加数据中有数据类型、格式错误： \n";
+			ArrayList al = m.getMessage_info();
+			if (al.size() != 0) {
+				checkpass = false;
+				for (int i = 0; i < al.size(); i++) {
+					sMessage += al.get(i).toString() + "\n";
+				}
+			}
+		}
+
+		// 2.6 check dictionary:
+		m = engine.DictionCheckSingleLine(form.getId(), record);
+		if (m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+
+		} else {
+			sMessage += "\n 添加数据中有字段不在数据字典中：   \n";
+			ArrayList al = m.getMessage_info();
+			if (al.size() != 0) {
+				checkpass = false;
+				for (int j = 0; j < al.size(); j++) {
+					sMessage += (String) al.get(j) + "\n";
+				}
+			}
+		}
+		// 3.check the rules:
+		ArrayList list_m = engine.rulesCheckSingleLine(form.getId(), record, task_id);
+		for (int j = 0; j < list_m.size(); j++) {
+			MessageInfo message = (MessageInfo) list_m.get(j);
+			if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+			} else {
+				sMessage += "\n 规则校验不通过： \n";
+				ArrayList al = message.getMessage_info();
+				if (al.size() != 0) {
+					checkpass = false;
+					sMessage += message.getFail_information() + ":\n";
+					for (int i = 0; i < al.size(); i++) {
+						System.out.println(al.get(i).toString());
+						sMessage += al.get(i).toString() + "\n";
+					}
+
+					sMessage += "\n";
+				}
+			}
+		}
+		// create a window programmatically and use it as a modal
+		// dialog.
+		if (checkpass) {
+			// 3.save data into database;
+			boolean tempSuccess = dataManager.createRecord(form, record, task_id);
+			if (tempSuccess) {
+				Messagebox.show("上传成功！", "信息", Messagebox.OK, Messagebox.INFORMATION);
+
+				Window pList = (Window) Path.getComponent("/window1");
+				bdlBody.detach();
+				Executions.getCurrent().sendRedirect("");
+			} else {
+				Messagebox.show("添加数据时出错，请联系管理员！", "错误", Messagebox.OK, Messagebox.ERROR);
+			}
+		} else {
+			HashMap map = new HashMap();
+			map.put("message", sMessage);
+			Window window1 = (Window) Executions.createComponents("/rule_check.zul", null, map);
+
+			window1.doModal();
+		}
 	}
 
 	// 文件上传

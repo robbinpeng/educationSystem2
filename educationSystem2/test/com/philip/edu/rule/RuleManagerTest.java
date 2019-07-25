@@ -213,7 +213,7 @@ public class RuleManagerTest {
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("XXMC");
-		data.setValue("科研处");
+		data.setValue("中国");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("XXDM");
@@ -225,15 +225,15 @@ public class RuleManagerTest {
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("BXLX");
-		data.setValue("其他");
+		data.setValue("5");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("XXXZ");
-		data.setValue("3.0");
+		data.setValue("8");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("JBZ");
-		data.setValue("2.0");
+		data.setValue("中央其他部");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("ZGBM");
@@ -249,7 +249,7 @@ public class RuleManagerTest {
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("KBBKJYNF");
-		data.setValue("2019-08");
+		data.setValue("2023-08");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("XM");
@@ -264,7 +264,7 @@ public class RuleManagerTest {
 		data.setValue("robbin");
 		al.add(data);
 
-		ArrayList al2 = manager.rulesCheckSingleLine(21, al, 12);
+		ArrayList al2 = manager.rulesCheckSingleLine(21, al, 5);
 
 		for (int j = 0; j < al2.size(); j++) {
 			MessageInfo info = (MessageInfo) al2.get(j);

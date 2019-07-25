@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.philip.edu.basic.Constants;
+import com.philip.edu.basic.DataInfo;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
@@ -79,7 +80,8 @@ public class Rule5OutsideConstraintCheck {
 						} else {
 							String sTemp = value.toString();
 							double temp = 0;
-							if(sTemp!=null&&!"".equals(sTemp))temp = new Double(sTemp).doubleValue();
+							if (sTemp != null && !"".equals(sTemp))
+								temp = new Double(sTemp).doubleValue();
 							leftValue += temp;
 						}
 					} else if (Constants.RULE_OPERATOR.equals(type1)) {
@@ -194,7 +196,8 @@ public class Rule5OutsideConstraintCheck {
 				Object value1 = helper.getCellValue(cell);
 				String sTotal = value1.toString();
 
-				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal + "' and task_id=" + task_id;
+				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal
+						+ "' and task_id=" + task_id;
 				logger.info("sql: " + sql);
 				Session session = null;
 				ArrayList al = null;
@@ -216,33 +219,280 @@ public class Rule5OutsideConstraintCheck {
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(sum == sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (j+1) + "行的数据与汇总表关系不满足！");
+						messageList.add("第" + (j + 1) + "行的数据与汇总表关系不满足！");
 					}
 				} else if (Constants.V_GREATT.equals(sOP)) {
 					if (!(sum > sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (j+1) + "行的数据与汇总表关系不满足！");
+						messageList.add("第" + (j + 1) + "行的数据与汇总表关系不满足！");
 					}
 				} else if (Constants.V_GREATTE.equals(sOP)) {
 					if (!(sum >= sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (j+1) + "行的数据与汇总表关系不满足！");
+						messageList.add("第" + (j + 1) + "行的数据与汇总表关系不满足！");
 					}
 				} else if (Constants.V_LESST.equals(sOP)) {
 					if (!(sum < sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (j+1) + "行的数据与汇总表关系不满足！");
+						messageList.add("第" + (j + 1) + "行的数据与汇总表关系不满足！");
 					}
 				} else if (Constants.V_LESSTE.equals(sOP)) {
 					if (!(sum <= sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (j+1) + "行的数据与汇总表关系不满足！");
+						messageList.add("第" + (j + 1) + "行的数据与汇总表关系不满足！");
 					}
 				}
 
 			}
 
 		}
+		message.setMessage_info(messageList);
+
+		return message;
+	}
+
+	public MessageInfo getMessageSingleLine(ArrayList record, JSONObject obj, int form_id, int task_id) {
+		MessageInfo message = new MessageInfo();
+		ArrayList messageList = new ArrayList();
+		ArrayList rules = null;
+		int columns = 0;
+		int lines = 0;
+
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
+		// columns = helper.getExcelColumns(wb);
+		// lines = helper.getExcelLines(wb, form_id, columns);
+
+		rules = this.translateRulesSured(obj);
+
+		JSONArray tempLeft = (JSONArray) rules.get(0);
+		JSONArray tempRight = (JSONArray) rules.get(1);
+		JSONObject objOP = (JSONObject) rules.get(2);
+		String sOP = objOP.getString("operator");
+
+		// Sheet sheet = wb.getSheetAt(0);
+
+		// left sum:
+		double leftValue = 0;
+		double rightValue = 0;
+		
+		ArrayList fields = fManager.getFormFields(form_id);
+		ArrayList displayFields = new ArrayList();
+		
+		for(int k=0; k<fields.size(); k++){
+			FormField fieldTemp = (FormField)fields.get(k);
+			if(fieldTemp.getIs_hidden()=='N')displayFields.add(fieldTemp);
+		}
+
+		if (tempRight.length() == 1) {
+			for (int i = 0; i < tempLeft.length(); i++) {
+				JSONObject obj1 = (JSONObject) tempLeft.get(i);
+				String type1 = obj1.getString("type");
+				if (Constants.RULE_FORMFIELD.equals(type1)) {
+					String field_name = obj1.getString("field");
+					FormField field1 = fManager.getFieldByPhysicName(form_id, field_name);
+					
+					int column = 0;
+					for(int j=0; j<displayFields.size(); j++){
+						FormField fieldTemp = (FormField)displayFields.get(j);
+						if(fieldTemp.getPhysic_name().equals(field_name)){
+							column = j;
+							break;
+						}
+					}
+					//int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+					//Cell cell = row.getCell(column1);
+					//Object value = helper.getCellValue(cell);
+					
+					DataInfo data = (DataInfo)record.get(column);
+					
+					try{
+						double temp = Double.parseDouble(data.getValue());
+						leftValue += temp;
+					} catch (NumberFormatException e) {
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						messageList.add("该记录不是数字,不能进行比较！");
+						message.setMessage_info(messageList);
+						return message;
+					}
+				} else if (Constants.RULE_OPERATOR.equals(type1)) {
+					// do nothing.
+				}
+			}
+
+			// right:
+			JSONObject obj2 = (JSONObject) tempRight.get(0);
+			// get table:
+			String table_name = obj2.get("relateForm").toString();
+			Form form = fManager.getFormByName(Constants.USER_ID, table_name);
+			String table = form.getPhsic_name();
+			String relate_table = form.getBus_name();
+			// get field:
+			String field = obj2.get("relateField").toString();
+			FormField formField = fManager.getFieldByPhysicName(form.getId(), field);
+			String relate_field = formField.getBus_name();
+			String ruleSQL = "select * from " + table;
+
+			Session session = null;
+			ArrayList al = null;
+
+			try {
+				session = HibernateUtil.getSession();
+
+				Query query = session.createSQLQuery(ruleSQL).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+
+				al = (ArrayList) query.list();
+			} catch (HibernateException e) {
+				e.printStackTrace();
+			} finally {
+				HibernateUtil.closeSession(session);
+			}
+
+			String temp;
+			HashMap map = (HashMap) al.get(0);
+			Object value = map.get(field);
+			try {
+				temp = (String) value;
+				rightValue = Integer.parseInt(temp);
+			} catch (ClassCastException e) {
+				rightValue = ((BigInteger) value).intValue();
+			}
+			// rightValue = Integer.parseInt(value);
+
+			// compare:
+			if (Constants.V_EQUAL.equals(sOP)) {
+				if (!(leftValue == rightValue)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("汇总数据的比较不成立！");
+				}
+			} else if (Constants.V_GREATT.equals(sOP)) {
+				if (!(leftValue > rightValue)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("汇总数据的比较不成立！");
+				}
+			} else if (Constants.V_GREATTE.equals(sOP)) {
+				if (!(leftValue >= rightValue)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("汇总数据的比较不成立！");
+				}
+			} else if (Constants.V_LESST.equals(sOP)) {
+				if (!(leftValue < rightValue)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("汇总数据的比较不成立！");
+				}
+			} else if (Constants.V_LESSTE.equals(sOP)) {
+				if (!(leftValue <= rightValue)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("汇总数据的比较不成立！");
+				}
+			}
+
+			// left everyline stats:
+		} else {
+			double sum = 0;
+			double sumRight = 0;
+
+			JSONObject objLeft = (JSONObject) tempLeft.get(0);
+			String field_name = objLeft.getString("field");
+			FormField field = fManager.getFieldByPhysicName(form_id, field_name);
+			//int column = helper.getColumn2Check(wb, field.getBus_name(), columns);
+			//Cell cell = row.getCell(column);
+			
+			int column = 0;
+			for(int j=0; j<displayFields.size(); j++){
+				FormField fieldTemp = (FormField)displayFields.get(j);
+				if(fieldTemp.getPhysic_name().equals(field_name)){
+					column = j;
+					break;
+				}
+			}
+			
+			DataInfo data = (DataInfo)record.get(column);
+			
+			try{	
+				String sSum = data.getValue();
+				sum = Double.parseDouble(sSum);
+			} catch (NumberFormatException nfe){
+				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+				messageList.add("该汇总不是数字,不能进行比较！");
+				message.setMessage_info(messageList);
+				return message;
+			}
+			logger.info("left sum:" + sum);
+
+			// right:
+			JSONObject objForm = (JSONObject) tempRight.get(0);
+			JSONObject condition = (JSONObject) tempRight.get(1);
+			String form_name = objForm.getString("form");
+			Form form = fManager.getFormByName(Constants.USER_ID, form_name);
+			String table_name = form.getPhsic_name();
+			String lineName = condition.getString("sumLine");
+
+			String lineTotal = condition.getString("sumTotal");
+			FormField field1 = fManager.getFieldByPhysicName(form_id, lineTotal);
+			
+			//int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+			//cell = row.getCell(column1);
+			//Object value1 = helper.getCellValue(cell);
+			column = 0;
+			for(int j=0; j<displayFields.size(); j++){
+				FormField fieldTemp = (FormField)displayFields.get(j);
+				if(fieldTemp.getPhysic_name().equals(field1.getPhysic_name())){
+					column = j;
+					break;
+				}
+			}
+			DataInfo data1 = (DataInfo)record.get(column);
+			String sTotal = data1.getValue();
+
+			String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal + "' and task_id="
+					+ task_id;
+			logger.info("sql: " + sql);
+			Session session = null;
+			ArrayList al = null;
+
+			try {
+				session = HibernateUtil.getSession();
+
+				Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+
+				al = (ArrayList) query.list();
+			} catch (HibernateException e) {
+				e.printStackTrace();
+			} finally {
+				HibernateUtil.closeSession(session);
+			}
+
+			sumRight = al.size();
+			logger.info("right sume:" + sumRight);
+			if (Constants.V_EQUAL.equals(sOP)) {
+				if (!(sum == sumRight)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("该记录数据与汇总表关系不满足！");
+				}
+			} else if (Constants.V_GREATT.equals(sOP)) {
+				if (!(sum > sumRight)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("该记录数据与汇总表关系不满足！");
+				}
+			} else if (Constants.V_GREATTE.equals(sOP)) {
+				if (!(sum >= sumRight)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("该记录数据与汇总表关系不满足！");
+				}
+			} else if (Constants.V_LESST.equals(sOP)) {
+				if (!(sum < sumRight)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("该记录数据与汇总表关系不满足！");
+				}
+			} else if (Constants.V_LESSTE.equals(sOP)) {
+				if (!(sum <= sumRight)) {
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					messageList.add("该记录数据与汇总表关系不满足！");
+				}
+			}
+
+		}
+
 		message.setMessage_info(messageList);
 
 		return message;
