@@ -18,6 +18,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.zkoss.zk.ui.util.Clients;
 
 import com.philip.edu.basic.Form;
@@ -32,7 +36,7 @@ public class ExcelManager {
 	public static boolean generateTemplate(int form_id, String file_path){
 		boolean isSuccess = false;
 		
-		SXSSFWorkbook wb = new SXSSFWorkbook();
+		XSSFWorkbook wb = new XSSFWorkbook();
 		
 		Form form = fManager.getFormById(form_id);
 		ArrayList fields = fManager.getFormFields(form_id);
@@ -45,9 +49,9 @@ public class ExcelManager {
 			al.add(field);
 		}
 		
-		Sheet sheet = wb.createSheet(form.getBus_name());
+		XSSFSheet sheet = wb.createSheet(form.getBus_name());
 		
-		Row row = sheet.createRow(0);
+		XSSFRow row = sheet.createRow(0);
 		CellStyle style = wb.createCellStyle();
 		style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -59,7 +63,7 @@ public class ExcelManager {
 		for(int i=0; i<al.size(); i++){
 			FormField field = (FormField) al.get(i);
 			
-			Cell cell = row.createCell(i);
+			XSSFCell cell = row.createCell(i);
 			cell.setCellValue(field.getBus_name());
 			cell.setCellStyle(style);
 		}
