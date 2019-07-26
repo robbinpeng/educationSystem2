@@ -10,12 +10,11 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
@@ -32,20 +31,20 @@ public class UploadManager {
 	private static ExcelHelper excelHelper = new ExcelHelper();
 	private static UploadDAO dao = new UploadDAO();
 	
-	public boolean uploadData(Workbook wb, int form_id, int user_id, int task_id){
+	public boolean uploadData(String[][] data, int form_id, int user_id, int task_id){
 		boolean isSuccess = false;
 		
 		// check format is right:
-		int excelColumns = excelHelper.getExcelColumns(wb);
-		int lines = excelHelper.getExcelLines(wb, form_id, excelColumns);
+		int excelColumns = data[0].length;
+		int lines = data.length;
 		
 		// get table_name by form_id:
 		Form form = formManager.getFormById(form_id);
 		String table_name = form.getPhsic_name();
 		
 		// cycle Caption to get all the fields, set to new CaptionList.
-		Sheet sheet = wb.getSheetAt(0);
-		Row row = sheet.getRow(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
+		//SXSSFRow row = sheet.getRow(0);
 		ArrayList captionList = new ArrayList();
 		
 		ArrayList formFields = formManager.getFormFields(form_id);
@@ -57,11 +56,12 @@ public class UploadManager {
 		}
 		
 		for(int i=0; i<excelColumns; i++){
-			Cell cell = row.getCell(i);
+			//SXSSFCell cell = row.getCell(i);
+			String cell = data[0][i];
 			
 			if(cell==null)continue;
-			Object value = excelHelper.getCellValue(cell);
-			String field_name = value.toString();
+			//Object value = excelHelper.getCellValue(cell);
+			String field_name = cell;
 			FormField captionField = (FormField)map.get(field_name);
 			captionList.add(captionField);
 		}
@@ -118,19 +118,20 @@ public class UploadManager {
 			sql2.append("'" + school.getSchool_name() + "', ");
 			
 			
-			row = sheet.getRow(k);
+			//row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){
 				logger.info("l:" + l);
 				FormField field1 = (FormField) captionList.get(l);
 				String fieldName = field1.getPhysic_name();
-				Cell cell = row.getCell(l);	
+				//SXSSFCell cell = row.getCell(l);
+				String cell = data[k][l];
 				if(cell==null)continue;
 				
 				if(l==captionList.size()-1){
 					sql1.append(fieldName + ")");
 					String testValue="";
-					Object value = excelHelper.getCellValue(cell);
-					testValue = value.toString();
+					//Object value = excelHelper.getCellValue(cell);
+					testValue = cell;
 					
 					if(field1.getDis_method()==Constants.V_DISPLAY_MULTIPLE_COMBOBOX){
 						if(testValue.charAt(0)=='[' && testValue.charAt(testValue.length()-1)==']'){
@@ -142,8 +143,8 @@ public class UploadManager {
 				} else {
 					sql1.append(fieldName + ", ");
 					String testValue="";
-					Object value = excelHelper.getCellValue(cell);
-					testValue = value.toString();
+					//Object value = excelHelper.getCellValue(cell);
+					testValue = cell;
 					
 					if(field1.getDis_method()==Constants.V_DISPLAY_MULTIPLE_COMBOBOX){
 						if(testValue.charAt(0)=='[' && testValue.charAt(testValue.length()-1)==']'){

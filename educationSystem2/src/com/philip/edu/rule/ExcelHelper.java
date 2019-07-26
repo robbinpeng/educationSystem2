@@ -1,43 +1,43 @@
 package com.philip.edu.rule;
 
 import java.util.List;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.zkoss.zk.ui.Executions;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.excel.RapidExcelHelper;
 
 public class ExcelHelper {
 	private Logger logger = Logger.getLogger(ExcelHelper.class);
 
 	private static FormManager manager = new FormManager();
 
-	public boolean is_format_right(Workbook wb, int form_id) {
+	public boolean is_format_right(String[][] data, int form_id) {
 		logger.info("begin to check whether excel format is right.");
 		List al2 = new ArrayList();
 
 		boolean is_right = true;
 
-		Sheet sheet = wb.getSheetAt(0);
-
 		// 0. make sure columns are the same:
 		int excelColumns = 0;
 		int tableColumns = 0;
+		int excelLines = 0;
 
-		excelColumns = getExcelColumns(wb);
-		List al1 = manager.getFormFields(form_id);
-
-		Row row = sheet.getRow(0);
+		excelColumns = data[0].length;
+		excelLines = data.length;
+		List al1 = manager.getFormFields(form_id);	
 
 		int index = 0;
 		for (int i = 0; i < al1.size(); i++) {
@@ -47,8 +47,7 @@ public class ExcelHelper {
 				continue;
 			}
 			if (temp.getIs_hidden() == 'N') {
-				Cell cell = row.getCell(index++);
-				String content = cell.getStringCellValue();
+				String content = data[0][index++];
 				if (!content.equals(temp.getBus_name())) {
 					logger.info("" + content + "²»·û" + temp.getBus_name());
 					return false;
@@ -67,72 +66,27 @@ public class ExcelHelper {
 		return is_right;
 	}
 
-	public int getExcelColumns(Workbook wb) {
-		logger.info("to count the excel columns");
+	public int getColumn2Check(String[][] data, String bus_name) {
+		logger.info("to decide which column to check");
+		int column = 0;
 
-		int excelColumns = 0;
-
-		Sheet sheet = wb.getSheetAt(0);
-		Row row = sheet.getRow(0);
-		int i = 1;
-		while (i > 0) {
-			Cell cell = row.getCell(i - 1);
+		for (int i = 0; i < data[0].length; i++) {
+			String cell = data[0][i];
 
 			if (cell == null) {
+				column = i;
 				break;
 			}
-
-			Object cellValue = this.getCellValue(cell);
-			if (cellValue == null || "".equals(cellValue.toString()))
+			
+			if (cell != null && bus_name.trim().equals(cell)) {
+				column = i;
 				break;
-			i++;
-		}
-		excelColumns = i - 1;
-
-		logger.info("the excel has " + excelColumns + " columns!");
-
-		return excelColumns;
-	}
-
-	public int getExcelLines(Workbook wb, int form_id, int columns) {
-		logger.info("to count the excel lines");
-		int lines = 0;
-		int index = 0;
-
-		Sheet sheet = wb.getSheetAt(0);
-		Row row0 = sheet.getRow(0);
-		boolean isEnd = false;
-
-		while (index + 1 > 0) {
-			Row row1 = sheet.getRow(index);
-			if (row1 == null)
-				break;
-
-			for (int i = 0; i < columns; i++) {
-				Cell cell1 = row1.getCell(i);
-				if (cell1 == null) {
-					String title = row0.getCell(i).getStringCellValue();
-					FormField field = manager.getFieldByBusName(form_id, title);
-					if (field.getIs_required() == 'N') {
-						continue;
-					} else {
-						isEnd = true;
-						break;
-					}
-				}
 			}
-			if (isEnd)
-				break;
-			index++;
 		}
-		lines = index;
 
-		logger.info("the excel has " + lines + " lines");
-
-		return lines;
-
+		return column;
 	}
-
+	
 	public Object getCellValue(Cell cell) {
 		Object cellValue = null;
 
@@ -156,29 +110,5 @@ public class ExcelHelper {
 			cellValue = "";
 		}
 		return cellValue;
-	}
-
-	public int getColumn2Check(Workbook wb, String bus_name, int columnTotal) {
-		logger.info("to decide which column to check");
-		int column = 0;
-
-		Sheet sheet = wb.getSheetAt(0);
-		Row row = sheet.getRow(0);
-
-		for (int i = 0; i < columnTotal; i++) {
-			Cell cell = row.getCell(i);
-
-			if (cell == null) {
-				column = i;
-				break;
-			}
-			Object value = this.getCellValue(cell);
-			if (cell != null && bus_name.trim().equals(value.toString())) {
-				column = i;
-				break;
-			}
-		}
-
-		return column;
 	}
 }

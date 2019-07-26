@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -34,23 +38,25 @@ public class InitialDatabaseTool {
 	
 	public void createSchoolInfo() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/全国高校名称目录.xls");
-			wb = WorkbookFactory.create(in);
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
 
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			Sheet sheet = wb.getSheetAt(0);
+			SXSSFSheet sheet = wb.getSheetAt(0);
 			
 			for(int i=1; i<2632; i++){
-				Row row = sheet.getRow(i);
+				SXSSFRow row = sheet.getRow(i);
 				
-				Cell cell = row.getCell(1);
+				SXSSFCell cell = row.getCell(1);
 				if(cell==null)break;
 				String name = cell.getStringCellValue();
 				
@@ -91,6 +97,9 @@ public class InitialDatabaseTool {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession(session);
 		}
@@ -99,23 +108,25 @@ public class InitialDatabaseTool {
 	
 	public void updateDis_method() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/dis_method.xls");
-			wb = WorkbookFactory.create(in);
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
 
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 			
-			Sheet sheet = wb.getSheetAt(1);
+			SXSSFSheet sheet = wb.getSheetAt(1);
 			
 			for(int i=1; i<1245; i++){
-				Row row = sheet.getRow(i);
+				SXSSFRow row = sheet.getRow(i);
 				
-				Cell cell = row.getCell(3);
+				SXSSFCell cell = row.getCell(3);
 				double dTable = cell.getNumericCellValue();
 				int table_id = new Double(dTable).intValue();
 				
@@ -177,6 +188,9 @@ public class InitialDatabaseTool {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession(session);
 		}
@@ -184,22 +198,24 @@ public class InitialDatabaseTool {
 	
 	public void updateDict() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/tool.xls");
-			wb = WorkbookFactory.create(in);
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
 
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			Sheet sheet = wb.getSheetAt(0);
+			SXSSFSheet sheet = wb.getSheetAt(0);
 
 			for(int i=1; i<1032; i++){
-				Row row = sheet.getRow(i);
-				Cell cell = row.getCell(21);
+				SXSSFRow row = sheet.getRow(i);
+				SXSSFCell cell = row.getCell(21);
 				
 				double form_id = row.getCell(2).getNumericCellValue();
 				String physic_name = row.getCell(12).getStringCellValue();
@@ -228,6 +244,9 @@ public class InitialDatabaseTool {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession(session);
 		}
@@ -235,18 +254,20 @@ public class InitialDatabaseTool {
 
 	public void updateFormat() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/tool.xls");
-			wb = WorkbookFactory.create(in);
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
 
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			Sheet sheet = wb.getSheetAt(0);
+			SXSSFSheet sheet = wb.getSheetAt(0);
 
 			for (int j = 1; j < 1032; j++) {
 				Row row = sheet.getRow(j);
@@ -317,6 +338,9 @@ public class InitialDatabaseTool {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession(session);
 		}
@@ -324,21 +348,23 @@ public class InitialDatabaseTool {
 
 	public void addDirectoryData() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/普通高等学校本科专业目录.xls");
-			wb = WorkbookFactory.create(in);
-
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
+			
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			Sheet sheet = wb.getSheetAt(0);
+			SXSSFSheet sheet = wb.getSheetAt(0);
 
 			for (int i = 1; i < 669; i++) {
-				Row row = sheet.getRow(i);
+				SXSSFRow row = sheet.getRow(i);
 
 				String sql = "insert into TBL_PTGDXXBKZYML( CREATOR, CREATE_TIME, LAST_OPERATOR, LAST_OPERATE_TIME, STATUS, ZYDM, ZYMC, DMBB, XKML) values (?,?,?,?,?,?,?,?,?)";
 
@@ -351,7 +377,7 @@ public class InitialDatabaseTool {
 
 				System.out.println(i);
 
-				Cell cell = row.getCell(0);
+				SXSSFCell cell = row.getCell(0);
 				String value = (String) helper.getCellValue(cell);
 				query.setParameter(6, value);
 
@@ -381,6 +407,9 @@ public class InitialDatabaseTool {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession(session);
 		}
@@ -388,26 +417,28 @@ public class InitialDatabaseTool {
 
 	public void initialDatabaseSetup() {
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		Session session = null;
 		ExcelHelper helper = new ExcelHelper();
 
 		try {
 			in = new FileInputStream("D:/Develop/education/tool.xls");
-			wb = WorkbookFactory.create(in);
+			OPCPackage pkg = OPCPackage.open(in);
+			XSSFWorkbook xssfwb = new XSSFWorkbook(pkg);
+			wb = new SXSSFWorkbook(xssfwb, 100);
 
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			Sheet sheet = wb.getSheetAt(0);
+			SXSSFSheet sheet = wb.getSheetAt(0);
 
 			for (int j = 1; j < 1032; j++) {
-				Row row = sheet.getRow(j);
+				SXSSFRow row = sheet.getRow(j);
 
 				FormField field = new FormField();
 				field.setBus_name(row.getCell(13).getStringCellValue());
 				field.setPhysic_name(row.getCell(12).getStringCellValue());
-				Cell cell = row.getCell(20);
+				SXSSFCell cell = row.getCell(20);
 				String temp = String.valueOf(cell.getNumericCellValue());
 				if (temp.charAt(0) == '0')
 					field.setIs_required('Y');
@@ -466,6 +497,9 @@ public class InitialDatabaseTool {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {

@@ -3,11 +3,10 @@ package com.philip.edu.rule;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,7 +21,7 @@ public class Rule1ConstraintCheck {
 	private static FormManager fManager = new FormManager();
 	private static ExcelHelper helper = new ExcelHelper();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject obj, int form_id) {
 		MessageInfo message = new MessageInfo();
 		ArrayList messageList = new ArrayList();
 		ArrayList rules = null;
@@ -35,8 +34,8 @@ public class Rule1ConstraintCheck {
 		String conValue = "";
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
-		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb, form_id, columns);
+		columns = data[0].length;
+		lines = data.length;
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) obj.get("rules");
@@ -46,7 +45,7 @@ public class Rule1ConstraintCheck {
 			isCondition = true;
 			String physic_name = preObj.getString("field");
 			FormField field = fManager.getFieldByPhysicName(form_id, physic_name);
-			conditionColumn = helper.getColumn2Check(wb, field.getBus_name(), columns);
+			conditionColumn = helper.getColumn2Check(data, field.getBus_name());
 			conOperator = preObj.getString("operator");
 			conValue = preObj.getString("value");
 		}
@@ -57,11 +56,11 @@ public class Rule1ConstraintCheck {
 
 		if (method.equals("2")) {
 			// continue compare:
-			message = this.continueCompare(rules, form_id, wb, columns, lines, isCondition, conditionColumn, conValue,
+			message = this.continueCompare(rules, form_id, data, columns, lines, isCondition, conditionColumn, conValue,
 					conOperator);
 		} else if (method.equals("1")) {
 			// 2 side compare:
-			message = this.compare2sides(rules, form_id, wb, columns, lines, isCondition, conditionColumn, conValue,
+			message = this.compare2sides(rules, form_id, data, columns, lines, isCondition, conditionColumn, conValue,
 					conOperator);
 		}
 
@@ -137,7 +136,7 @@ public class Rule1ConstraintCheck {
 		return message;
 	}
 
-	public MessageInfo continueCompare(ArrayList rules, int form_id, Workbook wb, int columns, int lines,
+	public MessageInfo continueCompare(ArrayList rules, int form_id,String[][] data, int columns, int lines,
 			boolean isCondition, int conditionColumn, String conValue, String conOperator) {
 		ArrayList messageList = new ArrayList();
 		MessageInfo message = new MessageInfo();
@@ -145,6 +144,8 @@ public class Rule1ConstraintCheck {
 
 		ArrayList arrayNum = (ArrayList) rules.get(1);
 		JSONObject ob = (JSONObject) rules.get(2);
+		
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		for (int i = 0; i < arrayNum.size(); i++) {
 			LineInfo line = new LineInfo();
@@ -154,7 +155,7 @@ public class Rule1ConstraintCheck {
 				String name1 = obj1.getString("field");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
 				// if(field1.getIs_required()=='N')continue;
-				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+				int column1 = helper.getColumn2Check(data, field1.getBus_name());
 				line.setColumn(column1);
 				line.setType(Constants.LINE_TYPE_FIELD_NAME);
 			} else if (Constants.RULE_TEXTBOX.equals(type)) {
@@ -167,19 +168,19 @@ public class Rule1ConstraintCheck {
 
 		String sOP = ob.getString("operator");
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 		// cycle everyLine:
 		for (int i = 1; i < lines; i++) {
 
-			Row row = sheet.getRow(i);
+			//SXSSFRow row = sheet.getRow(i);
 			// 0。precondition:
 			if (isCondition) {
-				Cell conCell = row.getCell(conditionColumn);
-				if (conCell == null)
+				//SXSSFCell conCell = row.getCell(conditionColumn);
+				String value = data[i][conditionColumn];
+				if (value == null)
 					continue;
 				String testValue = "";
-				Object value = helper.getCellValue(conCell);
-				testValue = value.toString();
+				testValue = value;
 
 				// operator:
 				if (Constants.V_EQUAL.equals(conOperator)) {
@@ -211,6 +212,7 @@ public class Rule1ConstraintCheck {
 					} catch (NumberFormatException e) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						messageList.add("第" + (i + 1) + "行的条件不是数字,不能进行比较！！");
+						break;
 					}
 
 				}
@@ -222,30 +224,32 @@ public class Rule1ConstraintCheck {
 				String value2 = "";
 				LineInfo line1 = (LineInfo) valueList.get(j - 1);
 				LineInfo line2 = (LineInfo) valueList.get(j);
-				Cell cell1 = null;
+				SXSSFCell cell1 = null;
 				Object o1 = null;
-				Cell cell2 = null;
+				SXSSFCell cell2 = null;
 				Object o2 = null;
 				if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
-					cell1 = row.getCell(line1.getColumn());
-					o1 = helper.getCellValue(cell1);
+					//cell1 = row.getCell(line1.getColumn());
+					value1 = data[i][line1.getColumn()];
+					//o1 = helper.getCellValue(cell1);
 					// value1 = o1.toString();
 				} else {
 					value1 = line1.getValue();
 				}
 				if (line2.getType() == Constants.LINE_TYPE_FIELD_NAME) {
-					cell2 = row.getCell(line2.getColumn());
-					o2 = helper.getCellValue(cell2);
+					//cell2 = row.getCell(line2.getColumn());
+					value2 = data[i][line2.getColumn()];
+					//o2 = helper.getCellValue(cell2);
 					// value2 = o2.toString();
 				} else {
 					value2 = line2.getValue();
 				}
 				if (sOP.equals(Constants.V_EQUAL)) {
 					if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
-						value1 = o1.toString();
+						value1 = value1;
 					}
 					if (line2.getType() == Constants.LINE_TYPE_FIELD_NAME) {
-						value2 = o2.toString();
+						value2 = value2;
 					}
 					if (!value1.equals(value2)) {
 						messageList.add("第" + (i + 1) + "行的记录不满足等式！");
@@ -255,33 +259,15 @@ public class Rule1ConstraintCheck {
 				} else {
 					double dV1 = 0;
 					double dV2 = 0;
-					if (o1 != null) {
-						try {
-							dV1 = (double) o1;
-						} catch (ClassCastException e) {
-							try {
-								dV1 = ((Integer) o1).doubleValue();
-							} catch (ClassCastException e1) {
-								dV1 = Double.parseDouble(o1.toString());
-							}
-						}
-					} else {
-						dV1 = Double.parseDouble(value1);
+					try {
+					dV1 = Double.parseDouble(value1);
+					dV2 = Double.parseDouble(value2);
+					} catch (NumberFormatException nfe) {
+						messageList.add("第" + (i + 1) + "行的记录不是数字，不能进行比较！");
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						break;
 					}
-					if (o2 != null) {
-						try {
-							dV2 = (double) o2;
-						} catch (ClassCastException e) {
-							try {
-								dV2 = ((Integer) o2).doubleValue();
-							} catch (ClassCastException e1) {
-								dV2 = Double.parseDouble(o2.toString());
-							}
-						}
-					} else {
-						logger.info("" + value2);
-						dV2 = Double.parseDouble(value2);
-					}
+						
 					if (sOP.equals(Constants.V_LESST)) {
 						if (!(dV1 < dV2)) {
 							messageList.add("第" + (i + 1) + "行的记录不满足不等式！");
@@ -409,9 +395,9 @@ public class Rule1ConstraintCheck {
 			String value2 = "";
 			LineInfo line1 = (LineInfo) valueList.get(j - 1);
 			LineInfo line2 = (LineInfo) valueList.get(j);
-			Cell cell1 = null;
+			SXSSFCell cell1 = null;
 			Object o1 = null;
-			Cell cell2 = null;
+			SXSSFCell cell2 = null;
 			Object o2 = null;
 			if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
 				logger.info("line1.getColumn=" + line1.getColumn());
@@ -493,11 +479,13 @@ public class Rule1ConstraintCheck {
 		return message;
 	}
 
-	public MessageInfo compare2sides(ArrayList rules, int form_id, Workbook wb, int columns, int lines,
+	public MessageInfo compare2sides(ArrayList rules, int form_id,String[][] data, int columns, int lines,
 			boolean isCondition, int conditionColumn, String conValue, String conOperator) {
 
 		ArrayList messageList = new ArrayList();
 		MessageInfo message = new MessageInfo();
+		
+		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		ArrayList arrayLeft = new ArrayList();
 		ArrayList arrayRight = new ArrayList();
@@ -516,7 +504,7 @@ public class Rule1ConstraintCheck {
 				line.setType(Constants.LINE_TYPE_FIELD_NAME);
 				String name1 = obj1.getString("field");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
-				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+				int column1 = helper.getColumn2Check(data, field1.getBus_name());
 				line.setColumn(column1);
 				String value1 = obj1.getString("field");
 				line.setValue(value1);
@@ -542,7 +530,7 @@ public class Rule1ConstraintCheck {
 				line.setType(Constants.LINE_TYPE_FIELD_NAME);
 				String name1 = obj1.getString("field");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, name1);
-				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
+				int column1 = helper.getColumn2Check(data, field1.getBus_name());
 				line.setColumn(column1);
 				String value1 = obj1.getString("field");
 				line.setValue(value1);
@@ -560,20 +548,20 @@ public class Rule1ConstraintCheck {
 			}
 		}
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 
 		// cycle everyLine:
 		for (int i = 1; i < lines; i++) {
 
-			Row row = sheet.getRow(i);
+			//SXSSFRow row = sheet.getRow(i);
 			// 0。precondition:
 			if (isCondition) {
-				Cell conCell = row.getCell(conditionColumn);
+				//SXSSFCell conCell = row.getCell(conditionColumn);
+				String conCell = data[i][conditionColumn];
 				if (conCell == null)
 					continue;
 				String testValue = "";
-				Object value = helper.getCellValue(conCell);
-				testValue = value.toString();
+				testValue = conCell;
 
 				// operator:
 				if (Constants.V_EQUAL.equals(conOperator)) {
@@ -605,6 +593,7 @@ public class Rule1ConstraintCheck {
 					} catch (NumberFormatException e) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						messageList.add("第" + (i + 1) + "行的条件不是数字,不能进行比较！");
+						break;
 					}
 
 				}
@@ -622,12 +611,12 @@ public class Rule1ConstraintCheck {
 				try {
 					switch (line.getType()) {
 					case Constants.LINE_TYPE_FIELD_NAME:
-						Cell cell = row.getCell(line.getColumn());
+						//SXSSFCell cell = row.getCell(line.getColumn());
+						String cell = data[i][line.getColumn()];
 						if (cell == null)
 							continue;
 						String tempValue = "";
-						Object value = helper.getCellValue(cell);
-						tempValue = value.toString();
+						tempValue = cell;
 						if (arrayLeft.size() == 1) {
 							leftString = tempValue;
 							try {
@@ -679,9 +668,11 @@ public class Rule1ConstraintCheck {
 						break;
 					}
 				} catch (NumberFormatException e) {
-					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-					messageList.add("第" + (i + 1) + "行的内容不是数字,不能进行比较！");
-					isNum = false;
+					if(isNum){
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						messageList.add("第" + (i + 1) + "行的内容不是数字,不能进行比较！");
+						isNum = false;
+					}
 					break;
 				}
 			}
@@ -693,12 +684,13 @@ public class Rule1ConstraintCheck {
 				try {
 					switch (line.getType()) {
 					case Constants.LINE_TYPE_FIELD_NAME:
-						Cell cell = row.getCell(line.getColumn());
+						//SXSSFCell cell = row.getCell(line.getColumn());
+						String cell = data[i][line.getColumn()];
 						if (cell == null)
 							continue;
 						String tempValue = "";
-						Object value = helper.getCellValue(cell);
-						tempValue = value.toString();
+						//Object value = helper.getCellValue(cell);
+						tempValue = cell;
 						if (arrayRight.size() == 1) {
 							rightString = tempValue;
 							try {
@@ -750,9 +742,11 @@ public class Rule1ConstraintCheck {
 						break;
 					}
 				} catch (NumberFormatException e) {
-					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-					messageList.add("第" + (i + 1) + "行的内容不是数字,不能进行比较！");
-					isNum = false;
+					if(isNum){
+						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+						messageList.add("第" + (i + 1) + "行的内容不是数字,不能进行比较！");
+						isNum = false;
+					}
 					break;
 				}
 			}

@@ -8,14 +8,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.util.Log;
 import org.junit.Test;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.DataInfo;
+import com.philip.edu.excel.RapidExcelHelper;
 
 public class RuleManagerTest {
 
@@ -25,11 +27,55 @@ public class RuleManagerTest {
 	public void testRulesCheck() {
 		// do check process:
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		RuleManager engine = new RuleManager();
+		RapidExcelHelper rapidHelper = new RapidExcelHelper();
 		MessageInfo message = null;
 		ArrayList list = null;
 
+		try {
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+			rapidHelper.processFirstSheetStream(in);
+			int excelColumns = rapidHelper.getColumns();
+			int excelLines = rapidHelper.getLines();
+			
+			String[][] data = new String[excelLines][excelColumns];
+			ArrayList all = rapidHelper.getAll();
+			for(int i=0; i<excelLines; i++){
+				ArrayList line = (ArrayList)all.get(i);
+				for(int j=0; j<excelColumns; j++){
+					String cell = (String)line.get(j);
+					data[i][j] = cell;
+				}
+			}
+			
+			rapidHelper.refresh();
+			
+			ArrayList al2 = engine.rulesCheck(21, data, 5);
+			
+			for (int j = 0; j < al2.size(); j++) {
+				MessageInfo info = (MessageInfo) al2.get(j);
+
+				if (info == null) continue;
+				if (info.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+				} else {
+					logger.info(info.getFail_information());
+					ArrayList al1 = info.getMessage_info();
+					for (int i = 0; i < al1.size(); i++) {
+						// System.out.println(al.get(i).toString());
+						logger.info(al1.get(i).toString());
+					}
+				}
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		/*
 		 * try { in = new FileInputStream("D:/Develop/education/test/2-7.xls");
 		 * wb = WorkbookFactory.create(in);
@@ -112,7 +158,7 @@ public class RuleManagerTest {
 		data.setValue("robbin");
 		al.add(data);
 
-		MessageInfo info = manager.textFormatSingleCheck(21, al);
+		/*MessageInfo info = manager.textFormatSingleCheck(21, al);
 
 		if (info.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 		} else {
@@ -124,6 +170,7 @@ public class RuleManagerTest {
 		}
 
 		assertNotEquals(info.getMessage_info().size(), 0);
+		*/
 	}
 
 	@Test
@@ -188,7 +235,7 @@ public class RuleManagerTest {
 		data.setValue("robbin");
 		al.add(data);
 
-		MessageInfo info = manager.DictionCheckSingleLine(21, al);
+		/*MessageInfo info = manager.DictionCheckSingleLine(21, al);
 
 		if (info.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 		} else {
@@ -200,6 +247,7 @@ public class RuleManagerTest {
 		}
 
 		assertNotEquals(info.getMessage_info().size(), 0);
+		*/
 	}
 
 	@Test
@@ -264,7 +312,7 @@ public class RuleManagerTest {
 		data.setValue("robbin");
 		al.add(data);
 
-		ArrayList al2 = manager.rulesCheckSingleLine(21, al, 5);
+		/*ArrayList al2 = manager.rulesCheckSingleLine(21, al, 5);
 
 		for (int j = 0; j < al2.size(); j++) {
 			MessageInfo info = (MessageInfo) al2.get(j);
@@ -279,20 +327,36 @@ public class RuleManagerTest {
 			}
 		}
 
-		assertNotEquals(al2.size(), 0);
+		assertNotEquals(al2.size(), 0);*/
 	}
 
 	@Test
 	public void testDictionCheck() {
 		boolean test = true;
 		RuleManager manager = new RuleManager();
+		RapidExcelHelper rapidHelper = new RapidExcelHelper();
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xls");
-			wb = WorkbookFactory.create(in);
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+			rapidHelper.processFirstSheetStream(in);
+			int excelColumns = rapidHelper.getColumns();
+			int excelLines = rapidHelper.getLines();
+			
+			System.out.println("first lines: " + excelLines);
+			
+			String[][] data = new String[excelLines][excelColumns];
+			ArrayList all = rapidHelper.getAll();
+			for(int i=0; i<excelLines; i++){
+				ArrayList line = (ArrayList)all.get(i);
+				for(int j=0; j<excelColumns; j++){
+					String cell = (String)line.get(j);
+					data[i][j] = cell;
+				}
+			}	
+			rapidHelper.refresh();
 
-			MessageInfo message = manager.DictionCheck(22, wb);
+			MessageInfo message = manager.DictionCheck(21, data);
 			if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 
 			} else {
@@ -305,10 +369,13 @@ public class RuleManagerTest {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -330,13 +397,29 @@ public class RuleManagerTest {
 	public void testTextFormat() {
 		RuleManager manager = new RuleManager();
 		FileInputStream in = null;
-		Workbook wb = null;
+		SXSSFWorkbook wb = null;
+		RapidExcelHelper rapidHelper = new RapidExcelHelper();
 
 		try {
-			in = new FileInputStream("D:/Develop/education/test/2-7.xls");
-			wb = WorkbookFactory.create(in);
+			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+			rapidHelper.processFirstSheetStream(in);
+			int excelColumns = rapidHelper.getColumns();
+			int excelLines = rapidHelper.getLines();
+			
+			System.out.println("lines: " + excelLines);
+			
+			String[][] data = new String[excelLines][excelColumns];
+			ArrayList all = rapidHelper.getAll();
+			for(int i=0; i<excelLines; i++){
+				ArrayList line = (ArrayList)all.get(i);
+				for(int j=0; j<excelColumns; j++){
+					String cell = (String)line.get(j);
+					data[i][j] = cell;
+				}
+			}	
+			rapidHelper.refresh();
 
-			MessageInfo message = manager.textFormatCheck(40, wb);
+			MessageInfo message = manager.textFormatCheck(21, data);
 			if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 
 			} else {
@@ -349,10 +432,13 @@ public class RuleManagerTest {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

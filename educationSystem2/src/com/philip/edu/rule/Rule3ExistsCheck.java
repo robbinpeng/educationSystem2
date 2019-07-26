@@ -3,10 +3,10 @@ package com.philip.edu.rule;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -25,7 +25,7 @@ public class Rule3ExistsCheck {
 	private static FormManager fManager = new FormManager();
 	private static ExcelHelper helper = new ExcelHelper();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id, int task_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject obj, int form_id, int task_id) {
 		MessageInfo message = new MessageInfo();
 		int columns = 0;
 		int lines = 0;
@@ -35,8 +35,8 @@ public class Rule3ExistsCheck {
 		String conValue = null;
 		ArrayList messageList = new ArrayList();
 
-		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb, form_id, columns);
+		columns = data[0].length;
+		lines = data.length;
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
@@ -48,7 +48,7 @@ public class Rule3ExistsCheck {
 			isCondition = true;
 			String physic_name = preObj.getString("field");
 			FormField field = fManager.getFieldByPhysicName(form_id, physic_name);
-			conditionColumn = helper.getColumn2Check(wb, field.getBus_name(), columns);
+			conditionColumn = helper.getColumn2Check(data, field.getBus_name());
 			conOperator = preObj.getString("operator");
 			conValue = preObj.getString("value");
 		}
@@ -56,7 +56,7 @@ public class Rule3ExistsCheck {
 		// how many fields:
 		ArrayList checkList = null;
 		try {
-			checkList = this.translateRules(obj, form_id, isCondition, wb);
+			checkList = this.translateRules(obj, form_id, isCondition, data);
 		} catch (BadRulesException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -65,19 +65,20 @@ public class Rule3ExistsCheck {
 			message.setMessage_type(Constants.RULECHECK_MESSAGE_NOT_IMPLEMENT);
 		}
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 		// cycle everyLine:
 		for (int i = 1; i < lines; i++) {
 
-			Row row = sheet.getRow(i);
+			//SXSSFRow row = sheet.getRow(i);
 			// 0¡£precondition:
 			if (isCondition) {
-				Cell conCell = row.getCell(conditionColumn);
-				if (conCell == null)
+				//SXSSFCell conCell = row.getCell(conditionColumn);
+				String cValue = data[i][conditionColumn];
+				if (cValue == null)
 					continue;
 				String testValue = "";
-				Object value = helper.getCellValue(conCell);
-				testValue = value.toString();
+				//Object value = helper.getCellValue(conCell);
+				testValue = cValue;
 
 				// operator:
 				if (Constants.V_EQUAL.equals(conOperator)) {
@@ -126,9 +127,10 @@ public class Rule3ExistsCheck {
 				for (int j = 0; j < al.size(); j++) {
 					SearchInfo info = (SearchInfo) al.get(j);
 
-					Cell cell = row.getCell(info.getField1Column());
-					Object o = helper.getCellValue(cell);
-					leftValue = o.toString();
+					//SXSSFCell cell = row.getCell(info.getField1Column());
+					String cellValue = data[i][info.getField1Column()];
+					//Object o = helper.getCellValue(cell);
+					leftValue = cellValue;
 					Query query = null;
 
 					try {
@@ -174,12 +176,14 @@ public class Rule3ExistsCheck {
 				for (int j = 0; j < al.size(); j++) {
 					SearchInfo info = (SearchInfo) al.get(j);
 
-					Cell cell1 = row.getCell(info.getField1Column());
-					Object o1 = helper.getCellValue(cell1);
-					leftValue1 = o1.toString();
-					Cell cell2 = row.getCell(info.getField2Column());
-					Object o2 = helper.getCellValue(cell2);
-					leftValue2 = o2.toString();
+					//SXSSFCell cell1 = row.getCell(info.getField1Column());
+					//Object o1 = helper.getCellValue(cell1);
+					String cellValue1 = data[i][info.getField1Column()];
+					leftValue1 = cellValue1;
+					//SXSSFCell cell2 = row.getCell(info.getField2Column());
+					//Object o2 = helper.getCellValue(cell2);
+					String cellValue2 = data[i][info.getField2Column()];
+					leftValue2 = cellValue2;
 
 					try {
 						session = HibernateUtil.getSession();
@@ -554,7 +558,7 @@ public class Rule3ExistsCheck {
 		return al;
 	}
 
-	public ArrayList translateRules(JSONObject obj, int form_id, boolean isCondition, Workbook wb)
+	public ArrayList translateRules(JSONObject obj, int form_id, boolean isCondition, String[][] data)
 			throws BadRulesException {
 		ArrayList al = new ArrayList();
 		int start = 0;
@@ -566,7 +570,7 @@ public class Rule3ExistsCheck {
 		JSONArray array = (JSONArray) obj.get("rules");
 		int fieldNum = 0;
 
-		int columnTotal = helper.getExcelColumns(wb);
+		int columnTotal = data[0].length;
 
 		JSONObject field1 = (JSONObject) array.get(start);
 		String type = field1.getString("type");
@@ -582,7 +586,7 @@ public class Rule3ExistsCheck {
 		al.add(fieldNum);
 
 		FormField fieldOne = fManager.getFieldByPhysicName(form_id, field1.getString("field"));
-		int column1 = helper.getColumn2Check(wb, fieldOne.getBus_name(), columnTotal);
+		int column1 = helper.getColumn2Check(data, fieldOne.getBus_name());
 
 		ArrayList arrayR = new ArrayList();
 		JSONArray arrayRight = new JSONArray();
@@ -618,7 +622,7 @@ public class Rule3ExistsCheck {
 			info2.setField1Column(column1);
 
 			FormField fieldTwo = fManager.getFieldByPhysicName(form_id, field2.getString("field"));
-			int column2 = helper.getColumn2Check(wb, fieldTwo.getBus_name(), columnTotal);
+			int column2 = helper.getColumn2Check(data, fieldTwo.getBus_name());
 			info2.setField2Column(column2);
 
 			for (int i = start + 2; i < array.length(); i++) {

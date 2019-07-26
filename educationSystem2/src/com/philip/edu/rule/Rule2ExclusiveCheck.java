@@ -9,14 +9,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.jfree.util.Log;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -36,7 +32,7 @@ public class Rule2ExclusiveCheck {
 	private static ExcelHelper helper = new ExcelHelper();
 	private static RuleDAO dao = new RuleDAO();
 
-	public MessageInfo getMessage1(Workbook wb, JSONObject object, int form_id, int task_id) {
+	public MessageInfo getMessage1(String[][] data, JSONObject object, int form_id, int task_id) {
 		logger.info("start to check the uploaded excel:");
 
 		MessageInfo message = new MessageInfo();
@@ -79,21 +75,20 @@ public class Rule2ExclusiveCheck {
 		 */
 
 		// 3. make sure total lines:
-		int excelColumns = helper.getExcelColumns(wb);
-		int lines = 0;
-		lines = helper.getExcelLines(wb, form_id, excelColumns);
-
+		int excelColumns = data[0].length;
+		int lines = data.length;
+		
 		// 4. get the correct column:
 
-		int column = helper.getColumn2Check(wb, bus_name, excelColumns);
+		int column = helper.getColumn2Check(data, bus_name);
 
 		// 5. cycle the column to end:
-		message = checkRule(ruleSQL, wb, column, lines, bus_name, relate_table, relate_field);
+		message = checkRule(ruleSQL, data, column, lines, bus_name, relate_table, relate_field);
 
 		return message;
 	}
 
-	public MessageInfo getMessage(Workbook wb, JSONObject object, int form_id, int task_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject object, int form_id, int task_id) {
 		logger.info("start to check the uploaded excel:");
 
 		MessageInfo message = new MessageInfo();
@@ -107,18 +102,17 @@ public class Rule2ExclusiveCheck {
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		// 3. make sure total lines:
-		int excelColumns = helper.getExcelColumns(wb);
-		int lines = 0;
-		lines = helper.getExcelLines(wb, form_id, excelColumns);
+		int excelColumns = data[0].length;
+		int lines = data.length;
 
 		// 4. get the correct column:
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 
 		al = this.TranslateRuleComplex(object, form_id, task_id);
 
 		for (int i = 1; i <= lines - 1; i++) {
-			Row row = sheet.getRow(i);
+			//SXSSFRow row = sheet.getRow(i);
 
 			for (int j = 0; j < al.size(); j++) {
 
@@ -130,15 +124,16 @@ public class Rule2ExclusiveCheck {
 				relate_table = (String) result.get(2);
 				relate_field = (String) result.get(3);
 
-				int column = helper.getColumn2Check(wb, bus_name, excelColumns);
+				int column = helper.getColumn2Check(data, bus_name);
 
-				Cell cell = row.getCell(column);
-				if (cell == null)
+				//SXSSFCell cell = row.getCell(column);
+				String value = data[i][column];
+				if (value == null)
 					continue;
 				String fieldValue = "";
-				Object value = helper.getCellValue(cell);
+				//Object value = helper.getCellValue(cell);
 
-				fieldValue = value.toString();
+				fieldValue = value;
 				ArrayList al1 = dao.getRelateField(ruleSQL, fieldValue);
 
 				if (al1 != null && al1.size() != 0) {
@@ -302,9 +297,9 @@ public class Rule2ExclusiveCheck {
 		return null;
 	}
 
-	private MessageInfo checkRule(String sql, Workbook wb, int column, int lines, String bus_name, String relate_table,
+	private MessageInfo checkRule(String sql, String[][] data, int column, int lines, String bus_name, String relate_table,
 			String relate_field) {
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		MessageInfo message = new MessageInfo();
@@ -312,14 +307,15 @@ public class Rule2ExclusiveCheck {
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		for (int i = 1; i <= lines - 1; i++) {
-			Row row = sheet.getRow(i);
-			Cell cell = row.getCell(column);
+			//SXSSFRow row = sheet.getRow(i);
+			//SXSSFCell cell = row.getCell(column);
+			String cell = data[i][column];
 			if (cell == null)
 				continue;
 			String fieldValue = "";
-			Object value = helper.getCellValue(cell);
+			//Object value = helper.getCellValue(cell);
 
-			fieldValue = value.toString();
+			fieldValue = cell;
 			ArrayList al = dao.getRelateField(sql, fieldValue);
 
 			if (al != null && al.size() != 0) {

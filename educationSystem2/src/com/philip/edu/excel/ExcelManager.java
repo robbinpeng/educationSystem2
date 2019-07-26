@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.zkoss.zk.ui.util.Clients;
 
 import com.philip.edu.basic.Form;
@@ -31,7 +32,7 @@ public class ExcelManager {
 	public static boolean generateTemplate(int form_id, String file_path){
 		boolean isSuccess = false;
 		
-		Workbook wb = new HSSFWorkbook();
+		SXSSFWorkbook wb = new SXSSFWorkbook();
 		
 		Form form = fManager.getFormById(form_id);
 		ArrayList fields = fManager.getFormFields(form_id);

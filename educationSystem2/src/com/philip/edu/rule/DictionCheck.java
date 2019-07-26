@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.DataInfo;
@@ -25,15 +25,15 @@ public class DictionCheck {
 	private static ExcelHelper excelHelper = new ExcelHelper();
 	private static DictManager dictManager = new DictManager();
 
-	public MessageInfo dictionCheck(Workbook wb, int form_id) {
+	public MessageInfo dictionCheck(String[][] data, int form_id) {
 		MessageInfo message = new MessageInfo();
 		ArrayList messageList = new ArrayList();
 
 		// Caption:
 		ArrayList fields = formManager.getFormFields(form_id);
 		ArrayList checkFields = new ArrayList();
-		int columns = excelHelper.getExcelColumns(wb);
-		int lines = excelHelper.getExcelLines(wb, form_id, columns);
+		int columns = data[0].length;
+		int lines = data.length;
 
 		for (int i = 0; i < fields.size(); i++) {
 			FormField caption = (FormField) fields.get(i);
@@ -44,7 +44,7 @@ public class DictionCheck {
 			if (caption.getDictid() != 0) {
 				LineInfo info = new LineInfo();
 
-				int column = excelHelper.getColumn2Check(wb, caption.getBus_name(), columns);
+				int column = excelHelper.getColumn2Check(data, caption.getBus_name());
 				if (column != 0)
 					info.setColumn(column);
 				else
@@ -61,39 +61,26 @@ public class DictionCheck {
 			}
 		}
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		for (int j = 1; j < lines; j++) {
-			Row row = sheet.getRow(j);
+			//SXSSFRow row = sheet.getRow(j);
 
 			for (int k = 0; k < checkFields.size(); k++) {
 				LineInfo line = (LineInfo) checkFields.get(k);
 				boolean isFound = false;
 				boolean allFound = false;
 
-				Cell cell = row.getCell(line.getColumn());
-				if (cell == null) {
+				//SXSSFCell cell = row.getCell(line.getColumn());
+				String value = data[j][line.getColumn()];
+				if (value == null) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (j + 1) + "行,第" + (line.getColumn() + 1) + "的信息为空！");
 					break;
 				} else {
-					String value = null;
-					CellType cellType = cell.getCellTypeEnum();
-					if (cellType == CellType.STRING) {
-						value = cell.getStringCellValue();
-					} else if (cellType == CellType.NUMERIC) {
-						if (DateUtil.isCellDateFormatted(cell)) {
-							value = cell.getDateCellValue().toString();
-						} else {
-							if (cell.getNumericCellValue() % 1 == 0)
-								value = new Integer(new Double(cell.getNumericCellValue()).intValue()).toString();
-							else
-								value = String.valueOf(cell.getNumericCellValue());
-						}
-					}
-
+					
 					ArrayList dict_items = line.getDict_items();
 					for (int l = 0; l < dict_items.size(); l++) {
 						DictItem item = (DictItem) dict_items.get(l);

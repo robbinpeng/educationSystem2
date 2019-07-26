@@ -3,11 +3,11 @@ package com.philip.edu.rule;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -27,7 +27,7 @@ public class Rule4NoRepeatCheck {
 	private static ExcelHelper helper = new ExcelHelper();
 	private static FormManager manager = new FormManager();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject object, int form_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject object, int form_id) {
 		int[] columns = new int[10];
 		logger.info("rule 4: begin to check");
 		int bit = 0;
@@ -40,8 +40,8 @@ public class Rule4NoRepeatCheck {
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 		ArrayList messageList = new ArrayList();
 
-		int excelColumns = helper.getExcelColumns(wb);
-		int lines = helper.getExcelLines(wb, form_id, excelColumns);
+		int excelColumns = data[0].length;
+		int lines = data.length;
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) object.get("rules");
@@ -51,7 +51,7 @@ public class Rule4NoRepeatCheck {
 			isCondition = true;
 			String physic_name = preObj.getString("field");
 			FormField field = manager.getFieldByPhysicName(form_id, physic_name);
-			conditionColumn = helper.getColumn2Check(wb, field.getBus_name(), excelColumns);
+			conditionColumn = helper.getColumn2Check(data, field.getBus_name());
 			conOperator = preObj.getString("operator");
 			conValue = preObj.getString("value");
 		}
@@ -63,23 +63,23 @@ public class Rule4NoRepeatCheck {
 		for (int i = 0; i < al.size(); i++) {
 			FormField field = (FormField) al.get(i);
 			keyInfo += field.getBus_name() + ",";
-			int index = helper.getColumn2Check(wb, field.getBus_name(), excelColumns);
+			int index = helper.getColumn2Check(data, field.getBus_name());
 			columns[i] = index;
 		}
 		keyInfo += ")";
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 		for (int j = 1; j < lines; j++) {
 
-			Row row = sheet.getRow(j);
+			//SXSSFRow row = sheet.getRow(j);
 			// 1. check the precondition:
 			if (isCondition) {
-				Cell conCell = row.getCell(conditionColumn);
-				String testValue = "";
-				if (conCell == null)
+				//SXSSFCell conCell = row.getCell(conditionColumn);
+				String testValue = data[j][conditionColumn];
+				if (testValue == null)
 					continue;
-				Object value = helper.getCellValue(conCell);
-				testValue = value.toString();
+				//Object value = helper.getCellValue(conCell);
+				//testValue = value.toString();
 
 				// operator:
 				if (Constants.V_EQUAL.equals(conOperator)) {
@@ -122,26 +122,23 @@ public class Rule4NoRepeatCheck {
 			StringBuffer result = new StringBuffer("");
 
 			for (int k = 0; k < bit; k++) {
-				Cell cell = row.getCell(columns[k]);
-				String testValue = "";
-				if (cell != null) {
-					Object value = helper.getCellValue(cell);
-
-					testValue = value.toString();
+				//SXSSFCell cell = row.getCell(columns[k]);
+				String testValue = data[j][columns[k]];
+				if (testValue != null) {
 					result.append(testValue);
 				}
 			}
 
 			for (int l = 0; l < j; l++) {
-				Row row1 = sheet.getRow(l);
+				//SXSSFRow row1 = sheet.getRow(l);
 				StringBuffer compare = new StringBuffer("");
 
 				for (int m = 0; m < bit; m++) {
-					Cell cell1 = row1.getCell(columns[m]);
-					String testValue = "";
-					if (cell1 != null) {
-						Object value = helper.getCellValue(cell1);
-						testValue = value.toString();
+					//SXSSFCell cell1 = row1.getCell(columns[m]);
+					String testValue = data[l][columns[m]];
+					if (testValue != null) {
+						//Object value = helper.getCellValue(cell1);
+						//testValue = value.toString();
 						compare.append(testValue);
 					}
 				}

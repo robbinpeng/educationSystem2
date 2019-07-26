@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
 import org.zkoss.zel.ImportHandler;
@@ -49,6 +50,7 @@ public class UploadController extends SelectorComposer<Component> {
 	private static RuleManager ruleManager = new RuleManager();
 	private static UploadManager uploadManager = new UploadManager();
 	private static DatabaseManager dbManager = new DatabaseManager();
+	private static RapidExcelHelper rapidHelper = new RapidExcelHelper();
 	
 	@Wire
 	private Window dbWindow;
@@ -169,7 +171,6 @@ public class UploadController extends SelectorComposer<Component> {
 			ue = (UploadEvent) ((ForwardEvent) event).getOrigin();
 		}
 
-		Workbook wb = null;
 		ArrayList list = null;
 
 		RuleManager engine = new RuleManager();
@@ -177,15 +178,30 @@ public class UploadController extends SelectorComposer<Component> {
 		String sMessage = "";
 		// 1.check it's excel;
 		Media media = ue.getMedia();
-		if ("application/vnd.ms-excel".equals(media.getContentType())) {
+		if ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equals(media.getContentType())) {
 			try {
 				// 2.check format is right:
-				wb = WorkbookFactory.create(media.getStreamData());
-				boolean format_right = ruleManager.formatCheck(form.getId(), wb);
+				rapidHelper.processFirstSheetStream(media.getStreamData());
+				int excelColumns = rapidHelper.getColumns();
+				int excelLines = rapidHelper.getLines();
+				
+				String[][] data = new String[excelLines][excelColumns];
+				ArrayList all = rapidHelper.getAll();
+				for(int i=0; i<excelLines; i++){
+					ArrayList line = (ArrayList)all.get(i);
+					for(int j=0; j<excelColumns; j++){
+						String cell = (String)line.get(j);
+						data[i][j] = cell;
+					}
+				}	
+				
+				rapidHelper.refresh();
+				
+				boolean format_right = ruleManager.formatCheck(form.getId(), data);
 				if (format_right) {
 					boolean checkpass = true;
 					// 2.5 check text format:
-					MessageInfo m = engine.textFormatCheck(form.getId(), wb);
+					MessageInfo m = engine.textFormatCheck(form.getId(), data);
 					if(m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS){
 						
 					} else {
@@ -200,7 +216,7 @@ public class UploadController extends SelectorComposer<Component> {
 					}
 					
 					//2.6 check dictionary:
-					m = engine.DictionCheck(form.getId(), wb);
+					m = engine.DictionCheck(form.getId(), data);
 					if(m.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
 						
 					} else {
@@ -214,7 +230,7 @@ public class UploadController extends SelectorComposer<Component> {
 						}
 					}
 					// 3.check the rules:
-					list = engine.rulesCheck(form.getId(), wb, task_id);
+					list = engine.rulesCheck(form.getId(), data, task_id);
 					for (int j = 0; j < list.size(); j++) {
 						message = (MessageInfo) list.get(j);
 						if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
@@ -237,22 +253,22 @@ public class UploadController extends SelectorComposer<Component> {
 					// dialog.
 					if (checkpass) {
 						// 3.save data into database;
-						boolean tempSuccess = uploadManager.uploadData(wb, form.getId(), Constants.USER_ID, task_id);
+						boolean tempSuccess = uploadManager.uploadData(data, form.getId(), Constants.USER_ID, task_id);
 						if (tempSuccess) {
 							isSuccess = uploadManager.uploadUpdate(form.getId(), task_id);
 							if (isSuccess) {
 								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
-								wb.close();
+							
 								
 								List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, group_id);
 								formlist.setModel(new ListModelList<UploadInfo>(forms));
 							} else {
 								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
-								wb.close();
+							
 							}
 						} else {
-							Messagebox.show("上传表格过程中出错!","错误",Messagebox.OK,Messagebox.ERROR);
-							wb.close();
+							Messagebox.show("上传表格过程中出错,请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
+						
 						}
 					} else {
 						HashMap map = new HashMap();
@@ -260,7 +276,7 @@ public class UploadController extends SelectorComposer<Component> {
 						Window window1 = (Window) Executions.createComponents("/rule_check.zul", null, map);
 
 						window1.doModal();
-						wb.close();
+				
 					}
 				} else {
 					Messagebox.show("上传的表格与要求不符！请检查列数和列标题是否正确！","错误",Messagebox.OK,Messagebox.ERROR);
@@ -269,9 +285,13 @@ public class UploadController extends SelectorComposer<Component> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				logger.error(e);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				logger.error(e);
 			}
 		} else {
-			Messagebox.show("您上传的不是excel表格！","错误",Messagebox.OK,Messagebox.ERROR);
+			Messagebox.show("您上传的不是更新的Excel表格！","错误",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
 

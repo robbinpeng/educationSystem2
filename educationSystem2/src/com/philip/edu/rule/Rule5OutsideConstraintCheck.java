@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -33,7 +32,7 @@ public class Rule5OutsideConstraintCheck {
 	private static FormManager fManager = new FormManager();
 	private static RuleDAO dao = new RuleDAO();
 
-	public MessageInfo getMessage(Workbook wb, JSONObject obj, int form_id, int task_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject obj, int form_id, int task_id) {
 		MessageInfo message = new MessageInfo();
 		ArrayList messageList = new ArrayList();
 		ArrayList rules = null;
@@ -41,8 +40,8 @@ public class Rule5OutsideConstraintCheck {
 		int lines = 0;
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
-		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb, form_id, columns);
+		columns = data[0].length;
+		lines = data.length;
 
 		rules = this.translateRulesSured(obj);
 
@@ -51,7 +50,7 @@ public class Rule5OutsideConstraintCheck {
 		JSONObject objOP = (JSONObject) rules.get(2);
 		String sOP = objOP.getString("operator");
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 
 		// left sum:
 		double leftValue = 0;
@@ -59,30 +58,23 @@ public class Rule5OutsideConstraintCheck {
 
 		for (int j = 1; j < lines; j++) {
 			if (tempRight.length() == 1) {
-				Row row = sheet.getRow(j);
+				//SXSSFRow row = sheet.getRow(j);
 				for (int i = 0; i < tempLeft.length(); i++) {
 					JSONObject obj1 = (JSONObject) tempLeft.get(i);
 					String type1 = obj1.getString("type");
 					if (Constants.RULE_FORMFIELD.equals(type1)) {
 						String field_name = obj1.getString("field");
 						FormField field1 = fManager.getFieldByPhysicName(form_id, field_name);
-						int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
-						Cell cell = row.getCell(column1);
-						Object value = helper.getCellValue(cell);
-						if (CellType.NUMERIC == cell.getCellType()) {
-							try {
-								double temp = (double) value;
-								leftValue += temp;
-							} catch (ClassCastException e) {
-								Integer temp = (Integer) value;
-								leftValue += temp.doubleValue();
-							}
-						} else {
-							String sTemp = value.toString();
-							double temp = 0;
-							if (sTemp != null && !"".equals(sTemp))
-								temp = new Double(sTemp).doubleValue();
-							leftValue += temp;
+						int column1 = helper.getColumn2Check(data, field1.getBus_name());
+						//SXSSFCell cell = row.getCell(column1);
+						String value = data[j][column1];
+						//Object value = helper.getCellValue(cell);
+						try {
+							leftValue += new Double(value).doubleValue();
+						} catch (NumberFormatException nfe) {
+							messageList.add("第" + (j+1) + "行的记录不是数字，无法进行计算！");
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							break;
 						}
 					} else if (Constants.RULE_OPERATOR.equals(type1)) {
 						// do nothing.
@@ -161,24 +153,23 @@ public class Rule5OutsideConstraintCheck {
 			} else {
 				double sum = 0;
 				double sumRight = 0;
-				Row row = sheet.getRow(j);
+				//SXSSFRow row = sheet.getRow(j);
 
 				JSONObject objLeft = (JSONObject) tempLeft.get(0);
 				String field_name = objLeft.getString("field");
 				FormField field = fManager.getFieldByPhysicName(form_id, field_name);
-				int column = helper.getColumn2Check(wb, field.getBus_name(), columns);
-				Cell cell = row.getCell(column);
-				Object value = helper.getCellValue(cell);
-				if (CellType.NUMERIC == cell.getCellType())
-					try {
-						sum = ((Double) value).doubleValue();
-					} catch (ClassCastException e) {
-						sum = ((Integer) value).doubleValue();
-					}
-				else {
-					String sSum = value.toString();
-					sum = Double.parseDouble(sSum);
+				int column = helper.getColumn2Check(data, field.getBus_name());
+				//SXSSFCell cell = row.getCell(column);
+				String value = data[j][column];
+				//Object value = helper.getCellValue(cell);
+				try{
+					sum = Double.parseDouble(value);
+				} catch (NumberFormatException nfe){
+					messageList.add("第" + (j+1) + "行的记录不是数字，无法进行计算！");
+					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+					break;
 				}
+				
 				logger.info("left sum:" + sum);
 
 				// right:
@@ -191,10 +182,11 @@ public class Rule5OutsideConstraintCheck {
 
 				String lineTotal = condition.getString("sumTotal");
 				FormField field1 = fManager.getFieldByPhysicName(form_id, lineTotal);
-				int column1 = helper.getColumn2Check(wb, field1.getBus_name(), columns);
-				cell = row.getCell(column1);
-				Object value1 = helper.getCellValue(cell);
-				String sTotal = value1.toString();
+				int column1 = helper.getColumn2Check(data, field1.getBus_name());
+				//cell = row.getCell(column1);
+				String value1 = data[j][column1];
+				//Object value1 = helper.getCellValue(cell);
+				String sTotal = value1;
 
 				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal
 						+ "' and task_id=" + task_id;

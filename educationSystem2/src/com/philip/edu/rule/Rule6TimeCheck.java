@@ -6,13 +6,12 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -51,7 +50,7 @@ public class Rule6TimeCheck {
 		return compareSenten;
 	}
 
-	public MessageInfo getMessage(Workbook wb, JSONObject object, int form_id) {
+	public MessageInfo getMessage(String[][] data, JSONObject object, int form_id) {
 		MessageInfo message = new MessageInfo();
 		ArrayList messageList = new ArrayList();
 		ArrayList ruleList = null;
@@ -64,8 +63,8 @@ public class Rule6TimeCheck {
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
-		columns = helper.getExcelColumns(wb);
-		lines = helper.getExcelLines(wb, form_id, columns);
+		columns = data[0].length;
+		lines = data.length;
 
 		// Precondition:
 		JSONArray preArray = (JSONArray) object.get("rules");
@@ -75,29 +74,26 @@ public class Rule6TimeCheck {
 			isCondition = true;
 			String physic_name = preObj.getString("field");
 			FormField field = fManager.getFieldByPhysicName(form_id, physic_name);
-			conditionColumn = helper.getColumn2Check(wb, field.getBus_name(), columns);
+			conditionColumn = helper.getColumn2Check(data, field.getBus_name());
 			conOperator = preObj.getString("operator");
 			conValue = preObj.getString("value");
 		}
 
-		ruleList = translateRulesSured(object, form_id, wb, columns);
+		ruleList = translateRulesSured(object, form_id, data, columns);
 
 		String format = (String) ruleList.get(0);
 
-		Sheet sheet = wb.getSheetAt(0);
+		//SXSSFSheet sheet = wb.getSheetAt(0);
 
 		// cycle everyLine:
 		for (int i = 1; i < lines; i++) {
 
-			Row row = sheet.getRow(i);
+			//SXSSFRow row = sheet.getRow(i);
 			// 0.precondition:
 			if (isCondition) {
-				Cell conCell = row.getCell(conditionColumn);
-				String testValue = "";
-				if (conCell != null) {
-					Object value = helper.getCellValue(conCell);
-					testValue = value.toString();
-				}
+				//SXSSFCell conCell = row.getCell(conditionColumn);
+				String cCell = data[i][conditionColumn];
+				String testValue = cCell;
 
 				// operator:
 				if (Constants.V_EQUAL.equals(conOperator)) {
@@ -152,21 +148,12 @@ public class Rule6TimeCheck {
 						String typeL = objLeft.getString("type");
 						if (Constants.RULE_FORMFIELD.equals(typeL)) {
 							int column = objLeft.getInt("column");
-							Cell cell = row.getCell(column);
+							//SXSSFCell cell = row.getCell(column);
+							String cell = data[i][column];
 							if (cell == null)
 								continue;
 							String sDate = "";
-							Object value = helper.getCellValue(cell);
-							CellType cellType = cell.getCellTypeEnum();
-							if (cellType == CellType.STRING) {
-								sDate = value.toString();
-							} else if (DateUtil.isCellDateFormatted(cell)) {
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-								Date temp = cell.getDateCellValue();
-								sDate = sdf.format(cell.getDateCellValue());
-							} else if (cellType == CellType.NUMERIC) {
-								sDate = ((Integer) value).toString();
-							}
+							sDate = cell;
 
 							int year = 0;
 							int month = 0;
@@ -257,20 +244,12 @@ public class Rule6TimeCheck {
 
 						if (Constants.RULE_FORMFIELD.equals(typeR)) {
 							int column = objRight.getInt("column");
-							Cell cell = row.getCell(column);
-							if (cell == null)
+							//SXSSFCell cell = row.getCell(column);
+							String cCell = data[i][column];
+							if (cCell == null)
 								continue;
 							String sDate = "";
-							Object value = helper.getCellValue(cell);
-							CellType cellType = cell.getCellTypeEnum();
-							if (cellType == CellType.STRING) {
-								sDate = value.toString();
-							} else if (DateUtil.isCellDateFormatted(cell)) {
-								SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-								sDate = sdf.format(value);
-							} else if (cellType == CellType.NUMERIC) {
-								sDate = ((Integer) value).toString();
-							}
+							sDate = cCell;
 
 							if ("".equals(sDate))
 								throw new TimeErrorException("Ê±¼äÎª¿Õ");
@@ -791,7 +770,7 @@ public class Rule6TimeCheck {
 
 	}
 
-	private ArrayList translateRulesSured(JSONObject obj, int form_id, Workbook wb, int columns) {
+	private ArrayList translateRulesSured(JSONObject obj, int form_id, String[][] data, int columns) {
 		ArrayList al = new ArrayList();
 		JSONArray array = null;
 		JSONArray arrayLeft = null;
@@ -822,7 +801,7 @@ public class Rule6TimeCheck {
 				if (Constants.RULE_FORMFIELD.equals(type)) {
 					String name1 = ob.getString("field");
 					FormField field = fManager.getFieldByPhysicName(form_id, name1);
-					int column1 = helper.getColumn2Check(wb, field.getBus_name(), columns);
+					int column1 = helper.getColumn2Check(data, field.getBus_name());
 					ob.put("column", column1);
 				}
 				if (!isFound) {
