@@ -1,0 +1,13 @@
+<?page title="Listbox使用" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://www.zkoss.org/2005/zul" 
+        xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul">
+<window id="listboxWin" border="normal" apply="com.philip.edu.test.TestListController">
+    <listbox id="listbox">
+        <listhead sizable="true" >
+            <listheader id="nameListHeader" label="姓名" align="center"/>
+        </listhead>
+    </listbox>
+    <paging id="pagetest" pageSize="10" totalSize="50000" detailed="true"/>
+</window>
+</zk>

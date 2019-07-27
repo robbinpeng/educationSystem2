@@ -337,9 +337,9 @@ public class RuleManagerTest {
 		RuleManager manager = new RuleManager();
 		RapidExcelHelper rapidHelper = new RapidExcelHelper();
 		FileInputStream in = null;
-		SXSSFWorkbook wb = null;
+		//SXSSFWorkbook wb = null;
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+			in = new FileInputStream("D:/Develop/education/test/1/1-1.学校概况.xlsx");
 			rapidHelper.processFirstSheetStream(in);
 			int excelColumns = rapidHelper.getColumns();
 			int excelLines = rapidHelper.getLines();

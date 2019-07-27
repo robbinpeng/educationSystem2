@@ -28,17 +28,20 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Paging;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
+import org.zkoss.zul.event.PagingEvent;
 
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.DataInfo;
@@ -48,7 +51,7 @@ import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.Group;
 
-public class TableDataController extends SelectorComposer<Component> {
+public class PagingDataController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = 1L;
 	
 	private static Logger logger = Logger.getLogger(TableDataController.class);
@@ -60,7 +63,9 @@ public class TableDataController extends SelectorComposer<Component> {
 	@Wire
 	private Listbox dataList;
 	@Wire
-	private Paging dataPagine;
+	private Paging dataPage;
+	private ArrayList data_page;
+    private ListModelList<ArrayList> model;
 	private ArrayList datas;
 	@Wire
 	private Grid groupList;
@@ -76,6 +81,8 @@ public class TableDataController extends SelectorComposer<Component> {
 	private Form form;
 	private int form_id;
 	private File file;
+	private ArrayList fields;
+	private int fileColumn;
 	
 	private Listbox storedList;
 	
@@ -98,45 +105,77 @@ public class TableDataController extends SelectorComposer<Component> {
 		logger.info("form_id:" + sForm);
 
 		form_id = Integer.parseInt(sForm);
-		
 		form = formManager.getFormById(form_id);
-		datas = manager.getTableData(form_id);
+		fields = formManager.getFormFields(form_id);
 		//Executions.getCurrent().setAttribute("datas", datas);
-		generateList();
-		dataList.invalidate();
-		
-		checked = new ArrayList();
-	}
-	
-	public void generateList(){
-		logger.info("get in generate.");
-
-		int fileColumn=0;
-		//dataList = new Listbox();
-		if(datas == null) return;
-		
-		//dataList.setSizedByContent(true);
-		
-		ArrayList caption = (ArrayList)datas.get(0);
+		//Generate first Page:
 		Listhead head = new Listhead();
-		//head.setSizable(true);
 		Listheader empty = new Listheader();
 		empty.setWidth("3%");
 		head.appendChild(empty);
-		for(int i=0; i<caption.size(); i++){
-			DataInfo data = (DataInfo)caption.get(i);
-			FormField field = formManager.getFieldByPhysicName(form_id, data.getKey());
-			if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)fileColumn = i+1;
-			Listheader header = new Listheader(data.getValue());
-			head.appendChild(header);
+		int index = 0;
+		for(int i=0; i<fields.size(); i++){
+			FormField field = (FormField)fields.get(i);
+			if(field.getIs_hidden()=='N'){
+				Listheader header = new Listheader(field.getBus_name());
+				head.appendChild(header);
+				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)fileColumn = index+1;
+				index++;
+			}
 		}
 		dataList.appendChild(head);
-		logger.info("Caption load correct");
 		
-		logger.info("fileColumn: " + fileColumn);
-		for(int j=1; j<datas.size(); j++){
-			ArrayList line = (ArrayList)datas.get(j);
-			Listitem item = new Listitem();
+		data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1);
+		model = new ListModelList<ArrayList>(data_page);
+		dataList.setModel(model);
+		dataList.setItemRenderer(new myItemRenderer());
+		
+		dataPage.addEventListener("onPaging", new EventListener<Event>() {
+
+            public void onEvent(Event event) throws Exception {
+                // TODO Auto-generated method stub
+                PagingEvent pe = (PagingEvent) event;
+                
+                redraw(pe.getActivePage()+1,dataPage.getPageSize());
+            }
+        });
+				
+		checked = new ArrayList();
+	}
+	
+	private void redraw(int activePage, int pageSize) {  
+        
+        //清空所有数据
+        dataList.getItems().clear();  
+        data_page.clear();
+        
+        int total = activePage * pageSize;
+        
+        if(search.getValue()!=null&&!search.getValue().equals(""))
+        	data_page = manager.searchDataByPage(fields, form.getPhsic_name(), activePage, search.getValue());
+        else 
+        	data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), activePage);
+        
+        for (int i = total-pageSize+1; i <= total; i++) {
+            
+            //当超过总页数时
+            if (i > dataPage.getTotalSize()) {
+                break;
+            }
+            
+        }
+        
+        model = new ListModelList<ArrayList>(data_page);
+        dataList.setModel(model);
+    } 
+	
+	public class myItemRenderer implements ListitemRenderer {
+
+        //@Override
+        public void render(Listitem item, Object data, int index)
+                throws Exception {
+            // TODO Auto-generated method stub
+        	ArrayList line = (ArrayList)data;
 			//add checkbox:
 			Listcell cell1 = new Listcell();
 			Checkbox box = new Checkbox();
@@ -149,11 +188,11 @@ public class TableDataController extends SelectorComposer<Component> {
 			item.appendChild(cell1);
 			
 			for(int k=1; k<line.size(); k++){
-				DataInfo data = (DataInfo)line.get(k);
+				DataInfo data1 = (DataInfo)line.get(k);
 				Listcell cell = null;
-				if(data.getKey()!=null&& "URL".equals(data.getKey())){
-					String path = data.getUrl();
-					String name = data.getValue();
+				if(data1.getKey()!=null&& "URL".equals(data1.getKey())){
+					String path = data1.getUrl();
+					String name = data1.getValue();
 					Button b = new Toolbarbutton(name);
 					//logger.info(path);
 					//file = new File(path);
@@ -163,56 +202,13 @@ public class TableDataController extends SelectorComposer<Component> {
 			        cell = new Listcell();
 			        cell.appendChild(b);
 				}
-				else cell = new Listcell(data.getValue());
+				else cell = new Listcell(data1.getValue());
+				//System.out.println(data1.getValue());
 				item.appendChild(cell);
 			}
-			dataList.appendChild(item);
-			logger.info("load one item data");
-		}
-		
-		logger.info("data all loaded");
-	}
-	
-	public void generateListData() {
-		if(datas == null) return;
-		
-		dataList.getItems().clear();
-		
-		for(int j=1; j<datas.size(); j++){
-			ArrayList line = (ArrayList)datas.get(j);
-			Listitem item = new Listitem();
-			//add checkbox:
-			Listcell cell1 = new Listcell();
-			Checkbox box = new Checkbox();
-			
-			DataInfo dInfo = (DataInfo)line.get(0);
-			box.setId(dInfo.getValue());
-								
-			cell1.appendChild(box);
-			item.appendChild(cell1);
-			
-			for(int k=1; k<line.size(); k++){
-				DataInfo data = (DataInfo)line.get(k);
-				Listcell cell = null;
-				if(data.getKey()!=null&& "URL".equals(data.getKey())){
-					String path = data.getUrl();
-					String name = data.getValue();
-					Button b = new Toolbarbutton(name);
-					//logger.info(path);
-					//file = new File(path);
-					ZScript script = new ZScript("java","File file = new File(\"" +path+ "\");Filedownload.save(file,null)");
-			        EventHandler evthdl = new EventHandler(script);
-			        b.addEventHandler("onClick", evthdl);
-			        cell = new Listcell();
-			        cell.appendChild(b);
-				}
-				else cell = new Listcell(data.getValue());
-				item.appendChild(cell);
-			}
-			dataList.appendChild(item);
-			logger.info("load one item data");
-		}
-	}
+        }
+    }
+
 	
 /*	@Listen("onOK = #search")
 	public void searchData(Event e){
@@ -260,32 +256,13 @@ public class TableDataController extends SelectorComposer<Component> {
 	
 	@Listen("onOK = #search")
 	public void searchData(Event e){
-		generateListData();
 		
-		List<Listitem> listItemList = dataList.getItems();
-		List<Listcell> listCellList = null;
-		boolean bFound = false;
+		dataList.getItems().clear();
+		data_page.clear();
 		
-		for(int i =0; i<listItemList.size(); i++){
-			listCellList = listItemList.get(i).getChildren();
-			bFound = false;
-			
-			for(int j=0; j<listCellList.size(); j++){
-				Listcell cell = (Listcell)listCellList.get(j);
-				if(cell.getLabel().contains(search.getValue())){
-					bFound = true;
-					break;
-				}
-			}
-			
-			if(bFound){
-				
-			} else {
-				listItemList.remove(i);
-				i--;
-			}
-
-		}
+		data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue());
+		model = new ListModelList<ArrayList>(data_page);
+		dataList.setModel(model);
 		
 	}
 	

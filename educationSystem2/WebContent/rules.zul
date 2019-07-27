@@ -5,6 +5,7 @@ import org.zkoss.zk.ui.metainfo.EventHandler;
 import org.zkoss.zk.ui.metainfo.ZScript; 
 import com.philip.edu.basic.*;
 import org.zkoss.zhtml.Input;
+import org.zkoss.zk.ui.Component;
 import org.json.*;
 import org.zkoss.zul.Label;
 ]]></zscript> 
@@ -171,7 +172,7 @@ int iGroup = Integer.parseInt(group_id);
 </row>
 <row>
 <cell colspan="2" align="center">
-<button label="新建" onClick="saveRules()" /> <button label="取消"/>
+<button label="新建" onClick="saveRules()" /> <button label="取消" onClick="cancelDo()"/>
 </cell>
 </row>
 </rows>
@@ -1956,6 +1957,44 @@ int iGroup = Integer.parseInt(group_id);
 			}
 			return result;
 		}
+	 
+	 void cancelDo() {
+		 List listTemp = window1.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window1.removeChild(c);
+		 }
+		 
+		 listTemp = window2.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window2.removeChild(c);
+		 }
+		 
+		 listTemp = window3.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window3.removeChild(c);
+		 }
+		 
+		 listTemp = window4.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window4.removeChild(c);
+		 }
+		 
+		 listTemp = window5.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window5.removeChild(c);
+		 }
+		 
+		 listTemp = window6.getChildren();
+		 while(listTemp.size()>1){
+			 Component c = (Component)listTemp.get(1);
+			 window6.removeChild(c);
+		 }
+	 }
 ]]></zscript>
 </window>
 </zk>

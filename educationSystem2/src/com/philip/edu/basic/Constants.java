@@ -11,6 +11,8 @@ public class Constants {
 	public static final char RULE_ACTIVE = 'Y';
 	public static final int LAP_YEAR = 1900;
 	public static final int SYSTEM_TASK_ID = 11;
+	public static final int DATA_PAGE_SIZE = 10;
+	public static final int DATA_PAGE_SHOW = 5000;
 	
 	//Operator:
 	public static final String LESST = "<";

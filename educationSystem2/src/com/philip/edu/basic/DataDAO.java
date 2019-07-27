@@ -144,6 +144,219 @@ public class DataDAO {
 		return result;
 	}
 	
+	public ArrayList getTableDataByPage(ArrayList fields, String tbl_name, int page){
+		Session session = null;
+		DataInfo data = null;
+		ArrayList result = new ArrayList();
+		ArrayList line = new ArrayList();
+		StringBuffer sb = new StringBuffer("select id, ");
+		Query query = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+
+			//create sql:
+			ArrayList al0 = new ArrayList();
+			for(int i1=0; i1<fields.size(); i1++){
+				FormField field = (FormField) fields.get(i1);
+				if(field.getIs_hidden()=='Y'){
+					
+				} else {
+					al0.add(field);
+				}
+			}
+			
+			fields = (ArrayList)al0.clone();
+				
+			for(int i=0; i<fields.size(); i++){
+				FormField field = (FormField) fields.get(i);
+				//if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
+				//Caption:
+				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)data.setUrl("URL");
+				
+				//sql:
+				if(i != fields.size()-1){
+					sb.append(field.getPhysic_name() + ", ");
+				} else {
+					sb.append(field.getPhysic_name());
+				}
+			}
+			
+			sb.append(" from " + tbl_name + " order by id limit " + (page-1) + "," + Constants.DATA_PAGE_SIZE);
+			
+			logger.info("sql:" + sb.toString());
+			
+			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			
+			//query = session.createSQLQuery().
+			ArrayList al = (ArrayList)query.list();
+			
+			for(int i=0; i<al.size(); i++){
+				line = new ArrayList();
+				HashMap map = (HashMap)al.get(i);
+				DataInfo data1 = new DataInfo();
+				
+				logger.info("fields.size:" + fields.size());
+				
+				Object oId = map.get("id");
+				if(oId!=null){
+					data1.setValue(oId.toString());
+				} else {
+					data1.setValue("");
+				}
+				line.add(data1);
+				
+				for(int j=0; j<fields.size(); j++){
+					data = new DataInfo();
+					logger.info("j:" + j);
+					FormField field = (FormField)fields.get(j);
+					//logger.info("caption key is:" + captionD.getKey());
+					
+					data.setId(j);
+					
+					Object o = map.get(field.getPhysic_name());
+					if(o!=null){
+						data.setValue(o.toString());
+						//logger.info("captionD url:" + captionD.getUrl());
+						if(field.getDis_method() == Constants.V_DISPLAY_UPLOAD_CONTROL){
+							String path = o.toString();
+							String[] sPath = path.split(Pattern.quote(File.separator));;
+							String name = sPath[sPath.length-1];
+							logger.info("path:" + sPath[sPath.length-1]);
+							data.setUrl(path);
+							data.setValue(name);
+							data.setKey("URL");
+						}
+					} else {
+						data.setValue("");
+					}
+					
+					line.add(data);
+				}
+				
+				result.add(line);
+			}
+		
+			//session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+			
+		return result;
+	}
+	
+	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search){
+		Session session = null;
+		DataInfo data = null;
+		ArrayList result = new ArrayList();
+		ArrayList line = new ArrayList();
+		StringBuffer sb = new StringBuffer("select id, ");
+		StringBuffer sb1 = new StringBuffer(" from " + tbl_name + " where ");
+		Query query = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+
+			//create sql:
+			ArrayList al0 = new ArrayList();
+			for(int i1=0; i1<fields.size(); i1++){
+				FormField field = (FormField) fields.get(i1);
+				if(field.getIs_hidden()=='Y'){
+					
+				} else {
+					al0.add(field);
+				}
+			}
+			
+			fields = (ArrayList)al0.clone();
+				
+			for(int i=0; i<fields.size(); i++){
+				FormField field = (FormField) fields.get(i);
+				//if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
+				//Caption:
+				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)data.setUrl("URL");
+				
+				//sql:
+				if(i != fields.size()-1){
+					sb.append(field.getPhysic_name() + ", ");
+					sb1.append(field.getPhysic_name() + " like '%" + search + "%' or ");
+				} else {
+					sb.append(field.getPhysic_name());
+					sb1.append(field.getPhysic_name() + " like '%" + search + "%' order by id limit " + (page-1) + "," + Constants.DATA_PAGE_SIZE);
+				}
+			}
+			
+			sb.append(sb1);
+			
+			logger.info("sql:" + sb.toString());
+			
+			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			
+			//query = session.createSQLQuery().
+			ArrayList al = (ArrayList)query.list();
+			
+			for(int i=0; i<al.size(); i++){
+				line = new ArrayList();
+				HashMap map = (HashMap)al.get(i);
+				DataInfo data1 = new DataInfo();
+				
+				logger.info("fields.size:" + fields.size());
+				
+				Object oId = map.get("id");
+				if(oId!=null){
+					data1.setValue(oId.toString());
+				} else {
+					data1.setValue("");
+				}
+				line.add(data1);
+				
+				for(int j=0; j<fields.size(); j++){
+					data = new DataInfo();
+					logger.info("j:" + j);
+					FormField field = (FormField)fields.get(j);
+					//logger.info("caption key is:" + captionD.getKey());
+					
+					data.setId(j);
+					
+					Object o = map.get(field.getPhysic_name());
+					if(o!=null){
+						data.setValue(o.toString());
+						//logger.info("captionD url:" + captionD.getUrl());
+						if(field.getDis_method() == Constants.V_DISPLAY_UPLOAD_CONTROL){
+							String path = o.toString();
+							String[] sPath = path.split(Pattern.quote(File.separator));;
+							String name = sPath[sPath.length-1];
+							logger.info("path:" + sPath[sPath.length-1]);
+							data.setUrl(path);
+							data.setValue(name);
+							data.setKey("URL");
+						}
+					} else {
+						data.setValue("");
+					}
+					
+					line.add(data);
+				}
+				
+				result.add(line);
+			}
+		
+			//session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+			
+		return result;
+	}
+	
 	public ArrayList getTableDataById(ArrayList fields, String tbl_name, int id){
 		Session session = null;
 		DataInfo data = null;

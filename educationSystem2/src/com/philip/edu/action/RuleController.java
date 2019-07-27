@@ -69,7 +69,7 @@ public class RuleController  extends SelectorComposer<Component> {
 		ruleList.setModel(listModel);
 		
 		String form_name = formManager.getFormById(form_id).getBus_name();
-		session.setAttribute("form_name", form_name);
+		session.setAttribute("form_name", form_name); 
 		
 		//List<Group> groups = formManager.getGroups(Constants.USER_ID);
 		//groupList.setModel(new ListModelList<Group>(groups));
