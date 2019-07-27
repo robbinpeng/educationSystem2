@@ -87,9 +87,11 @@ public class RecordUpdateController extends SelectorComposer<Component> {
 		form = formManager.getFormById(form_id);
 		fields = formManager.getFormFields(form_id);
 		ArrayList record = dataManager.getTableDataById(fields, form.getPhsic_name(), id);
+		int index = 0;
 		for (int i = 0; i < fields.size(); i++) {
 			FormField field = (FormField) fields.get(i);
-			DataInfo data = (DataInfo) record.get(i + 1);
+			if(field.getIs_hidden()=='Y')continue;			
+			DataInfo data = (DataInfo) record.get(index++ + 1);
 
 			fieldD = new FormFieldData();
 			fieldD.setId(field.getId());
