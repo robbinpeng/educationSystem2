@@ -15,8 +15,12 @@ import org.zkoss.zul.Label;
 </style>
 <include src="/head.zul"/>
 <zscript>
-Session session1 = Sessions.getCurrent();
-String form_name = session.getAttribute("form_name");
+//Session session1 = Sessions.getCurrent();
+//String form_name = session.getAttribute("form_name");
+String sForm = Executions.getCurrent().getParameter("form_id");
+int form_id = Integer.parseInt(sForm);
+FormManager formManager = new FormManager();
+String form_name = formManager.getFormById(form_id).getBus_name();
 
 String group_id = Executions.getCurrent().getSession().getAttribute("group_id");
 if(group_id==null)group_id="1";
@@ -36,6 +40,9 @@ int iGroup = Integer.parseInt(group_id);
 <vlayout width="1050px">
 <grid>
 <rows>
+<row align="left">
+<label value="${form_name}" style="font-size:30px;"/>
+</row>
 <row align="right">
 <toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton>
 </row>
@@ -77,7 +84,7 @@ int iGroup = Integer.parseInt(group_id);
 				default:
 					break;}]]></zscript></listcell>
                 <listcell><image src="/img/eye.jpg" ><attribute name="onClick"><![CDATA[Popup pp = (Popup)self.getNextSibling();pp.open(pp);]]></attribute></image>
-                <popup width="300px">
+                <popup width="600px" height="200px">
         			<groupbox closable="true">
         			<caption>规则内容</caption>
             		<html>${each.rule_content}</html>
@@ -1247,6 +1254,7 @@ int iGroup = Integer.parseInt(group_id);
 	void saveRules() {
 		//test:
 		boolean is_new = false;
+	    int number = 0;
 		//window1:
 			//window's rules:
 			//Messagebox.show("winodw1");
@@ -1274,12 +1282,17 @@ int iGroup = Integer.parseInt(group_id);
 			//window1:
 			JSONObject rules = getWindowRules(window1);
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule1(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
+				number++;
 				rule.setRule_class(1);
 				rule.setRule_content(rules.toString());
 				
@@ -1300,12 +1313,17 @@ int iGroup = Integer.parseInt(group_id);
 			//Messagebox.show("winodw2");
 			rules = getWindowRules(window2);
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule2(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
+				number++;
 				rule.setRule_class(2);
 				rule.setRule_content(rules.toString());
 				
@@ -1316,12 +1334,17 @@ int iGroup = Integer.parseInt(group_id);
 			//Messagebox.show("winodw3");
 			rules = getWindowRules(window3);
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule3(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
+				number++;
 				rule.setRule_class(3);
 				rule.setRule_content(rules.toString());
 				
@@ -1332,12 +1355,17 @@ int iGroup = Integer.parseInt(group_id);
 			//Messagebox.show("winodw4");
 			rules = getWindowRules(window4);
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule4(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
+				number++;
 				rule.setRule_class(4);
 				rule.setRule_content(rules.toString());
 				
@@ -1348,12 +1376,17 @@ int iGroup = Integer.parseInt(group_id);
 			//Messagebox.show("winodw5");
 			rules = getWindowRules(window5);
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule5(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
 				
+				number++;
 				rule.setRule_class(5);
 				rule.setRule_content(rules.toString());
 				
@@ -1365,12 +1398,17 @@ int iGroup = Integer.parseInt(group_id);
 			rules = getWindowRules(window6);
 			System.out.println("get rules");
 			if(rules!=null){
+				if(number>0){
+					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
+					return;
+				}
 				boolean b = checkRule6(rules);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
 				}
-				System.out.println("rule checked.");
+				number++;
+				//System.out.println("rule checked.");
 				//add format:
 				List al = window6.getChildren();
 				Div div = (Div)al.get(0);

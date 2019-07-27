@@ -233,6 +233,7 @@ public class RecordCreateController extends SelectorComposer<Component> {
 				} else {
 					data.setKey(field.getPhysic_name());
 					data.setValue(button1.getLabel());
+					logger.info(data.getValue());
 				}
 				break;
 			case Constants.V_DISPLAY_UPLOAD_CONTROL:
@@ -312,7 +313,7 @@ public class RecordCreateController extends SelectorComposer<Component> {
 			// 3.save data into database;
 			boolean tempSuccess = dataManager.createRecord(form, record, task_id);
 			if (tempSuccess) {
-				Messagebox.show("上传成功！", "信息", Messagebox.OK, Messagebox.INFORMATION);
+				Messagebox.show("添加记录成功！", "信息", Messagebox.OK, Messagebox.INFORMATION);
 
 				Window pList = (Window) Path.getComponent("/window1");
 				bdlBody.detach();

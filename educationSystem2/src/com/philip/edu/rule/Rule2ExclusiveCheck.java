@@ -124,6 +124,7 @@ public class Rule2ExclusiveCheck {
 				relate_table = (String) result.get(2);
 				relate_field = (String) result.get(3);
 
+				logger.info("bus_name=" + bus_name);
 				int column = helper.getColumn2Check(data, bus_name);
 
 				//SXSSFCell cell = row.getCell(column);

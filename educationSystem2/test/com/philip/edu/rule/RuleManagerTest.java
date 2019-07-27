@@ -34,7 +34,7 @@ public class RuleManagerTest {
 		ArrayList list = null;
 
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+			in = new FileInputStream("D:/Develop/education/test/表1-6-4 附属医院师资情况.xlsx");
 			rapidHelper.processFirstSheetStream(in);
 			int excelColumns = rapidHelper.getColumns();
 			int excelLines = rapidHelper.getLines();
@@ -51,7 +51,7 @@ public class RuleManagerTest {
 			
 			rapidHelper.refresh();
 			
-			ArrayList al2 = engine.rulesCheck(21, data, 5);
+			ArrayList al2 = engine.rulesCheck(31, data, 12);
 			
 			for (int j = 0; j < al2.size(); j++) {
 				MessageInfo info = (MessageInfo) al2.get(j);
@@ -216,7 +216,7 @@ public class RuleManagerTest {
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("ZSPC");
-		data.setValue("[提前批招生,第一批次招生]");
+		data.setValue("提前批招生,第一批次招生");
 		al.add(data);
 		data = new DataInfo();
 		data.setKey("KBBKJYNF");
@@ -235,8 +235,9 @@ public class RuleManagerTest {
 		data.setValue("robbin");
 		al.add(data);
 
-		/*MessageInfo info = manager.DictionCheckSingleLine(21, al);
+		MessageInfo info = manager.DictionCheckSingleLine(21, al);
 
+		logger.info("进行数据字典校验");
 		if (info.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 		} else {
 			ArrayList al1 = info.getMessage_info();
@@ -247,7 +248,7 @@ public class RuleManagerTest {
 		}
 
 		assertNotEquals(info.getMessage_info().size(), 0);
-		*/
+		
 	}
 
 	@Test

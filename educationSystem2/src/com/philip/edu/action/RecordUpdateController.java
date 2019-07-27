@@ -45,11 +45,14 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormFieldData;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.rule.MessageInfo;
+import com.philip.edu.rule.RuleManager;
 
 public class RecordUpdateController extends SelectorComposer<Component> {
 
 	private static Logger logger = Logger.getLogger(RecordUpdateController.class);
 	private static DataManager dataManager = new DataManager();
+	private static RuleManager engine = new RuleManager();
 
 	@Wire
 	private Listbox lbClient;
@@ -272,10 +275,79 @@ public class RecordUpdateController extends SelectorComposer<Component> {
 			record.add(data);
 		}
 
-		dataManager.updateRecord(form, record, task_id, id);
-		Window pList = (Window) Path.getComponent("/window1");
-		bdlBody.detach();
-		Executions.getCurrent().sendRedirect("");
+		boolean checkpass = true;
+		String sMessage = "";
+		// 2.5 check text format:
+		MessageInfo m = engine.textFormatSingleCheck(form.getId(), record);
+		if (m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+
+		} else {
+			sMessage += "添加数据中有数据类型、格式错误： \n";
+			ArrayList al = m.getMessage_info();
+			if (al.size() != 0) {
+				checkpass = false;
+				for (int i = 0; i < al.size(); i++) {
+					sMessage += al.get(i).toString() + "\n";
+				}
+			}
+		}
+
+		// 2.6 check dictionary:
+		m = engine.DictionCheckSingleLine(form.getId(), record);
+		if (m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+
+		} else {
+			sMessage += "\n 添加数据中有字段不在数据字典中：   \n";
+			ArrayList al = m.getMessage_info();
+			if (al.size() != 0) {
+				checkpass = false;
+				for (int j = 0; j < al.size(); j++) {
+					sMessage += (String) al.get(j) + "\n";
+				}
+			}
+		}
+		// 3.check the rules:
+		ArrayList list_m = engine.rulesCheckSingleLine(form.getId(), record, task_id);
+		for (int j = 0; j < list_m.size(); j++) {
+			MessageInfo message = (MessageInfo) list_m.get(j);
+			if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
+			} else {
+				sMessage += "\n 规则校验不通过： \n";
+				ArrayList al = message.getMessage_info();
+				if (al.size() != 0) {
+					checkpass = false;
+					sMessage += message.getFail_information() + ":\n";
+					for (int i = 0; i < al.size(); i++) {
+						System.out.println(al.get(i).toString());
+						sMessage += al.get(i).toString() + "\n";
+					}
+
+					sMessage += "\n";
+				}
+			}
+		}
+		// create a window programmatically and use it as a modal
+		// dialog.
+		if (checkpass) {
+			// 3.save data into database;
+			boolean tempSuccess = dataManager.updateRecord(form, record, task_id, id);
+			if (tempSuccess) {
+				Messagebox.show("修改记录成功！", "信息", Messagebox.OK, Messagebox.INFORMATION);
+
+				Window pList = (Window) Path.getComponent("/window1");
+				bdlBody.detach();
+				Executions.getCurrent().sendRedirect("");
+			} else {
+				Messagebox.show("添加数据时出错，请联系管理员！", "错误", Messagebox.OK, Messagebox.ERROR);
+			}
+		} else {
+			HashMap map = new HashMap();
+			map.put("message", sMessage);
+			Window window1 = (Window) Executions.createComponents("/rule_check.zul", null, map);
+
+			window1.doModal();
+		}
+		
 	}
 
 	// 文件上传

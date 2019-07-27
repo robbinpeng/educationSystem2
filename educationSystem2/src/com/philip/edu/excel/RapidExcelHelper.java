@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -127,10 +128,10 @@ public class RapidExcelHelper {
 
 		
 
-		/*private int sheetIndex = -1;
+		private int sheetIndex = -1;
 		private int curRow = 0;
-		private int curCol = 0;
-		private List<String> rowlist = new ArrayList<String>(); */  
+		private int curCol = 1;
+		private List<String> rowlist = new ArrayList<String>();   
 
 		/**
 	     * 缓存
@@ -163,16 +164,16 @@ public class RapidExcelHelper {
 	     * @param curRow 处理到第几行 
 	     * @param rowList 当前数据行的数据集合 
 	     */  
-	   /* public void optRow(int sheetIndex, int curRow, List<String> rowList) {   
+	    public void optRow(int sheetIndex, int curRow, List<String> rowList) {   
 	        String temp = "";   
 	        for(String str : rowList) {   
 	            temp += str + "_";   
 	        } 
 	        this.rowlist.clear();
 	        this.curRow++;
-	        this.curCol=0;
+	        this.curCol=1;
 	        System.out.println(temp);   
-	    } */
+	    } 
 		
 		@Override
 		public void startElement(String uri, String localName, String name,
@@ -184,6 +185,16 @@ public class RapidExcelHelper {
 				//System.out.print(attributes.getValue("r") + " - "); 
 				//line.add(attributes.getValue("r"));
 				if(lines==0)columns++;
+				
+				String col = attributes.getValue("r");
+				int realCol = convertRowIdtoInt(col);
+				int gap = realCol - curCol;
+				//System.out.println("realCol:" + realCol + ", curCol:" +curCol);
+				for(int i=0; i<gap; i++){
+					line.add("");
+				}
+				curCol = realCol;
+			
 				// Figure out if the value is an index in the SST 如果下一个元素是 SST 的索引，则将nextIsString标记为true
 				//单元格类型
 				String cellType = attributes.getValue("t"); 
@@ -224,6 +235,7 @@ public class RapidExcelHelper {
 					lastContents = new XSSFRichTextString(sst.getEntryAt(idx)).toString();
 					lruCache.put(idx, lastContents);
 				}
+				//if(lastContents==null)line.add("");
 				nextIsString = false;
 			}
  
@@ -232,11 +244,12 @@ public class RapidExcelHelper {
 			if(name.equals("v")) {
 				//System.out.println(lastContents);
 				line.add(lastContents);
+				curCol++;
 				//rowlist.add(curCol++,lastContents);
 			}else{
 				//如果标签名称为 row , 已到行尾
 				if(name.equals("row")){
-					//optRow(sheetIndex, curRow, rowlist);
+					optRow(sheetIndex, curRow, rowlist);
 					//System.out.println(lruCache);
 					all.add(line);
 					lines++;
@@ -246,12 +259,38 @@ public class RapidExcelHelper {
 			}
 		}
  
+	    public static int convertRowIdtoInt(String rowId){
+	        int firstDigit = -1;
+	        for (int c = 0; c < rowId.length(); ++c) {
+	            if (Character.isDigit(rowId.charAt(c))) {
+	                firstDigit = c;
+	                break;
+	            }
+	        }
+	        //AB7-->AB
+	        //AB是列号, 7是行号
+	        String newRowId = rowId.substring(0,firstDigit);
+	        int num = 0;
+	        int result = 0;
+	        int length = newRowId.length();
+	        for(int i = 0; i < length; i++) {
+	            //先取最低位，B
+	            char ch = newRowId.charAt(length - i - 1);
+	            //B表示的十进制2，ascii码相减，以A的ascii码为基准，A表示1，B表示2
+	            num = (int)(ch - 'A' + 1) ;
+	            //列号转换相当于26进制数转10进制
+	            num *= Math.pow(26, i);
+	            result += num;
+	        }
+	        return result;
+
+	    }
 		
 	}
 	
 	public static void main(String[] args) throws Exception {
 		RapidExcelHelper example = new RapidExcelHelper();
-		FileInputStream in = new FileInputStream("D:/Develop/education/test/表1-1 学校概况.xlsx");
+		FileInputStream in = new FileInputStream("D:/Develop/education/test/表1-6-4 附属医院师资情况.xlsx");
 		example.processFirstSheetStream(in);
 		int lines = 0;
 		int columns = 0;

@@ -184,6 +184,7 @@ public class UploadController extends SelectorComposer<Component> {
 				rapidHelper.processFirstSheetStream(media.getStreamData());
 				int excelColumns = rapidHelper.getColumns();
 				int excelLines = rapidHelper.getLines();
+				logger.info("excel columns:" + excelColumns);
 				
 				String[][] data = new String[excelLines][excelColumns];
 				ArrayList all = rapidHelper.getAll();

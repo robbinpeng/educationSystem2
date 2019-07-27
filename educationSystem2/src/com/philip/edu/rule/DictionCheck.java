@@ -61,26 +61,26 @@ public class DictionCheck {
 			}
 		}
 
-		//SXSSFSheet sheet = wb.getSheetAt(0);
+		// SXSSFSheet sheet = wb.getSheetAt(0);
 
 		message.setMessage_type(Constants.RULECHECK_MESSAGE_SUCCESS);
 
 		for (int j = 1; j < lines; j++) {
-			//SXSSFRow row = sheet.getRow(j);
+			// SXSSFRow row = sheet.getRow(j);
 
 			for (int k = 0; k < checkFields.size(); k++) {
 				LineInfo line = (LineInfo) checkFields.get(k);
 				boolean isFound = false;
 				boolean allFound = false;
 
-				//SXSSFCell cell = row.getCell(line.getColumn());
+				// SXSSFCell cell = row.getCell(line.getColumn());
 				String value = data[j][line.getColumn()];
 				if (value == null) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (j + 1) + "行,第" + (line.getColumn() + 1) + "的信息为空！");
 					break;
 				} else {
-					
+
 					ArrayList dict_items = line.getDict_items();
 					for (int l = 0; l < dict_items.size(); l++) {
 						DictItem item = (DictItem) dict_items.get(l);
@@ -155,9 +155,9 @@ public class DictionCheck {
 				// caption.getBus_name(), columns);
 				// if(column!=0)info.setColumn(column);
 				// else continue;
-				
+
 				info.setColumnName(caption.getBus_name());
-				
+
 				info.setColumn(i);
 
 				info.setDis_method(caption.getDis_method());
@@ -181,14 +181,14 @@ public class DictionCheck {
 			boolean allFound = false;
 
 			DataInfo data = (DataInfo) record.get(line.getColumn());
-			
+
 			if (data == null || data.getValue() == null) {
 				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 				messageList.add("字段" + line.getColumnName() + "的信息为空！");
 				break;
 			} else {
 				String value = data.getValue();
-				
+
 				ArrayList dict_items = line.getDict_items();
 				for (int l = 0; l < dict_items.size(); l++) {
 					DictItem item = (DictItem) dict_items.get(l);
@@ -202,26 +202,27 @@ public class DictionCheck {
 					// String value1 = line.getValue();
 					logger.info("column:" + line.getColumn());
 					logger.info("value :" + line.getValue());
-					if (value.charAt(0) == '[' && value.charAt(value.length() - 1) == ']') {
-						allFound = true;
-						String temp = value.substring(1, value.length() - 1);
-						String[] str = temp.split(",");
-						for (int m = 0; m < str.length; m++) {
-							String temp1 = str[m];
-							isFound = false;
-							for (int n = 0; n < dict_items.size(); n++) {
-								DictItem item1 = (DictItem) dict_items.get(n);
-								if (temp1.equals(item1.getItemname())) {
-									isFound = true;
-									break;
-								}
-							}
-							if (!isFound) {
-								allFound = false;
+					// if (value.charAt(0) == '[' && value.charAt(value.length()
+					// - 1) == ']') {
+					allFound = true;
+					//String temp = value.substring(1, value.length() - 1);
+					String[] str = value.split(",");
+					for (int m = 0; m < str.length; m++) {
+						String temp1 = str[m];
+						isFound = false;
+						for (int n = 0; n < dict_items.size(); n++) {
+							DictItem item1 = (DictItem) dict_items.get(n);
+							if (temp1.equals(item1.getItemname())) {
+								isFound = true;
 								break;
 							}
 						}
+						if (!isFound) {
+							allFound = false;
+							break;
+						}
 					}
+					// }
 				}
 			}
 
