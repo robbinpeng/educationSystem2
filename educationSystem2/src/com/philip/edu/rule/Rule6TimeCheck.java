@@ -908,7 +908,7 @@ public class Rule6TimeCheck {
 
 			line.add(arrayLeft);
 			line.add(arrayRight);
-			line.add(compareOp);
+			line.add(compareOp);  
 
 			al.add(line);
 		}
