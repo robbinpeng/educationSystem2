@@ -170,7 +170,7 @@ public class Rule5OutsideConstraintCheck {
 					break;
 				}
 				
-				logger.info("left sum:" + sum);
+				//logger.info("left sum:" + sum);
 
 				// right:
 				JSONObject objForm = (JSONObject) tempRight.get(0);
@@ -190,7 +190,7 @@ public class Rule5OutsideConstraintCheck {
 
 				String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal
 						+ "' and task_id=" + task_id;
-				logger.info("sql: " + sql);
+				//logger.info("sql: " + sql);
 				Session session = null;
 				ArrayList al = null;
 
@@ -207,7 +207,7 @@ public class Rule5OutsideConstraintCheck {
 				}
 
 				sumRight = al.size();
-				logger.info("right sume:" + sumRight);
+				//logger.info("right sume:" + sumRight);
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(sum == sumRight)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -409,7 +409,7 @@ public class Rule5OutsideConstraintCheck {
 				message.setMessage_info(messageList);
 				return message;
 			}
-			logger.info("left sum:" + sum);
+			//logger.info("left sum:" + sum);
 
 			// right:
 			JSONObject objForm = (JSONObject) tempRight.get(0);
@@ -438,7 +438,7 @@ public class Rule5OutsideConstraintCheck {
 
 			String sql = "select * from " + table_name + " where " + lineName + "=" + "'" + sTotal + "' and task_id="
 					+ task_id;
-			logger.info("sql: " + sql);
+			//logger.info("sql: " + sql);
 			Session session = null;
 			ArrayList al = null;
 
@@ -455,7 +455,7 @@ public class Rule5OutsideConstraintCheck {
 			}
 
 			sumRight = al.size();
-			logger.info("right sume:" + sumRight);
+			//logger.info("right sume:" + sumRight);
 			if (Constants.V_EQUAL.equals(sOP)) {
 				if (!(sum == sumRight)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);

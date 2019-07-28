@@ -37,7 +37,7 @@ public class DataDAO {
 		ArrayList line = new ArrayList();
 		StringBuffer sb = new StringBuffer("select id, ");
 		Query query = null;
-		logger.info("get into getTableData() method"); 
+		//logger.info("get into getTableData() method"); 
 		
 		try{
 			session = HibernateUtil.getSession();
@@ -76,11 +76,11 @@ public class DataDAO {
 			}
 			result.add(line);
 			ArrayList caption = line;
-			logger.info("the caption size:" + caption.size());
+			//logger.info("the caption size:" + caption.size());
 			
 			sb.append(" from " + tbl_name + " order by id");
 			
-			logger.info("sql:" + sb.toString());
+			//logger.info("sql:" + sb.toString());
 			
 			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			
@@ -92,7 +92,7 @@ public class DataDAO {
 				HashMap map = (HashMap)al.get(i);
 				DataInfo data1 = new DataInfo();
 				
-				logger.info("fields.size:" + fields.size());
+				//logger.info("fields.size:" + fields.size());
 				
 				Object oId = map.get("id");
 				if(oId!=null){
@@ -185,7 +185,7 @@ public class DataDAO {
 			
 			sb.append(" from " + tbl_name + " order by id limit " + (page-1) + "," + Constants.DATA_PAGE_SIZE);
 			
-			logger.info("sql:" + sb.toString());
+			//logger.info("sql:" + sb.toString());
 			
 			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			
@@ -197,7 +197,7 @@ public class DataDAO {
 				HashMap map = (HashMap)al.get(i);
 				DataInfo data1 = new DataInfo();
 				
-				logger.info("fields.size:" + fields.size());
+				//logger.info("fields.size:" + fields.size());
 				
 				Object oId = map.get("id");
 				if(oId!=null){
@@ -293,7 +293,7 @@ public class DataDAO {
 			
 			sb.append(sb1);
 			
-			logger.info("sql:" + sb.toString());
+			//logger.info("sql:" + sb.toString());
 			
 			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			
@@ -305,7 +305,7 @@ public class DataDAO {
 				HashMap map = (HashMap)al.get(i);
 				DataInfo data1 = new DataInfo();
 				
-				logger.info("fields.size:" + fields.size());
+				//logger.info("fields.size:" + fields.size());
 				
 				Object oId = map.get("id");
 				if(oId!=null){
@@ -407,7 +407,7 @@ public class DataDAO {
 			
 			sb.append(" from " + tbl_name + " where id=" + id +" order by id");
 			
-			logger.info("sql:" + sb.toString());
+			//logger.info("sql:" + sb.toString());
 			
 			//Query query = session.createQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
@@ -417,7 +417,7 @@ public class DataDAO {
 			
 			DataInfo data1 = new DataInfo();
 				
-			logger.info("fields.size:" + fields.size());
+			//logger.info("fields.size:" + fields.size());
 				
 			Object oId = map.get("id");
 			if(oId!=null){
@@ -429,21 +429,21 @@ public class DataDAO {
 				
 			for(int j=0; j<fields.size(); j++){
 				data = new DataInfo();
-				logger.info("j:" + j);
+				//logger.info("j:" + j);
 				DataInfo captionD = (DataInfo)caption.get(j);
-				logger.info("caption key is:" + captionD.getKey());
+				//logger.info("caption key is:" + captionD.getKey());
 					
 				data.setId(j);
 					
 				Object o = map.get(captionD.getKey());
 				if(o!=null){
 					data.setValue(o.toString());
-					logger.info("captionD url:" + captionD.getUrl());
+					//logger.info("captionD url:" + captionD.getUrl());
 					if("URL".equals(captionD.getUrl())){
 						String path = o.toString();
 						String[] sPath = path.split(Pattern.quote(File.separator));;
 						String name = sPath[sPath.length-1];
-						logger.info("path:" + sPath[sPath.length-1]);
+						//logger.info("path:" + sPath[sPath.length-1]);
 						data.setUrl(path);
 						data.setValue(name);
 						data.setKey("URL");

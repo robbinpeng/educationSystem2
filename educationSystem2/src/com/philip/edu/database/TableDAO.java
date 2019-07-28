@@ -287,7 +287,7 @@ public class TableDAO {
 							int table_id = Integer.parseInt(temp);
 							
 							String sql = "From FormStatus where form_id=" + table_id + " and task_id=" + status1.getTask_id();
-							logger.info("sql is: " + sql);
+							//logger.info("sql is: " + sql);
 							Query query1 = session.createQuery(sql);
 							ArrayList al1 = (ArrayList)query1.list();
 							FormStatus tempStatus1 = (FormStatus)al1.get(0);
@@ -298,7 +298,7 @@ public class TableDAO {
 					
 					if(status1.getForm_status()==Constants.STATUS_SUCCESS){}
 					else {
-						logger.info("canUpload: " + canUpload);
+						//logger.info("canUpload: " + canUpload);
 						if(canUpload)status1.setForm_status(Constants.STATUS_UPLOADABLE);
 						else status1.setForm_status(Constants.STATUS_CREATED);
 					}

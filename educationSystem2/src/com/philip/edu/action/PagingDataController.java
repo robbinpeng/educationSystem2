@@ -156,15 +156,6 @@ public class PagingDataController extends SelectorComposer<Component> {
         else 
         	data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), activePage);
         
-        for (int i = total-pageSize+1; i <= total; i++) {
-            
-            //当超过总页数时
-            if (i > dataPage.getTotalSize()) {
-                break;
-            }
-            
-        }
-        
         model = new ListModelList<ArrayList>(data_page);
         dataList.setModel(model);
     } 

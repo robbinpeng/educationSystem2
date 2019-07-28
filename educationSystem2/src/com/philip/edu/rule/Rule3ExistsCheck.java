@@ -60,7 +60,7 @@ public class Rule3ExistsCheck {
 		} catch (BadRulesException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			logger.info(e1);
+			//logger.info(e1);
 			messageList.add("规则的设置有问题！");
 			message.setMessage_type(Constants.RULECHECK_MESSAGE_NOT_IMPLEMENT);
 		}
@@ -144,7 +144,7 @@ public class Rule3ExistsCheck {
 							sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
 									+ leftValue + "' and task_id=" + task_id;
 						}
-						logger.info(sql);
+						//logger.info(sql);
 
 						query = session.createSQLQuery(sql);
 						ArrayList resultL = (ArrayList) query.list();
@@ -198,7 +198,7 @@ public class Rule3ExistsCheck {
 									+ "' and task_id=" + task_id;
 						}
 
-						logger.info(sql);
+						//logger.info(sql);
 
 						Query query = session.createSQLQuery(sql);
 						ArrayList resultL = (ArrayList) query.list();
@@ -280,7 +280,7 @@ public class Rule3ExistsCheck {
 		} catch (BadRulesException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			logger.info(e1);
+			//logger.info(e1);
 			messageList.add("规则的设置有问题！");
 			message.setMessage_type(Constants.RULECHECK_MESSAGE_NOT_IMPLEMENT);
 		}
@@ -366,7 +366,7 @@ public class Rule3ExistsCheck {
 						sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
 								+ leftValue + "' and task_id=" + task_id;
 					}
-					logger.info(sql);
+					//logger.info(sql);
 
 					query = session.createSQLQuery(sql);
 					ArrayList resultL = (ArrayList) query.list();
@@ -430,7 +430,7 @@ public class Rule3ExistsCheck {
 								+ task_id;
 					}
 
-					logger.info(sql);
+					//logger.info(sql);
 
 					Query query = session.createSQLQuery(sql);
 					ArrayList resultL = (ArrayList) query.list();

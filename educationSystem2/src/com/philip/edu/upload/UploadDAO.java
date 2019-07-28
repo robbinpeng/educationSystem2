@@ -140,14 +140,14 @@ public class UploadDAO {
 		String[] str = null;
 		if (dependency.indexOf(",") == -1) {
 			String temp = dependency.substring(1, dependency.length() - 1);
-			logger.info(dependency);
+			//logger.info(dependency);
 			int table_id = Integer.parseInt(temp);
 			al.add(table_id);
 		} else {
 			str = dependency.split(",");
 			for (int i = 0; i < str.length; i++) {
 				String temp = str[i].substring(1, str[i].length() - 1);
-				logger.info("split:" + str[i]);
+				//logger.info("split:" + str[i]);
 				// System.out.println(temp);
 				int table_id = Integer.parseInt(temp);
 				al.add(table_id);

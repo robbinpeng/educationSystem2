@@ -48,7 +48,7 @@ int index=1;
             <listheader label="依赖表"  width="20%"/>
         </listhead>
         <template name="model" sclass="narrow">
-            <listitem value="${each.id}">
+            <listitem value="${each.id}"> 
             	<listcell><radio id="${each.id}" radiogroup="tblChose" /></listcell>
                 <listcell label="${forEachStatus.index}"></listcell>
                 <listcell><toolbarbutton href="/data/${each.id}" label="${each.bus_name}"/></listcell>

@@ -143,7 +143,7 @@ public class Rule4NoRepeatCheck {
 					}
 				}
 
-				logger.info("result:" + result + ", compare:" + compare);
+				//logger.info("result:" + result + ", compare:" + compare);
 				if (result.toString().equals(compare.toString())) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (j + 1) + "行的主键" + keyInfo + "与第" + (l + 1) + "行记录重复！");
@@ -292,7 +292,7 @@ public class Rule4NoRepeatCheck {
 		}
 
 		String sql = sb.toString();
-		logger.info("sql:" + sql);
+		//logger.info("sql:" + sql);
 		
 		Session session = null;
 		ArrayList al1 = null;

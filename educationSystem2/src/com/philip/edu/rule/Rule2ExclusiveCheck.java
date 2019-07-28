@@ -124,7 +124,7 @@ public class Rule2ExclusiveCheck {
 				relate_table = (String) result.get(2);
 				relate_field = (String) result.get(3);
 
-				logger.info("bus_name=" + bus_name);
+				//logger.info("bus_name=" + bus_name);
 				int column = helper.getColumn2Check(data, bus_name);
 
 				//SXSSFCell cell = row.getCell(column);
@@ -231,7 +231,7 @@ public class Rule2ExclusiveCheck {
 		FormField formField = manager.getFieldByPhysicName(form_id, field);
 		String relate_field = formField.getBus_name();
 		ruleSQL = "select * from " + table + " where " + field + "=? and task_id=" + task_id;
-		logger.info("the sql is:" + ruleSQL);
+		//logger.info("the sql is:" + ruleSQL);
 
 		// get check fieldName:
 		obj = (JSONObject) array.get(0);
@@ -276,12 +276,12 @@ public class Rule2ExclusiveCheck {
 			String relate_table = form.getBus_name();
 			// get field:
 			String field = obj.get("relateField").toString();
-			logger.info("the form id:" + table);
-			logger.info("the field is:" + field);
+			//logger.info("the form id:" + table);
+			//logger.info("the field is:" + field);
 			formField = manager.getFieldByPhysicName(form.getId(), field);
 			String relate_field = formField.getBus_name();
 			ruleSQL = "select * from " + table + " where " + field + "=? and task_id=" + task_id;
-			logger.info("the sql is:" + ruleSQL);
+			//logger.info("the sql is:" + ruleSQL);
 
 			result.add(ruleSQL);
 			result.add(bus_name);

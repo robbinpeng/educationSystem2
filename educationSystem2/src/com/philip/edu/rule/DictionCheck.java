@@ -92,8 +92,8 @@ public class DictionCheck {
 
 					if (line.getDis_method() == Constants.V_DISPLAY_MULTIPLE_COMBOBOX) {
 						// String value1 = line.getValue();
-						logger.info("column:" + line.getColumn());
-						logger.info("value :" + line.getValue());
+						//logger.info("column:" + line.getColumn());
+						//logger.info("value :" + line.getValue());
 						if (value.charAt(0) == '[' && value.charAt(value.length() - 1) == ']') {
 							allFound = true;
 							String temp = value.substring(1, value.length() - 1);
@@ -200,8 +200,8 @@ public class DictionCheck {
 
 				if (line.getDis_method() == Constants.V_DISPLAY_MULTIPLE_COMBOBOX) {
 					// String value1 = line.getValue();
-					logger.info("column:" + line.getColumn());
-					logger.info("value :" + line.getValue());
+					//logger.info("column:" + line.getColumn());
+					//logger.info("value :" + line.getValue());
 					// if (value.charAt(0) == '[' && value.charAt(value.length()
 					// - 1) == ']') {
 					allFound = true;

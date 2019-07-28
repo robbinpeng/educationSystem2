@@ -39,10 +39,10 @@ public class DatabaseListController extends SelectorComposer<Component>{
 	private static FormManager formManager = new FormManager();
 	private static RuleManager ruleManager = new RuleManager();
 	private static UploadManager uploadManager = new UploadManager();
-	private static DatabaseManager dbManager = new DatabaseManager();
+	private static DatabaseManager dbManager = new DatabaseManager(); 
 
 	@Wire
-	private Window dbWindow;
+	private Window dbWindow; 
 	
 	@Wire
 	private Listbox formlist;

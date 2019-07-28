@@ -400,11 +400,11 @@ public class Rule1ConstraintCheck {
 			SXSSFCell cell2 = null;
 			Object o2 = null;
 			if (line1.getType() == Constants.LINE_TYPE_FIELD_NAME) {
-				logger.info("line1.getColumn=" + line1.getColumn());
+				//logger.info("line1.getColumn=" + line1.getColumn());
 				DataInfo data1 = (DataInfo) record.get(line1.getColumn());
-				logger.info("data.getKey:" + data1.getKey());
+				//logger.info("data.getKey:" + data1.getKey());
 				value1 = data1.getValue();
-				logger.info("value1: " + value1);
+				//logger.info("value1: " + value1);
 				// o1 = helper.getCellValue(cell1);
 				// value1 = o1.toString();
 			} else {
@@ -752,9 +752,9 @@ public class Rule1ConstraintCheck {
 			}
 			// 3、compare:
 			if (arrayLeft.size() == 1 && arrayRight.size() == 1) {
-				logger.info("sOP:" + sOP);
+				//logger.info("sOP:" + sOP);
 				if (Constants.V_EQUAL.equals(sOP)) {
-					logger.info("leftString:" + leftString + "; rightString:" + rightString);
+					//logger.info("leftString:" + leftString + "; rightString:" + rightString);
 					if (!leftString.equals(rightString)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						messageList.add("第" + (i + 1) + "行的等式不成立！");
@@ -764,7 +764,7 @@ public class Rule1ConstraintCheck {
 			if (!isNum)
 				continue;
 
-			logger.info("left result:" + leftResult + "right result:" + rightResult);
+			//logger.info("left result:" + leftResult + "right result:" + rightResult);
 			if (Constants.V_EQUAL.equals(sOP)) {
 				if (!(leftResult == rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -786,7 +786,7 @@ public class Rule1ConstraintCheck {
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
 				}
 			} else if (Constants.V_LESSTE.equals(sOP)) {
-				logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
+				//logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
 				if (!(leftResult <= rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("第" + (i + 1) + "行的不等式不成立！");
@@ -923,7 +923,7 @@ public class Rule1ConstraintCheck {
 		boolean isNum = true;
 		// 1、 get left result:
 		String currentOperator = Constants.V_ADD;
-		logger.info("arrayLeft.size:" + arrayLeft.size());
+		//logger.info("arrayLeft.size:" + arrayLeft.size());
 		for (int k = 0; k < arrayLeft.size(); k++) {
 			line = (LineInfo) arrayLeft.get(k);
 			try {
@@ -934,7 +934,7 @@ public class Rule1ConstraintCheck {
 						return message;
 					String tempValue = "";
 					tempValue = data.getValue();
-					logger.info("tempValue:" + tempValue);
+					//logger.info("tempValue:" + tempValue);
 					if (arrayLeft.size() == 1) {
 						leftString = tempValue;
 						try {
@@ -1067,9 +1067,9 @@ public class Rule1ConstraintCheck {
 		}
 		// 3、compare:
 		if (arrayLeft.size() == 1 && arrayRight.size() == 1) {
-			logger.info("sOP:" + sOP);
+			//logger.info("sOP:" + sOP);
 			if (Constants.V_EQUAL.equals(sOP)) {
-				logger.info("leftString:" + leftString + "; rightString:" + rightString);
+				//logger.info("leftString:" + leftString + "; rightString:" + rightString);
 				if (!leftString.equals(rightString)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					messageList.add("等式不成立！");
@@ -1082,7 +1082,7 @@ public class Rule1ConstraintCheck {
 			return message;
 		}
 
-		logger.info("left result:" + leftResult + "right result:" + rightResult);
+		//logger.info("left result:" + leftResult + "right result:" + rightResult);
 		if (Constants.V_EQUAL.equals(sOP)) {
 			if (!(leftResult == rightResult)) {
 				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
@@ -1104,7 +1104,7 @@ public class Rule1ConstraintCheck {
 				messageList.add("该记录的不等式不成立！");
 			}
 		} else if (Constants.V_LESSTE.equals(sOP)) {
-			logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
+			//logger.info("leftResult:" + leftResult + "; rightResult:" + rightResult);
 			if (!(leftResult <= rightResult)) {
 				message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 				messageList.add("该记录的不等式不成立！");

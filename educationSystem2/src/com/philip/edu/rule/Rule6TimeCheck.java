@@ -168,27 +168,31 @@ public class Rule6TimeCheck {
 								break;
 							case 7: // "yyyy-mm"
 								year = Integer.parseInt(sDate.substring(0, 4));
-								logger.info("sDate:" + sDate);
+								//logger.info("sDate:" + sDate);
+								//month=1;
 								if (sDate.length() >= 7)
 									month = Integer.parseInt(sDate.substring(5, 7));
 								else
 									month = 1;
+								if(month<1 || month>12)month=1;
 								leftLDate = LocalDate.of(year, month, 1);
 								break;
 							case 10: // "yyyy-mm-dd"
 								year = Integer.parseInt(sDate.substring(0, 4));
-								logger.info("sDate:" + sDate);
+								//logger.info("sDate:" + sDate);
 								String sMonth = "";
 								if (sDate.length() >= 7)
 									sMonth = sDate.substring(5, 7);
 								else
 									sMonth = "1";
-								logger.info("month:" + sMonth);
+								//logger.info("month:" + sMonth);
 								month = Integer.parseInt(sMonth);
+								if(month<1 || month>12)month=1;
 								if (sDate.length() >= 10)
 									day = Integer.parseInt(sDate.substring(8, 10));
 								else
 									day = 1;
+								if(day<1 || day>31)day=1;
 								leftLDate = LocalDate.of(year, month, day);
 								break;
 							}
@@ -213,7 +217,9 @@ public class Rule6TimeCheck {
 							case 10: // "yyyy-mm-dd"
 								year = Integer.parseInt(sDate.substring(0, 4));
 								month = Integer.parseInt(sDate.substring(5, 7));
+								if(month<1 || month>12)month=1;
 								day = Integer.parseInt(sDate.substring(8, 10));
+								if(day<1 || day>31)day=1;
 								leftLDate = LocalDate.of(year, month, day);
 								break;
 							}
@@ -226,11 +232,13 @@ public class Rule6TimeCheck {
 						} else if (Constants.RULE_MONTH.equals(typeL)) {
 							String sDate = objLeft.getString("value");
 							int month = Integer.parseInt(sDate);
+							if(month<1 || month>12)month=1;
 							leftLDate = leftLDate.withMonth(month);
 							leftLDate = leftLDate.withDayOfMonth(1);
 						} else if (Constants.RULE_DAY.equals(typeL)) {
 							String sDate = objLeft.getString("value");
 							int day = Integer.parseInt(sDate);
+							if(day<1 || day>31)day=1;
 							leftLDate = leftLDate.withDayOfMonth(day);
 						}
 					}
@@ -265,6 +273,7 @@ public class Rule6TimeCheck {
 									month = Integer.parseInt(sDate.substring(5, 7));
 								else
 									month = 1;
+								if(month<1 || month>12)month=1;
 								rightLDate = LocalDate.of(year, month, 1);
 								break;
 							case 10: // "yyyy-mm-dd"
@@ -273,10 +282,12 @@ public class Rule6TimeCheck {
 									month = Integer.parseInt(sDate.substring(5, 7));
 								else
 									month = 1;
+								if(month<1 || month>12)month=1; 
 								if (sDate.length() >= 10)
 									day = Integer.parseInt(sDate.substring(8, 10));
 								else
 									day = 1;
+								if(day<1 || day>31)day=1;
 								rightLDate = LocalDate.of(year, month, day);
 								break;
 							}
@@ -294,12 +305,15 @@ public class Rule6TimeCheck {
 							case 7: // "yyyy-mm"
 								year = Integer.parseInt(sDate.substring(0, 4));
 								month = Integer.parseInt(sDate.substring(5, 7));
+								if(month<1 || month>12)month=1;
 								rightLDate = LocalDate.of(year, month, 1);
 								break;
 							case 10: // "yyyy-mm-dd"
 								year = Integer.parseInt(sDate.substring(0, 4));
 								month = Integer.parseInt(sDate.substring(5, 7));
+								if(month<1 || month>12)month=1;
 								day = Integer.parseInt(sDate.substring(8, 10));
+								if(day<1 || day>31)day=1;
 								rightLDate = LocalDate.of(year, month, day);
 								break;
 							}
@@ -312,11 +326,13 @@ public class Rule6TimeCheck {
 						} else if (Constants.RULE_MONTH.equals(typeR)) {
 							String sDate = objRight.getString("value");
 							month = Integer.parseInt(sDate);
+							if(month<1 || month>12)month=1;
 							rightLDate = rightLDate.withMonth(month);
 							rightLDate = rightLDate.withDayOfMonth(1);
 						} else if (Constants.RULE_DAY.equals(typeR)) {
 							String sDate = objRight.getString("value");
 							day = Integer.parseInt(sDate);
+							if(day<1 || day>31)day=1;
 							rightLDate = rightLDate.withDayOfMonth(day);
 						}
 					}
@@ -339,7 +355,7 @@ public class Rule6TimeCheck {
 				String sOP = objOper.getString("operator");
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(leftLDate.isEqual(rightLDate))) {
-						logger.info("left:" + leftLDate + ", right:" + rightLDate);
+						//logger.info("left:" + leftLDate + ", right:" + rightLDate);
 						// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						// messageList.add("第" + (i+1) + "行的等式不成立！");
 						isRight = false;
@@ -366,8 +382,8 @@ public class Rule6TimeCheck {
 						break;
 					}
 				} else if (Constants.V_LESST.equals(sOP)) {
-					logger.info("left Date:" + leftLDate.toString());
-					logger.info("right date:" + rightLDate.toString());
+					//logger.info("left Date:" + leftLDate.toString());
+					//logger.info("right date:" + rightLDate.toString());
 					if (!(leftLDate.isBefore(rightLDate))) {
 						// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						// messageList.add("第" + (i+1) + "行的不等式不成立！");
@@ -377,7 +393,7 @@ public class Rule6TimeCheck {
 						break;
 					}
 				} else if (Constants.V_LESSTE.equals(sOP)) {
-					logger.info("leftLDate:" + leftLDate.toString() + ",rightLDate:" + rightLDate.toString());
+					//logger.info("leftLDate:" + leftLDate.toString() + ",rightLDate:" + rightLDate.toString());
 					if (!(leftLDate.isBefore(rightLDate) || (leftLDate.isEqual(rightLDate)))) {
 						// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 						// messageList.add("第" + (i+1) + "行的不等式不成立！");
@@ -537,23 +553,25 @@ public class Rule6TimeCheck {
 							break;
 						case 7: // "yyyy-mm"
 							year = Integer.parseInt(sDate.substring(0, 4));
-							logger.info("sDate:" + sDate);
+							//logger.info("sDate:" + sDate);
 							if (sDate.length() >= 7)
 								month = Integer.parseInt(sDate.substring(5, 7));
 							else
 								month = 1;
+							if(month==0)month=1;
 							leftLDate = LocalDate.of(year, month, 1);
 							break;
 						case 10: // "yyyy-mm-dd"
 							year = Integer.parseInt(sDate.substring(0, 4));
-							logger.info("sDate:" + sDate);
+							//logger.info("sDate:" + sDate);
 							String sMonth = "";
 							if (sDate.length() >= 7)
 								sMonth = sDate.substring(5, 7);
 							else
 								sMonth = "1";
-							logger.info("month:" + sMonth);
+							//logger.info("month:" + sMonth);
 							month = Integer.parseInt(sMonth);
+							if(month==0)month=1;
 							if (sDate.length() >= 10)
 								day = Integer.parseInt(sDate.substring(8, 10));
 							else
@@ -633,6 +651,7 @@ public class Rule6TimeCheck {
 								month = Integer.parseInt(sDate.substring(5, 7));
 							else
 								month = 1;
+							if(month==0)month=1;
 							rightLDate = LocalDate.of(year, month, 1);
 							break;
 						case 10: // "yyyy-mm-dd"
@@ -641,6 +660,7 @@ public class Rule6TimeCheck {
 								month = Integer.parseInt(sDate.substring(5, 7));
 							else
 								month = 1;
+							if(month==0)month=1;
 							if (sDate.length() >= 10)
 								day = Integer.parseInt(sDate.substring(8, 10));
 							else
@@ -710,7 +730,7 @@ public class Rule6TimeCheck {
 			String sOP = objOper.getString("operator");
 			if (Constants.V_EQUAL.equals(sOP)) {
 				if (!(leftLDate.isEqual(rightLDate))) {
-					logger.info("left:" + leftLDate + ", right:" + rightLDate);
+					//logger.info("left:" + leftLDate + ", right:" + rightLDate);
 					// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					// messageList.add("第" + (i+1) + "行的等式不成立！");
 					isRight = false;
@@ -737,8 +757,8 @@ public class Rule6TimeCheck {
 					break;
 				}
 			} else if (Constants.V_LESST.equals(sOP)) {
-				logger.info("left Date:" + leftLDate.toString());
-				logger.info("right date:" + rightLDate.toString());
+				//logger.info("left Date:" + leftLDate.toString());
+				//logger.info("right date:" + rightLDate.toString());
 				if (!(leftLDate.isBefore(rightLDate))) {
 					// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					// messageList.add("第" + (i+1) + "行的不等式不成立！");
@@ -748,7 +768,7 @@ public class Rule6TimeCheck {
 					break;
 				}
 			} else if (Constants.V_LESSTE.equals(sOP)) {
-				logger.info("leftLDate:" + leftLDate.toString() + ",rightLDate:" + rightLDate.toString());
+				//logger.info("leftLDate:" + leftLDate.toString() + ",rightLDate:" + rightLDate.toString());
 				if (!(leftLDate.isBefore(rightLDate) || (leftLDate.isEqual(rightLDate)))) {
 					// message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 					// messageList.add("第" + (i+1) + "行的不等式不成立！");

@@ -169,7 +169,7 @@ public class FieldFormatCheck {
 
 						switch (line1.getTextFormat()) {
 						case Constants.V_TEXT_FORMAT_MOBILEPHONE:
-							logger.info("value is: " + value);
+							//logger.info("value is: " + value);
 							if (!isMobile(value_cell)) {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是电话号码！");
@@ -200,7 +200,7 @@ public class FieldFormatCheck {
 							}
 							break;
 						case Constants.V_TEXT_FORMAT_DATE_MONTH:
-							logger.info("date is:" + value_cell);
+							//logger.info("date is:" + value_cell);
 							if (value_cell.length() != 7 || value_cell.charAt(4) != '-') {
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
@@ -235,20 +235,20 @@ public class FieldFormatCheck {
 							}
 							break;
 						case Constants.V_TEXT_FORMAT_DATE_DAY:
-							logger.info("date is:" + value);
+							//logger.info("date is:" + value);
 							if (value_cell.length() != 10 || value_cell.charAt(4) != '-' || value_cell.charAt(7) != '-') {
-								logger.info("entering 1.");
+								//logger.info("entering 1.");
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 							} else {
 								String year = value_cell.substring(0, 4);
 								String month = value_cell.substring(5, 7);
 								String day = value_cell.substring(8, 10);
-								logger.info("year:" + year);
-								logger.info("month" + month);
-								logger.info("day:" + day);
+								//logger.info("year:" + year);
+								//logger.info("month" + month);
+								//logger.info("day:" + day);
 								if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
-									logger.info("entering 2.");
+									//logger.info("entering 2.");
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									messageList.add(
 											"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
@@ -256,7 +256,7 @@ public class FieldFormatCheck {
 									int iMonth = Integer.parseInt(month);
 									int iDay = Integer.parseInt(day);
 									if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
-										logger.info("entering 3.");
+										//logger.info("entering 3.");
 										message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 										messageList.add(
 												"第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
@@ -366,7 +366,7 @@ public class FieldFormatCheck {
 
 					switch (line1.getTextFormat()) {
 					case Constants.V_TEXT_FORMAT_MOBILEPHONE:
-						logger.info("value is: " + data.getValue());
+						//logger.info("value is: " + data.getValue());
 						if (!isMobile(data.getValue())) {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							//messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]不是电话号码！");
@@ -402,7 +402,7 @@ public class FieldFormatCheck {
 						}
 						break;
 					case Constants.V_TEXT_FORMAT_DATE_MONTH:
-						logger.info("date is:" + value);
+						//logger.info("date is:" + value);
 						if (data.getValue().length() != 7 || data.getValue().charAt(4) != '-') {
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							//messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM'格式");
@@ -440,9 +440,9 @@ public class FieldFormatCheck {
 						}
 						break;
 					case Constants.V_TEXT_FORMAT_DATE_DAY:
-						logger.info("date is:" + data.getValue());
+						//logger.info("date is:" + data.getValue());
 						if (data.getValue().length() != 10 || data.getValue().charAt(4) != '-' || value.charAt(7) != '-') {
-							logger.info("entering 1.");
+							//logger.info("entering 1.");
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 							//messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 							messageList.add("[" + line1.getColumnName() + "]字符日期不符合'YYYY-MM-DD'的格式");
@@ -450,11 +450,11 @@ public class FieldFormatCheck {
 							String year = data.getValue().substring(0, 4);
 							String month = data.getValue().substring(5, 7);
 							String day = data.getValue().substring(8, 10);
-							logger.info("year:" + year);
-							logger.info("month" + month);
-							logger.info("day:" + day);
+							//logger.info("year:" + year);
+							//logger.info("month" + month);
+							//logger.info("day:" + day);
 							if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
-								logger.info("entering 2.");
+								//logger.info("entering 2.");
 								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 								//messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 								messageList.add("[" + line1.getColumnName() + "]字符日期不符合'YYYY-MM-DD'的格式");
@@ -462,7 +462,7 @@ public class FieldFormatCheck {
 								int iMonth = Integer.parseInt(month);
 								int iDay = Integer.parseInt(day);
 								if (iMonth < 1 || iMonth > 12 || iDay < 1 || iDay > 31) {
-									logger.info("entering 3.");
+									//logger.info("entering 3.");
 									message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 									//messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]日期不符合'YYYY-MM-DD'格式");
 									messageList.add("[" + line1.getColumnName() + "]字符日期不符合'YYYY-MM-DD'的格式");
