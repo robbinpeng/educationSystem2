@@ -104,7 +104,7 @@ public class DataDAO {
 				
 				for(int j=0; j<fields.size(); j++){
 					data = new DataInfo();
-					logger.info("j:" + j);
+					//logger.info("j:" + j);
 					DataInfo captionD = (DataInfo)caption.get(j);
 					logger.info("caption key is:" + captionD.getKey());
 					
@@ -209,7 +209,7 @@ public class DataDAO {
 				
 				for(int j=0; j<fields.size(); j++){
 					data = new DataInfo();
-					logger.info("j:" + j);
+					//logger.info("j:" + j);
 					FormField field = (FormField)fields.get(j);
 					//logger.info("caption key is:" + captionD.getKey());
 					
@@ -317,7 +317,7 @@ public class DataDAO {
 				
 				for(int j=0; j<fields.size(); j++){
 					data = new DataInfo();
-					logger.info("j:" + j);
+					//logger.info("j:" + j);
 					FormField field = (FormField)fields.get(j);
 					//logger.info("caption key is:" + captionD.getKey());
 					

@@ -6,7 +6,14 @@ public class FormatLine {
 	char textFormat = 'o';
 	String columnName = "";
 	boolean is_required = false;
+	int length = 0;
 	
+	public int getLength() {
+		return length;
+	}
+	public void setLength(int length) {
+		this.length = length;
+	}
 	public boolean isIs_required() {
 		return is_required;
 	}

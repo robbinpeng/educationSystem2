@@ -121,7 +121,7 @@ public class Rule5OutsideConstraintCheck {
 				}
 				// rightValue = Integer.parseInt(value);
 
-				logger.info("leftValue=" + leftValue + ",rightValue=" + rightValue);
+				//logger.info("leftValue=" + leftValue + ",rightValue=" + rightValue);
 				// compare:
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(leftValue == rightValue)) {

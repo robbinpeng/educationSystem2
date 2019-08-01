@@ -1,0 +1,11 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="progresswindow" title="进度条显示" border="normal" width="500px" 
+    apply="com.philip.edu.test.TestProgressController">
+<vbox>
+    <label id="progresslabel" value="正在处理中，请耐心等待……"/>
+    <separator spacing="5px" />
+    <progressmeter id="userprogress" width="400px" value="0"/>
+</vbox>
+</window>
+</zk>

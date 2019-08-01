@@ -61,6 +61,7 @@ public class FieldFormatCheck {
 				line.setDataType(caption.getData_type());
 				set = true;
 			}
+			line.setLength(caption.getLength());
 			if (caption.getText_format() != Constants.V_TEXT_FORMAT_NO) {
 				line.setTextFormat(caption.getText_format());
 				set = true;
@@ -85,6 +86,13 @@ public class FieldFormatCheck {
 				if (value_cell != null) {
 					if (!"".equals(value_cell)) {
 
+						//length check:
+						if(value_cell.length() > line1.getLength()) {
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							messageList.add("第" + (i + 1) + "行的[" + line1.getColumnName() + "]字段长度超出系统要求"); 
+						}
+						
+						//format check:
 						switch (line1.getDataType()) {
 						case Constants.V_DATA_TYPE_INTEGER:
 							if (!isNumeric(value_cell)) {

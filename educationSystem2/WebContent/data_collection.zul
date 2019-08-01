@@ -41,7 +41,7 @@ Task task = formManager.getTaskById(task_id);
 <grid>
 <rows>
 <row>
-<cell><label style="font-weight: bold">最新工作内容:</label><label value="${task.task_name}"/></cell><cell><label style="font-weight: bold">截止时间：</label><label value="${task.end_time}"/></cell><cell><label style="font-weight: bold">统计时间：</label><label value="${task.stat_time}"/></cell><cell><label style="font-weight: bold">内部统计时间：</label><label value="${task.internal_stat_time}"/></cell>
+<cell><label id="store" style="font-weight: bold">最新工作内容:</label><label value="${task.task_name}"/></cell><cell><label style="font-weight: bold">截止时间：</label><label value="${task.end_time}"/></cell><cell><label style="font-weight: bold">统计时间：</label><label value="${task.stat_time}"/></cell><cell><label style="font-weight: bold">内部统计时间：</label><label value="${task.internal_stat_time}"/></cell>
 </row>
 </rows>
 </grid>

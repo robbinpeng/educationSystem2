@@ -37,4 +37,8 @@ public class DatabaseManager {
 	public boolean updateField(FormField field){
 		return dao.updateField(field);
 	}
+	
+	public boolean alterLength(String table_name, int field_id, int length){
+		return dao.alterLength(table_name, field_id, length);
+	}
 }

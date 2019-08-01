@@ -82,7 +82,9 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 	
 	@Listen("onClick = #updateBtn")
     public void editField(Event e) {
-		FormField field = store_field;
+		FormField field = store_field; 
+		String len = length.getValue();
+		int iLen = 0;
 		
         //1.check:
 		if(bus_name.getValue()==null || "".equals(bus_name.getValue()) || "必填项".equals(bus_name.getValue())){Messagebox.show("字段业务名不能为空！","错误",Messagebox.OK,Messagebox.ERROR);return;}
@@ -93,8 +95,24 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 			Messagebox.show("字段顺序必须是数字！","错误",Messagebox.OK,Messagebox.ERROR);
 			return;
 		}
+		if (length.getValue()==null || "".equals(length.getValue()) || "必填项".equals(length.getValue())){
+			Messagebox.show("字段长度不能为空！","错误",Messagebox.OK,Messagebox.ERROR);
+			return;
+		} else if (!isNumeric(length.getValue())) {
+			Messagebox.show("字段长度必须是数字！", "错误", Messagebox.OK, Messagebox.ERROR);
+			return;
+		} else {
+			iLen = Integer.parseInt(len);
+			if(iLen < store_field.getLength()){
+				Messagebox.show("字段长度只能增加，不能减少！", "错误", Messagebox.OK, Messagebox.ERROR);
+				return;
+			}
+		}
 		
 		//2.update:
+		iLen = Integer.parseInt(len);
+		
+		//field.setLength(iLen);
 		field.setBus_name(bus_name.getValue());
 		field.setSequence(Integer.parseInt(sequence.getValue()));
 		field.setData_type(Integer.parseInt(data_type.getSelectedItem().getValue().toString()));
@@ -106,8 +124,18 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 		field.setText_format(text_format.getSelectedItem().getValue().toString().charAt(0));
 		field.setDictid(Integer.parseInt(dictionary.getSelectedItem().getValue().toString()));
 		field.setMemo(memo.getValue());
-				
-		boolean b = dbManager.updateField(field);
+		
+		boolean b = false;
+		
+		if(iLen != store_field.getLength()){
+			Form form = formManager.getFormById(store_formid);
+			b = dbManager.alterLength(form.getPhsic_name(), store_field.getId(), iLen);
+		}
+		
+		if(b){
+			field.setLength(iLen);
+			b = dbManager.updateField(field);
+		}
 		
 		if(b){
 			Messagebox.show("成功修改！","信息",Messagebox.OK,Messagebox.INFORMATION);

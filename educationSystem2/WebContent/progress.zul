@@ -1,0 +1,11 @@
+<?page title="上传进度" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="progresswindow" title="导入文件进度" border="normal" width="500px" 
+    apply="com.philip.edu.excel.ProgressController">
+<vbox>
+    <label id="progresslabel" value="上传文件正在处理中，请耐心等待……"/>
+    <separator spacing="5px" />
+    <progressmeter id="userprogress" width="400px" value="0"/>
+</vbox>
+</window>
+</zk>

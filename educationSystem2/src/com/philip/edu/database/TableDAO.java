@@ -355,4 +355,37 @@ public class TableDAO {
 		
 		return isSuccess;
 	}
+	
+	public boolean alterLength(String table_name, int field_id, int length){
+		boolean isSuccess = false;
+		Session session = null;
+		String sql = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			FormField temp = session.get(FormField.class, field_id);
+			
+			if(temp!=null){
+				
+				sql = "alter table " + table_name + " modify column " + temp.getPhysic_name() + " varchar(" + length + ")";
+				
+				logger.info("sql:" + sql);
+				Query query = session.createSQLQuery(sql);
+				query.executeUpdate();
+				
+				session.getTransaction().commit();
+				isSuccess = true;
+			}
+			
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
 }

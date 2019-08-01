@@ -1,6 +1,7 @@
 package com.philip.edu.excel;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Grid;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -76,9 +78,14 @@ public class UploadController extends SelectorComposer<Component> {
 	@Wire
 	private Radiogroup tblChose;
 	
+	@Wire
+	private Label store;
+	
 	private int group_id;
 	
 	private int task_id;
+	
+	public int step = 0;
 
 	@Override
 	public void doAfterCompose(Component window) throws Exception {
@@ -173,134 +180,20 @@ public class UploadController extends SelectorComposer<Component> {
 
 		ArrayList list = null;
 
-		RuleManager engine = new RuleManager();
 		MessageInfo message = null;
 		String sMessage = "";
 		// 1.check it's excel;
 		Media media = ue.getMedia();
 		if ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equals(media.getContentType())) {
-			try {
-				// 2.check format is right:
-				rapidHelper.processFirstSheetStream(media.getStreamData());
-				int excelColumns = rapidHelper.getColumns();
-				int lines = rapidHelper.getLines();
-				int excelLines = 0;
-				
-				//logger.info("excelColumns:" + excelColumns);
-				
-				ArrayList all = rapidHelper.getAll();
-				int x=0;
-				for(x=0; x<lines; x++){
-					ArrayList line = (ArrayList)all.get(x);
-					//logger.info("line.size()=" + line.size() + ", excelColumns=" + excelColumns);
-					if(line.size()!=excelColumns)break;
-				}
-				excelLines = x;
-				
-				String[][] data = new String[excelLines][excelColumns];
-				for(int i=0; i<excelLines; i++){
-					ArrayList line = (ArrayList)all.get(i);
-					for(int j=0; j<excelColumns; j++){
-						String cell = (String)line.get(j);
-						data[i][j] = cell;
-					}
-				}	
-				
-				rapidHelper.refresh();
-				
-				boolean format_right = ruleManager.formatCheck(form.getId(), data);
-				if (format_right) {
-					boolean checkpass = true;
-					// 2.5 check text format:
-					MessageInfo m = engine.textFormatCheck(form.getId(), data);
-					if(m.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS){
-						
-					} else {
-						sMessage += "上传表格中有数据类型、格式错误： \n";
-						ArrayList al = m.getMessage_info();
-						if(al.size()!=0){
-							checkpass = false;
-							for (int i = 0; i<al.size(); i++){
-								sMessage += al.get(i).toString() + "\n";
-							}
-						}
-					}
-					
-					//2.6 check dictionary:
-					m = engine.DictionCheck(form.getId(), data);
-					if(m.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){
-						
-					} else {
-						sMessage += "\n 上传表格中有字段不在数据字典中：   \n";
-						ArrayList al = m.getMessage_info();
-						if(al.size()!=0){
-							checkpass = false;
-							for (int j=0; j<al.size(); j++){
-								sMessage += (String)al.get(j) + "\n";
-							}
-						}
-					}
-					// 3.check the rules:
-					list = engine.rulesCheck(form.getId(), data, task_id);
-					for (int j = 0; j < list.size(); j++) {
-						message = (MessageInfo) list.get(j);
-						if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
-						} else {
-							sMessage += "\n 规则校验不通过： \n";
-							ArrayList al = message.getMessage_info();
-							if (al.size() != 0) {
-								checkpass = false;
-								sMessage += message.getFail_information() + ":\n";
-								for (int i = 0; i < al.size(); i++) {
-									System.out.println(al.get(i).toString());
-									sMessage += al.get(i).toString() + "\n";
-								}
-
-								sMessage += "\n";
-							}
-						}
-					}
-					// create a window programmatically and use it as a modal
-					// dialog.
-					if (checkpass) {
-						// 3.save data into database;
-						boolean tempSuccess = uploadManager.uploadData(data, form.getId(), Constants.USER_ID, task_id);
-						if (tempSuccess) {
-							isSuccess = uploadManager.uploadUpdate(form.getId(), task_id);
-							if (isSuccess) {
-								Messagebox.show("上传成功！","信息",Messagebox.OK,Messagebox.INFORMATION);
-							
-								
-								List<UploadInfo> forms = formManager.getDataCollectionByGroup(task_id, group_id);
-								formlist.setModel(new ListModelList<UploadInfo>(forms));
-							} else {
-								Messagebox.show("更新上传数据时出错，请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
-							
-							}
-						} else {
-							Messagebox.show("上传表格过程中出错,请联系管理员！","错误",Messagebox.OK,Messagebox.ERROR);
-						
-						}
-					} else {
-						HashMap map = new HashMap();
-						map.put("message", sMessage);
-						Window window1 = (Window) Executions.createComponents("/rule_check.zul", null, map);
-
-						window1.doModal();
-				
-					}
-				} else {
-					Messagebox.show("上传的表格与要求不符！请检查列数和列标题是否正确！","错误",Messagebox.OK,Messagebox.ERROR);
-				}
-			} catch (EncryptedDocumentException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				logger.error(e);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				logger.error(e);
-			}
+			InputStream in = media.getStreamData();
+			HashMap data = new HashMap();
+			data.put("data", in);
+			data.put("form", form);
+			data.put("task_id", task_id);
+			data.put("group_id", group_id);
+			
+			Window progressWindow = (Window)Executions.createComponents("/progress.zul", null, data);
+			progressWindow.doModal();
 		} else {
 			Messagebox.show("您上传的不是更新的Excel表格！","错误",Messagebox.OK,Messagebox.ERROR);
 		}

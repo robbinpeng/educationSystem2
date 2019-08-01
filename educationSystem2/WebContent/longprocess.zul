@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="" border="normal">
+    <button label="从1数到10000">
+        <attribute name="onClick">
+            String url = "/progressmeter.zul";
+            Window window = (Window)Executions.createComponents(url, null, null);
+            window.doModal();
+        </attribute>
+    </button>
+</window>
