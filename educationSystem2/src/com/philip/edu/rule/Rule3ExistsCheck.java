@@ -19,6 +19,7 @@ import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormField;
 import com.philip.edu.basic.FormManager;
 import com.philip.edu.basic.HibernateUtil;
+import com.philip.edu.basic.StatusTemp;
 
 public class Rule3ExistsCheck {
 	private Logger logger = Logger.getLogger(Rule1ConstraintCheck.class);
@@ -135,6 +136,8 @@ public class Rule3ExistsCheck {
 
 					try {
 						session = HibernateUtil.getSession();
+						
+						//one value:
 						String sql = "";
 						if (!(info.getAndName() == null || info.getAndName().equals(""))) {
 							sql = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
@@ -154,7 +157,47 @@ public class Rule3ExistsCheck {
 							break;
 						} else {
 							isExsits = false;
-							continue;
+							//continue;
+						}
+						
+						//multiple value:
+						if(info.isMultiple()){
+							if(leftValue.contains(";")){
+								boolean oneExsits = false;
+								
+								String[] str = leftValue.split(";");
+								for(int x=0; x<str.length; x++){
+									String temp = str[x].trim();
+									
+									String sql1 = "";
+									if (!(info.getAndName() == null || info.getAndName().equals(""))) {
+										sql1 = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
+												+ temp + "' and " + info.getAndName() + "='" + info.getAndValue()
+												+ "' and task_id=" + task_id;
+									} else {
+										sql1 = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
+												+ temp + "' and task_id=" + task_id;
+									}
+									
+									query = session.createSQLQuery(sql1);
+									ArrayList resultL1 = (ArrayList) query.list();
+
+									if (resultL1.size() != 0) {
+										oneExsits = true;
+									} else {
+										oneExsits = false;
+										break;
+									}
+								}
+								
+								if(oneExsits){
+									isExsits = true;
+									break;
+								}else{
+									isExsits = false;
+									continue;
+								}
+							} 
 						}
 
 					} catch (HibernateException e) {
@@ -208,8 +251,56 @@ public class Rule3ExistsCheck {
 							break;
 						} else {
 							isExsits = false;
-							continue;
+							//continue;
 						}
+						
+						//multiple value:
+						if(info.isMultiple()){
+							if(leftValue1.contains(";") && leftValue2.contains(";")){
+								boolean oneExsits = false;
+								
+								String[] str1 = leftValue1.split(";");
+								String[] str2 = leftValue2.split(";");
+								for(int x=0; x<str2.length; x++){
+									String temp1 = str1[x].trim();
+									String temp2 = str2[x].trim();
+									
+									String sql1 = "";
+									if (!(info.getAndName().equals("") || info.getAndValue().equals(""))) {
+										sql1 = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
+												+ temp1 + "' and " + info.getField2Name() + "='" + temp2 + "' and "
+												+ info.getAndName() + "='" + info.getAndValue() + "' and task_id=" + task_id;
+									} else {
+										sql1 = "select * from " + info.getForm_physic() + " where " + info.getField1Name() + "='"
+												+ temp1 + "' and " + info.getField2Name() + "='" + temp2
+												+ "' and task_id=" + task_id;
+									}
+									
+									query = session.createSQLQuery(sql1);
+									//if(i==14)logger.info("sql:" +sql1);
+									
+									ArrayList resultL1 = (ArrayList) query.list();
+
+									if (resultL1.size() != 0) {
+										oneExsits = true;
+									} else {
+										oneExsits = false;
+										break;
+									}
+								}
+								
+								//if(i==14){ logger.info("oneExsits:" + oneExsits + ",isExsits:" + isExsits);}
+								
+								if(oneExsits){
+									isExsits = true;
+									break;
+								}else{
+									isExsits = false;
+									continue;
+								}
+							}
+						}
+
 
 					} catch (HibernateException e) {
 						e.printStackTrace();
@@ -219,6 +310,7 @@ public class Rule3ExistsCheck {
 
 				}
 				if (!isExsits) {
+					//if(i==14)logger.info("error message");
 					messageList.add("第" + (i + 1) + "行的记录在关联表中不存在！");
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
 				}
@@ -613,6 +705,10 @@ public class Rule3ExistsCheck {
 					info1.setAndName(andField);
 					String andValue = ob1.getString("field");
 					info1.setAndValue(andValue);
+				} else if (Constants.RULE_MULTIPLE.equals(type1)) {
+					String is_multiple = ob1.getString("multiple");
+					if(is_multiple.equals("yes"))info1.setMultiple(true);
+					else info1.setMultiple(false);
 				}
 			}
 			arrayR.add(info1);
@@ -646,6 +742,10 @@ public class Rule3ExistsCheck {
 					info2.setAndName(andField);
 					String andValue = ob2.getString("field");
 					info2.setAndValue(andValue);
+				} else if (Constants.RULE_MULTIPLE.equals(type2)) {
+					String is_multiple = ob2.getString("multiple");
+					if(is_multiple.equals("yes"))info2.setMultiple(true);
+					else info2.setMultiple(false);
 				}
 			}
 			arrayR.add(info2);

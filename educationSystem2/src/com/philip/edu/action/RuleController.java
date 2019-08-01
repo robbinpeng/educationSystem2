@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Page;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
@@ -85,7 +86,7 @@ public class RuleController  extends SelectorComposer<Component> {
 		if(is_success){
 			listModel.remove(rule);
 		} else {
-			Messagebox.show("…æ≥˝πÊ‘Ú ß∞‹£°","¥ÌŒÛ",Messagebox.OK,Messagebox.ERROR);
+			Messagebox.show("…æ≥˝πÊ‘Ú ß∞‹£°","¥ÌŒÛ",Messagebox.OK,Messagebox.ERROR); 
 		}
 	}
 	

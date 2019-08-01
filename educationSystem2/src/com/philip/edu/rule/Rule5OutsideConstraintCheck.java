@@ -92,7 +92,7 @@ public class Rule5OutsideConstraintCheck {
 				String field = obj2.get("relateField").toString();
 				FormField formField = fManager.getFieldByPhysicName(form.getId(), field);
 				String relate_field = formField.getBus_name();
-				String ruleSQL = "select * from " + table;
+				String ruleSQL = "select * from " + table + " where task_id=" + task_id;
 
 				Session session = null;
 				ArrayList al = null;
@@ -121,31 +121,32 @@ public class Rule5OutsideConstraintCheck {
 				}
 				// rightValue = Integer.parseInt(value);
 
+				logger.info("leftValue=" + leftValue + ",rightValue=" + rightValue);
 				// compare:
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(leftValue == rightValue)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("汇总数据的比较不成立！");
+						messageList.add("第" + (j+1) +"行汇总数据的比较不成立！");
 					}
 				} else if (Constants.V_GREATT.equals(sOP)) {
 					if (!(leftValue > rightValue)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("汇总数据的比较不成立！");
+						messageList.add("第" + (j+1) +"行汇总数据的比较不成立！");
 					}
 				} else if (Constants.V_GREATTE.equals(sOP)) {
 					if (!(leftValue >= rightValue)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("汇总数据的比较不成立！");
+						messageList.add("第" + (j+1) +"行汇总数据的比较不成立！");
 					}
 				} else if (Constants.V_LESST.equals(sOP)) {
 					if (!(leftValue < rightValue)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("汇总数据的比较不成立！");
+						messageList.add("第" + (j+1) +"行汇总数据的比较不成立！");
 					}
 				} else if (Constants.V_LESSTE.equals(sOP)) {
 					if (!(leftValue <= rightValue)) {
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("汇总数据的比较不成立！");
+						messageList.add("第" + (j+1) +"行汇总数据的比较不成立！");
 					}
 				}
 
@@ -322,7 +323,7 @@ public class Rule5OutsideConstraintCheck {
 			String field = obj2.get("relateField").toString();
 			FormField formField = fManager.getFieldByPhysicName(form.getId(), field);
 			String relate_field = formField.getBus_name();
-			String ruleSQL = "select * from " + table;
+			String ruleSQL = "select * from " + table + " where task_id=" + task_id;
 
 			Session session = null;
 			ArrayList al = null;

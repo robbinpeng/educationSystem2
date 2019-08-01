@@ -25,12 +25,12 @@ import com.philip.edu.basic.Task;
 import com.philip.edu.rule.ExcelHelper;
 
 public class UploadManager {
-	
+
 	private Logger logger = Logger.getLogger(UploadManager.class);
 	private static FormManager formManager = new FormManager();
 	private static ExcelHelper excelHelper = new ExcelHelper();
 	private static UploadDAO dao = new UploadDAO();
-	
+
 	public boolean uploadData(String[][] data, int form_id, int user_id, int task_id){
 		boolean isSuccess = false;
 		
@@ -107,26 +107,28 @@ public class UploadManager {
 			sql1.append("STATUS, ");
 			sql2.append("1, ");
 			sql1.append("TJSJ, ");
-			sql2.append("'" + tjsj + "', ");
+			sql2.append("\"" + tjsj + "\", ");
 			sql1.append("TASK_ID, ");
 			sql2.append(""+task_id+", ");
 			sql1.append("INTERNAL_TJSJ, ");
-			sql2.append("'" + task.getInternal_stat_time() + "', ");
+			sql2.append("\"" + task.getInternal_stat_time() + "\", ");
 			sql1.append("SCHOOL_NUMBER, ");
-			sql2.append("'" + school.getSchool_number() + "', ");
+			sql2.append("\"" + school.getSchool_number() + "\", ");
 			sql1.append("SCHOOL_NAME, ");
-			sql2.append("'" + school.getSchool_name() + "', ");
+			sql2.append("\"" + school.getSchool_name() + "\", ");
 			
 			
 			//row = sheet.getRow(k);
 			for(int l=0; l<captionList.size(); l++){
-				logger.info("l:" + l);
+				//logger.info("l:" + l);
 				FormField field1 = (FormField) captionList.get(l);
 				String fieldName = field1.getPhysic_name();
 				//SXSSFCell cell = row.getCell(l);
 				String cell = data[k][l];
 				if(cell==null)continue;
 				
+				String tempString = "";
+				int index = 0;
 				if(l==captionList.size()-1){
 					sql1.append(fieldName + ")");
 					String testValue="";
@@ -139,7 +141,11 @@ public class UploadManager {
 						}
 					}
 					
-					sql2.append("'" + testValue + "')");
+					if(testValue.contains("\"")){
+						testValue = testValue.replaceAll("\"", "\"\"");
+					}
+
+					sql2.append("\"" + testValue + "\")");
 				} else {
 					sql1.append(fieldName + ", ");
 					String testValue="";
@@ -152,13 +158,17 @@ public class UploadManager {
 						}
 					}
 					
-					sql2.append("'" + testValue + "', ");
+					if(testValue.contains("\"")){
+						testValue = testValue.replaceAll("\"", "\"\"");
+					}
+					
+					sql2.append("\"" + testValue + "\", ");
 				}
 			}
 			
 			StringBuffer sql = sql1.append(sql2);
 			
-			logger.info("插入数据库语句:" + sql);
+			//logger.info("插入数据库语句:" + sql);
 			sqlList.add(sql.toString());
 		}
 		
@@ -167,16 +177,16 @@ public class UploadManager {
 		
 		return isSuccess;
 	}
-	
-	public int rollbackData(Form form, int task_id){
+
+	public int rollbackData(Form form, int task_id) {
 		return dao.rollbackData(form.getPhsic_name(), task_id);
 	}
-	
-	public boolean updateRollback(int form_id, int task_id){
+
+	public boolean updateRollback(int form_id, int task_id) {
 		return dao.updateRollback(form_id, task_id);
 	}
-	
-	public boolean uploadUpdate(int form_id, int task_id){
+
+	public boolean uploadUpdate(int form_id, int task_id) {
 		return dao.uploadUpdate(form_id, task_id);
 	}
 }

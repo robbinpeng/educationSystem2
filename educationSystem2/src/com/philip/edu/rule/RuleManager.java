@@ -77,6 +77,7 @@ public class RuleManager {
 				case 3:
 					//
 					logger.info("处理第三类规则");
+					//logger.info(rule.getRule_name());
 					Rule3ExistsCheck engine3 = new Rule3ExistsCheck();
 					message = engine3.getMessage(data, object, form_id, task_id);
 					message.setFail_information(rule.getFail_information());

@@ -1,5 +1,6 @@
 package com.philip.edu.rule;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -765,6 +766,9 @@ public class Rule1ConstraintCheck {
 				continue;
 
 			//logger.info("left result:" + leftResult + "right result:" + rightResult);
+			DecimalFormat df = new DecimalFormat("0.00000");
+			leftResult = Double.parseDouble(df.format(leftResult));
+			rightResult = Double.parseDouble(df.format(rightResult));
 			if (Constants.V_EQUAL.equals(sOP)) {
 				if (!(leftResult == rightResult)) {
 					message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);

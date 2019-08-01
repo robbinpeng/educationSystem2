@@ -10,8 +10,14 @@ public class SearchInfo {
 	private String form_physic;
 	private String physic_field;
 	private String physic_field2;
+	private boolean multiple=false;
 	
-	
+	public boolean isMultiple() {
+		return multiple;
+	}
+	public void setMultiple(boolean multiple) {
+		this.multiple = multiple;
+	}
 	public String getPhysic_field2() {
 		return physic_field2;
 	}

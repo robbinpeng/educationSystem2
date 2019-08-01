@@ -33,14 +33,31 @@ public class RuleManagerTest {
 		MessageInfo message = null;
 		ArrayList list = null;
 
+		rapidHelper.refresh();
+		
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-6-4 附属医院师资情况.xlsx");
+			in = new FileInputStream("D:/Develop/education/test/1/2-2.教学行政用房面积.xlsx");
 			rapidHelper.processFirstSheetStream(in);
+			
 			int excelColumns = rapidHelper.getColumns();
-			int excelLines = rapidHelper.getLines();
+			int lines = rapidHelper.getLines();
+			int excelLines = 0;
+			
+			logger.info("excelColumns:" + excelColumns);
+			
+			ArrayList all = rapidHelper.getAll();
+			int x=0;
+			for(x=0; x<lines; x++){
+				ArrayList line = (ArrayList)all.get(x);
+				logger.info("line.size()=" + line.size() + ", excelColumns=" + excelColumns);
+				if(line.size()!=excelColumns)break;
+			}
+			excelLines = x;
+			
+			logger.info("excelLines:" + excelLines);
 			
 			String[][] data = new String[excelLines][excelColumns];
-			ArrayList all = rapidHelper.getAll();
+
 			for(int i=0; i<excelLines; i++){
 				ArrayList line = (ArrayList)all.get(i);
 				for(int j=0; j<excelColumns; j++){
@@ -51,7 +68,7 @@ public class RuleManagerTest {
 			
 			rapidHelper.refresh();
 			
-			ArrayList al2 = engine.rulesCheck(31, data, 12);
+			ArrayList al2 = engine.rulesCheck(37, data, 17);
 			
 			for (int j = 0; j < al2.size(); j++) {
 				MessageInfo info = (MessageInfo) al2.get(j);

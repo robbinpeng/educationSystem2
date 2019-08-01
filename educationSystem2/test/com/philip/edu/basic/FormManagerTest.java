@@ -5,17 +5,23 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.zkoss.zk.ui.Executions;
 
 public class FormManagerTest {
+	
+	private static Logger logger = Logger.getLogger(FormManagerTest.class);
+	
 	private FormManager manager = new FormManager();
 
 	@Test
 	public void testGetGroups() {
 		ArrayList groups = manager.getGroups(Constants.USER_ID);
 		
-		assertEquals(groups.size(), 9);
+		logger.debug("debug");
+		logger.info("info");
+		assertEquals(groups.size(), 10);
 	}
 	
 	@Test
@@ -31,12 +37,13 @@ public class FormManagerTest {
 		
 		assertNotEquals(forms.size(), 0);		
 		//print some:
+		/*
 		for(int i=0; i<forms.size(); i++){
 			Form form = (Form)forms.get(i);
 			System.out.println("form_id:" + form.getId());
 			System.out.println("form name:" + form.getTbl_name());
 			System.out.println("form bussiness name:" + form.getBus_name());
-		}	
+		}*/	
 	}
 	
 	@Test

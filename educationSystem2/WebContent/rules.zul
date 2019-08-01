@@ -26,6 +26,8 @@ String form_name = formManager.getFormById(form_id).getBus_name();
 String group_id = Executions.getCurrent().getSession().getAttribute("group_id");
 if(group_id==null)group_id="1";
 int iGroup = Integer.parseInt(group_id);
+
+boolean isCheck = false;
 </zscript>
 <window id="mainWindow" apply="com.philip.edu.action.RuleController">
 <hlayout width="100%">
@@ -140,7 +142,7 @@ int iGroup = Integer.parseInt(group_id);
         <tabpanel><button label="前置条件+" onClick="addCondition3()"/><button label="表字段+" onClick="addFormField3()"/><button label="运算符+" onClick="addOperator3()"/><button label="关联表（一字段）+" onClick="addRelateForm3()"/><button label="关联表（两字段）+" onClick="addRelateForm32()"/><button label="关联表条件+" onClick="addConditionR3()"/><button label="不存在（取反）+" onClick="addConditionNo3()"/>
         	<html><![CDATA[<hr/>]]></html>    	
         <window id="window3" xmlns:h="http://www.w3.org/1999/xhtml">
-        	<div><h:input type="hidden" value="n"/>校验内容如下(如果有前置条件请先设置前置条件)：<checkbox label="分号分割多值校验"/></div>
+        	<div><h:input type="hidden" value="n"/>校验内容如下(如果有前置条件请先设置前置条件)：<checkbox id="multiple" label="分号分割多值校验"><attribute name="onCheck"><![CDATA[if(isCheck)isCheck=false;else isCheck=true;]]></attribute></checkbox></div>
         </window>
         </tabpanel>
         <tabpanel><button label="前置条件+" onClick="addCondition4()"/><button label="表字段+" onClick="addFormField4()"/><button label="运算符+" onClick="addOperator4()"/>
@@ -418,7 +420,7 @@ int iGroup = Integer.parseInt(group_id);
 	Div[] divRForm2 = new Div[20];
 	Combobox[] fieldsChangeCom = new Combobox[20];
 	int indexRForm2 = 0;
-	Combobox formCom2 = null;
+	Combobox[] formCom2 = new Combobox[20];
 	
 	void addRelateForm2(){
 		divRForm2[indexRForm2] = (Div)div.clone();
@@ -427,11 +429,11 @@ int iGroup = Integer.parseInt(group_id);
 		input.setValue("f");
 		divRForm2[indexRForm2].appendChild(input);
 		divRForm2[indexRForm2].appendChild(new Label("存在于"));
-		formCom2 = (Combobox)formCom.clone();
+		formCom2[indexRForm2] = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields("+indexRForm2+")");
 	    EventHandler evthdl1 = new EventHandler(script);
-		formCom2.addEventHandler("onChange",evthdl1);
-		divRForm2[indexRForm2].appendChild(formCom2);
+		formCom2[indexRForm2].addEventHandler("onChange",evthdl1);
+		divRForm2[indexRForm2].appendChild(formCom2[indexRForm2]);
 		
 		fieldsChangeCom[indexRForm2] = (Combobox)fieldCom.clone();
 		divRForm2[indexRForm2].appendChild(fieldsChangeCom[indexRForm2]);
@@ -448,7 +450,7 @@ int iGroup = Integer.parseInt(group_id);
 	
 	void loadFields(int index){
 		//Messagebox.show(formCom2.getSelectedItem().getValue());
-		ArrayList fields2 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom2.getSelectedItem().getValue());
+		ArrayList fields2 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom2[index].getSelectedItem().getValue());
 		fieldsChangeCom[index].getItems().clear();
 		
 		for(int i=0; i<fields2.size(); i++){
@@ -556,7 +558,7 @@ int iGroup = Integer.parseInt(group_id);
 	Div[] divRForm3 = new Div[20];
 	Combobox[] fieldsChangeCom3 = new Combobox[20];
 	int indexRForm3 = 0;
-	Combobox formCom3 = null;
+	Combobox[] formCom3 = new Combobox[20];
 	int indexRForm36 = 0;
 	Combobox[] fieldsChangeCom36 = new Combobox[20];
 	
@@ -567,11 +569,11 @@ int iGroup = Integer.parseInt(group_id);
 		input.setValue("f");
 		divRForm3[indexRForm3].appendChild(input);
 		divRForm3[indexRForm3].appendChild(new Label("存在于"));
-		formCom3 = (Combobox)formCom.clone();
+		formCom3[indexRForm3] = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields3("+indexRForm3+")");
 	    EventHandler evthdl1 = new EventHandler(script);
-		formCom3.addEventHandler("onChange",evthdl1);
-		divRForm3[indexRForm3].appendChild(formCom3);
+		formCom3[indexRForm3].addEventHandler("onChange",evthdl1);
+		divRForm3[indexRForm3].appendChild(formCom3[indexRForm3]);
 		fieldsChangeCom36[indexRForm36] = (Combobox)fieldCom.clone();
 		
 		fieldsChangeCom3[indexRForm3] = (Combobox)fieldCom.clone();
@@ -593,7 +595,7 @@ int iGroup = Integer.parseInt(group_id);
 	Combobox[] fieldsChangeCom32 = new Combobox[20];
 	Combobox[] fieldsChangeCom33 = new Combobox[20];
 	int indexRForm32 = 0;
-	Combobox formCom32 = null;
+	Combobox[] formCom32 = new Combobox[20];
 	
 	void addRelateForm32(){
 		divRForm32[indexRForm32] = (Div)div.clone();
@@ -602,11 +604,11 @@ int iGroup = Integer.parseInt(group_id);
 		input.setValue("g");
 		divRForm32[indexRForm32].appendChild(input);
 		divRForm32[indexRForm32].appendChild(new Label("存在于"));
-		formCom32 = (Combobox)formCom.clone();
+		formCom32[indexRForm32] = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields32("+indexRForm32+")");
 	    EventHandler evthdl1 = new EventHandler(script);
-		formCom32.addEventHandler("onChange",evthdl1);
-		divRForm32[indexRForm32].appendChild(formCom32);
+		formCom32[indexRForm32].addEventHandler("onChange",evthdl1);
+		divRForm32[indexRForm32].appendChild(formCom32[indexRForm32]);
 		
 		fieldsChangeCom32[indexRForm32] = (Combobox)fieldCom.clone();
 		divRForm32[indexRForm32].appendChild(fieldsChangeCom32[indexRForm32]);
@@ -629,7 +631,9 @@ int iGroup = Integer.parseInt(group_id);
 	
 	void loadFields32(int index){
 		//Messagebox.show(formCom3.getSelectedItem().getValue());
-		ArrayList fields32 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom32.getSelectedItem().getValue());
+		System.out.println("entering load fields");
+		System.out.println("selected:" + formCom32[index].getSelectedItem().getValue());
+		ArrayList fields32 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom32[index].getSelectedItem().getValue());
 		fieldsChangeCom32[index].getItems().clear();
 		fieldsChangeCom33[index].getItems().clear();
 		fieldsChangeCom36[index].getItems().clear();
@@ -654,8 +658,8 @@ int iGroup = Integer.parseInt(group_id);
 	
 	void loadFields3(int index){
 		//Messagebox.show(formCom3.getSelectedItem().getValue());
-		System.out.println("index:"+index);
-		ArrayList fields3 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom3.getSelectedItem().getValue());
+		//System.out.println("index:"+index);
+		ArrayList fields3 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom3[index].getSelectedItem().getValue());
 		fieldsChangeCom3[index].getItems().clear();
 		fieldsChangeCom36[index].getItems().clear();
 		
@@ -902,20 +906,20 @@ int iGroup = Integer.parseInt(group_id);
 	Div[] divRForm5 = new Div[20];
 	Combobox[] fieldsChangeCom5 = new Combobox[20];
 	int indexRForm5 = 0;
-	Combobox formCom5 = null;
+	Combobox[] formCom5 = new Combobox[20];
 	
 	void addRelateForm5(){
 		divRForm5[indexRForm5] = (Div)div.clone();
 		Input input = new Input();
 		input.setType("hidden");
-		input.setValue("f");
+		input.setValue("y");
 		divRForm5[indexRForm5].appendChild(input);
-		divRForm5[indexRForm5].appendChild(new Label("存在于"));
-		formCom5 = (Combobox)formCom.clone();
+		//divRForm5[indexRForm5].appendChild(new Label("存在于"));
+		formCom5[indexRForm5] = (Combobox)formCom.clone();
 		ZScript script = new ZScript("java","loadFields5("+indexRForm5+")");
 	    EventHandler evthdl1 = new EventHandler(script);
-		formCom5.addEventHandler("onChange",evthdl1);
-		divRForm5[indexRForm5].appendChild(formCom5);
+		formCom5[indexRForm5].addEventHandler("onChange",evthdl1);
+		divRForm5[indexRForm5].appendChild(formCom5[indexRForm5]);
 		
 		fieldsChangeCom5[indexRForm5] = (Combobox)fieldCom.clone();
 		divRForm5[indexRForm5].appendChild(fieldsChangeCom5[indexRForm5]);
@@ -933,7 +937,7 @@ int iGroup = Integer.parseInt(group_id);
 	void loadFields5(int index){
 		//Messagebox.show(formCom2.getSelectedItem().getValue());
 		//System.out.println("get here");
-		ArrayList fields5 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom5.getSelectedItem().getValue());
+		ArrayList fields5 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom5[index].getSelectedItem().getValue());
 		fieldsChangeCom5[index].getItems().clear();
 		
 		for(int i=0; i<fields5.size(); i++){
@@ -952,7 +956,7 @@ int iGroup = Integer.parseInt(group_id);
 	Div[] divForm5 = new Div[20];
 	int indexForm5 = 0;
 	int indexRForm56 = 0;
-	Combobox formCom56 = null;
+	Combobox[] formCom56 = new Combobox[20];
 	
 	Combobox[] fieldsChangeCom56 = new Combobox[20];
 	void addForm5(){
@@ -961,12 +965,12 @@ int iGroup = Integer.parseInt(group_id);
 		input.setType("hidden");
 		input.setValue("t");
 		divForm5[indexForm5].appendChild(input);
-		formCom56 = formCom.clone();
+		formCom56[indexRForm56] = formCom.clone();
 	    ZScript script = new ZScript("java","loadFields56("+indexRForm56+")");
 	    EventHandler evthdl1 = new EventHandler(script);
-		formCom56.addEventHandler("onChange",evthdl1);
+		formCom56[indexRForm56].addEventHandler("onChange",evthdl1);
 		fieldsChangeCom56[indexRForm56] = fieldCom.clone();
-	    divForm5[indexForm5].appendChild(formCom56);
+	    divForm5[indexForm5].appendChild(formCom56[indexRForm56]);
 	    	
 	    Image imageTemp = (Image)image.clone();
 	    ZScript script = new ZScript("java","delForm5("+indexForm5+")");
@@ -984,7 +988,6 @@ int iGroup = Integer.parseInt(group_id);
 	
 	//5.6 relateForm conditions:
 	Div[] divRForm56 = new Div[20];
-	Combobox formCom56 = null;
 	
 	void addRelateCondition(){
 		divRForm56[indexRForm56] = (Div)div.clone();
@@ -1011,7 +1014,7 @@ int iGroup = Integer.parseInt(group_id);
 	void loadFields56(int index){
 		//Messagebox.show(formCom2.getSelectedItem().getValue());
 		System.out.println("get here1");
-		ArrayList fields56 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom56.getSelectedItem().getValue());
+		ArrayList fields56 = manager.getFormFieldsByFormName(Constants.USER_ID,formCom56[index].getSelectedItem().getValue());
 		System.out.println("get here2");
 		fieldsChangeCom56[index].getItems().clear();
 		
@@ -1334,6 +1337,8 @@ int iGroup = Integer.parseInt(group_id);
 		//window3:
 			//Messagebox.show("winodw3");
 			rules = getWindowRules(window3);
+			//Messagebox.show("checked:" + isCheck);
+			
 			if(rules!=null){
 				if(number>0){
 					Messagebox.show("不允许同时建多个规则！","错误",Messagebox.OK,Messagebox.ERROR);
@@ -1343,6 +1348,14 @@ int iGroup = Integer.parseInt(group_id);
 				if(!b){
 					Messagebox.show("您输入的规则不正确，请校验后再输入！","错误",Messagebox.OK,Messagebox.ERROR);
 					return;
+				}
+				
+				if(isCheck){
+					JSONObject mulObj = new JSONObject(true);
+					mulObj.put("multiple","yes").put("type","multiple");
+					JSONArray array = rules.getJSONArray("rules");
+					array.put(mulObj);
+					rules.put("rules",array);
 				}
 				
 				number++;
@@ -1608,6 +1621,16 @@ int iGroup = Integer.parseInt(group_id);
 					String fieldTotalValue = fieldTotalCom.getSelectedItem().getValue();
 					fieldSumObj.put("sumTotal",fieldTotalValue);
 					rulesArray.put(fieldSumObj);
+					break;
+				case 'y':
+					//Combobox,Combobox:	
+					JSONObject fieldObj = new JSONObject(true);
+					Combobox formCom = (Combobox)divChildren.get(1);
+					String formValue = formCom.getSelectedItem().getValue();
+					Combobox fieldCom = (Combobox)divChildren.get(2);
+					String fieldValue = fieldCom.getSelectedItem().getValue();
+					fieldObj.put("relateField",fieldValue).put("relateForm",formValue).put("type",Constants.RULE_RELATE_FORM);
+					rulesArray.put(fieldObj);
 					break;
 				default:
 					//do nothing.
@@ -1994,6 +2017,11 @@ int iGroup = Integer.parseInt(group_id);
 			 Component c = (Component)listTemp.get(1);
 			 window6.removeChild(c);
 		 }
+		 
+		 numCon1=0;
+		 numCon3=0;
+		 numCon4=0;
+		 numCon6=0;
 	 }
 ]]></zscript>
 </window>

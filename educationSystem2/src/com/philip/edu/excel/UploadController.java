@@ -183,11 +183,21 @@ public class UploadController extends SelectorComposer<Component> {
 				// 2.check format is right:
 				rapidHelper.processFirstSheetStream(media.getStreamData());
 				int excelColumns = rapidHelper.getColumns();
-				int excelLines = rapidHelper.getLines();
-				logger.info("excel columns:" + excelColumns);
+				int lines = rapidHelper.getLines();
+				int excelLines = 0;
+				
+				//logger.info("excelColumns:" + excelColumns);
+				
+				ArrayList all = rapidHelper.getAll();
+				int x=0;
+				for(x=0; x<lines; x++){
+					ArrayList line = (ArrayList)all.get(x);
+					//logger.info("line.size()=" + line.size() + ", excelColumns=" + excelColumns);
+					if(line.size()!=excelColumns)break;
+				}
+				excelLines = x;
 				
 				String[][] data = new String[excelLines][excelColumns];
-				ArrayList all = rapidHelper.getAll();
 				for(int i=0; i<excelLines; i++){
 					ArrayList line = (ArrayList)all.get(i);
 					for(int j=0; j<excelColumns; j++){

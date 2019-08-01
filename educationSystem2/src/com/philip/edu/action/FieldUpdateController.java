@@ -118,7 +118,7 @@ public class FieldUpdateController extends SelectorComposer<Component>{
 			pList.setModel(new ListModelList<FormField>(fields));
 			ufWindow.detach();
 		}else{Messagebox.show("字段修改过程中遇到问题！","错误",Messagebox.OK,Messagebox.ERROR);}
-    }
+    } 
 	
 	@Override
 	public void doAfterCompose(Component window) throws Exception {

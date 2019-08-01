@@ -47,6 +47,9 @@ public class ExcelHelper {
 				continue;
 			}
 			if (temp.getIs_hidden() == 'N') {
+				if(index >= excelColumns){
+					return false;
+				}
 				String content = data[0][index++];
 				if (!content.equals(temp.getBus_name())) {
 					logger.info("" + content + "²»·û" + temp.getBus_name());
@@ -67,7 +70,7 @@ public class ExcelHelper {
 	}
 
 	public int getColumn2Check(String[][] data, String bus_name) {
-		logger.info("to decide which column to check");
+		//logger.info("to decide which column to check");
 		int column = 0;
 
 		for (int i = 0; i < data[0].length; i++) {

@@ -50,6 +50,7 @@ public class UploadDAO {
 
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+				//logger.info("sql:" + sql);
 				Query query = session.createSQLQuery(sql);
 				query.setParameter(1, new Date());
 				query.setParameter(2, new Date());

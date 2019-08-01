@@ -159,6 +159,10 @@ public class Rule6TimeCheck {
 							int month = 0;
 							int day = 0;
 
+							if(i==1011){
+								logger.info("i=" + 1011);
+							}
+							
 							if ("".equals(sDate))
 								throw new TimeErrorException("Ê±¼äÎª¿Õ");
 							switch (format.length()) {
@@ -353,6 +357,7 @@ public class Rule6TimeCheck {
 					continue;
 
 				String sOP = objOper.getString("operator");
+				//if(i==1011)logger.info("leftLDate:" + leftLDate + ", rightLDate:" + rightLDate);
 				if (Constants.V_EQUAL.equals(sOP)) {
 					if (!(leftLDate.isEqual(rightLDate))) {
 						//logger.info("left:" + leftLDate + ", right:" + rightLDate);
