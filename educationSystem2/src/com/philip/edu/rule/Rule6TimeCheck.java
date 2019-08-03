@@ -159,10 +159,7 @@ public class Rule6TimeCheck {
 							int month = 0;
 							int day = 0;
 
-							if(i==1011){
-								logger.info("i=" + 1011);
-							}
-							
+										
 							if ("".equals(sDate))
 								throw new TimeErrorException("Ê±¼äÎª¿Õ");
 							switch (format.length()) {

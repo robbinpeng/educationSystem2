@@ -111,7 +111,7 @@ public class TaskCreateController extends SelectorComposer<Component>{
 		for(int i=0; i<study_year.getItemCount(); i++){
 			Comboitem item = study_year.getItemAtIndex(i);
 			String chose_year = ((String)al.get(i)).substring(0, 4);
-			logger.info("year=" + chose_year);
+			//logger.info("year=" + chose_year);
 			if(chose_year.equals("" +year)){listYear.addToSelection(al.get(i));logger.info("entered");}
 		}
 	}

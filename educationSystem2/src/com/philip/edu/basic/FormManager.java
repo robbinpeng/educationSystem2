@@ -18,6 +18,10 @@ public class FormManager {
 		return dao.getFormFields(form_id);
 	}
 	
+	public void updateRule(Rule rule){
+		dao.updateRule(rule);
+	}
+	
 	public ArrayList getFormFieldsByFormName(int user_id, String table_name){
 		return dao.getFormFieldsByFormName(user_id, table_name);
 	}

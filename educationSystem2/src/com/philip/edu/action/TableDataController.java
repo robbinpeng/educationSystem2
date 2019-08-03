@@ -304,7 +304,7 @@ public class TableDataController extends SelectorComposer<Component> {
 			List<Listcell> dataAL = item.getChildren();
 			for(int j=0; j<dataAL.size(); j++){
 				Listcell cell = (Listcell)dataAL.get(j);
-				logger.info("cell info:" + j + ":" + cell.getLabel());
+				//logger.info("cell info:" + j + ":" + cell.getLabel());
 				if(cell.getLabel().contains(search.getValue())){
 					bFound = true;
 					break;

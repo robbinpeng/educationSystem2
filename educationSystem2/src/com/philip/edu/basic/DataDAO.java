@@ -106,19 +106,19 @@ public class DataDAO {
 					data = new DataInfo();
 					//logger.info("j:" + j);
 					DataInfo captionD = (DataInfo)caption.get(j);
-					logger.info("caption key is:" + captionD.getKey());
+					//logger.info("caption key is:" + captionD.getKey());
 					
 					data.setId(j);
 					
 					Object o = map.get(captionD.getKey());
 					if(o!=null){
 						data.setValue(o.toString());
-						logger.info("captionD url:" + captionD.getUrl());
+						//logger.info("captionD url:" + captionD.getUrl());
 						if("URL".equals(captionD.getUrl())){
 							String path = o.toString();
 							String[] sPath = path.split(Pattern.quote(File.separator));;
 							String name = sPath[sPath.length-1];
-							logger.info("path:" + sPath[sPath.length-1]);
+							//logger.info("path:" + sPath[sPath.length-1]);
 							data.setUrl(path);
 							data.setValue(name);
 							data.setKey("URL");
@@ -223,7 +223,7 @@ public class DataDAO {
 							String path = o.toString();
 							String[] sPath = path.split(Pattern.quote(File.separator));;
 							String name = sPath[sPath.length-1];
-							logger.info("path:" + sPath[sPath.length-1]);
+							//logger.info("path:" + sPath[sPath.length-1]);
 							data.setUrl(path);
 							data.setValue(name);
 							data.setKey("URL");
@@ -331,7 +331,7 @@ public class DataDAO {
 							String path = o.toString();
 							String[] sPath = path.split(Pattern.quote(File.separator));;
 							String name = sPath[sPath.length-1];
-							logger.info("path:" + sPath[sPath.length-1]);
+							//logger.info("path:" + sPath[sPath.length-1]);
 							data.setUrl(path);
 							data.setValue(name);
 							data.setKey("URL");
@@ -403,7 +403,7 @@ public class DataDAO {
 			}
 			//result.add(line);
 			ArrayList caption = line;
-			logger.info("the caption size:" + caption.size());
+			//logger.info("the caption size:" + caption.size());
 			
 			sb.append(" from " + tbl_name + " where id=" + id +" order by id");
 			

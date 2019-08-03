@@ -147,6 +147,24 @@ public class FormDAO {
 		}
 	}
 	
+	public void updateRule(Rule rule) {
+		// TODO Auto-generated method stub
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			session.update(rule);
+			
+			session.getTransaction().commit();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+	}
+	
 	public Form getFormByName(int user_id, String name){
 		Session session = null;
 		Form form = null;

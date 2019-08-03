@@ -371,7 +371,7 @@ public class TableDAO {
 				
 				sql = "alter table " + table_name + " modify column " + temp.getPhysic_name() + " varchar(" + length + ")";
 				
-				logger.info("sql:" + sql);
+				//logger.info("sql:" + sql);
 				Query query = session.createSQLQuery(sql);
 				query.executeUpdate();
 				

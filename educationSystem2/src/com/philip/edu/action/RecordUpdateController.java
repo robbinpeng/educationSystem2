@@ -381,8 +381,7 @@ public class RecordUpdateController extends SelectorComposer<Component> {
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS_");// 设置日期格式作为文件名前缀
 		File fExcel = new File(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date())
 				+ "_" + media.getName());
-		logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_"
-				+ media.getName());
+		//logger.info(Sessions.getCurrent().getWebApp().getRealPath("") + sSavePath + df.format(new Date()) + "_"	+ media.getName());
 
 		FileOutputStream fos = null;
 		try {

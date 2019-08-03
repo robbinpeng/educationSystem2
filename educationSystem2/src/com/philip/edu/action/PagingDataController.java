@@ -272,7 +272,7 @@ public class PagingDataController extends SelectorComposer<Component> {
 			List<Listcell> dataAL = item.getChildren();
 			for(int j=0; j<dataAL.size(); j++){
 				Listcell cell = (Listcell)dataAL.get(j);
-				logger.info("cell info:" + j + ":" + cell.getLabel());
+				//logger.info("cell info:" + j + ":" + cell.getLabel());
 				if(cell.getLabel().contains(search.getValue())){
 					bFound = true;
 					break;
@@ -300,7 +300,7 @@ public class PagingDataController extends SelectorComposer<Component> {
 	@Listen("onCheck = Checkbox")
 	public void checkSelected(Event e) {
 		//Messagebox.show("checked");
-		logger.info("event:" + e);
+		//logger.info("event:" + e);
 		Checkbox ck = (Checkbox)e.getTarget();
 		boolean Exists = false;
 		
