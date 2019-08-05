@@ -68,6 +68,46 @@ public class ExcelHelper {
 
 		return is_right;
 	}
+	
+	public boolean is_columns_right(String[][] data, int form_id) {
+		logger.info("begin to check whether excel columns is right.");
+		List al2 = new ArrayList();
+
+		boolean is_right = true;
+
+		// 0. make sure columns are the same:
+		int excelColumns = 0;
+		int tableColumns = 0;
+		int excelLines = 0;
+
+		excelColumns = data[0].length;
+		List al1 = manager.getFormFields(form_id);	
+
+		int index = 0;
+		for (int i = 0; i < al1.size(); i++) {
+			FormField temp = (FormField) al1.get(i);
+			if (temp.getPhysic_name().equals("TJSJ")) {
+				al2.add(temp);
+				continue;
+			}
+			if (temp.getIs_hidden() == 'N') {
+				if(index >= excelColumns){
+					return false;
+				}
+				index++;
+				al2.add(temp);
+			}
+		}
+
+		tableColumns = al2.size() - 1;
+		logger.info("tableColumns=" + tableColumns + ", excelColumns=" + excelColumns);
+		if (excelColumns != tableColumns) {
+			logger.info("----------ERROR:导入数据表格式不正确！---------");
+			is_right = false;
+		}
+
+		return is_right;
+	}
 
 	public int getColumn2Check(String[][] data, String bus_name) {
 		//logger.info("to decide which column to check");

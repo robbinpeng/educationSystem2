@@ -34,6 +34,10 @@ public class FormManager {
 		return dao.getFormByName(user_id, name);
 	}
 	
+	public Form getFormByBusinessName(String name){
+		return dao.getFormByBusinessName(name);
+	}
+	
 	public FormField getFieldByPhysicName(int form_id, String field_name){
 		return dao.getFormFieldByPhysicName(form_id, field_name);
 	}

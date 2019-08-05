@@ -1,0 +1,13 @@
+<?page title="批量上传" contentType="text/html;charset=UTF-8"?>
+<zk>
+<zscript><![CDATA[
+import org.zkoss.zk.ui.Executions;
+]]></zscript> 
+<window id="modalDialog" title="批量上传错误日志" apply="com.philip.edu.excel.UploadDialogController">
+	<vlayout>
+	<textbox id="checkResult" rows="10" cols="50">
+	</textbox>
+	<button id="closeBtn" hflex="1" label="关闭"/>
+	</vlayout>
+</window>
+</zk>

@@ -150,6 +150,7 @@ public class RuleController extends SelectorComposer<Component> {
 	private Combobox dateFormat;
 	@Wire
 	private Checkbox multiple1;
+	
 	private createEventListener cel = new createEventListener();
 	private Rule stored_rule;
 
@@ -300,6 +301,7 @@ public class RuleController extends SelectorComposer<Component> {
 
 	@Listen("onCheck = #multiple1")
 	public void doCheck() {
+		Messagebox.show("hello!");
 		if (isCheck)
 			isCheck = false;
 		else
@@ -459,6 +461,7 @@ public class RuleController extends SelectorComposer<Component> {
 		// Messagebox.show("winodw3");
 		rules = getWindowRules(window3);
 		// Messagebox.show("checked:" + isCheck);
+		Checkbox ck = (Checkbox)window3.getChildren().get(0).getChildren().get(2);
 
 		if (rules != null) {
 			if (number > 0) {
@@ -471,7 +474,8 @@ public class RuleController extends SelectorComposer<Component> {
 				return;
 			}
 
-			if (isCheck) {
+			logger.info("is checked:" + ck.isChecked());
+			if (ck.isChecked()) {
 				JSONObject mulObj = new JSONObject(true);
 				mulObj.put("multiple", "yes").put("type", "multiple");
 				JSONArray array = rules.getJSONArray("rules");
@@ -2658,19 +2662,23 @@ public class RuleController extends SelectorComposer<Component> {
 		// Messagebox.show("winodw3");
 		rules = getWindowRules(window3);
 		// Messagebox.show("checked:" + isCheck);
+		boolean is_test = false;
+		Checkbox ck = (Checkbox)window3.getChildren().get(0).getChildren().get(2);
 
+		logger.info("rules:" + rules);
 		if (rules != null) {
 			if (number > 0) {
 				Messagebox.show("不允许同时建多个规则！", "错误", Messagebox.OK, Messagebox.ERROR);
 				return;
-			}
+			} 
 			boolean b = checkRule3(rules);
 			if (!b) {
 				Messagebox.show("您输入的规则不正确，请校验后再输入！", "错误", Messagebox.OK, Messagebox.ERROR);
 				return;
 			}
-
-			if (isCheck) {
+			
+			logger.info("is Checked:" + ck.isChecked());
+			if (ck.isChecked()) {
 				JSONObject mulObj = new JSONObject(true);
 				mulObj.put("multiple", "yes").put("type", "multiple");
 				JSONArray array = rules.getJSONArray("rules");

@@ -21,6 +21,10 @@ public class RuleManager {
 		return excelHelper.is_format_right(data,form_id);
 	}
 	
+	public boolean isColumnsRight(int form_id, String[][] data){
+		return excelHelper.is_columns_right(data, form_id);
+	}
+	
 	public MessageInfo textFormatCheck(int form_id, String[][] data){
 		FieldFormatCheck checker = new FieldFormatCheck();
 		return checker.formatCheck(data, form_id);

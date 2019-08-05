@@ -63,7 +63,10 @@ public class UploadManager {
 			//Object value = excelHelper.getCellValue(cell);
 			String field_name = cell;
 			FormField captionField = (FormField)map.get(field_name);
-			captionList.add(captionField);
+			if(captionField!=null)
+				captionList.add(captionField);
+			else
+				captionList.add(new FormField());
 		}
 		
 		//cycle every line:
@@ -122,7 +125,9 @@ public class UploadManager {
 			for(int l=0; l<captionList.size(); l++){
 				//logger.info("l:" + l);
 				FormField field1 = (FormField) captionList.get(l);
+				//logger.info("l:" + l);
 				String fieldName = field1.getPhysic_name();
+				if(fieldName==null)continue;
 				//SXSSFCell cell = row.getCell(l);
 				String cell = data[k][l];
 				if(cell==null)continue;

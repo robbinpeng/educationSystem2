@@ -1,18 +1,30 @@
 package com.philip.edu.excel;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 
 import org.apache.poi.ooxml.util.SAXHelper;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
+import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
@@ -23,16 +35,20 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class RapidExcelHelper {
+public class RapidExcelSheetsHelper {
 	private static int lines = 0;
 	private static int columns = 0;
 	private static ArrayList all = new ArrayList();
+	private static ArrayList sheetNames = new ArrayList();
+	private static ArrayList sheetArray = new ArrayList();
 	private static ArrayList line = new ArrayList();
+	private static ArrayList file = new ArrayList();
 	private static String sheetName = "";
 
 	public void refresh() {
 		lines = 0;
 		columns = 0;
+		file = new ArrayList();
 		all = new ArrayList();
 		line = new ArrayList();
 		sheetName = "";
@@ -43,7 +59,7 @@ public class RapidExcelHelper {
 	}
 
 	public static void setLines(int lines) {
-		RapidExcelHelper.lines = lines;
+		RapidExcelSheetsHelper.lines = lines;
 	}
 
 	public static int getColumns() {
@@ -51,7 +67,7 @@ public class RapidExcelHelper {
 	}
 
 	public static void setColumns(int columns) {
-		RapidExcelHelper.columns = columns;
+		RapidExcelSheetsHelper.columns = columns;
 	}
 
 	public static ArrayList getAll() {
@@ -59,7 +75,11 @@ public class RapidExcelHelper {
 	}
 
 	public static void setAll(ArrayList all) {
-		RapidExcelHelper.all = all;
+		RapidExcelSheetsHelper.all = all;
+	}
+	
+	public static ArrayList getFile() {
+		return file;
 	}
 
 	public void processFirstSheet(String filename) throws Exception {
@@ -92,23 +112,84 @@ public class RapidExcelHelper {
 
 	}
 
-	public void processAllSheets(String filename) throws Exception {
-		try (OPCPackage pkg = OPCPackage.open(filename, PackageAccess.READ)) {
+	public void processAllSheets(InputStream in) throws Exception {
+		try (OPCPackage pkg = OPCPackage.open(in);) {
+
+			//1. get all the names:
+			PackagePart workbookpart = pkg.getPartsByName(Pattern.compile("/xl/workbook.xml")).get(0);
+
+			XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(workbookpart.getInputStream());
+
+			while (reader.hasNext()) {
+				XMLEvent event = (XMLEvent) reader.next();
+
+				if (event.isStartElement()) {
+					StartElement startElement = (StartElement) event;
+					QName startElementName = startElement.getName();
+					if (startElementName.getLocalPart().equalsIgnoreCase("sheet")) {
+						Attribute attribute = startElement.getAttributeByName(new QName("name"));
+						String sheetName = attribute.getValue();
+						sheetNames.add(sheetName);
+						//System.out.println(sheetName);
+					}
+				} else if (event.isEndElement()) {
+					EndElement endElement = (EndElement) event;
+					QName endElementName = endElement.getName();
+				}
+			}
+			
+			//2. get all the data:
 			XSSFReader r = new XSSFReader(pkg);
 			SharedStringsTable sst = r.getSharedStringsTable();
 
+			// System.out.println("count:" + sst.getCount());
 			XMLReader parser = fetchSheetParser(sst);
 
 			Iterator<InputStream> sheets = r.getSheetsData();
+			int index = 0;
 			while (sheets.hasNext()) {
-				System.out.println("Processing new sheet:\n");
+				//System.out.println("Processing new sheet:\n");
 				try (InputStream sheet = sheets.next()) {
 					InputSource sheetSource = new InputSource(sheet);
 					parser.parse(sheetSource);
+					sheetArray = new ArrayList();
+					sheetArray.add(sheetNames.get(index));
+					sheetArray.add(lines);
+					sheetArray.add(columns);
+					lines = 0;
+					columns = 0;
+					
+					sheetArray.add(all);
+					file.add(sheetArray);
+					all = new ArrayList();
+					index++;
 				}
-				System.out.println("");
+				//System.out.println("");
 			}
 		}
+	}
+
+	public static String readStrByCode(InputStream is, String code) {
+		StringBuilder builder = new StringBuilder();
+		BufferedReader reader = null;
+
+		try {
+			reader = new BufferedReader(new InputStreamReader(is, code));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				builder.append(line + "\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return builder.toString();
 	}
 
 	public int getSheetNum(InputStream in) throws Exception {
@@ -214,7 +295,7 @@ public class RapidExcelHelper {
 			this.rowlist.clear();
 			this.curRow++;
 			this.curCol = 1;
-			System.out.println(temp);
+			//System.out.println(temp);
 		}
 
 		@Override
@@ -330,25 +411,18 @@ public class RapidExcelHelper {
 	}
 
 	public static void main(String[] args) throws Exception {
-		RapidExcelHelper example = new RapidExcelHelper();
-		FileInputStream in = new FileInputStream("D:/Develop/education/test/表1-6-4 附属医院师资情况.xlsx");
-		example.processFirstSheetStream(in);
-		int lines = 0;
-		int columns = 0;
-		lines = example.getLines();
-		columns = example.getColumns();
-		System.out.println("lines: " + example.getLines());
-		System.out.println("columns: " + example.getColumns());
-		String[][] data = new String[lines][columns];
-		ArrayList all = example.getAll();
-		for (int i = 0; i < lines; i++) {
-			ArrayList line = (ArrayList) all.get(i);
-			for (int j = 0; j < columns; j++) {
-				String cell = (String) line.get(j);
-				data[i][j] = cell;
-				System.out.print(cell + "-");
-			}
-			System.out.println("\n");
-		}
+		RapidExcelSheetsHelper example = new RapidExcelSheetsHelper();
+		FileInputStream in = new FileInputStream("D:/Develop/education/backup/采集系统数据-深圳大学-2019-06-18.xlsx");
+		example.processAllSheets(in);
+		/*
+		 * int lines = 0; int columns = 0; lines = example.getLines(); columns =
+		 * example.getColumns(); System.out.println("lines: " +
+		 * example.getLines()); System.out.println("columns: " +
+		 * example.getColumns()); String[][] data = new String[lines][columns];
+		 * ArrayList all = example.getAll(); for (int i = 0; i < lines; i++) {
+		 * ArrayList line = (ArrayList) all.get(i); for (int j = 0; j < columns;
+		 * j++) { String cell = (String) line.get(j); data[i][j] = cell;
+		 * System.out.print(cell + "-"); } System.out.println("\n"); }
+		 */
 	}
 }

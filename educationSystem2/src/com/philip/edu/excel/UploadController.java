@@ -217,5 +217,4 @@ public class UploadController extends SelectorComposer<Component> {
 			Messagebox.show("ÍË»Ø´íÎó£¡","´íÎó",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
-
 }

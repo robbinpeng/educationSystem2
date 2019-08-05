@@ -187,6 +187,24 @@ public class FormDAO {
 		return form;
 	}
 	
+	public Form getFormByBusinessName(String name){
+		Session session = null;
+		Form form = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			List al = session.createQuery("From Form where bus_name='" + name + "'").list();
+			if(al!=null)
+				form = (Form)al.get(0);
+			
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		return form;
+	}
+	
 	public FormField getFormFieldByPhysicName(int form_id, String field_name){
 		Session session = null;
 		FormField field = null;
