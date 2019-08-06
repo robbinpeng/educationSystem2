@@ -81,7 +81,7 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 		Thread t1 = new Thread(
 				new UserHandleThread(userprogress, progresswindow, progresslabel, in, iTask.intValue(), close));
 		t1.start();
-		//in.close();
+		// in.close();
 	}
 
 	class UserHandleThread implements Runnable {
@@ -119,18 +119,20 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 			double percent = 0;
 			int excelLines = 0;
 			int excelColumns = 0;
+			String name = "";
+			int iPro;
 
 			// logger.info("star run. 1");
 
 			try {
 				rapidHelper.processAllSheets(in0);
 				file = rapidHelper.getFile();
-				
+
 				sheet_num = file.size();
-				
+
 				logger.info("start to do process");
 				percent = new Double(95) / new Double(sheet_num);
-				
+
 				Executions.activate(dt);
 				pg.setValue(5);
 				prglb.setValue("已完成" + 5 + "%……");
@@ -138,103 +140,140 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 				Thread.sleep(2);
 
 				for (int k = 0; k < sheet_num; k++) {
-					//Sheet sheet = wb.getSheetAt(k);
-					ArrayList sheet = (ArrayList)file.get(k);
-					String name = (String)sheet.get(0);
-					Form form = formManager.getFormByBusinessName(name);
-					
-					Integer iLines = (Integer)sheet.get(1);
-					Integer iColumns = (Integer)sheet.get(2);
+					// Sheet sheet = wb.getSheetAt(k);
+					try {
+						ArrayList sheet = (ArrayList) file.get(k);
+						name = (String) sheet.get(0);
+						Form form = formManager.getFormByBusinessName(name);
 
-					if (form == null) {
-						isAllSuccess = false;
-						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (k + 1) + "页的表名[" + name + "]不正确，无法导入相关的数据！");
-						Executions.activate(dt);
-						int iPro = 5 + (int) (percent * (k + 1));
-						pg.setValue(iPro);
-						prglb.setValue("已完成" + iPro + "%……");
-						Executions.deactivate(dt);
-						Thread.sleep(2);
-						continue;
-					}
-					
-					logger.info("process 1.");
+						Integer iLines = (Integer) sheet.get(1);
+						Integer iColumns = (Integer) sheet.get(2);
 
-					ArrayList data_list = (ArrayList)sheet.get(3);
-					// logger.info("excelColumns:" + excelColumns);
-					int x = 0;
-					for (x = 0; x < iLines.intValue(); x++) {
-						ArrayList line = (ArrayList) data_list.get(x);
-						// logger.info("line.size()=" + line.size() + ",
-						// excelColumns=" + excelColumns);
-						if (line.size() != iColumns)
-							break;
-					}
-					excelLines = x;
-					excelColumns = iColumns.intValue();
-					// logger.info("get 2.");
-
-					String[][] data = new String[excelLines][excelColumns];
-					for (int i = 0; i < excelLines; i++) {
-						ArrayList line = (ArrayList) data_list.get(i);
-						for (int j = 0; j < excelColumns; j++) {
-							String cell = (String) line.get(j);
-							data[i][j] = cell;
-						}
-					}
-					
-					// 2.check columns the same:
-					boolean is_right = ruleManager.isColumnsRight(form.getId(), data);
-					
-					if(!is_right){
-						isAllSuccess = false;
-						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (k + 1) + "页的列数与系统表列数不一致，无法导入相关的数据！");
-						Executions.activate(dt);
-						int iPro = 5 + (int) (percent * (k + 1));
-						pg.setValue(iPro);
-						prglb.setValue("已完成" + iPro + "%……");
-						Executions.deactivate(dt);
-						Thread.sleep(2);
-						continue;
-					}
-
-					// 3.save data into database;
-					boolean tempSuccess = uploadManager.uploadData(data, form.getId(), Constants.USER_ID, task_id0);
-					logger.info("form_id:" + form.getId() + "task_id:" + task_id0 );
-
-					logger.info("get here.");
-					Executions.activate(dt);
-					int iPro = 5 + (int) (percent * (k + 1));
-					pg.setValue(iPro);
-					prglb.setValue("已完成" + iPro + "%……");
-					Executions.deactivate(dt);
-					Thread.sleep(2);
-
-					if (tempSuccess) {
-						isSuccess = uploadManager.uploadUpdate(form.getId(), task_id0);
-						if (isSuccess) {
-
-						} else {
-							//Executions.activate(dt);
-							//win.detach();
-							//Messagebox.show("更新上传数据时出错，请联系管理员！", "错误", Messagebox.OK, Messagebox.ERROR);
-							//Executions.deactivate(dt);
+						if (form == null) {
 							isAllSuccess = false;
 							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-							messageList.add("第" + (k+1) +"张表[" + name + "]导入时系统故障，没有导入成功");
+							messageList.add("第" + (k + 1) + "页的表名[" + name + "]不正确，无法导入相关的数据！");
 							Executions.activate(dt);
 							iPro = 5 + (int) (percent * (k + 1));
 							pg.setValue(iPro);
 							prglb.setValue("已完成" + iPro + "%……");
 							Executions.deactivate(dt);
-							Thread.sleep(2); 
+							Thread.sleep(2);
+							continue;
 						}
-					} else {
+
+						//logger.info("process 1.");
+
+						ArrayList data_list = (ArrayList) sheet.get(3);
+						// logger.info("excelColumns:" + excelColumns);
+						int x = 0;
+						for (x = 0; x < iLines.intValue(); x++) {
+							ArrayList line = (ArrayList) data_list.get(x);
+							// logger.info("line.size()=" + line.size() + ",
+							// excelColumns=" + excelColumns);
+							if (line.size() != iColumns)
+								break;
+						}
+						excelLines = x;
+						excelColumns = iColumns.intValue();
+						// logger.info("get 2.");
+
+						String[][] data = new String[excelLines][excelColumns];
+						for (int i = 0; i < excelLines; i++) {
+							ArrayList line = (ArrayList) data_list.get(i);
+							for (int j = 0; j < excelColumns; j++) {
+								String cell = (String) line.get(j);
+								data[i][j] = cell;
+							}
+						}
+
+						// 1.5. Check filed length:
+						MessageInfo tempMessage = ruleManager.isLengthRight(form.getId(), data);
+						if(tempMessage.getMessage_type()==Constants.RULECHECK_MESSAGE_SUCCESS){}
+						else{
+							isAllSuccess = false;
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							ArrayList mlistTemp = tempMessage.getMessage_info();
+							messageList.add("第" + (k + 1) + "页["+ name +"]的字段长度超出系统要求：");
+							for(int y=0; y<mlistTemp.size(); y++){
+								messageList.add(mlistTemp.get(y));
+							}
+							messageList.add("\n");
+							Executions.activate(dt);
+							iPro = 5 + (int) (percent * (k + 1));
+							pg.setValue(iPro);
+							prglb.setValue("已完成" + iPro + "%……");
+							Executions.deactivate(dt);
+							Thread.sleep(2);
+							continue;
+						}
+						
+						// 2.check columns the same:
+						boolean is_right = ruleManager.formatCheck(form.getId(), data);
+
+						if (!is_right) {
+							isAllSuccess = false;
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							messageList.add("第" + (k + 1) + "页["+ name +"]的列数或列标题与系统不一致，无法导入相关的数据！");
+							Executions.activate(dt);
+							iPro = 5 + (int) (percent * (k + 1)); 
+							pg.setValue(iPro);
+							prglb.setValue("已完成" + iPro + "%……");
+							Executions.deactivate(dt);
+							Thread.sleep(2);
+							continue;
+						}
+
+						// 3.save data into database;
+						boolean tempSuccess = uploadManager.uploadData(data, form.getId(), Constants.USER_ID, task_id0);
+						//logger.info("form_id:" + form.getId() + "task_id:" + task_id0);
+
+						//logger.info("get here.");
+						Executions.activate(dt);
+						iPro = 5 + (int) (percent * (k + 1));
+						pg.setValue(iPro);
+						prglb.setValue("已完成" + iPro + "%……");
+						Executions.deactivate(dt);
+						Thread.sleep(2);
+
+						if (tempSuccess) {
+							isSuccess = uploadManager.uploadUpdate(form.getId(), task_id0);
+							if (isSuccess) {
+
+							} else {
+								// Executions.activate(dt);
+								// win.detach();
+								// Messagebox.show("更新上传数据时出错，请联系管理员！", "错误",
+								// Messagebox.OK, Messagebox.ERROR);
+								// Executions.deactivate(dt);
+								isAllSuccess = false;
+								message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+								messageList.add("第" + (k + 1) + "张表[" + name + "]导入时系统故障，没有导入成功");
+								Executions.activate(dt);
+								iPro = 5 + (int) (percent * (k + 1));
+								pg.setValue(iPro);
+								prglb.setValue("已完成" + iPro + "%……");
+								Executions.deactivate(dt);
+								Thread.sleep(2);
+							}
+						} else {
+							isAllSuccess = false;
+							message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
+							messageList.add("第" + (k + 1) + "张表[" + name + "]导入时有错，没有导入成功");
+							Executions.activate(dt);
+							iPro = 5 + (int) (percent * (k + 1));
+							pg.setValue(iPro);
+							prglb.setValue("已完成" + iPro + "%……");
+							Executions.deactivate(dt);
+							Thread.sleep(2);
+						}
+					} catch (Exception e) {
+						logger.info("导入["+name+"]表时出错，出错内容:" );
+						logger.info(e.getMessage());
+						//logger.info(e.getStackTrace());
 						isAllSuccess = false;
 						message.setMessage_type(Constants.RULECHECK_MESSAGE_RULE_FAIL);
-						messageList.add("第" + (k+1) +"张表[" + name + "]导入时有错，没有导入成功");
+						messageList.add("第" + (k + 1) + "张表[" + name + "]导入时有错，没有导入成功");
 						Executions.activate(dt);
 						iPro = 5 + (int) (percent * (k + 1));
 						pg.setValue(iPro);
@@ -243,8 +282,8 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 						Thread.sleep(2);
 					}
 				}
-				
-				if(isAllSuccess){
+
+				if (isAllSuccess) {
 					Executions.activate(dt);
 					pg.setValue(100);
 					prglb.setValue("全部表格都上传成功！");
@@ -258,7 +297,7 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 					// Events.postEvent(new Event("onClose",
 					// progresswindow));
 				} else {
-					//show error message:
+					// show error message:
 					message.setMessage_info(messageList);
 					if (message.getMessage_type() == Constants.RULECHECK_MESSAGE_SUCCESS) {
 					} else {
@@ -266,13 +305,13 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 						ArrayList al = message.getMessage_info();
 						if (al.size() != 0) {
 							for (int i = 0; i < al.size(); i++) {
-								//System.out.println(al.get(i).toString());
+								// System.out.println(al.get(i).toString());
 								sMessage += al.get(i).toString() + "\n";
 							}
 							sMessage += "\n";
 						}
 					}
-					
+
 					Executions.activate(dt);
 					win.detach();
 					HashMap map = new HashMap();
@@ -280,9 +319,9 @@ public class ProgressController1 extends GenericAutowireComposer<Component> {
 					Window window1 = (Window) Executions.createComponents("/upload_log.zul", null, map);
 
 					window1.doModal();
-		            Executions.deactivate(dt);		            
+					Executions.deactivate(dt);
 				}
-	
+
 			} catch (EncryptedDocumentException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

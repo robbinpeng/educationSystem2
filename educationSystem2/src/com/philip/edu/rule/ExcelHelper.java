@@ -60,7 +60,7 @@ public class ExcelHelper {
 		}
 
 		tableColumns = al2.size() - 1;
-		logger.info("tableColumns=" + tableColumns + ", excelColumns=" + excelColumns);
+		//logger.info("tableColumns=" + tableColumns + ", excelColumns=" + excelColumns);
 		if (excelColumns != tableColumns) {
 			logger.info("----------ERROR:导入数据表格式不正确！---------");
 			is_right = false;

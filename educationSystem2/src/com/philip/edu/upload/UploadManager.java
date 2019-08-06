@@ -127,10 +127,22 @@ public class UploadManager {
 				FormField field1 = (FormField) captionList.get(l);
 				//logger.info("l:" + l);
 				String fieldName = field1.getPhysic_name();
-				if(fieldName==null)continue;
+				if(fieldName==null){
+					if(l==captionList.size()-1){
+						sql1 = new StringBuffer(sql1.substring(0, sql1.length()-2)).append(")");
+						sql2 = new StringBuffer(sql2.substring(0, sql2.length()-2)).append(")");
+					}					
+					continue;
+				}	
 				//SXSSFCell cell = row.getCell(l);
 				String cell = data[k][l];
-				if(cell==null)continue;
+				if(cell==null){
+					if(l==captionList.size()-1){
+						sql1 = new StringBuffer(sql1.substring(0, sql1.length()-2)).append(")");
+						sql2 = new StringBuffer(sql2.substring(0, sql2.length()-2)).append(")");
+					}
+					continue;
+				}
 				
 				String tempString = "";
 				int index = 0;

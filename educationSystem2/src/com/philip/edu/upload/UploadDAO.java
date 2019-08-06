@@ -47,7 +47,7 @@ public class UploadDAO {
 
 			for (int i = 0; i < list.size(); i++) {
 				String sql = (String) list.get(i);
-				logger.info("sql: " + sql);
+				//logger.info("sql: " + sql);
 
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
@@ -15,11 +16,13 @@ import org.junit.Test;
 import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
+import com.philip.edu.excel.RapidExcelHelper;
 
 public class UploadManagerTest {
 	
 	private static Logger logger = Logger.getLogger(UploadManagerTest.class);
 	private FormManager formManager = new FormManager();
+	RapidExcelHelper rapidHelper = new RapidExcelHelper();
 
 	@Test
 	public void testUploadData() {
@@ -27,11 +30,41 @@ public class UploadManagerTest {
 		Workbook wb = null;
 		
 		try {
-			in = new FileInputStream("D:/Develop/education/test/表1-6-1 教职工基本信息.xls");
-			wb = WorkbookFactory.create(in);
+			in = new FileInputStream("D:/Develop/education/test/1/3-5-4.xlsx");
+			rapidHelper.processFirstSheetStream(in);
+			
+			int excelColumns = rapidHelper.getColumns();
+			int lines = rapidHelper.getLines();
+			int excelLines = 0;
+			
+			logger.info("excelColumns:" + excelColumns);
+			
+			ArrayList all = rapidHelper.getAll();
+			int x=0;
+			for(x=0; x<lines; x++){
+				ArrayList line = (ArrayList)all.get(x);
+				logger.info("line.size()=" + line.size() + ", excelColumns=" + excelColumns);
+				if(line.size()!=excelColumns)break;
+			}
+			excelLines = x;
+			
+			logger.info("excelLines:" + excelLines);
+			
+			String[][] data = new String[excelLines][excelColumns];
+
+			for(int i=0; i<excelLines; i++){
+				ArrayList line = (ArrayList)all.get(i);
+				for(int j=0; j<excelColumns; j++){
+					String cell = (String)line.get(j);
+					data[i][j] = cell;
+				}
+			}
+			
+			rapidHelper.refresh();
 			
 			// check the excel is right:
 			UploadManager manager = new UploadManager();
+			manager.uploadData(data, 54, Constants.USER_ID, 18);
 			
 			//boolean isSuccess = manager.uploadData(wb, 28, Constants.USER_ID, 3);
 			//if(isSuccess)logger.info("成功上传数据！");
@@ -43,6 +76,9 @@ public class UploadManagerTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

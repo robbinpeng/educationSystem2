@@ -172,7 +172,7 @@ int iGroup = Integer.parseInt(group_id);
 </row>
 <row>
 <cell colspan="2" align="center">
-<button id="btnSave" label="新建" /> <button label="取消" onClick="cancelDo()"/>
+<button id="btnSave" label="新建" /> <button id="cancelBtn" label="取消"/>
 </cell>
 </row>
 </rows>

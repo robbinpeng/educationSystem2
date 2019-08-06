@@ -18,11 +18,16 @@ public class RuleManager {
 	
 	public boolean formatCheck(int form_id, String[][] data){
 		// check format is right:
-		return excelHelper.is_format_right(data,form_id);
+		return excelHelper.is_format_right(data,form_id); 
 	}
 	
 	public boolean isColumnsRight(int form_id, String[][] data){
 		return excelHelper.is_columns_right(data, form_id);
+	}
+	
+	public MessageInfo isLengthRight(int form_id, String[][] data){
+		FieldLengthCheck checker = new FieldLengthCheck();
+		return checker.lengthCheck(data, form_id);
 	}
 	
 	public MessageInfo textFormatCheck(int form_id, String[][] data){

@@ -150,6 +150,8 @@ public class RuleController extends SelectorComposer<Component> {
 	private Combobox dateFormat;
 	@Wire
 	private Checkbox multiple1;
+	@Wire
+	private Button cancelBtn;
 	
 	private createEventListener cel = new createEventListener();
 	private Rule stored_rule;
@@ -3175,7 +3177,8 @@ public class RuleController extends SelectorComposer<Component> {
 		return result;
 	}
 
-	void cancelDo() {
+	@Listen("onClick = #cancelBtn")
+	public void cancelDo() {
 		List listTemp = window1.getChildren();
 		while (listTemp.size() > 1) {
 			Component c = (Component) listTemp.get(1);

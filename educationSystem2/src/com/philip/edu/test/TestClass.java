@@ -17,6 +17,9 @@ public class TestClass {
 		
 		String test2 = new String("123\"fsd");
 		System.out.println(test2.contains("\""));
+		
+		String test3 = new String("1234567, ");
+		System.out.println(test3.substring(0, test3.length()-2));
 	}
 
 }
