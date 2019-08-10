@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
+import java.math.BigInteger;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -275,6 +276,88 @@ public class DataDAO {
 		
 			
 		return result;
+	}
+	
+	public int getTableDataNumber(String tbl_name, boolean show_school, String chose_school, String chose_TJSJ){
+		StringBuffer sb = new StringBuffer("select count(*) ");
+		int number = 0;
+		Session session = null;
+		
+		if("all".equals(chose_school) && "all".equals(chose_TJSJ)){
+			sb.append(" from " + tbl_name);
+		} else {
+			sb.append(" from " + tbl_name + " where ");
+			if(!"all".equals(chose_school))
+				{
+					sb.append(" school_name='" + chose_school + "' ");
+					if(!"all".equals(chose_TJSJ))sb.append(" and internal_tjsj='" + chose_TJSJ + "'");
+				}
+			else{
+				if(!"all".equals(chose_TJSJ))sb.append(" internal_tjsj='" + chose_TJSJ + "' ");
+			}
+		}
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			//logger.info("sql is:" + sb.toString());
+			
+			ArrayList al = (ArrayList)session.createSQLQuery(sb.toString()).list();
+			
+			number = ((BigInteger)al.get(0)).intValue();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return number;
+	}
+	
+	public int getSearchDataNumber(ArrayList fields, String tbl_name, String search, boolean show_school, String chose_school, String chose_TJSJ){
+		StringBuffer sb = new StringBuffer("select count(*) from " + tbl_name + " where ");
+		int number = 0;
+		Session session = null;
+		
+		for(int i=0; i<fields.size(); i++){
+			FormField field = (FormField) fields.get(i);
+			//if(field.getIs_report()=='N'||field.getIs_hidden()=='Y')continue;
+			//Caption:
+			
+			//sql:
+			if(i != fields.size()-1){
+				sb.append(field.getPhysic_name() + " like '%" + search + "%' or ");
+			} else {
+				sb.append(field.getPhysic_name() + " like '%" + search + "%' ");
+				
+				if("all".equals(chose_school) && "all".equals(chose_TJSJ)){
+					
+				} else {
+					if(!"all".equals(chose_school)){
+						sb.append(" and school_name='" + chose_school + "'");
+					} 
+					if(!"all".equals(chose_TJSJ)){
+						sb.append(" and internal_tjsj='" + chose_TJSJ + "'");
+					} 
+				}
+			}
+		}
+			
+		//logger.info("sql:" + sb.toString());
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			ArrayList al = (ArrayList)session.createSQLQuery(sb.toString()).list();
+			
+			number = ((BigInteger)al.get(0)).intValue();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return number;
 	}
 	
 	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search, boolean show_school, String chose_school, String chose_TJSJ){

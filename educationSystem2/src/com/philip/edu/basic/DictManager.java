@@ -13,8 +13,16 @@ public class DictManager {
 		return dao.getDictGroup(groupid);
 	}
 	
+	public ArrayList getDictGroups(){
+		return dao.getDictGroups();
+	}
+	
 	public ArrayList getDictByGroup(int groupid){
 		return dao.getDictByGroup(groupid);
+	}
+	
+	public ArrayList getDictionary(){
+		return dao.getDictionary();
 	}
 	
 	public Dict getDictById(int dictid){
@@ -23,5 +31,17 @@ public class DictManager {
 	
 	public ArrayList getDictItemByDict(int dictid){
 		return dao.getDictItemByDict(dictid);
+	}
+	
+	public boolean createDict(Dict dict){
+		return dao.createDict(dict);
+	}
+	
+	public boolean updateDict(Dict dict){
+		return dao.updateDict(dict);
+	}
+	
+	public boolean deleteDict(int dict_id){
+		return dao.deleteDict(dict_id);
 	}
 }

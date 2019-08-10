@@ -20,6 +20,14 @@ public class DataManager {
 		return dao.getTableDataByPage(fields, tbl_name, page, show_school, chose_school, chose_TJSJ);
 	}
 	
+	public int getTableDataNumber(String tbl_name, boolean show_school, String chose_school, String chose_TJSJ){
+		return dao.getTableDataNumber(tbl_name, show_school, chose_school, chose_TJSJ);
+	}
+	
+	public int getSearchDataNumber(ArrayList fields, String tbl_name, String search, boolean show_school, String chose_school, String chose_TJSJ){
+		return dao.getSearchDataNumber(fields, tbl_name, search, show_school, chose_school, chose_TJSJ);
+	}
+	
 	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search, boolean show_school, String chose_school, String chose_TJSJ){
 		return dao.searchDataByPage(fields, tbl_name, page, search, show_school, chose_school, chose_TJSJ);
 	}

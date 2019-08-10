@@ -89,6 +89,8 @@ public class PagingDataController extends SelectorComposer<Component> {
 	private Combobox choseTJSJ;
 	@Wire
 	private Checkbox checkAll;
+	
+	private int number=0;
 
 	private Form form;
 	private int form_id;
@@ -149,6 +151,9 @@ public class PagingDataController extends SelectorComposer<Component> {
 		model = new ListModelList<ArrayList>(data_page);
 		dataList.setModel(model);
 		dataList.setItemRenderer(new myItemRenderer());
+		
+		number = manager.getTableDataNumber(form.getPhsic_name(), true, "all", "all");
+		dataPage.setTotalSize(number);
 
 		dataPage.addEventListener("onPaging", new EventListener<Event>() {
 
@@ -203,15 +208,21 @@ public class PagingDataController extends SelectorComposer<Component> {
 		// 清空所有数据
 		dataList.getItems().clear();
 		data_page.clear();
-
-		// int total = activePage * pageSize;
-
-		if (search.getValue() != null && !search.getValue().equals("")) 
-			data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue(), true,
+		
+		if (search.getValue() != null && !search.getValue().equals("")){
+			number = manager.getSearchDataNumber(fields, form.getPhsic_name(), search.getValue(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			dataPage.setTotalSize(number);
+			
+			data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue(), show_s.isChecked(),
 					choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-		else
-			data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1, true,
+		}
+		else {
+			number = manager.getTableDataNumber(form.getPhsic_name(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			dataPage.setTotalSize(number);
+			
+			data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1, show_s.isChecked(),
 					choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+		}
 
 		model = new ListModelList<ArrayList>(data_page);
 		dataList.setModel(model);
@@ -227,13 +238,21 @@ public class PagingDataController extends SelectorComposer<Component> {
 
 		// int total = activePage * pageSize;
 
-		if (search.getValue() != null && !search.getValue().equals(""))
+		if (search.getValue() != null && !search.getValue().equals("")){
+			number = manager.getSearchDataNumber(fields, form.getPhsic_name(), search.getValue(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			dataPage.setTotalSize(number);
+			
 			data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue(), true,
 					choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-		else
+		}
+		else {
+			number = manager.getTableDataNumber(form.getPhsic_name(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			dataPage.setTotalSize(number);
+			
 			data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1, true,
 					choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-
+		}
+		
 		model = new ListModelList<ArrayList>(data_page);
 		dataList.setModel(model);
 	}
@@ -263,12 +282,20 @@ public class PagingDataController extends SelectorComposer<Component> {
 
 			// int total = activePage * pageSize;
 
-			if (search.getValue() != null && !search.getValue().equals(""))
+			if (search.getValue() != null && !search.getValue().equals("")){
+				number = manager.getSearchDataNumber(fields, form.getPhsic_name(), search.getValue(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+				dataPage.setTotalSize(number);
+				
 				data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue(), true,
 						choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-			else
+			}
+			else{
+				number = manager.getTableDataNumber(form.getPhsic_name(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+				dataPage.setTotalSize(number);
+				
 				data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1, true,
 						choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			}
 
 			model = new ListModelList<ArrayList>(data_page);
 			dataList.setModel(model);
@@ -294,13 +321,20 @@ public class PagingDataController extends SelectorComposer<Component> {
 
 			// int total = activePage * pageSize;
 
-			if (search.getValue() != null && !search.getValue().equals(""))
+			if (search.getValue() != null && !search.getValue().equals("")){
+				number = manager.getSearchDataNumber(fields, form.getPhsic_name(), search.getValue(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+				dataPage.setTotalSize(number);
+				
 				data_page = manager.searchDataByPage(fields, form.getPhsic_name(), 1, search.getValue(), false,
 						choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-			else
+			}
+			else {
+				number = manager.getTableDataNumber(form.getPhsic_name(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+				dataPage.setTotalSize(number);
+				
 				data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), 1, false,
 						choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-
+			}
 			model = new ListModelList<ArrayList>(data_page);
 			dataList.setModel(model);
 		}
@@ -313,13 +347,23 @@ public class PagingDataController extends SelectorComposer<Component> {
 		data_page.clear();
 
 		int total = activePage * pageSize;
+		
 
-		if (search.getValue() != null && !search.getValue().equals(""))
+		if (search.getValue() != null && !search.getValue().equals("")){
+			number = manager.getSearchDataNumber(fields, form.getPhsic_name(), search.getValue(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			dataPage.setTotalSize(number);
+			
 			data_page = manager.searchDataByPage(fields, form.getPhsic_name(), activePage, search.getValue(),
 					show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
-		else
+		}
+		else {
+			number = manager.getTableDataNumber(form.getPhsic_name(), show_s.isChecked(), choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+			//logger.info("total size:" + number);
+			dataPage.setTotalSize(number);
+			
 			data_page = manager.getTableDataByPage(fields, form.getPhsic_name(), activePage, show_s.isChecked(),
 					choseSchool.getSelectedItem().getValue().toString(), choseTJSJ.getSelectedItem().getValue().toString());
+		}
 
 		model = new ListModelList<ArrayList>(data_page);
 		dataList.setModel(model);

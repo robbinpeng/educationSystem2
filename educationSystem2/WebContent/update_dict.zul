@@ -1,0 +1,18 @@
+<window id="uWindow" title="修改数据字典项" apply="com.philip.edu.action.DictUpdateController" width="500px" action="show: slideDown;hide: slideUp">
+<grid>
+<rows>
+	<row><cell align="right" width="40%">编   码<label style="color:red">*</label></cell><cell align="left"><textbox id="dict_code" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
+	<row><cell align="right" width="40%">名   称<label style="color:red">*</label></cell><cell align="left"><textbox id="dict_name" value="必填项" onFocus="txt_disapear()" onBlur="txt_show()"></textbox></cell></row>
+	<row><cell align="right" width="40%">所属分组<label style="color:red">*</label></cell><cell align="left"><combobox id="dict_group"></combobox></cell></row>
+	<row><cell align="right" colspan="2"><button id="closeBtn" label="取消" style="background:lightblue"></button><button label="修改" id="updateBtn"></button></cell></row>
+</rows>
+</grid>
+<zscript>
+void txt_disapear(){
+	if("必填项".equals(self.value)){self.value="";}
+}
+void txt_show(){
+	if("".equals(self.value)){self.value="必填项"; self.style="color:grey";}
+}
+</zscript>
+</window>

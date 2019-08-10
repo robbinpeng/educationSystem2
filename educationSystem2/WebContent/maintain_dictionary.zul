@@ -1,0 +1,91 @@
+<?page title="数据字典" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?> 
+<zk>
+<zscript><![CDATA[
+import com.philip.edu.basic.*;
+
+]]></zscript>
+<include src="headA.zul"/>
+<window id="window" apply="com.philip.edu.action.DictMaintainController">
+<hlayout width="100%">
+<grid width="250px">
+<rows>
+<row>
+<cell align="center"><toolbarbutton label="系统参数设置" href="/admin1"/></cell>
+</row>
+<row>
+<cell align="center"><toolbarbutton label="数据仓库分类" href="/group"/></cell>
+</row>
+<row>
+<cell align="center" style="background:lightblue"><toolbarbutton label="数据字典" href="/diction"/></cell>
+</row>
+</rows>
+</grid>
+<hlayout width="1050px">
+<grid width="480px">
+<rows>
+<row>
+<cell align="left"><label value="代码集管理" style="font-size:18px;"/></cell>
+<cell align="right"><button id="addDict" label="增加+" /></cell>
+</row>
+<row align="right">
+<cell colspan="2" align="right">
+<label value="搜索"/><textbox id="searchDict"/>
+</cell>
+</row>
+<row>
+<cell colspan="2">
+<listbox id="dictionlist" emptyMessage="系统中还没有数据字典" mold="paging" pageSize="10">
+	<listhead>
+        	<listheader label="编码" />
+            <listheader label="名称" />
+            <listheader label="所属分组"/>
+            <listheader width="30%"/>
+    </listhead>
+    <template name="model" sclass="narrow">
+            <listitem forward="onClick=dictionlist.onClick(${each})">
+            	<listcell label="${each.dictcode}"></listcell>
+                <listcell label="${each.dictname}"></listcell>
+                <listcell label="${each.dictgroupname}"></listcell>
+                <listcell><button label="修改" forward="onClick=dictionlist.onUpdate(${each})" /><space bar="false" spacing="5px" /><button label="删除" forward="onClick=dictionlist.onDelete(${each})" /></listcell>
+            </listitem>
+     </template>
+</listbox>
+</cell>
+</row>
+</rows>
+</grid>
+<grid width="560px">
+<rows>
+<row>
+<cell align="left"><label value="代码子集管理" style="font-size:15px;"/></cell>
+<cell align="right"><button id="addItem" label="增加+" /><space bar="false" spacing="20px" /><button id="delete" label="批量删除"/></cell>
+</row>
+<row>
+<cell colspan="2">
+<listbox id="dictitemlist" emptyMessage="该项下还没有子项" mold="paging" pageSize="10">
+	<listhead>
+        	<listheader label="代码子集编码" />
+            <listheader label="代码子集名称" />
+            <listheader label="父类代码"/>
+            <listheader label="代码子集状态"/>
+            <listheader width="30%"/>
+    </listhead>
+    <template name="model" sclass="narrow">
+            <listitem>
+            	<listcell label="${each.itemcode}"></listcell>
+                <listcell label="${each.itemname}"></listcell>
+                <listcell label="${each.parent_value}"></listcell>
+                <listcell label="${each.status}"></listcell>
+                <listcell><button label="修改" /><space bar="false" spacing="5px" /><button label="删除"/></listcell>
+            </listitem>
+     </template>
+</listbox>
+</cell>
+</row>
+</rows>
+</grid>
+</hlayout>
+</hlayout>
+</window>
+</zk>
