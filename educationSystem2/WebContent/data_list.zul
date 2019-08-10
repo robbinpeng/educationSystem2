@@ -30,12 +30,12 @@ int iGroup = Integer.parseInt(group_id);
 <rows>
 <row align="right">
 <cell colspan="2">
-<toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton>
+<button id="create" label="新建"/><space bar="false" spacing="20px" /><button id="update" label="修改"/><space bar="false" spacing="20px" /><button id="delete" label="删除" /><space bar="false" spacing="20px" /><toolbarbutton label="返回" href="/database/${group_id}"></toolbarbutton>
 </cell>
 </row>
 <row align="right">
 <cell colspan="2">
-<button id="create" label="新建"/><space bar="false" spacing="20px" /><button id="update" label="修改"/><space bar="false" spacing="20px" /><button id="delete" label="删除" />
+<combobox id="choseTJSJ" /><space bar="false" spacing="20px" /><combobox id="choseSchool" /><space bar="false" spacing="20px" /><checkbox mold="switch" id="show_s" label="是否显示学校" checked="true"/>
 </cell>
 </row>
 <row align="right">

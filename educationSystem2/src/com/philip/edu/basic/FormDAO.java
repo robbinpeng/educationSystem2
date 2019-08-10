@@ -526,6 +526,44 @@ public class FormDAO {
 		return isSuccess;
 	}
 	
+	public boolean addSchoolInfo(School school){
+		Session session = null;
+		boolean isSuccess = false;
+		
+		try{
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			
+			session.save(school);
+			
+			session.getTransaction().commit();
+			isSuccess = true;
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return isSuccess;
+	}
+	
+	public ArrayList getAllSchool(){
+		Session session = null;
+		ArrayList al = null;
+		
+		try{
+			session = HibernateUtil.getSession();
+			
+			al = (ArrayList)session.createQuery("From School order by id").list();
+		} catch(HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession(session);
+		}
+		
+		return al;
+	}
+	
 	public boolean createGroup(Group group){
 		Session session = null;
 		boolean bSuccess = false;

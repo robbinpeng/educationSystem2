@@ -59,7 +59,7 @@ public class SchoolMaintainController extends SelectorComposer<Component>{
 		school.setSchool_number(school_num.getValue());
 		school.setSchool_name(school_name.getValue());
 		
-		boolean b = formManager.updateSchoolInfo(school);
+		boolean b = formManager.addSchoolInfo(school);
 		if(b){
 			Messagebox.show("学校信息已存储！","信息",Messagebox.OK,Messagebox.INFORMATION);
 			school_num.setReadonly(true);

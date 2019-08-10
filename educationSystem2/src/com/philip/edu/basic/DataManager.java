@@ -16,12 +16,12 @@ public class DataManager {
 		return dao.getTableData(fields, form.getPhsic_name());
 	}
 	
-	public ArrayList getTableDataByPage(ArrayList fields, String tbl_name, int page){
-		return dao.getTableDataByPage(fields, tbl_name, page);
+	public ArrayList getTableDataByPage(ArrayList fields, String tbl_name, int page, boolean show_school, String chose_school, String chose_TJSJ){
+		return dao.getTableDataByPage(fields, tbl_name, page, show_school, chose_school, chose_TJSJ);
 	}
 	
-	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search){
-		return dao.searchDataByPage(fields, tbl_name, page, search);
+	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search, boolean show_school, String chose_school, String chose_TJSJ){
+		return dao.searchDataByPage(fields, tbl_name, page, search, show_school, chose_school, chose_TJSJ);
 	}
 	
 	public boolean deleteRecords(String table_name, ArrayList ids){

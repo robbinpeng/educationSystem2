@@ -144,7 +144,7 @@ public class DataDAO {
 		return result;
 	}
 	
-	public ArrayList getTableDataByPage(ArrayList fields, String tbl_name, int page){
+	public ArrayList getTableDataByPage(ArrayList fields, String tbl_name, int page, boolean show_school, String chose_school, String chose_TJSJ){
 		Session session = null;
 		DataInfo data = null;
 		ArrayList result = new ArrayList();
@@ -158,6 +158,17 @@ public class DataDAO {
 
 			//create sql:
 			ArrayList al0 = new ArrayList();
+			
+			FormField fieldTemp = new FormField();
+			if(show_school){
+				fieldTemp.setPhysic_name("school_name");
+				al0.add(fieldTemp);
+			}
+			
+			fieldTemp = new FormField();
+			fieldTemp.setPhysic_name("internal_tjsj");
+			al0.add(fieldTemp);
+			
 			for(int i1=0; i1<fields.size(); i1++){
 				FormField field = (FormField) fields.get(i1);
 				if(field.getIs_hidden()=='Y'){
@@ -183,9 +194,26 @@ public class DataDAO {
 				}
 			}
 			
-			sb.append(" from " + tbl_name + " order by id limit " + (page-1) + "," + Constants.DATA_PAGE_SIZE);
+			int index = (page-1) * Constants.DATA_PAGE_SIZE;
 			
-			//logger.info("sql:" + sb.toString());
+			if("all".equals(chose_school) && "all".equals(chose_TJSJ)){
+				sb.append(" from " + tbl_name + " order by id limit " + index + "," + Constants.DATA_PAGE_SIZE);
+			} else {
+				sb.append(" from " + tbl_name + " where ");
+				if(!"all".equals(chose_school))
+					{
+						sb.append(" school_name='" + chose_school + "' ");
+						if(!"all".equals(chose_TJSJ))sb.append(" and internal_tjsj='" + chose_TJSJ + "'");
+					}
+				else{
+					if(!"all".equals(chose_TJSJ))sb.append(" internal_tjsj='" + chose_TJSJ + "' ");
+				}
+				
+				sb.append(" order by id limit " + index + "," + Constants.DATA_PAGE_SIZE);
+			}
+			
+			
+			logger.info("sql:" + sb.toString());
 			
 			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			
@@ -249,7 +277,7 @@ public class DataDAO {
 		return result;
 	}
 	
-	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search){
+	public ArrayList searchDataByPage(ArrayList fields, String tbl_name, int page, String search, boolean show_school, String chose_school, String chose_TJSJ){
 		Session session = null;
 		DataInfo data = null;
 		ArrayList result = new ArrayList();
@@ -262,8 +290,19 @@ public class DataDAO {
 			session = HibernateUtil.getSession();
 			session.beginTransaction();
 
-			//create sql:
 			ArrayList al0 = new ArrayList();
+			FormField fieldTemp = new FormField();
+			if(show_school){
+				fieldTemp.setPhysic_name("school_name");
+				al0.add(fieldTemp);
+			}
+			
+			fieldTemp = new FormField();
+			fieldTemp.setPhysic_name("internal_tjsj");
+			al0.add(fieldTemp);
+			
+			//create sql:
+
 			for(int i1=0; i1<fields.size(); i1++){
 				FormField field = (FormField) fields.get(i1);
 				if(field.getIs_hidden()=='Y'){
@@ -281,19 +320,33 @@ public class DataDAO {
 				//Caption:
 				if(field.getDis_method()==Constants.V_DISPLAY_UPLOAD_CONTROL)data.setUrl("URL");
 				
+				int index = (page-1) * Constants.DATA_PAGE_SIZE;
+				
 				//sql:
 				if(i != fields.size()-1){
 					sb.append(field.getPhysic_name() + ", ");
 					sb1.append(field.getPhysic_name() + " like '%" + search + "%' or ");
 				} else {
 					sb.append(field.getPhysic_name());
-					sb1.append(field.getPhysic_name() + " like '%" + search + "%' order by id limit " + (page-1) + "," + Constants.DATA_PAGE_SIZE);
+					sb1.append(field.getPhysic_name() + " like '%" + search + "%' ");
+					if("all".equals(chose_school) && "all".equals(chose_TJSJ)){
+						
+					} else {
+						if(!"all".equals(chose_school)){
+							sb1.append(" and school_name='" + chose_school + "'");
+						} 
+						if(!"all".equals(chose_TJSJ)){
+							sb1.append(" and internal_tjsj='" + chose_TJSJ + "'");
+						} 
+					}
+					sb1.append(" order by id limit " + index + "," + Constants.DATA_PAGE_SIZE);
 				}
 			}
 			
 			sb.append(sb1);
 			
-			//logger.info("sql:" + sb.toString());
+			logger.info("sql:" + sb.toString());
+			
 			
 			query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 			

@@ -99,6 +99,14 @@ public class FormManager {
 		return dao.updateSchoolInfo(school);
 	}
 	
+	public boolean addSchoolInfo(School school){
+		return dao.addSchoolInfo(school);
+	}
+	
+	public ArrayList getAllSchool(){
+		return dao.getAllSchool();
+	}
+	
 	public boolean createGroup(Group group){
 		return dao.createGroup(group);
 	}
