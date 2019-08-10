@@ -15,7 +15,7 @@ import com.philip.edu.basic.Constants;
 import com.philip.edu.basic.Form;
 import com.philip.edu.basic.FormManager;
 
-public class ChosenboxViewModel {
+public class ChosenboxViewModel { 
 	private List<Form> forms = this.getFormList();
 	private static FormManager formManager = new FormManager();
 	private ListModelList<Form> formModel = new ListModelList<Form>(forms);
